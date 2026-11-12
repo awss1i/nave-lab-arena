@@ -7,7 +7,7 @@ cliproxyapi_install() {
   local dir="$ARENA_TOOLS/cliproxyapi" tag
   if [ ! -x "$dir/cli-proxy-api" ]; then
     mkdir -p "$dir"
-    tag=$(curl -fsSL -A arena https://api.github.com/repos/router-for-me/CLIProxyAPI/releases/latest | python3 -c 'import json, sys; print(json.load(sys.stdin)["tag_name"])')
+    tag=$(latest_tag router-for-me/CLIProxyAPI)
     curl -fsSL "https://github.com/router-for-me/CLIProxyAPI/releases/download/$tag/CLIProxyAPI_${tag#v}_linux_amd64.tar.gz" | tar -xz -C "$dir"
     echo "$tag" > "$dir/version"
   fi

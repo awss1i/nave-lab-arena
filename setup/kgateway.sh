@@ -18,11 +18,11 @@ kgateway_install() {
   local d="$ARENA_TOOLS/k8s" v host
   mkdir -p "$d"; kgateway_env
   if ! command -v kind > /dev/null; then
-    v=$(curl -fsSL -A arena https://api.github.com/repos/kubernetes-sigs/kind/releases/latest | python3 -c 'import json, sys; print(json.load(sys.stdin)["tag_name"])')
+    v=$(latest_tag kubernetes-sigs/kind)
     curl -fsSL -o "$d/kind" "https://github.com/kubernetes-sigs/kind/releases/download/$v/kind-linux-amd64" && chmod +x "$d/kind"
   fi
   command -v kubectl > /dev/null || { curl -fsSL -o "$d/kubectl" "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x "$d/kubectl"; }
-  command -v helm > /dev/null || { v=$(curl -fsSL -A arena https://api.github.com/repos/helm/helm/releases/latest | python3 -c 'import json, sys; print(json.load(sys.stdin)["tag_name"])'); curl -fsSL "https://get.helm.sh/helm-$v-linux-amd64.tar.gz" | tar -xz -C "$d" --strip-components=1 linux-amd64/helm; }
+  command -v helm > /dev/null || { v=$(latest_tag helm/helm); curl -fsSL "https://get.helm.sh/helm-$v-linux-amd64.tar.gz" | tar -xz -C "$d" --strip-components=1 linux-amd64/helm; }
   if ! kind get clusters 2> /dev/null | grep -qx arena; then
     printf 'kind: Cluster\napiVersion: kind.x-k8s.io/v1alpha4\nnodes:\n  - role: control-plane\n    extraPortMappings:\n      - {containerPort: 30080, hostPort: 8780, listenAddress: "127.0.0.1", protocol: TCP}\n' > "$d/kind-arena.yaml"
     if [ "$(basename "$CONTAINER")" = podman ]; then systemd-run --scope --user -q -p Delegate=yes kind create cluster --name arena --config "$d/kind-arena.yaml" --wait 180s > "$d/kind.log" 2>&1
@@ -30,7 +30,7 @@ kgateway_install() {
   fi
   # Not every rootless podman can change a running container's CPUs, and a local run is only a smoke.
   "$CONTAINER" update --cpuset-cpus "$GATEWAY_CPUS" arena-control-plane > /dev/null 2>&1 || echo "the cluster's node isn't kept to CPUs $GATEWAY_CPUS" >&2
-  v=$(curl -fsSL -A arena https://api.github.com/repos/kubernetes-sigs/gateway-api/releases/latest | python3 -c 'import json, sys; print(json.load(sys.stdin)["tag_name"])')
+  v=$(latest_tag kubernetes-sigs/gateway-api)
   kubectl apply -f "https://github.com/kubernetes-sigs/gateway-api/releases/download/$v/standard-install.yaml" > /dev/null || return 1
   helm upgrade -i --create-namespace -n kgateway-system kgateway-crds oci://cr.kgateway.dev/kgateway-dev/charts/kgateway-crds > /dev/null 2>&1 || return 1
   helm upgrade -i -n kgateway-system kgateway oci://cr.kgateway.dev/kgateway-dev/charts/kgateway > /dev/null 2>&1 || return 1

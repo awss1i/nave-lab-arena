@@ -6,7 +6,7 @@ respan_gateway_install() {
   local dir="$ARENA_TOOLS/respan-gateway" tag
   if [ ! -x "$dir/respan-gateway" ]; then
     mkdir -p "$dir"
-    tag=$(curl -fsSL -A arena https://api.github.com/repos/respanai/respan-gateway/releases/latest | python3 -c 'import json, sys; print(json.load(sys.stdin)["tag_name"])')
+    tag=$(latest_tag respanai/respan-gateway)
     curl -fsSL "https://github.com/respanai/respan-gateway/releases/download/$tag/respan-gateway-$tag-x86_64-unknown-linux-gnu.tar.gz" | tar -xz -C "$dir" --strip-components=1 2>/dev/null \
       || curl -fsSL "https://github.com/respanai/respan-gateway/releases/download/$tag/respan-gateway-$tag-x86_64-unknown-linux-gnu.tar.gz" | tar -xz -C "$dir"
     [ -x "$dir/respan-gateway" ] || cp "$(find "$dir" -type f -name respan-gateway | head -1)" "$dir/respan-gateway"

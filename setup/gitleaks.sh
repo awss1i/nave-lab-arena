@@ -3,7 +3,7 @@ gitleaks_install() {
   if [ ! -x "$ARENA_TOOLS/gitleaks/gitleaks" ]; then
     mkdir -p "$ARENA_TOOLS/gitleaks"
     local tag v
-    tag=$(curl -sS -m 30 https://api.github.com/repos/gitleaks/gitleaks/releases/latest | python3 -c "import json,sys; print(json.load(sys.stdin)['tag_name'])")
+    tag=$(latest_tag gitleaks/gitleaks)
     v=${tag#v}
     curl -sS -L -m 120 -o "$ARENA_TOOLS/gitleaks/gitleaks.tgz" "https://github.com/gitleaks/gitleaks/releases/download/$tag/gitleaks_${v}_linux_x64.tar.gz"
     local want got

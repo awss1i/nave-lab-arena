@@ -6,7 +6,7 @@ agent_router_install() {
   local dir="$ARENA_TOOLS/agent-router" tag
   if [ ! -x "$dir/aigw" ]; then
     mkdir -p "$dir"
-    tag=$(curl -fsSL -A arena https://api.github.com/repos/theagentrouter/agent-router/releases/latest | python3 -c 'import json, sys; print(json.load(sys.stdin)["tag_name"])')
+    tag=$(latest_tag theagentrouter/agent-router)
     curl -fsSL "https://github.com/theagentrouter/agent-router/releases/download/$tag/aigw-linux-amd64" -o "$dir/aigw" && chmod +x "$dir/aigw"
     echo "$tag" > "$dir/version"
     # Its first start downloads the Envoy it runs, which belongs to the install, so it's started once here.

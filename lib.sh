@@ -88,6 +88,11 @@ container_cpu_us() {
   path=$(sed -n 's/^0:://p' "/proc/$pid/cgroup" 2>/dev/null)
   awk '/^usage_usec/ { print $2; found = 1 } END { if (!found) print 0 }' "/sys/fs/cgroup$path/cpu.stat" 2>/dev/null || echo 0
 }
+# A repo's latest release tag, read from where GitHub's releases/latest page redirects to. The API would answer the
+# same, and it refuses runners that share an address once they've asked 60 times in an hour.
+latest_tag() { # OWNER/REPO
+  curl -fsSLI -o /dev/null -w '%{url_effective}' "https://github.com/$1/releases/latest" | sed 's|.*/tag/||'
+}
 # uv, for a tool that needs a Python other than the machine's: the machine's own uv, or one installed under the
 # arena's tools.
 arena_uv() {
