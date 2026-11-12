@@ -15,17 +15,23 @@ tags = json.load(sys.stdin)["results"]
 latest = next((t["digest"] for t in tags if t["name"] == "latest"), None)
 print(next((t["name"] for t in tags if t["digest"] == latest and re.fullmatch(r"v[0-9.]+", t["name"])), "version not found"))' 2>/dev/null || echo "version not found"
 }
-bifrost_start() {
+bifrost_start() { # MODE
+  local first=9000 second=
   mkdir -p run/bifrost-data && chmod 777 run/bifrost-data
-  cat > run/bifrost-data/config.json <<'JSON'
+  if [ "${1:-}" = fallback ]; then
+    # Its fallbacks are named in each request. The second provider is a custom one of OpenAI's kind.
+    first=9001
+    second=', "standin2": { "keys": [{ "name": "standin2", "value": "sk-standin", "models": ["mock"], "weight": 1.0 }], "network_config": { "base_url": "http://127.0.0.1:9000" }, "custom_provider_config": { "base_provider_type": "openai" } }'
+  fi
+  cat > run/bifrost-data/config.json <<JSON
 {
-  "$schema": "https://www.getbifrost.ai/schema",
+  "\$schema": "https://www.getbifrost.ai/schema",
   "client": { "enforce_auth_on_inference": false, "enable_logging": false, "initial_pool_size": 1000 },
   "providers": {
     "openai": {
       "keys": [{ "name": "standin", "value": "sk-standin", "models": ["mock"], "weight": 1.0 }],
-      "network_config": { "base_url": "http://127.0.0.1:9000" }
-    }
+      "network_config": { "base_url": "http://127.0.0.1:$first" }
+    }$second
   }
 }
 JSON
@@ -41,9 +47,13 @@ bifrost_clean() {
   if [ "$(basename "$CONTAINER")" = podman ]; then podman unshare rm -rf run/bifrost-data; else sudo rm -rf run/bifrost-data 2>/dev/null || rm -rf run/bifrost-data; fi
 }
 bifrost_url() { echo http://127.0.0.1:4300; }
-bifrost_load_args() { printf '%s\n' --model openai/mock; }
+bifrost_load_args() {
+  printf '%s\n' --model openai/mock
+  [ "$(cat run/bifrost.mode 2>/dev/null)" = fallback ] && printf '%s\n' --field 'fallbacks=["standin2/mock"]'
+}
+bifrost_messages_path() { echo /anthropic/v1/messages; }
 bifrost_features() { echo "routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it"; }
-# Its cache is by meaning and needs a vector store, and its fallbacks are named in each request's body.
-bifrost_skip() { echo "cache fallback"; }
+# Its cache is by meaning and needs a vector store.
+bifrost_skip() { echo cache; }
 bifrost_title() { echo "Bifrost"; }
 bifrost_image=docker.io/maximhq/bifrost:latest

@@ -17,7 +17,8 @@ portkey_load_args() {
   fi
 }
 # Its open-source cache answers `x-portkey-cache-status: DISABLED` to a cache setting.
-portkey_skip() { echo cache; }
-portkey_features() { echo "routes by headers on each call, falls back, takes OpenAI's and Anthropic's formats. No key check, no request log, no spend"; }
+# Its `/v1/messages` answers "messages is not supported by openai" when the provider is of OpenAI's kind.
+portkey_skip() { echo "cache messages"; }
+portkey_features() { echo "routes by headers on each call, falls back, takes OpenAI's format. No key check, no request log, no spend"; }
 portkey_title() { echo "Portkey"; }
 portkey_image=docker.io/portkeyai/gateway:latest
