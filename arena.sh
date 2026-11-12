@@ -176,6 +176,18 @@ case $group in
     # vLLM's semantic-router, its command from PyPI and its recipes at the tag of the same version.
     pick_env vllm-sr 3.12 vllm-sr
     [ -d "$ARENA_TOOLS/src/vllm-sr-v04" ] || { git clone -q --depth 1 --branch v0.4.0 --filter=blob:none --sparse https://github.com/vllm-project/semantic-router "$ARENA_TOOLS/src/vllm-sr-v04" && git -C "$ARENA_TOOLS/src/vllm-sr-v04" sparse-checkout set config; };;
+  log)
+    # The log tools, each in an environment of its own, and the sender's OpenTelemetry libraries in another.
+    uv=$(arena_uv)
+    log_env() { # NAME PACKAGE..
+      local name=$1; shift
+      "$uv" venv -q --python 3.12 "$ARENA_TOOLS/log-$name" && "$uv" pip install -q --python "$ARENA_TOOLS/log-$name/bin/python" "$@" || echo "$1 didn't install" >&2
+      [ "$name" = driver ] || version "$1" "$("$ARENA_TOOLS/log-$name/bin/python" -c "import importlib.metadata as m; print(m.version('$1'))" 2>/dev/null)"
+    }
+    log_env driver opentelemetry-sdk opentelemetry-exporter-otlp-proto-http requests
+    log_env phoenix arize-phoenix
+    log_env mlflow mlflow
+    version nave-log "prototype P013, $(sha256sum bin/p013 | cut -c1-12)";;
   mcp-ms) clients/ms_mcp_gateway.sh install || exit 1;;
   mcp)
     # The MCP gateways, each installed as its own docs say.

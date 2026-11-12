@@ -1,0 +1,85 @@
+[
+ {
+  "name": "recording calls and reading them back, Nave",
+  "feature": "F9",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "log",
+     "nave"
+    ]
+   }
+  ],
+  "setup": [
+   "./clients/log_servers.sh",
+   "up",
+   "nave"
+  ],
+  "teardown": [
+   "./clients/log_servers.sh",
+   "down",
+   "nave"
+  ]
+ },
+ {
+  "name": "recording calls and reading them back, Phoenix, on 2,000 calls",
+  "feature": "F9",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Phoenix, on 2,000 calls",
+    "cmd": [
+     "./entrant.sh",
+     "log",
+     "phoenix",
+     "2000"
+    ]
+   }
+  ],
+  "setup": [
+   "./clients/log_servers.sh",
+   "up",
+   "phoenix"
+  ],
+  "teardown": [
+   "./clients/log_servers.sh",
+   "down",
+   "phoenix"
+  ]
+ },
+ {
+  "name": "recording calls and reading them back, MLflow, on 2,000 calls",
+  "feature": "F9",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "MLflow, on 2,000 calls",
+    "cmd": [
+     "./entrant.sh",
+     "log",
+     "mlflow",
+     "2000"
+    ]
+   }
+  ],
+  "setup": [
+   "./clients/log_servers.sh",
+   "up",
+   "mlflow"
+  ],
+  "teardown": [
+   "./clients/log_servers.sh",
+   "down",
+   "mlflow"
+  ]
+ }
+]
