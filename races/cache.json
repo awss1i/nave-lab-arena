@@ -43,5 +43,113 @@
    "down",
    "nave litellm"
   ]
+ },
+ {
+  "name": "answering 500 repeated questions through the cache, Nave",
+  "feature": "F5",
+  "conditions": "one Python client asks 500 different questions through the cache, then asks them all again, and the second pass is timed. Nave's cache is its gateway's, on two CPUs, reached with OpenAI's SDK from a client on one CPU. A library's cache runs inside the client, which gets all three CPUs, with the library's default local embedding model. ModelCache is a service of its own on the gateway's two CPUs, asked over HTTP. The questions differ from each other in a topic and a number, so a cache that matches by meaning can take one for another, and its wrong answers are counted. Each cache is also asked a reworded form of every question and 500 questions it has never seen",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "cachelib",
+     "nave"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && ./gateways.sh up nave cache && redis_up"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   ". ./lib.sh; ./gateways.sh down nave; container_down redis"
+  ]
+ },
+ {
+  "name": "answering 500 repeated questions through the cache, GPTCache",
+  "feature": "F5",
+  "conditions": "one Python client asks 500 different questions through the cache, then asks them all again, and the second pass is timed. Nave's cache is its gateway's, on two CPUs, reached with OpenAI's SDK from a client on one CPU. A library's cache runs inside the client, which gets all three CPUs, with the library's default local embedding model. ModelCache is a service of its own on the gateway's two CPUs, asked over HTTP. The questions differ from each other in a topic and a number, so a cache that matches by meaning can take one for another, and its wrong answers are counted. Each cache is also asked a reworded form of every question and 500 questions it has never seen",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "GPTCache",
+    "cmd": [
+     "./entrant.sh",
+     "cachelib",
+     "gptcache"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && ./gateways.sh up nave cache && redis_up"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   ". ./lib.sh; ./gateways.sh down nave; container_down redis"
+  ]
+ },
+ {
+  "name": "answering 500 repeated questions through the cache, redis-vl's SemanticCache",
+  "feature": "F5",
+  "conditions": "one Python client asks 500 different questions through the cache, then asks them all again, and the second pass is timed. Nave's cache is its gateway's, on two CPUs, reached with OpenAI's SDK from a client on one CPU. A library's cache runs inside the client, which gets all three CPUs, with the library's default local embedding model. ModelCache is a service of its own on the gateway's two CPUs, asked over HTTP. The questions differ from each other in a topic and a number, so a cache that matches by meaning can take one for another, and its wrong answers are counted. Each cache is also asked a reworded form of every question and 500 questions it has never seen",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "redis-vl's SemanticCache",
+    "cmd": [
+     "./entrant.sh",
+     "cachelib",
+     "redisvl"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && ./gateways.sh up nave cache && redis_up"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   ". ./lib.sh; ./gateways.sh down nave; container_down redis"
+  ]
+ },
+ {
+  "name": "answering 500 repeated questions through the cache, ModelCache",
+  "feature": "F5",
+  "conditions": "one Python client asks 500 different questions through the cache, then asks them all again, and the second pass is timed. Nave's cache is its gateway's, on two CPUs, reached with OpenAI's SDK from a client on one CPU. A library's cache runs inside the client, which gets all three CPUs, with the library's default local embedding model. ModelCache is a service of its own on the gateway's two CPUs, asked over HTTP. The questions differ from each other in a topic and a number, so a cache that matches by meaning can take one for another, and its wrong answers are counted. Each cache is also asked a reworded form of every question and 500 questions it has never seen",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "ModelCache",
+    "cmd": [
+     "./entrant.sh",
+     "cachelib",
+     "modelcache"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && ./gateways.sh up nave cache && ./clients/cache_servers.sh up modelcache"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   "./gateways.sh down nave; ./clients/cache_servers.sh down modelcache"
+  ]
  }
 ]

@@ -72,6 +72,11 @@ case "$group.$name" in
   pii.llm-guard) (export HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1; quiet on "$ARENA_TOOLS/guard-llm-guard/bin/python" clients/pii.py llm-guard run/guard);;
   compress.nave) on "$PY" clients/nave_compress.py "data/compress/$1" 20;;
   compress.headroom) on "$PY" clients/headroom_compress.py "data/compress/$1" 3;;
+  cachelib.nave) (export STANDIN_CALLS="$PWD/run/standin-calls.log"; quiet taskset -c "$LOAD_CPUS" "$ARENA_TOOLS/cache-gptcache/bin/python" clients/cache_libs.py nave 500);;
+  cachelib.modelcache) (export STANDIN_CALLS="$PWD/run/standin-calls.log"; quiet taskset -c "$LOAD_CPUS" "$ARENA_TOOLS/cache-gptcache/bin/python" clients/cache_libs.py modelcache 500);;
+  cachelib.*)
+    # A library's cache runs inside the client, so the client gets the gateway's CPUs as well as its own.
+    (export STANDIN_CALLS="$PWD/run/standin-calls.log" HF_HOME="$ARENA_TOOLS/models" CACHE_DIR="$PWD/run/cache-$name" DO_NOT_TRACK=1; quiet taskset -c "$LOAD_CPUS,$GATEWAY_CPUS" "$ARENA_TOOLS/cache-$name/bin/python" clients/cache_libs.py "$name" 500);;
   pick.nave) on clients/nave_pick.sh run/pick/RouteLLM "$1";;
   pick.other) tool=$1; shift; py="$ARENA_TOOLS/pick-$tool/bin/python"; [ -x "$py" ] || py=python3
     (export HOME="$ARENA_TOOLS/pick-$tool/home" HF_HOME="$ARENA_TOOLS/models" FASTEMBED_CACHE_PATH="$ARENA_TOOLS/models/fastembed" DO_NOT_TRACK=1; mkdir -p "$HOME"; quiet on "$py" clients/pick_other.py "$tool" "$PWD/run/pick/RouteLLM" "$@");;

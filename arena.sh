@@ -46,7 +46,25 @@ case $group in
   gateway) nave_install; litellm_install; portkey_install; bifrost_install; bifrost_clean;;
   # Portkey's open-source gateway answers `x-portkey-cache-status: DISABLED` to a cache setting, and Bifrost's cache
   # needs a vector store, so the cache race is between the two gateways whose cache runs as installed.
-  cache) nave_install; litellm_install;;
+  cache)
+    nave_install; litellm_install
+    # The cache libraries, each in an environment of its own, and Redis for the one that keeps its cache there.
+    uv=$(arena_uv)
+    "$uv" venv -q --python 3.11 "$ARENA_TOOLS/cache-gptcache" && "$uv" pip install -q --python "$ARENA_TOOLS/cache-gptcache/bin/python" gptcache openai onnxruntime 'numpy<2' 'transformers<4.50' 'tokenizers<0.22' faiss-cpu sqlalchemy huggingface_hub \
+      || echo "GPTCache didn't install" >&2
+    version gptcache "$("$ARENA_TOOLS/cache-gptcache/bin/python" -c 'import importlib.metadata as m; print(m.version("gptcache"))'), with its ONNX embedding, SQLite and FAISS"
+    "$uv" venv -q --python 3.12 "$ARENA_TOOLS/cache-redisvl" && "$uv" pip install -q --python "$ARENA_TOOLS/cache-redisvl/bin/python" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match redisvl openai sentence-transformers \
+      || echo "redis-vl didn't install" >&2
+    version redisvl "$("$ARENA_TOOLS/cache-redisvl/bin/python" -c 'import importlib.metadata as m; print(m.version("redisvl"))'), its SemanticCache with its default local vectorizer, on Redis 8"
+    "$CONTAINER" pull -q docker.io/library/redis:8 > /dev/null
+    # ModelCache at its latest tagged release, from its repo with its pinned requirements and the embedding model
+    # its README says to download. Its newest commits call a Windows-only function at start and don't run on Linux.
+    [ -d "$ARENA_TOOLS/src/modelcache" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --branch release-v0.2.0 https://github.com/codefuse-ai/ModelCache "$ARENA_TOOLS/src/modelcache"; }
+    "$uv" venv -q --python 3.10 "$ARENA_TOOLS/cache-modelcache" && "$uv" pip install -q --python "$ARENA_TOOLS/cache-modelcache/bin/python" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match \
+      -r "$ARENA_TOOLS/src/modelcache/requirements.txt" huggingface_hub || echo "ModelCache didn't install" >&2
+    HF_HOME="$ARENA_TOOLS/models" "$ARENA_TOOLS/cache-modelcache/bin/python" -c 'import sys; from huggingface_hub import snapshot_download; snapshot_download("shibing624/text2vec-base-chinese", local_dir=sys.argv[1], allow_patterns=["*.bin", "*.json", "*.txt"])' \
+      "$ARENA_TOOLS/src/modelcache/model/text2vec-base-chinese" > /dev/null 2>&1 || echo "ModelCache's embedding model didn't download" >&2
+    version modelcache "release-v0.2.0 at $(git -C "$ARENA_TOOLS/src/modelcache" rev-parse --short HEAD), its demo service with SQLite, FAISS and text2vec-base-chinese";;
   client)
     nave_install; litellm_install; py_libs openai aisuite any-llm-sdk langchain-openai llm; node_libs ai @ai-sdk/openai-compatible token.js @tanstack/ai @tanstack/ai-openai @mariozechner/pi-ai
     # The Rust libraries, each as a small program in clients/rust, built here at the latest versions Cargo resolves.
