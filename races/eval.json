@@ -2,7 +2,7 @@
  {
   "name": "an eval suite of 1,500 cases",
   "feature": "F12",
-  "conditions": "two CPUs, three prompts and 500 tests with four checks each against the stand-in model, 16 calls at a time, no cache, each tool timed as a whole process from its start to its exit. Nave, promptfoo and Inspect make the calls themselves. DeepEval and Ragas score answers that a loop with OpenAI's SDK fetched, as their docs do",
+  "conditions": "two CPUs, three prompts and 500 tests with four checks each against the stand-in model, 16 calls at a time, no cache, each tool timed as a whole process from its start to its exit. Nave, promptfoo, Inspect and OpenAI's evals make the calls themselves. DeepEval, Ragas and autoevals score answers that a loop with OpenAI's SDK fetched, as their docs do",
   "rounds": 3,
   "normalise": "lines",
   "entrants": [
@@ -44,6 +44,22 @@
      "./entrant.sh",
      "eval",
      "ragas"
+    ]
+   },
+   {
+    "name": "autoevals",
+    "cmd": [
+     "./entrant.sh",
+     "eval",
+     "autoevals"
+    ]
+   },
+   {
+    "name": "OpenAI's evals",
+    "cmd": [
+     "./entrant.sh",
+     "eval",
+     "openai-evals"
     ]
    }
   ],

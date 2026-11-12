@@ -60,14 +60,21 @@ case $group in
   eval)
     py_libs pyyaml; node_libs promptfoo; mkdir -p run/eval; bin/p017 make run/eval 500
     # Each eval framework in an environment of its own, since their dependencies pin different versions.
-    for spec in "inspect-ai inspect-ai" "deepeval deepeval" "ragas ragas langchain-community<0.4"; do
+    for spec in "inspect-ai inspect-ai" "deepeval deepeval" "ragas ragas langchain-community<0.4" "autoevals autoevals"; do
       # shellcheck disable=SC2086
       set -- $spec; pkg=$1; shift
       [ -x "$ARENA_TOOLS/eval-$pkg/bin/python" ] || python3 -m venv "$ARENA_TOOLS/eval-$pkg"
       "$ARENA_TOOLS/eval-$pkg/bin/python" -m pip --version > /dev/null 2>&1 || "$ARENA_TOOLS/eval-$pkg/bin/python" -m ensurepip > /dev/null
       "$ARENA_TOOLS/eval-$pkg/bin/python" -m pip install -q openai "$@"
       version "$pkg" "$("$ARENA_TOOLS/eval-$pkg/bin/python" -c "import importlib.metadata as m; print(m.version('$pkg'))")"
-    done;;
+    done
+    # OpenAI's evals pins dependencies that no longer build, so it gets Python 3.11 through uv, itself without its
+    # dependencies, and then the ones its command imports.
+    python3 -m venv "$ARENA_TOOLS/uv" && "$ARENA_TOOLS/uv/bin/pip" install -q uv
+    "$ARENA_TOOLS/uv/bin/uv" venv -q --python 3.11 "$ARENA_TOOLS/eval-openai-evals"
+    "$ARENA_TOOLS/uv/bin/uv" pip install -q --python "$ARENA_TOOLS/eval-openai-evals/bin/python" --no-deps evals
+    "$ARENA_TOOLS/uv/bin/uv" pip install -q --python "$ARENA_TOOLS/eval-openai-evals/bin/python" openai pyyaml numpy pandas tqdm fire backoff blobfile lz4 zstandard pydantic dacite filelock mock termcolor tiktoken aiolimiter beartype networkx
+    version "evals (OpenAI's)" "$("$ARENA_TOOLS/eval-openai-evals/bin/python" -c "import importlib.metadata as m; print(m.version('evals'))")";;
   scan)
     gitleaks_install; mkdir -p run/guard; python3 data/gen_secrets.py run/guard; python3 data/gen_pii.py run/guard 500
     # Presidio with spaCy's small English model, and LLM Guard with CPU-only PyTorch, each in its own environment.

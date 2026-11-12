@@ -37,17 +37,19 @@ case "$group.$name" in
   config.litellm) on "$LITELLM_PY" clients/litellm_router.py run/config/large.yaml 3;;
   eval.nave) on clients/nave_eval.sh run/eval/a.json 16;;
   eval.promptfoo) on "$PY" clients/promptfoo_eval.py "$ARENA_TOOLS/node" run/eval/a.json 16;;
-  eval.inspect | eval.deepeval | eval.ragas)
+  eval.inspect | eval.deepeval | eval.ragas | eval.autoevals | eval.openai-evals)
     # Timed the way the others are: one run as a whole process, from its start to its exit. It runs from run/,
     # since these frameworks write caches into the folder they're started in.
     pkg=$name; [ "$name" = inspect ] && pkg=inspect-ai
+    script="../clients/eval_frameworks.py $name"; [ "$name" = openai-evals ] && script=../clients/openai_evals.py
     cases=$(python3 -c 'import json, sys; d = json.load(open(sys.argv[1])); print(len(d["prompts"]) * len(d["tests"]))' run/eval/a.json)
     t0=$(date +%s%N)
-    out=$(cd run && on "$ARENA_TOOLS/eval-$pkg/bin/python" ../clients/eval_frameworks.py "$name" eval/a.json 16 2> "eval/$name.err"); status=$?
+    # shellcheck disable=SC2086
+    out=$(cd run && on "$ARENA_TOOLS/eval-$pkg/bin/python" $script eval/a.json 16 2> "eval/$name.err"); status=$?
     t1=$(date +%s%N)
     echo "$out" | grep ' passed$'
     grep '^metric ' "run/eval/$name.err" >&2
-    [ "$status" = 0 ] || tail -5 "run/eval/$name.err" >&2
+    [ "$status" = 0 ] || { echo "$out" | tail -3 >&2; tail -5 "run/eval/$name.err" >&2; }
     awk -v c="$cases" -v ns=$((t1 - t0)) 'BEGIN { printf "metric cases_per_s=%.1f\nmetric seconds=%.4f\n", c / (ns / 1e9), ns / 1e9 }' >&2
     exit "$status";;
   scan.nave) on python3 clients/scan.py nave run/guard;;

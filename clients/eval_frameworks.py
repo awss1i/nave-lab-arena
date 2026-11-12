@@ -1,7 +1,7 @@
 """Runs a suite written for Nave's p017 through an eval framework, against the same stand-in model, and prints the
-same lines. Usage: eval_frameworks.py inspect|deepeval|ragas SUITE.json CONCURRENCY
+same lines. Usage: eval_frameworks.py inspect|deepeval|ragas|autoevals SUITE.json CONCURRENCY
 
-Inspect makes the model calls itself. DeepEval and Ragas score outputs an application hands them, so here the calls
+Inspect makes the model calls itself. DeepEval, Ragas and autoevals score outputs an application hands them, so here the calls
 are made the way their docs do it, with OpenAI's SDK, CONCURRENCY at a time, and the framework does the scoring.
 Every framework runs the suite's four kinds of check through a scorer or metric of its own kind."""
 import asyncio
@@ -126,6 +126,27 @@ elif framework == "ragas":
     data = EvaluationDataset(samples=[SingleTurnSample(user_input=m[-1]["content"], response=o, reference=json.dumps(c)) for (pid, m, c), o in zip(cases, outs)])
     done = evaluate(data, metrics=[Checks()], run_config=RunConfig(max_workers=conc), show_progress=False)
     results = [(pid, s == 1.0) for (pid, _, _), s in zip(cases, done["checks"])]
+elif framework == "autoevals":
+    from autoevals import Score
+    from autoevals.score import Scorer
+
+    class Checks(Scorer):
+        def _name(self):
+            return "Checks"
+
+        def _run_eval_sync(self, output, expected=None, **kwargs):
+            return Score(name="Checks", score=1.0 if passes(expected, output) else 0.0)
+
+        async def _run_eval_async(self, output, expected=None, **kwargs):
+            return self._run_eval_sync(output, expected)
+
+    outs = asyncio.run(answers())
+    scorer = Checks()
+
+    async def grade():
+        return await asyncio.gather(*(scorer.eval_async(output=o, expected=c) for (_, _, c), o in zip(cases, outs)))
+
+    results = [(pid, score.score == 1.0) for (pid, _, _), score in zip(cases, asyncio.run(grade()))]
 else:
     raise SystemExit(f"no framework {framework}")
 s = time.perf_counter() - t0
