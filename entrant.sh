@@ -53,6 +53,8 @@ case "$group.$name" in
   pii.llm-guard) HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1 on "$ARENA_TOOLS/guard-llm-guard/bin/python" clients/pii.py llm-guard run/guard 2> >(grep '^metric ' >&2);;
   compress.nave) on "$PY" clients/nave_compress.py "data/compress/$1" 20;;
   compress.headroom) on "$PY" clients/headroom_compress.py "data/compress/$1" 3;;
+  pick.nave) on clients/nave_pick.sh run/pick/RouteLLM "$1";;
+  pick.routellm) HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1 on "$ARENA_TOOLS/pick-routellm/bin/python" clients/routellm_bert.py run/pick/RouteLLM "$@" 2> >(grep '^metric ' >&2);;
   image.*)
     # What an engine reports as an image's size differs between engines: some give the layers compressed and some
     # unpacked. A container's files written out as one archive are the same bytes on any of them.

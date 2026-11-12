@@ -1,0 +1,75 @@
+[
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, Nave",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and RouteLLM's BERT router as released",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "nave",
+     "gsm8k-untrained"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, RouteLLM's BERT router",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and RouteLLM's BERT router as released",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "RouteLLM's BERT router",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "routellm",
+     "gsm8k"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, Nave",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, RouteLLM's BERT router as released, which wasn't trained on MMLU, scored on 2,000 of them spread evenly",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "nave",
+     "mmlu"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, RouteLLM's BERT router",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, RouteLLM's BERT router as released, which wasn't trained on MMLU, scored on 2,000 of them spread evenly",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "RouteLLM's BERT router",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "routellm",
+     "mmlu",
+     "2000"
+    ]
+   }
+  ]
+ }
+]

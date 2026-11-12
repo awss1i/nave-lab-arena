@@ -71,6 +71,13 @@ case $group in
     python3 -m venv "$ARENA_TOOLS/guard-llm-guard" && "$ARENA_TOOLS/guard-llm-guard/bin/pip" install -q --extra-index-url https://download.pytorch.org/whl/cpu llm-guard
     version llm-guard "$("$ARENA_TOOLS/guard-llm-guard/bin/python" -c 'import importlib.metadata as m; print(m.version("llm-guard"))')";;
   compress) py_libs headroom-ai tiktoken;;
+  pick)
+    # RouteLLM with CPU-only PyTorch, and its repo's per-prompt results for MMLU and GSM8K, which both routers score.
+    python3 -m venv "$ARENA_TOOLS/pick-routellm" && "$ARENA_TOOLS/pick-routellm/bin/pip" install -q --extra-index-url https://download.pytorch.org/whl/cpu routellm
+    version routellm "$("$ARENA_TOOLS/pick-routellm/bin/python" -c 'import importlib.metadata as m; print(m.version("routellm"))'), its BERT router, checkpoint routellm/bert_gpt4_augmented"
+    mkdir -p run/pick
+    [ -d run/pick/RouteLLM ] || { git clone -q --depth 1 --filter=blob:none --sparse https://github.com/lm-sys/RouteLLM run/pick/RouteLLM && git -C run/pick/RouteLLM sparse-checkout set routellm/evals; }
+    version routellm-data "RouteLLM's repo at $(git -C run/pick/RouteLLM rev-parse --short HEAD)";;
   image)
     portkey_install; bifrost_install
     "$CONTAINER" pull -q ghcr.io/berriai/litellm:main-stable > /dev/null
