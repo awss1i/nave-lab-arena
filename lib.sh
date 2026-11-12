@@ -140,13 +140,16 @@ gw_default_key() { echo "$LLM_KEY"; }
 
 # Databases a gateway's docs ask for, each as a container on the gateway's CPUs, since a gateway's database is part
 # of what it costs to run. They use ports of their own so they don't meet a database already on the machine.
+# Both databases allow many connections at once. Their defaults (151 and 100) are below what a gateway's pool opens
+# under 64 callers, and the gateway then fails calls with "Too many connections", which is the database's setting
+# and not the gateway's speed.
 mysql_up() { # starts MySQL with the database "arena", user root, password arena, on port 3316
-  PODMAN_USER= container_up mysql 3316 -e MYSQL_ROOT_PASSWORD=arena -e MYSQL_DATABASE=arena docker.io/library/mysql:8.4 --port=3316 --bind-address=127.0.0.1 --mysqlx=OFF || return 1
+  PODMAN_USER= container_up mysql 3316 -e MYSQL_ROOT_PASSWORD=arena -e MYSQL_DATABASE=arena docker.io/library/mysql:8.4 --port=3316 --bind-address=127.0.0.1 --mysqlx=OFF --max-connections=4000 || return 1
   for _ in $(seq 1 600); do "$CONTAINER" exec arena-mysql mysqladmin --protocol=tcp -P 3316 -uroot -parena ping > /dev/null 2>&1 && return 0; sleep 0.2; done
   echo "MySQL never answered" >&2; return 1
 }
 postgres_up() { # starts PostgreSQL with the database "arena", user arena, password arena, on port 5442
-  PODMAN_USER= container_up postgres 5442 -e POSTGRES_USER=arena -e POSTGRES_PASSWORD=arena -e POSTGRES_DB=arena -e PGPORT=5442 docker.io/library/postgres:17 -c listen_addresses=127.0.0.1 || return 1
+  PODMAN_USER= container_up postgres 5442 -e POSTGRES_USER=arena -e POSTGRES_PASSWORD=arena -e POSTGRES_DB=arena -e PGPORT=5442 docker.io/library/postgres:17 -c listen_addresses=127.0.0.1 -c max_connections=2000 || return 1
   for _ in $(seq 1 600); do "$CONTAINER" exec arena-postgres pg_isready -h 127.0.0.1 -p 5442 -U arena > /dev/null 2>&1 && return 0; sleep 0.2; done
   echo "PostgreSQL never answered" >&2; return 1
 }
