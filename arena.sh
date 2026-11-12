@@ -37,7 +37,9 @@ case $group in
     declare -F "${name//-/_}_clean" > /dev/null && "${name//-/_}_clean"
     version "nave, switched on" "$(gw nave features)"
     version "$name, switched on" "$(gw "$name" features)"
-    [ -n "$(gw "$name" skip)" ] && version "$name, kinds of race it wasn't in" "$(gw "$name" skip)"
+    kinds=$(gw "$name" skip | sed 's/\bslow\b//; s/  */ /g; s/^ //; s/ $//')
+    [ -n "$kinds" ] && version "$name, kinds of race it wasn't in" "$kinds"
+    case " $(gw "$name" skip) " in *" slow "*) version "$name, its job cut down" "one round a race, 2,000 calls before memory is read, and no race at 1,000 calls a second, since it answers under about a hundred calls a second";; esac
     ARENA_FORMAT=$(gw "$name" format); export ARENA_FORMAT
     python3 data/gen_session.py run/session.jsonl 40
     python3 races/gen.py "$name" "$(gw "$name" title)" "$(gw "$name" skip)" "$(gw nave features)" "$(gw "$name" features)" "$ARENA_FORMAT" "$(gw "$name" own_benchmark)" > "run/$group.json"
@@ -152,7 +154,18 @@ case $group in
     [ -d "$ARENA_TOOLS/src/llmrouter" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 https://github.com/ulab-uiuc/LLMRouter "$ARENA_TOOLS/src/llmrouter"; }
     pick_env llmrouter 3.11 llmrouter-lib -e "$ARENA_TOOLS/src/llmrouter"
     (cd "$ARENA_TOOLS/src/llmrouter" && HOME="$ARENA_TOOLS/pick-llmrouter/home" HF_HOME="$ARENA_TOOLS/models" "$ARENA_TOOLS/pick-llmrouter/bin/llmrouter" train --router knnrouter --config configs/model_config_train/knnrouter.yaml > "$ARENA_TOOLS/pick-llmrouter/train.log" 2>&1) \
-      || echo "LLMRouter's KNN router didn't train: $(tail -2 "$ARENA_TOOLS/pick-llmrouter/train.log")" >&2
+      || echo "LLMRouter's KNN router didn't train: $(tail -2 "$ARENA_TOOLS/pick-llmrouter/train.log")" >&2;;
+
+  pick-servers)
+    # The two pickers that run as servers, in a job of their own since their installs and decisions take long.
+    mkdir -p run/pick
+    [ -d run/pick/RouteLLM ] || { git clone -q --depth 1 --filter=blob:none --sparse https://github.com/lm-sys/RouteLLM run/pick/RouteLLM && git -C run/pick/RouteLLM sparse-checkout set routellm/evals; }
+    uv=$(arena_uv)
+    pick_env() { # NAME PYTHON PACKAGE [WHAT-TO-INSTALL..]
+      local name=$1 python=$2 package=$3; shift 3
+      "$uv" venv -q --python "$python" "$ARENA_TOOLS/pick-$name" && "$uv" pip install -q --python "$ARENA_TOOLS/pick-$name/bin/python" "${@:-$package}" || echo "$package didn't install" >&2
+      version "$package" "$("$ARENA_TOOLS/pick-$name/bin/python" -c "import importlib.metadata as m; print(m.version('$package'))" 2>/dev/null)"
+    }
     # Plano with its router model served locally, as its docs describe for running without its hosted router.
     pick_env plano 3.12 planoai planoai huggingface_hub
     mkdir -p "$ARENA_TOOLS/models/arch-router"

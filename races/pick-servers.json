@@ -1,0 +1,121 @@
+[
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, Plano with Arch-Router 1.5B, on 300 prompts",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Plano with Arch-Router 1.5B, on 300 prompts",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "plano",
+     "gsm8k",
+     "300"
+    ]
+   }
+  ],
+  "setup": [
+   "./clients/pick_servers.sh",
+   "up",
+   "plano"
+  ],
+  "teardown": [
+   "./clients/pick_servers.sh",
+   "down",
+   "plano"
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, Plano with Arch-Router 1.5B, on 300 prompts",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Plano with Arch-Router 1.5B, on 300 prompts",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "plano",
+     "mmlu",
+     "300"
+    ]
+   }
+  ],
+  "setup": [
+   "./clients/pick_servers.sh",
+   "up",
+   "plano"
+  ],
+  "teardown": [
+   "./clients/pick_servers.sh",
+   "down",
+   "plano"
+  ]
+ },
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, vLLM's semantic-router, its Knowledge recipe",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "vLLM's semantic-router, its Knowledge recipe",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "vllm-sr",
+     "gsm8k"
+    ]
+   }
+  ],
+  "setup": [
+   "./clients/pick_servers.sh",
+   "up",
+   "vllm-sr"
+  ],
+  "teardown": [
+   "./clients/pick_servers.sh",
+   "down",
+   "vllm-sr"
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, vLLM's semantic-router, its Knowledge recipe",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "vLLM's semantic-router, its Knowledge recipe",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "vllm-sr",
+     "mmlu",
+     "2000"
+    ]
+   }
+  ],
+  "setup": [
+   "./clients/pick_servers.sh",
+   "up",
+   "vllm-sr"
+  ],
+  "teardown": [
+   "./clients/pick_servers.sh",
+   "down",
+   "vllm-sr"
+  ]
+ }
+]

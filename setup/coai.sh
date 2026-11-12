@@ -38,5 +38,5 @@ coai_stop() { container_down coai; }
 coai_clean() { container_down mysql redis; rm -rf run/coai run/coai.key; }
 coai_mb() { containers_mb coai mysql redis; }
 coai_cpu_us() { containers_cpu_us coai mysql redis; }
-coai_skip() { echo "messages cache"; }
+coai_skip() { echo "messages cache slow"; }
 coai_features() { echo "routes by model through channels with priorities, retries on the next channel, takes OpenAI's format, checks the caller's key, counts usage and quota in MySQL"; }

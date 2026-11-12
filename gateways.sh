@@ -11,7 +11,7 @@
 #   open NAME CONNS CALLS         the load against a slow model, with the memory held while the calls are open
 #   replay NAME CONNS             a coding agent's session, replayed on each connection
 #   fresh NAME                    one call through a gateway started for it
-#   memory NAME                   what the gateway holds after 20,000 calls
+#   memory NAME [CALLS]           what the gateway holds after 20,000 calls, or CALLS
 #   edges NAME                    the checks of clients/edges.py
 # NAME "direct" is the stand-in model itself, with no gateway.
 set -uo pipefail
@@ -97,7 +97,7 @@ case $1 in
     echo "$out"
     echo "metric start_to_first_answer_ms=$(( (t1 - t0) / 1000000 ))" >&2;;
   memory)
-    load "$2" "$(fmt)" --calls 20000 --conns 64 2>/dev/null
+    load "$2" "$(fmt)" --calls "${3:-20000}" --conns 64 2>/dev/null
     echo "metric memory_mb=$(gw "$2" mb)" >&2;;
   edges)
     name=$2

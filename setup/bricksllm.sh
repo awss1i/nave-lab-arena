@@ -37,5 +37,5 @@ bricksllm_stop() { container_down bricksllm; }
 bricksllm_clean() { container_down postgres redis; rm -f run/bricksllm.configured; }
 bricksllm_mb() { containers_mb bricksllm postgres redis; }
 bricksllm_cpu_us() { containers_cpu_us bricksllm postgres redis; }
-bricksllm_skip() { echo "messages fallback cache"; }
+bricksllm_skip() { echo "messages fallback cache slow"; }
 bricksllm_features() { echo "passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis"; }
