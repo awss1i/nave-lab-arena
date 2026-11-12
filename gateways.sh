@@ -18,6 +18,8 @@ set -uo pipefail
 for s in setup/*.sh; do . "$s"; done
 direct_url() { echo http://127.0.0.1:9000; }
 direct_key() { echo "$LLM_KEY"; }
+direct_chat_path() { echo /v1/chat/completions; }
+direct_messages_path() { echo /v1/messages; }
 direct_kind=none
 url_of() { gw "$1" url; }
 load() { # NAME PATH-KIND [load options]
@@ -33,6 +35,8 @@ standin_up() { # NAME PORT [ARGS..]
 }
 # ONE_CPU keeps the gateways to the first of their CPUs, for the race that shows what a second CPU adds.
 [ -n "${ONE_CPU:-}" ] && export GATEWAY_CPUS=${GATEWAY_CPUS%%,*}
+# The format a job's calls are sent in: OpenAI's, or Anthropic's for a job whose gateway takes nothing else.
+fmt() { [ "${ARENA_FORMAT:-chat}" = messages ] && echo messages || echo chat; }
 case $1 in
   up)
     # With caches on, the stand-in writes down every call that reaches it, so a race can show its cache answered.
@@ -48,27 +52,27 @@ case $1 in
   down)
     for g in $2; do [ "$g" = direct ] || gw "$g" stop; done
     ./down.sh standin standin-bad;;
-  load) name=$2; shift 2; load "$name" chat "$@";;
+  load) name=$2; shift 2; load "$name" "$(fmt)" "$@";;
   # The same load from a client that acknowledges every packet at once. An ordinary client waits up to 40 ms to
   # acknowledge, and a gateway that sends its answer in two small writes without TCP_NODELAY waits on that.
-  quick) name=$2; shift 2; BENCH_QUICKACK=1 load "$name" chat "$@";;
+  quick) name=$2; shift 2; BENCH_QUICKACK=1 load "$name" "$(fmt)" "$@";;
   messages) name=$2; shift 2; load "$name" messages "$@";;
   cached)
     name=$2; shift 2
     : > run/standin-calls.log
-    load "$name" chat "$@"
+    load "$name" "$(fmt)" "$@"
     echo "metric calls_that_reached_the_model=$(wc -l < run/standin-calls.log)" >&2;;
   rate)
     # The same calls at the same rate for every entrant, so the CPU each one used for them compares.
     before=0; [ "$2" = direct ] || before=$(gw "$2" cpu_us)
-    load "$2" chat --rate "$3" --calls "$4" --conns "$5"; status=$?
+    load "$2" "$(fmt)" --rate "$3" --calls "$4" --conns "$5"; status=$?
     after=0; [ "$2" = direct ] || after=$(gw "$2" cpu_us)
     [ "$2" = direct ] || awk -v us=$((after - before)) -v calls="$4" 'BEGIN { printf "metric cpu_us_per_call=%.1f\n", us / calls }' >&2
     exit $status;;
   open)
     # The model takes half a second to answer, so CONNS calls are open at once. The memory is read one second in.
     idle=$(gw "$2" mb)
-    load "$2" chat --calls "$4" --conns "$3" > run/open.out 2> run/open.err &
+    load "$2" "$(fmt)" --calls "$4" --conns "$3" > run/open.out 2> run/open.err &
     sleep 1
     held=$(gw "$2" mb)
     wait $!; status=$?
@@ -82,13 +86,13 @@ case $1 in
     : > "run/$2.mode"
     t0=$(date +%s%N)
     gw "$2" start > /dev/null 2>&1
-    out=$(load "$2" chat --calls 1 2>/dev/null)
+    out=$(load "$2" "$(fmt)" --calls 1 2>/dev/null)
     t1=$(date +%s%N)
     gw "$2" stop
     echo "$out"
     echo "metric start_to_first_answer_ms=$(( (t1 - t0) / 1000000 ))" >&2;;
   memory)
-    load "$2" chat --calls 20000 --conns 64 2>/dev/null
+    load "$2" "$(fmt)" --calls 20000 --conns 64 2>/dev/null
     echo "metric memory_mb=$(gw "$2" mb)" >&2;;
   edges)
     name=$2

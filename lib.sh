@@ -147,4 +147,7 @@ redis_up() { PODMAN_USER= container_up redis 6389 docker.io/library/redis:8 redi
 # The memory and CPU of several containers together, for a gateway that runs with a database.
 containers_mb() { local total=0 m; for c in "$@"; do m=$(container_mb "$c"); total=$(awk -v a="$total" -v b="${m:-0}" 'BEGIN { printf "%.1f", a + b }'); done; echo "$total"; }
 containers_cpu_us() { local total=0; for c in "$@"; do total=$((total + $(container_cpu_us "$c"))); done; echo "$total"; }
+# The format a gateway takes: "chat" for OpenAI's, or "messages" for one that takes only Anthropic's, whose whole
+# job is then sent in Anthropic's format, Nave included.
+gw_default_format() { echo chat; }
 

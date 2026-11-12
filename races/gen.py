@@ -5,6 +5,11 @@ import json
 import sys
 
 name, title, skip, nave_on, its_on = sys.argv[1], sys.argv[2], sys.argv[3].split(), sys.argv[4], sys.argv[5]
+# A gateway that takes only Anthropic's format gets every race in that format, and the races written for
+# OpenAI's format alone are left out.
+anthropic_only = len(sys.argv) > 6 and sys.argv[6] == "messages"
+if anthropic_only:
+    skip += ["messages", "replay", "edges"]
 both = f"nave {name}"
 ground = "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two"
 on = f". Switched on in Nave: {nave_on}. Switched on in {title}: {its_on}"
@@ -51,4 +56,9 @@ races = [
     alone("edges", "the API's edges, 13 checks", "one call a check, what the model received compared with what was sent", ["edges", "NAME"], "nave", mode="edges"),
     alone("edges", "the API's edges, 13 checks", "one call a check, what the model received compared with what was sent", ["edges", "NAME"], name, mode="edges"),
 ]
-json.dump([r for r in races if r], sys.stdout, indent=1)
+races = [r for r in races if r]
+if anthropic_only:
+    for r in races:
+        r["conditions"] = r["conditions"].replace("OpenAI's format in and out", "Anthropic's format in and OpenAI's format to the model").replace(ground + ". ", ground + ", Anthropic's format in and OpenAI's format to the model. ", 1) if "format" not in r["conditions"].split(". Switched on")[0] else r["conditions"].replace("OpenAI's format in and out", "Anthropic's format in and OpenAI's format to the model")
+        r["name"] += ", in Anthropic's format"
+json.dump(races, sys.stdout, indent=1)

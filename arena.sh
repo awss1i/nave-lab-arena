@@ -38,8 +38,9 @@ case $group in
     version "nave, switched on" "$(gw nave features)"
     version "$name, switched on" "$(gw "$name" features)"
     [ -n "$(gw "$name" skip)" ] && version "$name, kinds of race it wasn't in" "$(gw "$name" skip)"
+    ARENA_FORMAT=$(gw "$name" format); export ARENA_FORMAT
     python3 data/gen_session.py run/session.jsonl 40
-    python3 races/gen.py "$name" "$(gw "$name" title)" "$(gw "$name" skip)" "$(gw nave features)" "$(gw "$name" features)" > "run/$group.json"
+    python3 races/gen.py "$name" "$(gw "$name" title)" "$(gw "$name" skip)" "$(gw nave features)" "$(gw "$name" features)" "$ARENA_FORMAT" > "run/$group.json"
     bin/race run "run/$group.json" --out "results/$group"
     exit $?;;
   gateway) nave_install; litellm_install; portkey_install; bifrost_install; bifrost_clean;;
