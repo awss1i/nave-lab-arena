@@ -16,6 +16,7 @@ import os
 import subprocess
 import sys
 import time
+import urllib.error
 import urllib.request
 
 tool = sys.argv[1]
@@ -73,6 +74,30 @@ else:
                 token = page.get("next_page_token")
                 if not token:
                     return total
+    elif tool == "langfuse":
+        import base64
+
+        basic = {"Authorization": "Basic " + base64.b64encode(b"pk-lf-arena:sk-lf-arena").decode()}
+        endpoint, headers = "http://127.0.0.1:3000/api/public/otel/v1/traces", basic
+
+        import urllib.parse
+
+        asked = urllib.parse.quote(json.dumps({"view": "observations", "metrics": [{"measure": "count", "aggregation": "count"}], "dimensions": [], "filters": [],
+                                               "fromTimestamp": "2026-01-01T00:00:00Z", "toTimestamp": "2036-01-01T00:00:00Z"}))
+
+        def count():
+            found = get(f"http://127.0.0.1:3000/api/public/v2/metrics?query={asked}", basic)["data"]
+            return int(found[0]["count_count"]) if found else 0
+    elif tool == "opik":
+        endpoint, headers = "http://127.0.0.1:5173/api/v1/private/otel/v1/traces", {"projectName": "arena"}
+
+        def count():
+            try:
+                return int(get("http://127.0.0.1:5173/api/v1/private/traces?project_name=arena&size=1")["total"])
+            except urllib.error.HTTPError as e:
+                if e.code == 404:  # The project appears with its first trace.
+                    return 0
+                raise
     else:
         raise SystemExit(f"no log tool {tool}")
 
@@ -81,6 +106,8 @@ else:
     provider.add_span_processor(processor)
     tracer = provider.get_tracer("arena")
     filler = "the quick brown fox jumps over the lazy dog. " * 11
+    # What the tool already holds isn't counted as this run's.
+    before = count()
     t = time.perf_counter()
     for i in range(n):
         with tracer.start_span("chat " + MODELS[i % 4]) as span:
@@ -96,7 +123,7 @@ else:
     processor.force_flush(600000)
     held, deadline = 0, time.time() + 900
     while time.time() < deadline:
-        held = count()
+        held = count() - before
         if held >= n:
             break
         time.sleep(0.2)
