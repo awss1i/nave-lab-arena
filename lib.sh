@@ -117,4 +117,12 @@ gw_default_size_mb() {
     du -sm "$ARENA_TOOLS/${1//_/-}" 2>/dev/null | cut -f1
   fi
 }
+# A bind mount of a path in this folder, with the label podman needs under SELinux.
+mount_of() { # LOCAL-PATH CONTAINER-PATH
+  if [ "$(basename "$CONTAINER")" = podman ]; then echo "$PWD/$1:$2:Z"; else echo "$PWD/$1:$2"; fi
+}
+# An image's version for the record: its version label when it has one, then when it was made, and its name.
+image_version() { # IMAGE
+  echo "$("$CONTAINER" image inspect "$1" --format '{{index .Config.Labels "org.opencontainers.image.version"}} created {{.Created}}' 2>/dev/null | sed 's/^<no value> //; s/^ //') (image $1)"
+}
 
