@@ -142,6 +142,27 @@ elif tool == "llmrouter":
     def score(prompt):
         votes = router.knn_model.predict_proba([get_longformer_embedding(prompt).numpy()])[0]
         return float(sum(v * price[m] for v, m in zip(votes, router.knn_model.classes_)))
+elif tool in ("plano", "vllm-sr"):
+    # Two pickers that run as servers, started by clients/pick_servers.sh, and asked for their routing decision
+    # over HTTP without the call being sent on. Both answer with a model and not a number, so the score is 1 when
+    # the stronger model is chosen and 0 when it isn't.
+    # Plano: its router model Arch-Router 1.5B served locally, with the one preference its own routing demo uses
+    # for its stronger model ("complex reasoning tasks, multi-step analysis, or detailed explanations").
+    # vLLM's semantic-router: its Knowledge recipe as released, which escalates by subject from MMLU evidence.
+    import json
+    import urllib.request
+
+    url = "http://127.0.0.1:12000/routing/v1/chat/completions" if tool == "plano" else "http://127.0.0.1:8080/api/v1/routing/preview"
+    model = "gpt-4o-mini" if tool == "plano" else "vllm-sr/auto"
+    name = "Plano with Arch-Router 1.5B" if tool == "plano" else "vLLM's semantic-router, its Knowledge recipe"
+
+    def score(prompt):
+        body = json.dumps({"model": model, "messages": [{"role": "user", "content": prompt}]}).encode()
+        with urllib.request.urlopen(urllib.request.Request(url, body, {"content-type": "application/json"}), timeout=300) as r:
+            decision = json.load(r)
+        if tool == "plano":
+            return 1.0 if decision.get("route") == "complex_reasoning" else 0.0
+        return 1.0 if decision.get("selected_model") == "cloud/frontier-72b" else 0.0
 else:
     raise SystemExit(f"no picker {tool}")
 

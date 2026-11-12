@@ -127,7 +127,17 @@ case $group in
     [ -d "$ARENA_TOOLS/src/llmrouter" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 https://github.com/ulab-uiuc/LLMRouter "$ARENA_TOOLS/src/llmrouter"; }
     pick_env llmrouter 3.11 llmrouter-lib -e "$ARENA_TOOLS/src/llmrouter"
     (cd "$ARENA_TOOLS/src/llmrouter" && HOME="$ARENA_TOOLS/pick-llmrouter/home" HF_HOME="$ARENA_TOOLS/models" "$ARENA_TOOLS/pick-llmrouter/bin/llmrouter" train --router knnrouter --config configs/model_config_train/knnrouter.yaml > "$ARENA_TOOLS/pick-llmrouter/train.log" 2>&1) \
-      || echo "LLMRouter's KNN router didn't train: $(tail -2 "$ARENA_TOOLS/pick-llmrouter/train.log")" >&2;;
+      || echo "LLMRouter's KNN router didn't train: $(tail -2 "$ARENA_TOOLS/pick-llmrouter/train.log")" >&2
+    # Plano with its router model served locally, as its docs describe for running without its hosted router.
+    pick_env plano 3.12 planoai planoai huggingface_hub
+    mkdir -p "$ARENA_TOOLS/models/arch-router"
+    HF_HOME="$ARENA_TOOLS/models" "$ARENA_TOOLS/pick-plano/bin/python" -c 'import sys; from huggingface_hub import hf_hub_download; hf_hub_download("katanemo/Arch-Router-1.5B.gguf", "Arch-Router-1.5B-Q4_K_M.gguf", local_dir=sys.argv[1])' "$ARENA_TOOLS/models/arch-router" > /dev/null 2>&1 \
+      || echo "Plano's router model didn't download" >&2
+    "$CONTAINER" pull -q ghcr.io/mostlygeek/llama-swap:cpu > /dev/null
+    version "Plano's router model" "katanemo/Arch-Router-1.5B.gguf, Q4_K_M, served by llama.cpp's server from ghcr.io/mostlygeek/llama-swap:cpu"
+    # vLLM's semantic-router, its command from PyPI and its recipes at the tag of the same version.
+    pick_env vllm-sr 3.12 vllm-sr
+    [ -d "$ARENA_TOOLS/src/vllm-sr-v04" ] || { git clone -q --depth 1 --branch v0.4.0 --filter=blob:none --sparse https://github.com/vllm-project/semantic-router "$ARENA_TOOLS/src/vllm-sr-v04" && git -C "$ARENA_TOOLS/src/vllm-sr-v04" sparse-checkout set config; };;
   image)
     portkey_install; bifrost_install
     "$CONTAINER" pull -q ghcr.io/berriai/litellm:main-stable > /dev/null
