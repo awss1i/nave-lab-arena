@@ -2,7 +2,8 @@
 # harness starts it: the stand-in as a provider of OpenAI's type and of Anthropic's, one deployment and model
 # "mock", one project and one key, its embedded store. Request logs are off and metrics on, as in its benchmark's
 # minimal profile. It checks the caller's key and prices every call. The key is in its own format, with the
-# checksum its format ends in. The container runs as the caller's user, so its store can write to the mounted folder.
+# checksum its format ends in. Its throttle on failed sign-ins is raised out of the way, as its own benchmark's
+# profile does, since one edge check sends a wrong key and the throttle then refuses the checks after it. The container runs as the caller's user, so its store can write to the mounted folder.
 antirion_kind=container
 antirion_image=docker.io/eliasbiondo/antirion:latest
 antirion_title() { echo Antirion; }
@@ -21,7 +22,7 @@ antirion_start() { # MODE
   [ "${1:-}" = cache ] && policies='{"cache":{"enabled":true}}'
   cat > run/antirion/antirion.json <<JSON
 {"version":1,"server":{"listen":"127.0.0.1:8480"},"admin":{"listen":"127.0.0.1:8481"},
- "auth":{"admin":{"bootstrap_token":"ak-antirion-arena-admin-token-0000000000"}},
+ "auth":{"admin":{"bootstrap_token":"ak-antirion-arena-admin-token-0000000000"},"failed_auth_throttle":{"max_failures":1000000000,"window":"1s"}},
  "store":{"backend":"embedded","embedded":{"path":"/data/store"}},
  "providers":{$failing"standin":{"type":"openai","base_url":"http://127.0.0.1:9000/v1","auth":{"method":"api_key","api_key":"sk-standin"}}},
  "deployments":{"mock":{"provider":"standin","model":"mock","price":{"input":"1.00","output":"2.00"}}${failing:+,\"failing\":{\"provider\":\"failing\",\"model\":\"mock\",\"price\":{\"input\":\"1.00\",\"output\":\"2.00\"\}\}}},

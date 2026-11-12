@@ -182,6 +182,9 @@ def _():
     return status == 200 and text == "echo: hi stream" and events[-1:] == ["message_stop"], f"status {status}, text {text!r}"
 
 
+# The check that makes the model answer 429 runs last: some gateways rest a provider after its 429, and the
+# checks after it would then fail for that reason and not their own.
+checks.sort(key=lambda c: "429" in c[0])
 passed = 0
 for name, f in checks:
     try:
