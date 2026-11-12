@@ -62,7 +62,14 @@ case $group in
       "$ARENA_TOOLS/eval-$pkg/bin/python" -m pip install -q openai "$@"
       version "$pkg" "$("$ARENA_TOOLS/eval-$pkg/bin/python" -c "import importlib.metadata as m; print(m.version('$pkg'))")"
     done;;
-  scan) gitleaks_install; mkdir -p run/guard; python3 data/gen_secrets.py run/guard;;
+  scan)
+    gitleaks_install; mkdir -p run/guard; python3 data/gen_secrets.py run/guard; python3 data/gen_pii.py run/guard 500
+    # Presidio with spaCy's small English model, and LLM Guard with CPU-only PyTorch, each in its own environment.
+    python3 -m venv "$ARENA_TOOLS/guard-presidio" && "$ARENA_TOOLS/guard-presidio/bin/pip" install -q presidio-analyzer \
+      https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+    version presidio-analyzer "$("$ARENA_TOOLS/guard-presidio/bin/python" -c 'import importlib.metadata as m; print(m.version("presidio-analyzer"))')"
+    python3 -m venv "$ARENA_TOOLS/guard-llm-guard" && "$ARENA_TOOLS/guard-llm-guard/bin/pip" install -q --extra-index-url https://download.pytorch.org/whl/cpu llm-guard
+    version llm-guard "$("$ARENA_TOOLS/guard-llm-guard/bin/python" -c 'import importlib.metadata as m; print(m.version("llm-guard"))')";;
   compress) py_libs headroom-ai tiktoken;;
   image)
     portkey_install; bifrost_install

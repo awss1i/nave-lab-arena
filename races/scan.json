@@ -32,5 +32,38 @@
     ]
    }
   ]
+ },
+ {
+  "name": "finding planted personal data in 500 prompts",
+  "feature": "F7",
+  "conditions": "one process on two CPUs, 1,000 made-up emails, card numbers, social security numbers and IP addresses planted in 500 prompts of about 2 KB, each tool loaded first and then timed over every prompt, one at a time",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "pii",
+     "nave"
+    ]
+   },
+   {
+    "name": "Presidio",
+    "cmd": [
+     "./entrant.sh",
+     "pii",
+     "presidio"
+    ]
+   },
+   {
+    "name": "LLM Guard",
+    "cmd": [
+     "./entrant.sh",
+     "pii",
+     "llm-guard"
+    ]
+   }
+  ]
  }
 ]

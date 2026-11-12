@@ -48,6 +48,9 @@ case "$group.$name" in
     exit "$status";;
   scan.nave) on python3 clients/scan.py nave run/guard;;
   scan.gitleaks) on python3 clients/scan.py gitleaks run/guard "$ARENA_TOOLS/gitleaks/gitleaks";;
+  pii.nave) on python3 clients/pii.py nave run/guard;;
+  pii.presidio) on "$ARENA_TOOLS/guard-presidio/bin/python" clients/pii.py presidio run/guard 2> >(grep '^metric ' >&2);;
+  pii.llm-guard) HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1 on "$ARENA_TOOLS/guard-llm-guard/bin/python" clients/pii.py llm-guard run/guard 2> >(grep '^metric ' >&2);;
   compress.nave) on "$PY" clients/nave_compress.py "data/compress/$1" 20;;
   compress.headroom) on "$PY" clients/headroom_compress.py "data/compress/$1" 3;;
   image.*)
