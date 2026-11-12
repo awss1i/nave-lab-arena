@@ -2,7 +2,7 @@
  {
   "name": "an eval suite of 1,500 cases",
   "feature": "F12",
-  "conditions": "two CPUs, three prompts and 500 tests with four checks each against the stand-in model, 16 calls at a time, no cache",
+  "conditions": "two CPUs, three prompts and 500 tests with four checks each against the stand-in model, 16 calls at a time, no cache, each tool timed as a whole process from its start to its exit",
   "rounds": 3,
   "normalise": "lines",
   "entrants": [

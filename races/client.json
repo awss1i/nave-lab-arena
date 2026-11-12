@@ -95,7 +95,7 @@
  {
   "name": "one call from a process started for it",
   "feature": "F2",
-  "conditions": "one process on one CPU calling the stand-in model on another, one kept connection, the library loaded from nothing each time",
+  "conditions": "one process on one CPU calling the stand-in model on another, each timed as a whole process from its start to its exit, the library loaded from nothing each time",
   "rounds": 7,
   "normalise": "lines",
   "entrants": [
@@ -103,27 +103,24 @@
     "name": "Nave's client",
     "cmd": [
      "./entrant.sh",
-     "client",
-     "nave",
-     "1"
+     "fresh-client",
+     "nave"
     ]
    },
    {
     "name": "LiteLLM's SDK",
     "cmd": [
      "./entrant.sh",
-     "client",
-     "litellm",
-     "1"
+     "fresh-client",
+     "litellm"
     ]
    },
    {
     "name": "OpenAI's Python SDK",
     "cmd": [
      "./entrant.sh",
-     "client",
-     "openai",
-     "1"
+     "fresh-client",
+     "openai"
     ]
    }
   ],

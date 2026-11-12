@@ -5,7 +5,20 @@ set -uo pipefail
 group=$1 name=$2; shift 2
 PY="$ARENA_TOOLS/py/bin/python" LITELLM_PY="$ARENA_TOOLS/litellm/bin/python"
 on() { taskset -c "$GATEWAY_CPUS" "$@"; }
+# One run of a command as a whole process, from its start to its exit, written as `metric process_ms`.
+whole() {
+  local t0 t1 out status
+  t0=$(date +%s%N)
+  out=$("$@" 2> /dev/null); status=$?
+  t1=$(date +%s%N)
+  echo "$out"
+  awk -v ns=$((t1 - t0)) 'BEGIN { printf "metric process_ms=%.2f\n", ns / 1e6 }' >&2
+  return $status
+}
 case "$group.$name" in
+  fresh-client.nave) whole taskset -c "$LOAD_CPUS" bin/p018 calls http://127.0.0.1:9000/v1/chat/completions 1;;
+  fresh-client.litellm) whole taskset -c "$LOAD_CPUS" "$LITELLM_PY" clients/chat_client.py litellm http://127.0.0.1:9000/v1 1;;
+  fresh-client.openai) whole taskset -c "$LOAD_CPUS" "$PY" clients/chat_client.py openai http://127.0.0.1:9000/v1 1;;
   client.nave) taskset -c "$LOAD_CPUS" bin/p018 calls http://127.0.0.1:9000/v1/chat/completions "$@";;
   client.litellm) taskset -c "$LOAD_CPUS" "$LITELLM_PY" clients/chat_client.py litellm http://127.0.0.1:9000/v1 "$@";;
   client.openai) taskset -c "$LOAD_CPUS" "$PY" clients/chat_client.py openai http://127.0.0.1:9000/v1 "$@";;
