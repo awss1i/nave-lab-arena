@@ -7,6 +7,14 @@
 # Each keeps its home folder under the arena's tools.
 . ./lib.sh
 what=$1 tool=$2
+# Both races use one start of a server: a start finds it already answering and leaves it, and it's stopped when the
+# job ends, since vLLM's semantic-router doesn't come back up cleanly after its own stop.
+if [ "$what" = up ]; then
+  case $tool in
+    plano) curl -fsS -m 60 -o /dev/null -H 'content-type: application/json' -d '{"model":"gpt-4o-mini","messages":[{"role":"user","content":"ready"}]}' http://127.0.0.1:12000/routing/v1/chat/completions 2> /dev/null && exit 0;;
+    vllm-sr) curl -fsS -m 5 -o /dev/null http://127.0.0.1:8080/health 2> /dev/null && exit 0;;
+  esac
+fi
 case $tool.$what in
   plano.up)
     d="$ARENA_TOOLS/pick-plano"; mkdir -p "$d/work" "$d/home"

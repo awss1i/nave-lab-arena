@@ -150,6 +150,7 @@ elif tool in ("plano", "vllm-sr"):
     # for its stronger model ("complex reasoning tasks, multi-step analysis, or detailed explanations").
     # vLLM's semantic-router: its Knowledge recipe as released, which escalates by subject from MMLU evidence.
     import json
+    import urllib.error
     import urllib.request
 
     url = "http://127.0.0.1:12000/routing/v1/chat/completions" if tool == "plano" else "http://127.0.0.1:8080/api/v1/routing/preview"
@@ -158,8 +159,16 @@ elif tool in ("plano", "vllm-sr"):
 
     def score(prompt):
         body = json.dumps({"model": model, "messages": [{"role": "user", "content": prompt}]}).encode()
-        with urllib.request.urlopen(urllib.request.Request(url, body, {"content-type": "application/json"}), timeout=300) as r:
-            decision = json.load(r)
+        # A decision that fails is asked for again, up to five times, since a slow router model can time out once.
+        for attempt in range(5):
+            try:
+                with urllib.request.urlopen(urllib.request.Request(url, body, {"content-type": "application/json"}), timeout=300) as r:
+                    decision = json.load(r)
+                break
+            except urllib.error.HTTPError as e:
+                if attempt == 4:
+                    raise SystemExit(f"{name} answered {e.code} five times for one prompt: {e.read()[:300]!r}")
+                time.sleep(1 + attempt)
         if tool == "plano":
             return 1.0 if decision.get("route") == "complex_reasoning" else 0.0
         return 1.0 if decision.get("selected_model") == "cloud/frontier-72b" else 0.0

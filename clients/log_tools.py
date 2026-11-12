@@ -95,7 +95,8 @@ else:
             try:
                 return int(get("http://127.0.0.1:5173/api/v1/private/traces?project_name=arena&size=1")["total"])
             except urllib.error.HTTPError as e:
-                if e.code == 404:  # The project appears with its first trace.
+                # The project appears with its first trace, and its front door answers 5xx while a count is slow.
+                if e.code == 404 or e.code >= 500:
                     return 0
                 raise
     else:

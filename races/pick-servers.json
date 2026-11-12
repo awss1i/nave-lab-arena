@@ -24,9 +24,7 @@
    "plano"
   ],
   "teardown": [
-   "./clients/pick_servers.sh",
-   "down",
-   "plano"
+   "true"
   ]
  },
  {
@@ -54,9 +52,7 @@
    "plano"
   ],
   "teardown": [
-   "./clients/pick_servers.sh",
-   "down",
-   "plano"
+   "true"
   ]
  },
  {
@@ -83,9 +79,7 @@
    "vllm-sr"
   ],
   "teardown": [
-   "./clients/pick_servers.sh",
-   "down",
-   "vllm-sr"
+   "true"
   ]
  },
  {
@@ -113,9 +107,7 @@
    "vllm-sr"
   ],
   "teardown": [
-   "./clients/pick_servers.sh",
-   "down",
-   "vllm-sr"
+   "true"
   ]
  }
 ]
