@@ -51,7 +51,7 @@ races = [
     race("onecpu", "2,000 calls over 64 connections with the gateway on one CPU", "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one", ["load", "NAME", "--calls", "2000", "--conns", "64"], env="ONE_CPU=1"),
     race("replay", "a coding agent's session of 40 turns, replayed on 4 connections", ground + ", every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB", ["replay", "NAME", "4"], rounds=3),
     race("cache", "2,000 repeats of one call over 16 connections, with each gateway's cache on", ground + ", the same message every time, each gateway's own in-memory cache switched on, and the number of calls that still reached the model counted", ["cached", "NAME", "--calls", "2000", "--conns", "16", "--same"], mode="cache", feature="F5"),
-    race("fresh", "one call through a gateway started for it", ground + ", each gateway started by its own start command and stopped after the call", ["fresh", "NAME"], gateways=""),
+    race("fresh", "one call through a gateway started for it", ground + ", each gateway started by its own start command and stopped after the call", ["fresh", "NAME"], gateways="", env=f"STANDIN_FOR='{both}'"),
     race("memory", "memory held after 20,000 calls over 64 connections", ground, ["memory", "NAME"], rounds=1),
     alone("edges", "the API's edges, 13 checks", "one call a check, what the model received compared with what was sent", ["edges", "NAME"], "nave", mode="edges"),
     alone("edges", "the API's edges, 13 checks", "one call a check, what the model received compared with what was sent", ["edges", "NAME"], name, mode="edges"),

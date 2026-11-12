@@ -44,7 +44,8 @@ case $1 in
     [ "${3:-}" = cache ] && export STANDIN_LOG=$PWD/run/standin-calls.log
     # For the edge checks it writes down the latest request whole, so what a gateway sent on can be read.
     [ "${3:-}" = edges ] && export STANDIN_BODY=$PWD/run/standin-body.txt
-    for g in $2; do [ "$g" = direct ] || { h=$(gw "$g" standin_host); [ "$h" = 127.0.0.1 ] || export STANDIN_HOST=$h; }; done
+    # STANDIN_FOR names the gateways a race will start itself, so the stand-in listens where they can reach it.
+    for g in $2 ${STANDIN_FOR:-}; do [ "$g" = direct ] || { h=$(gw "$g" standin_host); [ "$h" = 127.0.0.1 ] || export STANDIN_HOST=$h; }; done
     # shellcheck disable=SC2086
     standin_up standin 9000 ${STANDIN_ARGS:-}
     [ "${3:-}" = fallback ] && standin_up standin-bad 9001 --status 500
