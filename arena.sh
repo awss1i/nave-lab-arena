@@ -19,7 +19,29 @@ node_libs() {
 }
 for s in setup/*.sh; do . "$s"; done
 version runner "$(nproc) CPUs, $(awk '/MemTotal/ {printf "%.0f GB", $2 / 1e6}' /proc/meminfo), $(uname -sr), $(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2 | xargs)"
+# How long an install took, from nothing on a fresh runner, and what it left on disk.
+timed_install() { # NAME
+  local t0 t1
+  t0=$(date +%s%N)
+  gw "$1" install
+  t1=$(date +%s%N)
+  measure "$1" install_s "$(awk -v ns=$((t1 - t0)) 'BEGIN { printf "%.1f", ns / 1e9 }')"
+  measure "$1" install_mb "$(gw "$1" size_mb)"
+}
 case $group in
+  gw-*)
+    # One gateway against Nave, on one runner, through every kind of race in races/gen.py.
+    name=${group#gw-}
+    timed_install nave
+    timed_install "$name"
+    declare -F "${name//-/_}_clean" > /dev/null && "${name//-/_}_clean"
+    version "nave, switched on" "$(gw nave features)"
+    version "$name, switched on" "$(gw "$name" features)"
+    [ -n "$(gw "$name" skip)" ] && version "$name, kinds of race it wasn't in" "$(gw "$name" skip)"
+    python3 data/gen_session.py run/session.jsonl 40
+    python3 races/gen.py "$name" "$(gw "$name" title)" "$(gw "$name" skip)" "$(gw nave features)" "$(gw "$name" features)" > "run/$group.json"
+    bin/race run "run/$group.json" --out "results/$group"
+    exit $?;;
   gateway) nave_install; litellm_install; portkey_install; bifrost_install; bifrost_clean;;
   # Portkey's open-source gateway answers `x-portkey-cache-status: DISABLED` to a cache setting, and Bifrost's cache
   # needs a vector store, so the cache race is between the two gateways whose cache runs as installed.

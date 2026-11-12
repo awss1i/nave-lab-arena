@@ -1,49 +1,93 @@
 #!/usr/bin/env bash
-# Starts or stops the stand-in model and every gateway in the race, or runs the load tool against one of them.
-# Usage: ./gateways.sh up|down, ./gateways.sh load|cached NAME [load options], ./gateways.sh fresh NAME, ./gateways.sh memory NAME
+# Starts or stops the stand-in model and the gateways of a race, or runs one entrant's part of a race against one
+# of them. Each gateway's own start, stop and settings are in setup/NAME.sh.
+# Usage: ./gateways.sh up "NAMES" [MODE], ./gateways.sh down "NAMES", and for one entrant:
+#   load NAME [load options]      calls in OpenAI's format
+#   messages NAME [load options]  calls in Anthropic's format
+#   cached NAME [load options]    the load, then how many calls reached the model
+#   rate NAME RATE CALLS CONNS    the load at a fixed rate, with the gateway's CPU time per call
+#   open NAME CONNS CALLS         the load against a slow model, with the memory held while the calls are open
+#   replay NAME CONNS             a coding agent's session, replayed on each connection
+#   fresh NAME                    one call through a gateway started for it
+#   memory NAME                   what the gateway holds after 20,000 calls
+#   edges NAME                    the checks of clients/edges.py
+# NAME "direct" is the stand-in model itself, with no gateway.
 set -uo pipefail
 . ./lib.sh
-for s in nave litellm portkey bifrost; do . "setup/$s.sh"; done
-GATEWAYS="nave litellm portkey bifrost"
-url() { case $1 in nave) echo http://127.0.0.1:4000;; litellm) echo http://127.0.0.1:4100;; portkey) echo http://127.0.0.1:8787;; bifrost) echo http://127.0.0.1:4300;; esac; }
-# What the load tool needs to say to each gateway for the same call: Portkey's routing headers, Bifrost's model name.
-load() {
-  local name=$1; shift
-  case $name in
-    portkey) taskset -c "$LOAD_CPUS" bin/load "$(url "$name")/v1/chat/completions" --header "x-portkey-provider: openai" --header "x-portkey-custom-host: http://127.0.0.1:9000/v1" "$@";;
-    bifrost) taskset -c "$LOAD_CPUS" bin/load "$(url "$name")/v1/chat/completions" --model openai/mock "$@";;
-    *) taskset -c "$LOAD_CPUS" bin/load "$(url "$name")/v1/chat/completions" "$@";;
-  esac
+for s in setup/*.sh; do . "$s"; done
+direct_url() { echo http://127.0.0.1:9000; }
+direct_kind=none
+url_of() { gw "$1" url; }
+load() { # NAME PATH-KIND [load options]
+  local name=$1 kind=$2 path; shift 2
+  path=$(gw "$name" "${kind}_path")
+  local extra=()
+  while IFS= read -r line; do [ -n "$line" ] && extra+=("$line"); done < <(gw "$name" load_args)
+  taskset -c "$LOAD_CPUS" bin/load "$(url_of "$name")$path" "${extra[@]}" "$@"
 }
-start() { case $1 in litellm) litellm_start 4100 "${2:-}";; nave) nave_start "${2:-}";; *) "$1_start";; esac; }
+standin_up() { # NAME PORT [ARGS..]
+  local name=$1 port=$2; shift 2
+  UP_PORT=$port ./up.sh "$name" "$MODEL_CPUS" bin/standin "127.0.0.1:$port" "$@"
+}
+# ONE_CPU keeps the gateways to the first of their CPUs, for the race that shows what a second CPU adds.
+[ -n "${ONE_CPU:-}" ] && export GATEWAY_CPUS=${GATEWAY_CPUS%%,*}
 case $1 in
   up)
     # With caches on, the stand-in writes down every call that reaches it, so a race can show its cache answered.
-    [ -n "${CACHE:-}" ] && export STANDIN_LOG=$PWD/run/standin-calls.log
-    UP_PORT=9000 ./up.sh standin "$MODEL_CPUS" bin/standin 127.0.0.1:9000 ${STANDIN_ARGS:-}
-    for g in ${2:-$GATEWAYS}; do start "$g" "${CACHE:-}" || exit 1; done;;
+    [ "${3:-}" = cache ] && export STANDIN_LOG=$PWD/run/standin-calls.log
+    # For the edge checks it writes down the latest request whole, so what a gateway sent on can be read.
+    [ "${3:-}" = edges ] && export STANDIN_BODY=$PWD/run/standin-body.txt
+    # shellcheck disable=SC2086
+    standin_up standin 9000 ${STANDIN_ARGS:-}
+    [ "${3:-}" = fallback ] && standin_up standin-bad 9001 --status 500
+    mode=${3:-}; [ "$mode" = edges ] && mode=
+    # run/NAME.mode keeps the race's own mode, edges included, for a gateway that keeps a data folder per mode.
+    for g in $2; do [ "$g" = direct ] || { echo "${3:-}" > "run/$g.mode"; gw "$g" start "$mode" || exit 1; }; done;;
   down)
-    for g in ${2:-$GATEWAYS}; do "${g}_stop"; done
-    ./down.sh standin;;
-  load) shift; load "$@";;
+    for g in $2; do [ "$g" = direct ] || gw "$g" stop; done
+    ./down.sh standin standin-bad;;
+  load) name=$2; shift 2; load "$name" chat "$@";;
+  messages) name=$2; shift 2; load "$name" messages "$@";;
   cached)
-    # The load tool's calls, then how many of them reached the stand-in model.
-    shift
+    name=$2; shift 2
     : > run/standin-calls.log
-    load "$@"
+    load "$name" chat "$@"
     echo "metric calls_that_reached_the_model=$(wc -l < run/standin-calls.log)" >&2;;
+  rate)
+    # The same calls at the same rate for every entrant, so the CPU each one used for them compares.
+    before=0; [ "$2" = direct ] || before=$(gw "$2" cpu_us)
+    load "$2" chat --rate "$3" --calls "$4" --conns "$5"; status=$?
+    after=0; [ "$2" = direct ] || after=$(gw "$2" cpu_us)
+    [ "$2" = direct ] || awk -v us=$((after - before)) -v calls="$4" 'BEGIN { printf "metric cpu_us_per_call=%.1f\n", us / calls }' >&2
+    exit $status;;
+  open)
+    # The model takes half a second to answer, so CONNS calls are open at once. The memory is read one second in.
+    idle=$(gw "$2" mb)
+    load "$2" chat --calls "$4" --conns "$3" > run/open.out 2> run/open.err &
+    sleep 1
+    held=$(gw "$2" mb)
+    wait $!; status=$?
+    cat run/open.out; cat run/open.err >&2
+    awk -v idle="$idle" -v held="$held" -v conns="$3" 'BEGIN { printf "metric memory_open_mb=%.1f\nmetric kb_per_open_call=%.1f\n", held, (held - idle) * 1024 / conns }' >&2
+    exit $status;;
+  replay) load "$2" chat --replay run/session.jsonl --conns "$3";;
   fresh)
     # One call through a gateway started for it: the time from the start command to the first right answer.
     export UP_POLL_S=0.002
+    : > "run/$2.mode"
     t0=$(date +%s%N)
-    start "$2" > /dev/null 2>&1
-    out=$(load "$2" --calls 1 2>/dev/null)
+    gw "$2" start > /dev/null 2>&1
+    out=$(load "$2" chat --calls 1 2>/dev/null)
     t1=$(date +%s%N)
-    "$2_stop"
+    gw "$2" stop
     echo "$out"
     echo "metric start_to_first_answer_ms=$(( (t1 - t0) / 1000000 ))" >&2;;
   memory)
-    # 20,000 calls, then what the gateway holds.
-    load "$2" --calls 20000 --conns 64 2>/dev/null
-    echo "metric memory_mb=$("$2_mb")" >&2;;
+    load "$2" chat --calls 20000 --conns 64 2>/dev/null
+    echo "metric memory_mb=$(gw "$2" mb)" >&2;;
+  edges)
+    name=$2
+    args=()
+    while IFS= read -r line; do [ -n "$line" ] && args+=("$line"); done < <(gw "$name" load_args)
+    python3 clients/edges.py "$(url_of "$name")" "$(gw "$name" chat_path)" "$(gw "$name" messages_path)" run/standin-body.txt "${args[@]}";;
 esac

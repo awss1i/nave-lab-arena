@@ -60,3 +60,61 @@ now_mb() {
   done
   awk -v kb="$total" 'BEGIN { printf "%.1f\n", kb / 1024 }'
 }
+
+# The CPU time a server started by up.sh and its children have used so far, in microseconds.
+proc_cpu_us() {
+  local pid ticks=0 t hz
+  pid=$(cat "run/$1.pid" 2>/dev/null) || { echo 0; return; }
+  hz=$(getconf CLK_TCK)
+  for p in $pid $(pgrep -P "$pid" 2>/dev/null) $(for c in $(pgrep -P "$pid" 2>/dev/null); do pgrep -P "$c" 2>/dev/null; done); do
+    # The fields after the command's name: its own user and system time, and its finished children's.
+    t=$(sed 's/.*) //' "/proc/$p/stat" 2>/dev/null | awk '{ print $12 + $13 + $14 + $15 }')
+    ticks=$((ticks + ${t:-0}))
+  done
+  echo $((ticks * 1000000 / hz))
+}
+# The CPU time a container has used so far, in microseconds, from its control group.
+container_cpu_us() {
+  local pid path
+  pid=$("$CONTAINER" inspect -f '{{.State.Pid}}' "arena-$1" 2>/dev/null) || { echo 0; return; }
+  path=$(sed -n 's/^0:://p' "/proc/$pid/cgroup" 2>/dev/null)
+  awk '/^usage_usec/ { print $2; found = 1 } END { if (!found) print 0 }' "/sys/fs/cgroup$path/cpu.stat" 2>/dev/null || echo 0
+}
+# Writes one measure taken by a script, outside a race, to the run's list: who, what, the number.
+measure() { printf '%s\t%s\t%s\n' "$1" "$2" "$3" >> results/measures.tsv; }
+
+# A gateway's setup file, setup/NAME.sh, defines NAME_install, NAME_start, NAME_url and NAME_kind (process or
+# container), with dashes in NAME written as underscores. It may define the rest, and these stand in when it doesn't.
+# NAME_start takes a mode: nothing, "cache" (its own cache on), or "fallback" (the first upstream is the failing
+# stand-in on port 9001 and the second is the working one on port 9000).
+gw() { # NAME FUNCTION [ARGS..]
+  local n=${1//-/_} f=$2; shift 2
+  if declare -F "${n}_$f" > /dev/null; then "${n}_$f" "$@"; else "gw_default_$f" "$n" "$@"; fi
+}
+gw_kind() { local v="${1//-/_}_kind"; echo "${!v:-process}"; }
+gw_default_stop() { if [ "$(gw_kind "$1")" = container ]; then container_down "${1//_/-}"; else ./down.sh "${1//_/-}"; fi; }
+gw_default_mb() { if [ "$(gw_kind "$1")" = container ]; then container_mb "${1//_/-}"; else now_mb "${1//_/-}"; fi; }
+gw_default_cpu_us() { if [ "$(gw_kind "$1")" = container ]; then container_cpu_us "${1//_/-}"; else proc_cpu_us "${1//_/-}"; fi; }
+# Extra arguments for the load tool, one a line, such as the headers a gateway routes by.
+gw_default_load_args() { :; }
+# The kinds of race this gateway can't run, as words, each explained in its setup file.
+gw_default_skip() { :; }
+# Which features are switched on in this gateway as raced, in a few words, for the record (ruling 39).
+gw_default_features() { echo "not stated"; }
+# The path of its chat completions and messages endpoints.
+gw_default_chat_path() { echo /v1/chat/completions; }
+gw_default_messages_path() { echo /v1/messages; }
+gw_default_title() { echo "${1//_/-}"; }
+# What an install left on disk, in MB: a container's files exported as one archive, or the tool's folder.
+gw_default_size_mb() {
+  local image="${1}_image" id bytes
+  if [ "$(gw_kind "$1")" = container ]; then
+    id=$("$CONTAINER" create "${!image}") || { echo 0; return; }
+    bytes=$("$CONTAINER" export "$id" | wc -c)
+    "$CONTAINER" rm "$id" > /dev/null
+    awk -v b="$bytes" 'BEGIN { printf "%.1f", b / 1e6 }'
+  else
+    du -sm "$ARENA_TOOLS/${1//_/-}" 2>/dev/null | cut -f1
+  fi
+}
+

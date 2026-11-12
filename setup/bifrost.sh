@@ -1,3 +1,4 @@
+bifrost_kind=container
 # Bifrost, from its own official image, with the model "mock" routed to the stand-in as an OpenAI provider. Its
 # worker pool is set to the size its docs suggest for production, its request log is off, and Go is told how many
 # CPUs it has.
@@ -32,7 +33,6 @@ JSON
   [ "$(basename "$CONTAINER")" = podman ] && mount="$mount:Z"
   container_up bifrost 4300 -e APP_PORT=4300 -e APP_HOST=127.0.0.1 -e LOG_LEVEL=error -e GOMAXPROCS="$(echo "$GATEWAY_CPUS" | tr ',' '\n' | wc -l)" -v "$mount" docker.io/maximhq/bifrost:latest
 }
-bifrost_stop() { container_down bifrost; }
 # Bifrost keeps its settings in a database beside config.json and builds it on its first start, which takes several
 # seconds. It's removed once, before a group's races, so the first start happens in a race's setup and every timed
 # start after it is a restart, as a restart in production would be.
@@ -40,4 +40,10 @@ bifrost_clean() {
   [ -d run/bifrost-data ] || return 0
   if [ "$(basename "$CONTAINER")" = podman ]; then podman unshare rm -rf run/bifrost-data; else sudo rm -rf run/bifrost-data 2>/dev/null || rm -rf run/bifrost-data; fi
 }
-bifrost_mb() { container_mb bifrost; }
+bifrost_url() { echo http://127.0.0.1:4300; }
+bifrost_load_args() { printf '%s\n' --model openai/mock; }
+bifrost_features() { echo "routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it"; }
+# Its cache is by meaning and needs a vector store, and its fallbacks are named in each request's body.
+bifrost_skip() { echo "cache fallback"; }
+bifrost_title() { echo "Bifrost"; }
+bifrost_image=docker.io/maximhq/bifrost:latest

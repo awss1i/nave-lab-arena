@@ -1,5 +1,6 @@
 # LiteLLM's proxy, the latest release from PyPI, at the settings its own production notes give: workers for every CPU
 # it has, logging at errors only, and no callbacks. It routes the model "mock" to the stand-in and nowhere else.
+litellm_kind=process
 litellm_install() {
   if [ ! -x "$ARENA_TOOLS/litellm/bin/litellm" ]; then
     python3 -m venv "$ARENA_TOOLS/litellm"
@@ -8,17 +9,21 @@ litellm_install() {
   fi
   version litellm "$("$ARENA_TOOLS/litellm/bin/python" -c 'import importlib.metadata as m; print(m.version("litellm"))')"
 }
-
-litellm_start() { # PORT [cache]
+litellm_start() { # MODE
+  local first=9000
+  [ "${1:-}" = fallback ] && first=9001
   {
-    printf 'model_list:\n  - model_name: mock\n    litellm_params:\n      model: openai/mock\n      api_base: http://127.0.0.1:9000/v1\n      api_key: sk-standin\n'
+    printf 'model_list:\n  - model_name: mock\n    litellm_params:\n      model: openai/mock\n      api_base: http://127.0.0.1:%s/v1\n      api_key: sk-standin\n' "$first"
+    [ "${1:-}" = fallback ] && printf '  - model_name: mock-second\n    litellm_params:\n      model: openai/mock\n      api_base: http://127.0.0.1:9000/v1\n      api_key: sk-standin\n'
     printf 'litellm_settings:\n  num_retries: 0\n  request_timeout: 600\n  telemetry: false\n  set_verbose: false\n'
-    [ "${2:-}" = cache ] && printf '  cache: true\n  cache_params:\n    type: local\n'
+    [ "${1:-}" = fallback ] && printf '  fallbacks: [{"mock": ["mock-second"]}]\n'
+    [ "${1:-}" = cache ] && printf '  cache: true\n  cache_params:\n    type: local\n'
     # LiteLLM won't start without a master key. Callers send this one, which the load tool reads from LLM_KEY.
     printf 'general_settings:\n  master_key: %s\n' "$LLM_KEY"
   } > run/litellm.yaml
-  LITELLM_LOCAL_MODEL_COST_MAP=True LITELLM_LOG=ERROR LITELLM_MODE=PRODUCTION UP_PORT=$1 ./up.sh litellm "$GATEWAY_CPUS" \
-    "$ARENA_TOOLS/litellm/bin/litellm" --config run/litellm.yaml --host 127.0.0.1 --port "$1" --num_workers "$(echo "$GATEWAY_CPUS" | tr ',' '\n' | wc -l)"
+  LITELLM_LOCAL_MODEL_COST_MAP=True LITELLM_LOG=ERROR LITELLM_MODE=PRODUCTION UP_PORT=4100 ./up.sh litellm "$GATEWAY_CPUS" \
+    "$ARENA_TOOLS/litellm/bin/litellm" --config run/litellm.yaml --host 127.0.0.1 --port 4100 --num_workers "$(echo "$GATEWAY_CPUS" | tr ',' '\n' | wc -l)"
 }
-litellm_stop() { ./down.sh litellm; }
-litellm_mb() { now_mb litellm; }
+litellm_url() { echo http://127.0.0.1:4100; }
+litellm_features() { echo "routes by model, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key against its master key, counts spend in memory. No database, so no request log and no stored keys"; }
+litellm_title() { echo "LiteLLM"; }
