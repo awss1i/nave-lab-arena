@@ -68,7 +68,11 @@ case $group in
     python3 -m venv "$ARENA_TOOLS/guard-presidio" && "$ARENA_TOOLS/guard-presidio/bin/pip" install -q presidio-analyzer \
       https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
     version presidio-analyzer "$("$ARENA_TOOLS/guard-presidio/bin/python" -c 'import importlib.metadata as m; print(m.version("presidio-analyzer"))')"
-    python3 -m venv "$ARENA_TOOLS/guard-llm-guard" && "$ARENA_TOOLS/guard-llm-guard/bin/pip" install -q --extra-index-url https://download.pytorch.org/whl/cpu llm-guard
+    # LLM Guard's pinned dependencies don't build on the newest Python, so it gets Python 3.12 through uv, and
+    # pip inside its environment, which it uses to fetch a language model on first use.
+    python3 -m venv "$ARENA_TOOLS/uv" && "$ARENA_TOOLS/uv/bin/pip" install -q uv
+    "$ARENA_TOOLS/uv/bin/uv" venv -q --python 3.12 "$ARENA_TOOLS/guard-llm-guard"
+    "$ARENA_TOOLS/uv/bin/uv" pip install -q --python "$ARENA_TOOLS/guard-llm-guard/bin/python" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match llm-guard pip
     version llm-guard "$("$ARENA_TOOLS/guard-llm-guard/bin/python" -c 'import importlib.metadata as m; print(m.version("llm-guard"))')";;
   compress) py_libs headroom-ai tiktoken;;
   pick)
