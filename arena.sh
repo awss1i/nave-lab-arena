@@ -89,7 +89,8 @@ case $group in
     "$ARENA_TOOLS/uv/bin/uv" pip install -q --python "$ARENA_TOOLS/guard-llm-guard/bin/python" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match llm-guard pip
     version llm-guard "$("$ARENA_TOOLS/guard-llm-guard/bin/python" -c 'import importlib.metadata as m; print(m.version("llm-guard"))')"
     # NeMo Guardrails with what its sensitive-data rail needs: Presidio and spaCy's large English model.
-    python3 -m venv "$ARENA_TOOLS/guard-nemo" && "$ARENA_TOOLS/guard-nemo/bin/pip" install -q 'nemoguardrails[sdd]' langchain-openai presidio-analyzer presidio-anonymizer
+    "$ARENA_TOOLS/uv/bin/uv" venv -q --python 3.13 "$ARENA_TOOLS/guard-nemo"
+    "$ARENA_TOOLS/uv/bin/uv" pip install -q --python "$ARENA_TOOLS/guard-nemo/bin/python" 'nemoguardrails[sdd]' langchain-openai presidio-analyzer presidio-anonymizer pip
     "$ARENA_TOOLS/guard-nemo/bin/python" -m spacy download en_core_web_lg > /dev/null 2>&1
     version nemoguardrails "$("$ARENA_TOOLS/guard-nemo/bin/python" -c 'import importlib.metadata as m; print(m.version("nemoguardrails"))')"
     # guardrails-ai with its DetectPII validator, which is a package on PyPI. Its settings file, in a home folder of

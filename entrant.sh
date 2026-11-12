@@ -4,6 +4,17 @@ set -uo pipefail
 . ./lib.sh
 group=$1 name=$2; shift 2
 PY="$ARENA_TOOLS/py/bin/python" LITELLM_PY="$ARENA_TOOLS/litellm/bin/python"
+# Runs a command whose libraries write a lot to stderr: only its metric lines are passed on, and when it fails,
+# the last lines of what it wrote, so a failure on a runner can be read from the record.
+quiet() {
+  local err rc
+  err=$(mktemp)
+  "$@" 2> "$err"; rc=$?
+  grep '^metric ' "$err" >&2
+  [ "$rc" -ne 0 ] && tail -8 "$err" >&2
+  rm -f "$err"
+  return "$rc"
+}
 on() { taskset -c "$GATEWAY_CPUS" "$@"; }
 # One run of a command as a whole process, from its start to its exit, written as `metric process_ms`.
 whole() {
@@ -55,14 +66,14 @@ case "$group.$name" in
   scan.nave) on python3 clients/scan.py nave run/guard;;
   scan.gitleaks) on python3 clients/scan.py gitleaks run/guard "$ARENA_TOOLS/gitleaks/gitleaks";;
   pii.nave) on python3 clients/pii.py nave run/guard;;
-  pii.presidio) on "$ARENA_TOOLS/guard-presidio/bin/python" clients/pii.py presidio run/guard 2> >(grep '^metric ' >&2);;
-  pii.guardrails-ai) HOME="$ARENA_TOOLS/guard-guardrails-ai/home" on "$ARENA_TOOLS/guard-guardrails-ai/bin/python" clients/pii.py guardrails-ai run/guard 2> >(grep '^metric ' >&2);;
-  pii.nemo) on "$ARENA_TOOLS/guard-nemo/bin/python" clients/pii.py nemo run/guard 2> >(grep '^metric ' >&2);;
-  pii.llm-guard) HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1 on "$ARENA_TOOLS/guard-llm-guard/bin/python" clients/pii.py llm-guard run/guard 2> >(grep '^metric ' >&2);;
+  pii.presidio) quiet on "$ARENA_TOOLS/guard-presidio/bin/python" clients/pii.py presidio run/guard;;
+  pii.guardrails-ai) (export HOME="$ARENA_TOOLS/guard-guardrails-ai/home"; quiet on "$ARENA_TOOLS/guard-guardrails-ai/bin/python" clients/pii.py guardrails-ai run/guard);;
+  pii.nemo) quiet on "$ARENA_TOOLS/guard-nemo/bin/python" clients/pii.py nemo run/guard;;
+  pii.llm-guard) (export HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1; quiet on "$ARENA_TOOLS/guard-llm-guard/bin/python" clients/pii.py llm-guard run/guard);;
   compress.nave) on "$PY" clients/nave_compress.py "data/compress/$1" 20;;
   compress.headroom) on "$PY" clients/headroom_compress.py "data/compress/$1" 3;;
   pick.nave) on clients/nave_pick.sh run/pick/RouteLLM "$1";;
-  pick.routellm) HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1 on "$ARENA_TOOLS/pick-routellm/bin/python" clients/routellm_bert.py run/pick/RouteLLM "$@" 2> >(grep '^metric ' >&2);;
+  pick.routellm) (export HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1; quiet on "$ARENA_TOOLS/pick-routellm/bin/python" clients/routellm_bert.py run/pick/RouteLLM "$@");;
   image.*)
     # What an engine reports as an image's size differs between engines: some give the layers compressed and some
     # unpacked. A container's files written out as one archive are the same bytes on any of them.
