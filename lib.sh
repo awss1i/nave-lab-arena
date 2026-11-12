@@ -88,6 +88,13 @@ container_cpu_us() {
   path=$(sed -n 's/^0:://p' "/proc/$pid/cgroup" 2>/dev/null)
   awk '/^usage_usec/ { print $2; found = 1 } END { if (!found) print 0 }' "/sys/fs/cgroup$path/cpu.stat" 2>/dev/null || echo 0
 }
+# uv, for a tool that needs a Python other than the machine's: the machine's own uv, or one installed under the
+# arena's tools.
+arena_uv() {
+  if command -v uv > /dev/null; then command -v uv; return; fi
+  [ -x "$ARENA_TOOLS/uv/bin/uv" ] || { python3 -m venv "$ARENA_TOOLS/uv" && "$ARENA_TOOLS/uv/bin/pip" install -q uv; }
+  echo "$ARENA_TOOLS/uv/bin/uv"
+}
 # Writes one measure taken by a script, outside a race, to the run's list: who, what, the number.
 measure() { printf '%s\t%s\t%s\n' "$1" "$2" "$3" >> results/measures.tsv; }
 

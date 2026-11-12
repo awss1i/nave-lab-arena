@@ -2,7 +2,7 @@
  {
   "name": "routing GSM8K's prompts with a router trained on none of them, Nave",
   "feature": "F4",
-  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and RouteLLM's BERT router as released",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
   "rounds": 1,
   "normalise": "lines",
   "entrants": [
@@ -20,7 +20,7 @@
  {
   "name": "routing GSM8K's prompts with a router trained on none of them, RouteLLM's BERT router",
   "feature": "F4",
-  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and RouteLLM's BERT router as released",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
   "rounds": 1,
   "normalise": "lines",
   "entrants": [
@@ -38,7 +38,7 @@
  {
   "name": "routing MMLU's prompts, Nave",
   "feature": "F4",
-  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, RouteLLM's BERT router as released, which wasn't trained on MMLU, scored on 2,000 of them spread evenly",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
   "rounds": 1,
   "normalise": "lines",
   "entrants": [
@@ -56,7 +56,7 @@
  {
   "name": "routing MMLU's prompts, RouteLLM's BERT router",
   "feature": "F4",
-  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, RouteLLM's BERT router as released, which wasn't trained on MMLU, scored on 2,000 of them spread evenly",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
   "rounds": 1,
   "normalise": "lines",
   "entrants": [
@@ -68,6 +68,124 @@
      "routellm",
      "mmlu",
      "2000"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, NadirClaw",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "NadirClaw",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "nadirclaw",
+     "gsm8k"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, NadirClaw",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "NadirClaw",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "nadirclaw",
+     "mmlu",
+     "2000"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, UncommonRoute",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "UncommonRoute",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "uncommonroute",
+     "gsm8k"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, UncommonRoute",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "UncommonRoute",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "uncommonroute",
+     "mmlu",
+     "2000"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, RoRF, on 300 prompts",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "RoRF, on 300 prompts",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "rorf",
+     "gsm8k",
+     "300"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, RoRF, on 300 prompts",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "RoRF, on 300 prompts",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "rorf",
+     "mmlu",
+     "300"
     ]
    }
   ]

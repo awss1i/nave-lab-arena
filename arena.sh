@@ -106,7 +106,17 @@ case $group in
     version routellm "$("$ARENA_TOOLS/pick-routellm/bin/python" -c 'import importlib.metadata as m; print(m.version("routellm"))'), its BERT router, checkpoint routellm/bert_gpt4_augmented"
     mkdir -p run/pick
     [ -d run/pick/RouteLLM ] || { git clone -q --depth 1 --filter=blob:none --sparse https://github.com/lm-sys/RouteLLM run/pick/RouteLLM && git -C run/pick/RouteLLM sparse-checkout set routellm/evals; }
-    version routellm-data "RouteLLM's repo at $(git -C run/pick/RouteLLM rev-parse --short HEAD)";;
+    version routellm-data "RouteLLM's repo at $(git -C run/pick/RouteLLM rev-parse --short HEAD)"
+    # The other pickers, each in an environment of its own with CPU-only PyTorch, as released.
+    uv=$(arena_uv)
+    pick_env() { # NAME PYTHON PACKAGE
+      "$uv" venv -q --python "$2" "$ARENA_TOOLS/pick-$1" && "$uv" pip install -q --python "$ARENA_TOOLS/pick-$1/bin/python" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match "$3" \
+        || echo "$3 didn't install" >&2
+      version "$3" "$("$ARENA_TOOLS/pick-$1/bin/python" -c "import importlib.metadata as m; print(m.version('$3'))" 2>/dev/null)"
+    }
+    pick_env nadirclaw 3.12 nadirclaw
+    pick_env uncommonroute 3.12 uncommon-route
+    pick_env rorf 3.11 rorf;;
   image)
     portkey_install; bifrost_install
     "$CONTAINER" pull -q ghcr.io/berriai/litellm:main-stable > /dev/null
