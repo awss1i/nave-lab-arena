@@ -189,5 +189,123 @@
     ]
    }
   ]
+ },
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, semantic-router, its routes built from a tenth of MMLU",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "semantic-router, its routes built from a tenth of MMLU",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "semantic-router",
+     "gsm8k"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, semantic-router, its routes built from a tenth of MMLU",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "semantic-router, its routes built from a tenth of MMLU",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "semantic-router",
+     "mmlu",
+     "2000"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, ClawRouter",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "ClawRouter",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "clawrouter",
+     "gsm8k"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, ClawRouter",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "ClawRouter",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "clawrouter",
+     "mmlu",
+     "2000"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing GSM8K's prompts with a router trained on none of them, LLMRouter's KNN router, on 300 prompts",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "LLMRouter's KNN router, on 300 prompts",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "llmrouter",
+     "gsm8k",
+     "300"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "routing MMLU's prompts, LLMRouter's KNN router, on 300 prompts",
+  "feature": "F4",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "LLMRouter's KNN router, on 300 prompts",
+    "cmd": [
+     "./entrant.sh",
+     "pick",
+     "other",
+     "llmrouter",
+     "mmlu",
+     "300"
+    ]
+   }
+  ]
  }
 ]

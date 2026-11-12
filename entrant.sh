@@ -73,7 +73,8 @@ case "$group.$name" in
   compress.nave) on "$PY" clients/nave_compress.py "data/compress/$1" 20;;
   compress.headroom) on "$PY" clients/headroom_compress.py "data/compress/$1" 3;;
   pick.nave) on clients/nave_pick.sh run/pick/RouteLLM "$1";;
-  pick.other) tool=$1; shift; (export HOME="$ARENA_TOOLS/pick-$tool/home" HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1; mkdir -p "$HOME"; quiet on "$ARENA_TOOLS/pick-$tool/bin/python" clients/pick_other.py "$tool" run/pick/RouteLLM "$@");;
+  pick.other) tool=$1; shift; py="$ARENA_TOOLS/pick-$tool/bin/python"; [ -x "$py" ] || py=python3
+    (export HOME="$ARENA_TOOLS/pick-$tool/home" HF_HOME="$ARENA_TOOLS/models" FASTEMBED_CACHE_PATH="$ARENA_TOOLS/models/fastembed" DO_NOT_TRACK=1; mkdir -p "$HOME"; quiet on "$py" clients/pick_other.py "$tool" "$PWD/run/pick/RouteLLM" "$@");;
   pick.routellm) (export HF_HOME="$ARENA_TOOLS/models" DO_NOT_TRACK=1; quiet on "$ARENA_TOOLS/pick-routellm/bin/python" clients/routellm_bert.py run/pick/RouteLLM "$@");;
   image.*)
     # What an engine reports as an image's size differs between engines: some give the layers compressed and some

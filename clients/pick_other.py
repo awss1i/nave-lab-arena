@@ -80,13 +80,79 @@ elif tool == "rorf":
 
     def score(prompt):
         return float(controller.predict_proba(prompt)[1])
+elif tool == "semantic-router":
+    # Aurelio's semantic-router with its local FastEmbed encoder. It routes by examples, so it's given two routes
+    # built the way its docs build any route: "strong" from prompts only the stronger model got right and "weak"
+    # from prompts the weaker model got right, both from a tenth of MMLU (every tenth prompt), and none from the
+    # prompts being scored. The score is how much closer a prompt sits to the "strong" route than to the "weak" one.
+    from semantic_router import IndexedRouter, Route
+    from semantic_router.encoders import FastEmbedEncoder
+
+    mmlu = []
+    for f in sorted(glob.glob(f"{d}/routellm/evals/mmlu/responses/*.csv")):
+        with open(f, newline="") as fh:
+            reader = csv.reader(fh)
+            next(reader)
+            mmlu += [(r[0], r[1] == "True", r[2] == "True") for r in reader]
+    seen = {r[0] for r in rows}
+    train = [r for i, r in enumerate(mmlu) if i % 10 == 0 and (which != "mmlu" or r[0] not in seen)]
+    routes = [Route(name="strong", utterances=[p for p, weak, strong in train if strong and not weak]),
+              Route(name="weak", utterances=[p for p, weak, strong in train if weak])]
+    router = IndexedRouter(encoder=FastEmbedEncoder(name="BAAI/bge-small-en-v1.5"), routes=routes)
+    name = f"semantic-router with {len(routes[0].utterances)} and {len(routes[1].utterances)} example prompts"
+
+    def score(prompt):
+        found = {c.name: c.confidence or 0.0 for c in router(prompt, limit=2)}
+        return found.get("strong", 0.0) - found.get("weak", 0.0)
+elif tool == "clawrouter":
+    # ClawRouter's local scorer, the 15-dimension weighted score that picks its tier, with its default settings.
+    # It's a Node package, so a small Node program beside its node_modules scores every prompt in one process
+    # and reports its own time for a decision.
+    import json
+    import shutil
+    import subprocess
+
+    home = os.path.join(os.environ["ARENA_TOOLS"], "pick-clawrouter")
+    shutil.copy(os.path.join(os.path.dirname(os.path.abspath(__file__)), "pick_claw.mjs"), home)
+    done = json.loads(subprocess.run(["node", "pick_claw.mjs"], cwd=home, input=json.dumps([r[0] for r in rows]), capture_output=True, text=True, check=True).stdout)
+    name, claw = "ClawRouter's local scorer", iter(done["scores"])
+
+    def score(prompt):
+        return float(next(claw))
+elif tool == "llmrouter":
+    # LLMRouter's KNN router, trained by its own command on the example data its repo ships: nine models, six of
+    # 7B to 9B parameters and three of 49B to 70B, and which of them did best on each of its example queries.
+    # Asked to route a prompt, it names one of the nine. The score is the price of the models its neighbours voted for, weighted by their
+    # votes, which is highest when it would send the prompt to its largest model.
+    import yaml
+    from llmrouter.models.knnrouter import KNNRouter
+    from llmrouter.utils import get_longformer_embedding, load_model
+
+    repo = os.path.join(os.environ["ARENA_TOOLS"], "src", "llmrouter")
+    os.chdir(repo)
+    cfg = "configs/model_config_test/knnrouter.yaml"
+    router = KNNRouter(yaml_path=cfg)
+    saved = yaml.safe_load(open(cfg))["model_path"]["load_model_path"]
+    router.knn_model = load_model(next(p for p in (saved, os.path.join("llmrouter", saved)) if os.path.exists(p)))
+    import json
+
+    price = {n: float(v["input_price"]) for n, v in json.load(open("data/example_data/llm_candidates/llm_descriptions_with_embeddings.json")).items()}
+    name = "LLMRouter's KNN router on its example data"
+
+    def score(prompt):
+        votes = router.knn_model.predict_proba([get_longformer_embedding(prompt).numpy()])[0]
+        return float(sum(v * price[m] for v, m in zip(votes, router.knn_model.classes_)))
 else:
     raise SystemExit(f"no picker {tool}")
 
-score(rows[0][0])
-t = time.perf_counter()
-scores = [score(r[0]) for r in rows]
-seconds = time.perf_counter() - t
+if tool == "clawrouter":
+    scores = [score(r[0]) for r in rows]
+    seconds = done["ns"] * len(rows) / 1e9
+else:
+    score(rows[0][0])
+    t = time.perf_counter()
+    scores = [score(r[0]) for r in rows]
+    seconds = time.perf_counter() - t
 sys.stdout.flush()
 os.dup2(keep, 1)
 apgr, cpt50, cpt80 = curve(scores)

@@ -109,14 +109,25 @@ case $group in
     version routellm-data "RouteLLM's repo at $(git -C run/pick/RouteLLM rev-parse --short HEAD)"
     # The other pickers, each in an environment of its own with CPU-only PyTorch, as released.
     uv=$(arena_uv)
-    pick_env() { # NAME PYTHON PACKAGE
-      "$uv" venv -q --python "$2" "$ARENA_TOOLS/pick-$1" && "$uv" pip install -q --python "$ARENA_TOOLS/pick-$1/bin/python" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match "$3" \
-        || echo "$3 didn't install" >&2
-      version "$3" "$("$ARENA_TOOLS/pick-$1/bin/python" -c "import importlib.metadata as m; print(m.version('$3'))" 2>/dev/null)"
+    pick_env() { # NAME PYTHON PACKAGE [WHAT-TO-INSTALL..]
+      local name=$1 python=$2 package=$3; shift 3
+      "$uv" venv -q --python "$python" "$ARENA_TOOLS/pick-$name" && "$uv" pip install -q --python "$ARENA_TOOLS/pick-$name/bin/python" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match "${@:-$package}" \
+        || echo "$package didn't install" >&2
+      version "$package" "$("$ARENA_TOOLS/pick-$name/bin/python" -c "import importlib.metadata as m; print(m.version('$package'))" 2>/dev/null)"
     }
     pick_env nadirclaw 3.12 nadirclaw
     pick_env uncommonroute 3.12 uncommon-route
-    pick_env rorf 3.11 rorf;;
+    pick_env rorf 3.11 rorf
+    pick_env semantic-router 3.12 semantic-router 'semantic-router[fastembed]'
+    # ClawRouter is a Node package. Its install scripts aren't run, since only its router module is used.
+    mkdir -p "$ARENA_TOOLS/pick-clawrouter" && npm install --silent --no-audit --no-fund --ignore-scripts --prefix "$ARENA_TOOLS/pick-clawrouter" @blockrun/clawrouter
+    version @blockrun/clawrouter "$(node -e "console.log(require('$ARENA_TOOLS/pick-clawrouter/node_modules/@blockrun/clawrouter/package.json').version)")"
+    # LLMRouter from its repo, as its README installs it, since its example data and configs live there. Its KNN
+    # router is trained by its own command on that example data.
+    [ -d "$ARENA_TOOLS/src/llmrouter" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 https://github.com/ulab-uiuc/LLMRouter "$ARENA_TOOLS/src/llmrouter"; }
+    pick_env llmrouter 3.11 llmrouter-lib -e "$ARENA_TOOLS/src/llmrouter"
+    (cd "$ARENA_TOOLS/src/llmrouter" && HOME="$ARENA_TOOLS/pick-llmrouter/home" HF_HOME="$ARENA_TOOLS/models" "$ARENA_TOOLS/pick-llmrouter/bin/llmrouter" train --router knnrouter --config configs/model_config_train/knnrouter.yaml > "$ARENA_TOOLS/pick-llmrouter/train.log" 2>&1) \
+      || echo "LLMRouter's KNN router didn't train: $(tail -2 "$ARENA_TOOLS/pick-llmrouter/train.log")" >&2;;
   image)
     portkey_install; bifrost_install
     "$CONTAINER" pull -q ghcr.io/berriai/litellm:main-stable > /dev/null
