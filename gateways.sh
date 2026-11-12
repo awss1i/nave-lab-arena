@@ -32,7 +32,7 @@ load() { # NAME PATH-KIND [load options]
 }
 standin_up() { # NAME PORT [ARGS..]
   local name=$1 port=$2; shift 2
-  UP_PORT=$port ./up.sh "$name" "$MODEL_CPUS" bin/standin "127.0.0.1:$port" "$@"
+  UP_PORT=$port ./up.sh "$name" "$MODEL_CPUS" bin/standin "${STANDIN_HOST:-127.0.0.1}:$port" "$@"
 }
 # ONE_CPU keeps the gateways to the first of their CPUs, for the race that shows what a second CPU adds.
 [ -n "${ONE_CPU:-}" ] && export GATEWAY_CPUS=${GATEWAY_CPUS%%,*}
@@ -44,6 +44,7 @@ case $1 in
     [ "${3:-}" = cache ] && export STANDIN_LOG=$PWD/run/standin-calls.log
     # For the edge checks it writes down the latest request whole, so what a gateway sent on can be read.
     [ "${3:-}" = edges ] && export STANDIN_BODY=$PWD/run/standin-body.txt
+    for g in $2; do [ "$g" = direct ] || { h=$(gw "$g" standin_host); [ "$h" = 127.0.0.1 ] || export STANDIN_HOST=$h; }; done
     # shellcheck disable=SC2086
     standin_up standin 9000 ${STANDIN_ARGS:-}
     [ "${3:-}" = fallback ] && standin_up standin-bad 9001 --status 500

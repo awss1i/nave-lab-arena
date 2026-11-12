@@ -36,13 +36,18 @@ container_up() { # NAME PORT IMAGE-AND-ARGS..
     sleep 0.1
   done
   if (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null; then echo "$name can't start: port $port is already answering" >&2; return 1; fi
+  # A container shares the host's network unless CONTAINER_NET=own, for an image whose own services would take
+  # ports the arena uses. Such a container publishes its ports itself and reaches the stand-in as arena-host.
+  local net="--network host"
+  [ "${CONTAINER_NET:-}" = own ] && net="--add-host arena-host:host-gateway"
+  # shellcheck disable=SC2086
   if [ "$(basename "$CONTAINER")" = docker ]; then
-    docker run -d --rm --name "arena-$name" --network host --cpuset-cpus "$GATEWAY_CPUS" "$@" > /dev/null
+    docker run -d --rm --name "arena-$name" $net --cpuset-cpus "$GATEWAY_CPUS" "$@" > /dev/null
   else
     # PODMAN_USER is how the container's user maps here: the caller's own by default, so mounted folders are
     # writable, and empty for an image that has to start as its own root.
     # shellcheck disable=SC2086
-    taskset -c "$GATEWAY_CPUS" podman run -d --rm --name "arena-$name" --network host ${PODMAN_USER---userns=keep-id} "$@" > /dev/null
+    taskset -c "$GATEWAY_CPUS" podman run -d --rm --name "arena-$name" $net ${PODMAN_USER---userns=keep-id} "$@" > /dev/null
   fi
   local deadline=$((SECONDS + 60))
   while [ "$SECONDS" -lt "$deadline" ]; do (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null && return 0; sleep "${UP_POLL_S:-0.05}"; done
@@ -100,6 +105,8 @@ gw_default_mb() { if [ "$(gw_kind "$1")" = container ]; then container_mb "${1//
 gw_default_cpu_us() { if [ "$(gw_kind "$1")" = container ]; then container_cpu_us "${1//_/-}"; else proc_cpu_us "${1//_/-}"; fi; }
 # Extra arguments for the load tool, one a line, such as the headers a gateway routes by.
 gw_default_load_args() { :; }
+# The address the stand-in listens on: loopback, or every address for a gateway that runs on a network of its own.
+gw_default_standin_host() { echo 127.0.0.1; }
 # The kinds of race this gateway can't run, as words, each explained in its setup file.
 gw_default_skip() { :; }
 # Which features are switched on in this gateway as raced, in a few words, for the record (ruling 39).
