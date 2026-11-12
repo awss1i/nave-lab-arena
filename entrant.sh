@@ -21,6 +21,10 @@ case "$group.$name" in
   client.nave) taskset -c "$LOAD_CPUS" bin/p018 calls http://127.0.0.1:9000/v1/chat/completions "$@";;
   client.litellm) taskset -c "$LOAD_CPUS" "$LITELLM_PY" clients/chat_client.py litellm http://127.0.0.1:9000/v1 "$@";;
   client.openai | client.aisuite | client.any-llm | client.langchain | client.llm) taskset -c "$LOAD_CPUS" "$PY" clients/chat_client.py "$name" http://127.0.0.1:9000/v1 "$@";;
+  client.ruby_llm) GEM_HOME="$ARENA_TOOLS/gems" GEM_PATH="$ARENA_TOOLS/gems" taskset -c "$LOAD_CPUS" ruby clients/chat_client.rb http://127.0.0.1:9000/v1 "$@";;
+  client.genai | client.rig | client.graniet-llm)
+    bin=$name; [ "$name" = graniet-llm ] && bin=llm
+    taskset -c "$LOAD_CPUS" "$ARENA_TOOLS/rust-clients/release/${bin}_client" http://127.0.0.1:9000/v1 "$@";;
   # The JavaScript libraries are imported by name, so the script runs from beside their node_modules folder.
   client.vercel-ai | client.tokenjs | client.tanstack-ai | client.pi-ai) cp clients/chat_client.mjs "$ARENA_TOOLS/node/" && taskset -c "$LOAD_CPUS" node "$ARENA_TOOLS/node/chat_client.mjs" "$name" http://127.0.0.1:9000/v1 "$@";;
   template.nave) on bin/p014 file data/prompt.mustache data/prompt-vars.json 20000;;

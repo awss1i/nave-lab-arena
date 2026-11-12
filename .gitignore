@@ -1,2 +1,4 @@
 run/
 results/logs/
+clients/rust/Cargo.lock
+clients/rust/target/

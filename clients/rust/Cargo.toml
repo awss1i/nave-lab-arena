@@ -7,6 +7,8 @@ edition = "2021"
 
 [dependencies]
 genai = "0"
+llm = { version = "1", default-features = false, features = ["openai"] }
+rig-core = { version = "0", features = ["reqwest"] }
 tokio = { version = "1", features = ["rt", "macros", "time"] }
 futures = "0.3"
 

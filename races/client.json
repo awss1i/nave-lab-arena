@@ -16,6 +16,33 @@
     ]
    },
    {
+    "name": "llm (graniet's)",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "graniet-llm",
+     "1000"
+    ]
+   },
+   {
+    "name": "rig",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "rig",
+     "1000"
+    ]
+   },
+   {
+    "name": "rust-genai",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "genai",
+     "1000"
+    ]
+   },
+   {
     "name": "OpenAI's Python SDK",
     "cmd": [
      "./entrant.sh",
@@ -102,6 +129,15 @@
      "./entrant.sh",
      "client",
      "pi-ai",
+     "1000"
+    ]
+   },
+   {
+    "name": "ruby_llm",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "ruby_llm",
      "1000"
     ]
    }
@@ -134,6 +170,36 @@
     ]
    },
    {
+    "name": "llm (graniet's)",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "graniet-llm",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "rig",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "rig",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "rust-genai",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "genai",
+     "300",
+     "--stream"
+    ]
+   },
+   {
     "name": "OpenAI's Python SDK",
     "cmd": [
      "./entrant.sh",
@@ -232,6 +298,16 @@
      "300",
      "--stream"
     ]
+   },
+   {
+    "name": "ruby_llm",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "ruby_llm",
+     "300",
+     "--stream"
+    ]
    }
   ],
   "setup": [
@@ -257,6 +333,30 @@
      "./entrant.sh",
      "fresh-client",
      "nave"
+    ]
+   },
+   {
+    "name": "llm (graniet's)",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "graniet-llm"
+    ]
+   },
+   {
+    "name": "rig",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "rig"
+    ]
+   },
+   {
+    "name": "rust-genai",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "genai"
     ]
    },
    {
@@ -337,6 +437,14 @@
      "./entrant.sh",
      "fresh-client",
      "pi-ai"
+    ]
+   },
+   {
+    "name": "ruby_llm",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "ruby_llm"
     ]
    }
   ],

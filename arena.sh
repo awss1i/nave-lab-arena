@@ -47,7 +47,13 @@ case $group in
   # Portkey's open-source gateway answers `x-portkey-cache-status: DISABLED` to a cache setting, and Bifrost's cache
   # needs a vector store, so the cache race is between the two gateways whose cache runs as installed.
   cache) nave_install; litellm_install;;
-  client) nave_install; litellm_install; py_libs openai aisuite any-llm-sdk langchain-openai llm; node_libs ai @ai-sdk/openai-compatible token.js @tanstack/ai @tanstack/ai-openai @mariozechner/pi-ai;;
+  client)
+    nave_install; litellm_install; py_libs openai aisuite any-llm-sdk langchain-openai llm; node_libs ai @ai-sdk/openai-compatible token.js @tanstack/ai @tanstack/ai-openai @mariozechner/pi-ai
+    # The Rust libraries, each as a small program in clients/rust, built here at the latest versions Cargo resolves.
+    (cd clients/rust && CARGO_TARGET_DIR="$ARENA_TOOLS/rust-clients" cargo build --release -q) || echo "the Rust client programs didn't build" >&2
+    GEM_HOME="$ARENA_TOOLS/gems" gem install -q --no-document ruby_llm > /dev/null 2>&1 || echo "ruby_llm didn't install" >&2
+    version ruby_llm "$(GEM_HOME="$ARENA_TOOLS/gems" GEM_PATH="$ARENA_TOOLS/gems" gem list ruby_llm 2>/dev/null | sed -n 's/^ruby_llm (\(.*\))/\1/p')"
+    for crate in genai rig-core llm; do version "$crate (Rust)" "$(cd clients/rust && cargo tree -q --depth 1 --prefix none 2>/dev/null | sed -n "s/^$crate v\([0-9.]*\).*/\1/p" | head -1)"; done;;
   template) py_libs chevron pystache; node_libs mustache;;
   cost) litellm_install; py_libs tokencost genai-prices; mkdir -p run/cost; "$ARENA_TOOLS/litellm/bin/python" clients/litellm_cost.py gen run/cost;;
   config) litellm_install; mkdir -p run/config; bin/p019 make-large run/config/large.yaml;;
