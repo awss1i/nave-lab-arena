@@ -1,0 +1,159 @@
+{
+  "command": "bin/race run races/gateway.json --out results/gateway",
+  "commit": "f0d8bdd",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "LiteLLM",
+      "got": null,
+      "lengths": [
+        0,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 500"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "litellm",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "LiteLLM",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "portkey",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Portkey",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "bifrost",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Bifrost",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.11 1.15 0.44 3/274 6136",
+    "before": "2.71 0.95 0.36 3/325 5824"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003457"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 500\nbad 0\nchecksum ddea6e8eea0bc511\n",
+      "stderr": "metric calls_per_s=4918.9\nmetric p50_us=2350\nmetric p99_us=6207\nmetric p999_us=8137\nmetric max_us=8137\nmetric total_s=0.101813\n"
+    },
+    {
+      "name": "LiteLLM",
+      "ok": false,
+      "output": "",
+      "stderr": "\nthread 'main' (5881) panicked at src/bin/load.rs:43:9:\nthe router didn't listen at 127.0.0.1:4100\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n./gateways.sh: line 12:  5881 Aborted                    (core dumped) taskset -c \"$LOAD_CPUS\" bin/load \"$(url \"$name\")/v1/chat/completions\" \"$@\"\n"
+    },
+    {
+      "name": "Portkey",
+      "ok": true,
+      "output": "ok 500\nbad 0\nchecksum ddea6e8eea0bc511\n",
+      "stderr": "metric calls_per_s=110.8\nmetric p50_us=122260\nmetric p99_us=734498\nmetric p999_us=997645\nmetric max_us=997645\nmetric total_s=4.513290\n"
+    },
+    {
+      "name": "Bifrost",
+      "ok": true,
+      "output": "ok 500\nbad 0\nchecksum ddea6e8eea0bc511\n",
+      "stderr": "metric calls_per_s=429.5\nmetric p50_us=18691\nmetric p99_us=365928\nmetric p999_us=373136\nmetric max_us=373136\nmetric total_s=1.164220\n"
+    }
+  ],
+  "rounds": 5,
+  "time": "2026-11-12T11:01:42Z",
+  "wrong_rounds": 0
+}

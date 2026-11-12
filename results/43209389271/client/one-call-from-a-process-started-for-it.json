@@ -1,0 +1,141 @@
+{
+  "command": "bin/race run races/client.json --out results/client",
+  "commit": "5bd4722",
+  "conditions": "one process on one CPU calling the stand-in model on another, each timed as a whole process from its start to its exit, the library loaded from nothing each time",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "nave"
+      ],
+      "cpu_s": 0.037856,
+      "max_rss_mb": 26.5234375,
+      "max_s": 0.03378441,
+      "median_s": 0.032896808,
+      "metric_rounds": {
+        "process_ms": [
+          5.9,
+          5.97,
+          6.04,
+          6.35,
+          5.85,
+          6.03,
+          6.26
+        ]
+      },
+      "metrics": {
+        "process_ms": 6.03
+      },
+      "min_s": 0.032511718,
+      "name": "Nave's client",
+      "other_cpu_s": 0.0016209999999920385,
+      "times_s": [
+        0.032545804,
+        0.032724927,
+        0.032511718,
+        0.03378441,
+        0.032896808,
+        0.033158419,
+        0.033325501
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "litellm"
+      ],
+      "cpu_s": 3.491221,
+      "max_rss_mb": 250.703125,
+      "max_s": 3.520583077,
+      "median_s": 3.4862107030000002,
+      "metric_rounds": {
+        "process_ms": [
+          3494.66,
+          3483.63,
+          3356.96,
+          3375.81,
+          3337.66,
+          3493.39,
+          3458.36
+        ]
+      },
+      "metrics": {
+        "process_ms": 3458.36
+      },
+      "min_s": 3.364499833,
+      "name": "LiteLLM's SDK",
+      "other_cpu_s": 0.04481099999999305,
+      "times_s": [
+        3.520583077,
+        3.510539442,
+        3.383320529,
+        3.403358118,
+        3.364499833,
+        3.520467042,
+        3.4862107030000002
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "openai"
+      ],
+      "cpu_s": 0.611798,
+      "max_rss_mb": 61.69921875,
+      "max_s": 0.64866806,
+      "median_s": 0.606775068,
+      "metric_rounds": {
+        "process_ms": [
+          620.27,
+          567.37,
+          561.53,
+          580.43,
+          571.35,
+          584.46,
+          593.55
+        ]
+      },
+      "metrics": {
+        "process_ms": 580.43
+      },
+      "min_s": 0.587870647,
+      "name": "OpenAI's Python SDK",
+      "other_cpu_s": 0.006943000000013577,
+      "times_s": [
+        0.64866806,
+        0.595087549,
+        0.587870647,
+        0.606775068,
+        0.598130423,
+        0.611132857,
+        0.621183004
+      ]
+    }
+  ],
+  "feature": "F2",
+  "load": {
+    "after": "1.26 0.70 0.29 1/267 7375",
+    "before": "1.25 0.63 0.25 1/269 6879"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003467"
+  },
+  "name": "one call from a process started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 7,
+  "time": "2026-11-12T11:30:54Z",
+  "wrong_rounds": 0
+}

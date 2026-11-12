@@ -1,0 +1,56 @@
+{
+  "command": "bin/race run races/image.json --out results/image",
+  "commit": "c4c3762",
+  "conditions": "each project's own official image, its files written out as one archive by the container engine's export",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "image",
+        "portkey",
+        "docker.io/portkeyai/gateway:latest"
+      ],
+      "cpu_s": 0.403235,
+      "max_rss_mb": 28.609375,
+      "max_s": 1.362089951,
+      "median_s": 1.362089951,
+      "metric_rounds": {
+        "image_mb": [
+          181.73
+        ]
+      },
+      "metrics": {
+        "image_mb": 181.73
+      },
+      "min_s": 1.362089951,
+      "name": "Portkey",
+      "other_cpu_s": 1.5867649999999949,
+      "times_s": [
+        1.362089951
+      ]
+    }
+  ],
+  "feature": "F18",
+  "load": {
+    "after": "2.70 0.82 0.29 1/286 2871",
+    "before": "2.76 0.80 0.28 2/284 2784"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003465"
+  },
+  "name": "the size of the gateway's image, Portkey",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T11:25:39Z",
+  "wrong_rounds": 0
+}

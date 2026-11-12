@@ -1,0 +1,183 @@
+{
+  "command": "bin/race run races/client.json --out results/client",
+  "commit": "f0d8bdd",
+  "conditions": "one process on one CPU calling the stand-in model on another, one kept connection",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "client",
+        "nave",
+        "300",
+        "--stream"
+      ],
+      "cpu_s": 0.059292,
+      "max_rss_mb": 26.328125,
+      "max_s": 0.084394991,
+      "median_s": 0.08376356,
+      "metric_rounds": {
+        "calls_per_s": [
+          4909.7,
+          4940.5,
+          4961.2,
+          4961.0,
+          4960.3
+        ],
+        "p50_us": [
+          197.0,
+          197.0,
+          197.0,
+          196.0,
+          196.0
+        ],
+        "p99_us": [
+          267.0,
+          231.0,
+          234.0,
+          244.0,
+          251.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4960.3,
+        "p50_us": 197.0,
+        "p99_us": 244.0
+      },
+      "min_s": 0.082129985,
+      "name": "Nave's client",
+      "other_cpu_s": 0.05070799999998522,
+      "times_s": [
+        0.084394991,
+        0.08376356,
+        0.082129985,
+        0.083493843,
+        0.083909509
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "client",
+        "litellm",
+        "300",
+        "--stream"
+      ],
+      "cpu_s": 5.846487,
+      "max_rss_mb": 300.5703125,
+      "max_s": 5.8864881879999995,
+      "median_s": 5.844033224,
+      "metric_rounds": {
+        "calls_per_s": [
+          112.8,
+          111.9,
+          112.1,
+          112.3,
+          112.4
+        ],
+        "import_ms": [
+          2166.7,
+          2173.5,
+          2153.0,
+          2195.9,
+          2155.9
+        ],
+        "p50_us": [
+          7888.0,
+          7898.0,
+          7912.0,
+          7866.0,
+          7888.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 112.3,
+        "import_ms": 2166.7,
+        "p50_us": 7888.0
+      },
+      "min_s": 5.826872332,
+      "name": "LiteLLM's SDK",
+      "other_cpu_s": 0.19868900000000167,
+      "times_s": [
+        5.830342191,
+        5.844033224,
+        5.8864881879999995,
+        5.864914172,
+        5.826872332
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "client",
+        "openai",
+        "300",
+        "--stream"
+      ],
+      "cpu_s": 1.0906150000000001,
+      "max_rss_mb": 61.8203125,
+      "max_s": 1.089308478,
+      "median_s": 1.085824141,
+      "metric_rounds": {
+        "calls_per_s": [
+          559.3,
+          562.4,
+          567.0,
+          561.3,
+          564.3
+        ],
+        "import_ms": [
+          426.0,
+          425.8,
+          425.1,
+          432.5,
+          426.9
+        ],
+        "p50_us": [
+          1685.0,
+          1679.0,
+          1665.0,
+          1684.0,
+          1667.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 562.4,
+        "import_ms": 426.0,
+        "p50_us": 1679.0
+      },
+      "min_s": 1.080449671,
+      "name": "OpenAI's Python SDK",
+      "other_cpu_s": 0.1489640000000092,
+      "times_s": [
+        1.087640466,
+        1.085824141,
+        1.08089799,
+        1.089308478,
+        1.080449671
+      ]
+    }
+  ],
+  "feature": "F2",
+  "load": {
+    "after": "1.27 0.56 0.21 1/262 6833",
+    "before": "1.16 0.42 0.16 1/263 2921"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003459"
+  },
+  "name": "300 streamed calls from a client library",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T11:01:33Z",
+  "wrong_rounds": 0
+}

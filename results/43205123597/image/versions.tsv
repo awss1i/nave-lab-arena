@@ -1,0 +1,4 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, Intel(R) Xeon(R) 6973P-C
+portkey-gateway	1.15.2 (image docker.io/portkeyai/gateway:latest)
+bifrost	 created 2026-11-10T08:13:06.292592996Z (image docker.io/maximhq/bifrost:latest)
+litellm-image	created 2026-11-12T01:27:10.886674254Z (image ghcr.io/berriai/litellm:main-stable)

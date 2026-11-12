@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run races/cost.json --out results/cost",
+  "commit": "f0d8bdd",
+  "conditions": "one CPU, 1,925 usages over 385 models priced by the token in LiteLLM's own price list",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "cost",
+        "nave"
+      ],
+      "cpu_s": 0.12346,
+      "max_rss_mb": 26.62109375,
+      "max_s": 0.121217861,
+      "median_s": 0.119940984,
+      "metric_rounds": {
+        "ns_per_cost": [
+          25.69,
+          25.78,
+          26.11,
+          25.61,
+          25.7
+        ]
+      },
+      "metrics": {
+        "ns_per_cost": 25.7
+      },
+      "min_s": 0.118871032,
+      "name": "Nave",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        0.120605341,
+        0.119940984,
+        0.121217861,
+        0.118871032,
+        0.119602135
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "cost",
+        "litellm"
+      ],
+      "cpu_s": 3.240854,
+      "max_rss_mb": 249.01171875,
+      "max_s": 3.326957611,
+      "median_s": 3.237508918,
+      "metric_rounds": {
+        "ns_per_cost": [
+          81741.4,
+          83466.3,
+          83040.3,
+          83756.3,
+          82716.1
+        ]
+      },
+      "metrics": {
+        "ns_per_cost": 83040.3
+      },
+      "min_s": 3.137893123,
+      "name": "LiteLLM",
+      "other_cpu_s": 0.03157700000000174,
+      "times_s": [
+        3.137893123,
+        3.205921749,
+        3.2991903000000002,
+        3.326957611,
+        3.237508918
+      ]
+    }
+  ],
+  "feature": "F6",
+  "load": {
+    "after": "0.87 0.27 0.10 1/257 2469",
+    "before": "0.81 0.22 0.07 1/256 2291"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003462"
+  },
+  "name": "costing a call from its model's name and token counts",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T11:00:05Z",
+  "wrong_rounds": 0
+}

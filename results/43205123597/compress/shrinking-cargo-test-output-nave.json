@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "f0d8bdd",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "nave",
+        "cargo-test.txt"
+      ],
+      "cpu_s": 0.304736,
+      "max_rss_mb": 98.26171875,
+      "max_s": 0.302491188,
+      "median_s": 0.30074845,
+      "metric_rounds": {
+        "bytes_kept": [
+          0.8239,
+          0.8239,
+          0.8239
+        ],
+        "mb_per_s": [
+          23.1,
+          23.0,
+          23.3
+        ],
+        "tokens_after": [
+          1276.0,
+          1276.0,
+          1276.0
+        ],
+        "tokens_before": [
+          1345.0,
+          1345.0,
+          1345.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 0.8239,
+        "mb_per_s": 23.1,
+        "tokens_after": 1276.0,
+        "tokens_before": 1345.0
+      },
+      "min_s": 0.300250548,
+      "name": "Nave",
+      "other_cpu_s": 0.005264000000002267,
+      "times_s": [
+        0.30074845,
+        0.300250548,
+        0.302491188
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "0.84 0.24 0.09 1/267 3026",
+    "before": "0.84 0.24 0.09 2/267 2960"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003460"
+  },
+  "name": "shrinking cargo test output, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T10:59:59Z",
+  "wrong_rounds": 0
+}

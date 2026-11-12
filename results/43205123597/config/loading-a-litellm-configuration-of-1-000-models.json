@@ -1,0 +1,88 @@
+{
+  "command": "bin/race run races/config.json --out results/config",
+  "commit": "f0d8bdd",
+  "conditions": "one CPU, 3,000 deployments in 592 KB of YAML: Nave's adapter, and LiteLLM's own YAML read and Router",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "config",
+        "nave"
+      ],
+      "cpu_s": 1.098141,
+      "max_rss_mb": 26.76953125,
+      "max_s": 1.105605512,
+      "median_s": 1.094335243,
+      "metric_rounds": {
+        "ms_per_config": [
+          53.673,
+          54.272,
+          52.726
+        ]
+      },
+      "metrics": {
+        "ms_per_config": 53.673
+      },
+      "min_s": 1.0753346,
+      "name": "Nave",
+      "other_cpu_s": 0.010964999999990344,
+      "times_s": [
+        1.094335243,
+        1.105605512,
+        1.0753346
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "config",
+        "litellm"
+      ],
+      "cpu_s": 14.013128,
+      "max_rss_mb": 329.36328125,
+      "max_s": 14.02399637,
+      "median_s": 14.014692936,
+      "metric_rounds": {
+        "ms_per_config": [
+          3694.807,
+          3693.927,
+          3671.625
+        ]
+      },
+      "metrics": {
+        "ms_per_config": 3693.927
+      },
+      "min_s": 13.973931482,
+      "name": "LiteLLM",
+      "other_cpu_s": 0.2339860000000069,
+      "times_s": [
+        14.014692936,
+        13.973931482,
+        14.02399637
+      ]
+    }
+  ],
+  "feature": "F14",
+  "load": {
+    "after": "1.22 0.46 0.17 1/271 2435",
+    "before": "0.77 0.23 0.08 1/268 2301"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003454"
+  },
+  "name": "loading a LiteLLM configuration of 1,000 models",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T11:00:47Z",
+  "wrong_rounds": 0
+}

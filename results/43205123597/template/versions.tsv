@@ -1,0 +1,4 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+chevron	0.14.0
+pystache	0.6.8
+mustache	4.2.0

@@ -1,0 +1,130 @@
+{
+  "command": "bin/race run races/gateway.json --out results/gateway",
+  "commit": "c4c3762",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.418941,
+      "max_rss_mb": 24.6171875,
+      "max_s": 0.432469407,
+      "median_s": 0.432469407,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.432469407,
+      "name": "Nave",
+      "other_cpu_s": 0.8510589999999818,
+      "times_s": [
+        0.432469407
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "litellm"
+      ],
+      "cpu_s": 0.777901,
+      "max_rss_mb": 26.703125,
+      "max_s": 78.768056184,
+      "median_s": 78.768056184,
+      "metric_rounds": {
+        "memory_mb": [
+          1242.0
+        ]
+      },
+      "metrics": {
+        "memory_mb": 1242.0
+      },
+      "min_s": 78.768056184,
+      "name": "LiteLLM",
+      "other_cpu_s": 159.20209900000003,
+      "times_s": [
+        78.768056184
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "portkey"
+      ],
+      "cpu_s": 0.483844,
+      "max_rss_mb": 28.4140625,
+      "max_s": 13.008551565,
+      "median_s": 13.008551565,
+      "metric_rounds": {
+        "memory_mb": [
+          169.7
+        ]
+      },
+      "metrics": {
+        "memory_mb": 169.7
+      },
+      "min_s": 13.008551565,
+      "name": "Portkey",
+      "other_cpu_s": 15.856156000000032,
+      "times_s": [
+        13.008551565
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "bifrost"
+      ],
+      "cpu_s": 0.5230250000000001,
+      "max_rss_mb": 28.74609375,
+      "max_s": 4.744542726,
+      "median_s": 4.744542726,
+      "metric_rounds": {
+        "memory_mb": [
+          246.4
+        ]
+      },
+      "metrics": {
+        "memory_mb": 246.4
+      },
+      "min_s": 4.744542726,
+      "name": "Bifrost",
+      "other_cpu_s": 7.926974999999931,
+      "times_s": [
+        4.744542726
+      ]
+    }
+  ],
+  "feature": "F13",
+  "load": {
+    "after": "2.37 2.23 1.23 1/254 16396",
+    "before": "2.03 1.88 0.88 1/342 14958"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003466"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T11:33:32Z",
+  "wrong_rounds": 0
+}

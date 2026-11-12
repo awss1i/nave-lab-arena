@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "f0d8bdd",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "headroom",
+        "ls-long.txt"
+      ],
+      "cpu_s": 0.465849,
+      "max_rss_mb": 119.8515625,
+      "max_s": 0.463607387,
+      "median_s": 0.462248953,
+      "metric_rounds": {
+        "bytes_kept": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mb_per_s": [
+          1.585,
+          1.554,
+          1.558
+        ],
+        "tokens_after": [
+          750.0,
+          750.0,
+          750.0
+        ],
+        "tokens_before": [
+          750.0,
+          750.0,
+          750.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 1.0,
+        "mb_per_s": 1.558,
+        "tokens_after": 750.0,
+        "tokens_before": 750.0
+      },
+      "min_s": 0.460448717,
+      "name": "Headroom",
+      "other_cpu_s": 0.0041510000000059555,
+      "times_s": [
+        0.462248953,
+        0.460448717,
+        0.463607387
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "0.84 0.24 0.09 1/267 2956",
+    "before": "0.82 0.23 0.08 2/267 2892"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003460"
+  },
+  "name": "shrinking an ls -la listing, Headroom",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T10:59:58Z",
+  "wrong_rounds": 0
+}

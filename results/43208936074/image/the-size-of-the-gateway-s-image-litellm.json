@@ -1,0 +1,56 @@
+{
+  "command": "bin/race run races/image.json --out results/image",
+  "commit": "c4c3762",
+  "conditions": "each project's own official image, its files written out as one archive by the container engine's export",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "image",
+        "litellm",
+        "ghcr.io/berriai/litellm:main-stable"
+      ],
+      "cpu_s": 2.156488,
+      "max_rss_mb": 28.2734375,
+      "max_s": 6.091557492,
+      "median_s": 6.091557492,
+      "metric_rounds": {
+        "image_mb": [
+          1342.78
+        ]
+      },
+      "metrics": {
+        "image_mb": 1342.78
+      },
+      "min_s": 6.091557492,
+      "name": "LiteLLM",
+      "other_cpu_s": 7.023512,
+      "times_s": [
+        6.091557492
+      ]
+    }
+  ],
+  "feature": "F18",
+  "load": {
+    "after": "2.76 0.80 0.28 1/284 2780",
+    "before": "2.54 0.70 0.24 2/283 2694"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003465"
+  },
+  "name": "the size of the gateway's image, LiteLLM",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T11:25:36Z",
+  "wrong_rounds": 0
+}

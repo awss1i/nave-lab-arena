@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "f0d8bdd",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "nave",
+        "find-files.txt"
+      ],
+      "cpu_s": 0.304683,
+      "max_rss_mb": 98.1640625,
+      "max_s": 0.30158268,
+      "median_s": 0.30077829,
+      "metric_rounds": {
+        "bytes_kept": [
+          0.2458,
+          0.2458,
+          0.2458
+        ],
+        "mb_per_s": [
+          58.6,
+          59.2,
+          59.5
+        ],
+        "tokens_after": [
+          551.0,
+          551.0,
+          551.0
+        ],
+        "tokens_before": [
+          2432.0,
+          2432.0,
+          2432.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 0.2458,
+        "mb_per_s": 59.2,
+        "tokens_after": 551.0,
+        "tokens_before": 2432.0
+      },
+      "min_s": 0.29959774,
+      "name": "Nave",
+      "other_cpu_s": 0.005317000000002292,
+      "times_s": [
+        0.30077829,
+        0.29959774,
+        0.30158268
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "0.82 0.23 0.08 1/266 2749",
+    "before": "0.82 0.23 0.08 2/266 2683"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003460"
+  },
+  "name": "shrinking a find listing, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T10:59:53Z",
+  "wrong_rounds": 0
+}

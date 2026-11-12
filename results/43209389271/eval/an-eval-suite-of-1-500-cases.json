@@ -1,0 +1,124 @@
+{
+  "command": "bin/race run races/eval.json --out results/eval",
+  "commit": "5bd4722",
+  "conditions": "two CPUs, three prompts and 500 tests with four checks each against the stand-in model, 16 calls at a time, no cache, each tool timed as a whole process from its start to its exit",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "nave"
+      ],
+      "cpu_s": 0.431709,
+      "max_rss_mb": 51.11328125,
+      "max_s": 0.341275673,
+      "median_s": 0.335403686,
+      "metric_rounds": {
+        "calls": [
+          1500.0,
+          1500.0,
+          1500.0
+        ],
+        "cases_per_s": [
+          5002.7,
+          4941.0,
+          5072.0
+        ],
+        "cases_per_s_by_its_own_timer": [
+          15789.0,
+          14926.0,
+          15508.0
+        ],
+        "from_cache": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "seconds": [
+          0.2998,
+          0.3036,
+          0.2957
+        ],
+        "seconds_by_its_own_timer": [
+          0.095,
+          0.1005,
+          0.0967
+        ]
+      },
+      "metrics": {
+        "calls": 1500.0,
+        "cases_per_s": 5002.7,
+        "cases_per_s_by_its_own_timer": 15508.0,
+        "from_cache": 0.0,
+        "seconds": 0.2998,
+        "seconds_by_its_own_timer": 0.0967
+      },
+      "min_s": 0.331542511,
+      "name": "Nave",
+      "other_cpu_s": 0.028797000000007955,
+      "times_s": [
+        0.335403686,
+        0.341275673,
+        0.331542511
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "promptfoo"
+      ],
+      "cpu_s": 7.606362000000001,
+      "max_rss_mb": 477.4140625,
+      "max_s": 6.116318542,
+      "median_s": 6.060633016,
+      "metric_rounds": {
+        "cases_per_s": [
+          249.9,
+          252.3,
+          259.1
+        ],
+        "seconds": [
+          6.001,
+          5.945,
+          5.788
+        ]
+      },
+      "metrics": {
+        "cases_per_s": 252.3,
+        "seconds": 5.945
+      },
+      "min_s": 5.892823409,
+      "name": "promptfoo",
+      "other_cpu_s": 0.4215030000000022,
+      "times_s": [
+        6.116318542,
+        6.060633016,
+        5.892823409
+      ]
+    }
+  ],
+  "feature": "F12",
+  "load": {
+    "after": "1.87 0.66 0.24 1/277 2756",
+    "before": "1.63 0.51 0.18 1/276 2335"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003468"
+  },
+  "name": "an eval suite of 1,500 cases",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T11:29:06Z",
+  "wrong_rounds": 0
+}

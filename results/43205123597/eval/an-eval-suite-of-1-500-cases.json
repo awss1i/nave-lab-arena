@@ -1,0 +1,112 @@
+{
+  "command": "bin/race run races/eval.json --out results/eval",
+  "commit": "f0d8bdd",
+  "conditions": "two CPUs, three prompts and 500 tests with four checks each against the stand-in model, 16 calls at a time, no cache",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "nave"
+      ],
+      "cpu_s": 0.300045,
+      "max_rss_mb": 50.86328125,
+      "max_s": 0.236149189,
+      "median_s": 0.234280666,
+      "metric_rounds": {
+        "calls": [
+          1500.0,
+          1500.0,
+          1500.0
+        ],
+        "cases_per_s": [
+          23675.0,
+          24446.0,
+          23587.0
+        ],
+        "from_cache": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "seconds": [
+          0.0634,
+          0.0614,
+          0.0636
+        ]
+      },
+      "metrics": {
+        "calls": 1500.0,
+        "cases_per_s": 23675.0,
+        "from_cache": 0.0,
+        "seconds": 0.0634
+      },
+      "min_s": 0.233862398,
+      "name": "Nave",
+      "other_cpu_s": 0.048767000000008554,
+      "times_s": [
+        0.236149189,
+        0.234280666,
+        0.233862398
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "promptfoo"
+      ],
+      "cpu_s": 7.738767,
+      "max_rss_mb": 451.95703125,
+      "max_s": 6.255775,
+      "median_s": 6.191385217,
+      "metric_rounds": {
+        "cases_per_s": [
+          244.1,
+          246.4,
+          247.5
+        ],
+        "seconds": [
+          6.145,
+          6.088,
+          6.061
+        ]
+      },
+      "metrics": {
+        "cases_per_s": 246.4,
+        "seconds": 6.088
+      },
+      "min_s": 6.162633663,
+      "name": "promptfoo",
+      "other_cpu_s": 0.2670719999999891,
+      "times_s": [
+        6.255775,
+        6.191385217,
+        6.162633663
+      ]
+    }
+  ],
+  "feature": "F12",
+  "load": {
+    "after": "1.59 0.50 0.18 1/261 2708",
+    "before": "1.22 0.34 0.12 1/261 2323"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003463"
+  },
+  "name": "an eval suite of 1,500 cases",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T11:00:17Z",
+  "wrong_rounds": 0
+}

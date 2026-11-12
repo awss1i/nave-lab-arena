@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run races/template.json --out results/template",
+  "commit": "f0d8bdd",
+  "conditions": "one CPU, a Mustache template over 8.7 KB of variables: the variables read from JSON text, the prompt rendered, the text written as a JSON string",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "template",
+        "nave"
+      ],
+      "cpu_s": 0.439921,
+      "max_rss_mb": 26.21484375,
+      "max_s": 0.468800022,
+      "median_s": 0.435169984,
+      "metric_rounds": {
+        "ns_per_render": [
+          5154.8,
+          5123.9,
+          5266.5,
+          5119.9,
+          5170.7,
+          5582.5,
+          5126.5
+        ],
+        "ns_to_compile": [
+          15296.7,
+          17172.9,
+          15350.4,
+          14863.5,
+          14833.8,
+          15628.2,
+          15617.8
+        ]
+      },
+      "metrics": {
+        "ns_per_render": 5154.8,
+        "ns_to_compile": 15350.4
+      },
+      "min_s": 0.422524686,
+      "name": "Nave",
+      "other_cpu_s": 0.002643999999999702,
+      "times_s": [
+        0.433068103,
+        0.468800022,
+        0.435169984,
+        0.422524686,
+        0.422586706,
+        0.447573004,
+        0.439273359
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "template",
+        "mustachejs"
+      ],
+      "cpu_s": 0.7689419999999999,
+      "max_rss_mb": 65.71484375,
+      "max_s": 0.765505521,
+      "median_s": 0.707005865,
+      "metric_rounds": {
+        "ns_per_render": [
+          28172.6,
+          27973.6,
+          28003.1,
+          27960.7,
+          31059.1,
+          30184.2,
+          28083.8
+        ],
+        "ns_to_compile": [
+          43166.0,
+          41545.6,
+          42523.8,
+          41748.5,
+          43745.4,
+          41976.5,
+          41830.0
+        ]
+      },
+      "metrics": {
+        "ns_per_render": 28083.8,
+        "ns_to_compile": 41976.5
+      },
+      "min_s": 0.700732184,
+      "name": "mustache.js",
+      "other_cpu_s": 0.023529999999999163,
+      "times_s": [
+        0.707336784,
+        0.702347761,
+        0.704455319,
+        0.700732184,
+        0.765505521,
+        0.745529193,
+        0.707005865
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "template",
+        "pystache"
+      ],
+      "cpu_s": 0.249436,
+      "max_rss_mb": 26.26953125,
+      "max_s": 0.250491323,
+      "median_s": 0.244312185,
+      "metric_rounds": {
+        "ns_per_render": [
+          94057.4,
+          94537.0,
+          93879.6,
+          94603.2,
+          97611.3,
+          94268.8,
+          94756.0
+        ],
+        "ns_to_compile": [
+          36105.0,
+          36483.3,
+          35359.5,
+          35737.2,
+          36040.0,
+          36147.4,
+          35188.8
+        ]
+      },
+      "metrics": {
+        "ns_per_render": 94537.0,
+        "ns_to_compile": 36040.0
+      },
+      "min_s": 0.242006383,
+      "name": "pystache",
+      "other_cpu_s": 0.010229999999998018,
+      "times_s": [
+        0.242609106,
+        0.244564119,
+        0.242006383,
+        0.244312185,
+        0.250491323,
+        0.243859844,
+        0.244878178
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "template",
+        "chevron"
+      ],
+      "cpu_s": 0.327851,
+      "max_rss_mb": 26.3984375,
+      "max_s": 0.329458075,
+      "median_s": 0.322794136,
+      "metric_rounds": {
+        "ns_per_render": [
+          138601.7,
+          138580.0,
+          139373.5,
+          142652.5,
+          141148.2,
+          138063.4,
+          139692.5
+        ],
+        "ns_to_compile": [
+          84.7,
+          54.3,
+          58.1,
+          56.3,
+          55.2,
+          58.0,
+          61.8
+        ]
+      },
+      "metrics": {
+        "ns_per_render": 139373.5,
+        "ns_to_compile": 58.0
+      },
+      "min_s": 0.320500794,
+      "name": "chevron",
+      "other_cpu_s": 0.025817999999999452,
+      "times_s": [
+        0.322097364,
+        0.320916437,
+        0.322794136,
+        0.329458075,
+        0.328021344,
+        0.320500794,
+        0.324613208
+      ]
+    }
+  ],
+  "feature": "F10",
+  "load": {
+    "after": "1.37 0.36 0.12 1/262 3622",
+    "before": "1.00 0.24 0.08 1/266 3112"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003456"
+  },
+  "name": "rendering a prompt with ten documents for a call",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 7,
+  "time": "2026-11-12T10:59:32Z",
+  "wrong_rounds": 0
+}

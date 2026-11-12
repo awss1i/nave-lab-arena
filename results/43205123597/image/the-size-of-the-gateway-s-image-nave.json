@@ -1,0 +1,56 @@
+{
+  "command": "bin/race run races/image.json --out results/image",
+  "commit": "f0d8bdd",
+  "conditions": "each project's own official image, unpacked on disk",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "image",
+        "nave",
+        "localhost/nave-arena-gateway:latest"
+      ],
+      "cpu_s": 0.034034,
+      "max_rss_mb": 28.58984375,
+      "max_s": 0.036193541,
+      "median_s": 0.036193541,
+      "metric_rounds": {
+        "image_mb": [
+          0.4
+        ]
+      },
+      "metrics": {
+        "image_mb": 0.4
+      },
+      "min_s": 0.036193541,
+      "name": "Nave",
+      "other_cpu_s": 0.015965999999997156,
+      "times_s": [
+        0.036193541
+      ]
+    }
+  ],
+  "feature": "F18",
+  "load": {
+    "after": "1.17 0.32 0.11 1/265 2651",
+    "before": "1.17 0.32 0.11 1/265 2602"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003455"
+  },
+  "name": "the size of the gateway's image, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T10:59:30Z",
+  "wrong_rounds": 0
+}

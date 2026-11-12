@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "f0d8bdd",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "nave",
+        "code-rust.rs"
+      ],
+      "cpu_s": 0.306444,
+      "max_rss_mb": 98.3125,
+      "max_s": 0.305445936,
+      "median_s": 0.302398727,
+      "metric_rounds": {
+        "bytes_kept": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mb_per_s": [
+          55.8,
+          56.4,
+          58.0
+        ],
+        "tokens_after": [
+          4486.0,
+          4486.0,
+          4486.0
+        ],
+        "tokens_before": [
+          4486.0,
+          4486.0,
+          4486.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 1.0,
+        "mb_per_s": 56.4,
+        "tokens_after": 4486.0,
+        "tokens_before": 4486.0
+      },
+      "min_s": 0.301632709,
+      "name": "Nave",
+      "other_cpu_s": 0.0035560000000022796,
+      "times_s": [
+        0.302398727,
+        0.305445936,
+        0.301632709
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "1.01 0.29 0.10 1/267 3306",
+    "before": "1.01 0.29 0.10 2/267 3242"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003460"
+  },
+  "name": "shrinking Rust code, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T11:00:06Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,202 @@
+{
+  "command": "bin/race run races/cache.json --out results/cache",
+  "commit": "f0d8bdd",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, the same message every time, each gateway's own in-memory cache switched on, and the number of calls that still reached the model counted",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "cached",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "16",
+        "--same"
+      ],
+      "cpu_s": 0.072487,
+      "max_rss_mb": 26.37890625,
+      "max_s": 0.072689652,
+      "median_s": 0.06913481,
+      "metric_rounds": {
+        "calls_per_s": [
+          45923.3,
+          43491.0,
+          44016.2,
+          43344.2,
+          46597.7
+        ],
+        "calls_that_reached_the_model": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_us": [
+          1333.0,
+          1189.0,
+          1218.0,
+          1056.0,
+          1219.0
+        ],
+        "p50_us": [
+          308.0,
+          320.0,
+          316.0,
+          317.0,
+          297.0
+        ],
+        "p999_us": [
+          1320.0,
+          969.0,
+          972.0,
+          956.0,
+          957.0
+        ],
+        "p99_us": [
+          683.0,
+          748.0,
+          714.0,
+          650.0,
+          686.0
+        ],
+        "total_s": [
+          0.043756,
+          0.046174,
+          0.045631,
+          0.046331,
+          0.043111
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 44016.2,
+        "calls_that_reached_the_model": 0.0,
+        "max_us": 1218.0,
+        "p50_us": 316.0,
+        "p999_us": 969.0,
+        "p99_us": 686.0,
+        "total_s": 0.045631
+      },
+      "min_s": 0.067256423,
+      "name": "Nave",
+      "other_cpu_s": 0.02751299999999432,
+      "times_s": [
+        0.068571923,
+        0.072689652,
+        0.06913481,
+        0.069236001,
+        0.067256423
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "cached",
+        "litellm",
+        "--calls",
+        "2000",
+        "--conns",
+        "16",
+        "--same"
+      ],
+      "cpu_s": 0.119086,
+      "max_rss_mb": 26.140625,
+      "max_s": 11.494044618,
+      "median_s": 11.276451653,
+      "metric_rounds": {
+        "calls_per_s": [
+          181.3,
+          178.9,
+          177.7,
+          174.4,
+          175.0
+        ],
+        "calls_that_reached_the_model": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_us": [
+          129966.0,
+          100348.0,
+          98713.0,
+          118548.0,
+          127721.0
+        ],
+        "p50_us": [
+          87335.0,
+          89506.0,
+          89579.0,
+          91226.0,
+          90651.0
+        ],
+        "p999_us": [
+          129883.0,
+          100128.0,
+          98686.0,
+          118430.0,
+          127506.0
+        ],
+        "p99_us": [
+          109425.0,
+          97863.0,
+          96690.0,
+          103595.0,
+          119731.0
+        ],
+        "total_s": [
+          11.030456,
+          11.182413,
+          11.252892,
+          11.469857,
+          11.429493
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 177.7,
+        "calls_that_reached_the_model": 0.0,
+        "max_us": 118548.0,
+        "p50_us": 89579.0,
+        "p999_us": 118430.0,
+        "p99_us": 103595.0,
+        "total_s": 11.252892
+      },
+      "min_s": 11.054908042,
+      "name": "LiteLLM",
+      "other_cpu_s": 22.87598400000001,
+      "times_s": [
+        11.054908042,
+        11.207544242,
+        11.276451653,
+        11.494044618,
+        11.453287871
+      ]
+    }
+  ],
+  "feature": "F5",
+  "load": {
+    "after": "1.92 0.84 0.32 1/285 3427",
+    "before": "1.38 0.48 0.17 2/279 2939"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003461"
+  },
+  "name": "2,000 repeats of one call over 16 connections, with each gateway's cache on",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T11:01:14Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "f0d8bdd",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "headroom",
+        "cargo-test.txt"
+      ],
+      "cpu_s": 0.47841999999999996,
+      "max_rss_mb": 119.86328125,
+      "max_s": 0.487553573,
+      "median_s": 0.474988823,
+      "metric_rounds": {
+        "bytes_kept": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mb_per_s": [
+          2.133,
+          2.126,
+          2.139
+        ],
+        "tokens_after": [
+          1345.0,
+          1345.0,
+          1345.0
+        ],
+        "tokens_before": [
+          1345.0,
+          1345.0,
+          1345.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 1.0,
+        "mb_per_s": 2.133,
+        "tokens_after": 1345.0,
+        "tokens_before": 1345.0
+      },
+      "min_s": 0.473060286,
+      "name": "Headroom",
+      "other_cpu_s": 0.041579999999996065,
+      "times_s": [
+        0.474988823,
+        0.487553573,
+        0.473060286
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "0.84 0.24 0.09 1/267 3100",
+    "before": "0.84 0.24 0.09 2/267 3030"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003460"
+  },
+  "name": "shrinking cargo test output, Headroom",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T11:00:01Z",
+  "wrong_rounds": 0
+}

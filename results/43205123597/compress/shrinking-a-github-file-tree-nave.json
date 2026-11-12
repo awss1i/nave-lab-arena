@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "f0d8bdd",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "nave",
+        "github-tree.json"
+      ],
+      "cpu_s": 0.359884,
+      "max_rss_mb": 98.29296875,
+      "max_s": 0.35716141,
+      "median_s": 0.355795209,
+      "metric_rounds": {
+        "bytes_kept": [
+          0.4264,
+          0.4264,
+          0.4264
+        ],
+        "mb_per_s": [
+          28.3,
+          28.3,
+          28.1
+        ],
+        "tokens_after": [
+          13367.0,
+          13367.0,
+          13367.0
+        ],
+        "tokens_before": [
+          27726.0,
+          27726.0,
+          27726.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 0.4264,
+        "mb_per_s": 28.3,
+        "tokens_after": 13367.0,
+        "tokens_before": 27726.0
+      },
+      "min_s": 0.355586188,
+      "name": "Nave",
+      "other_cpu_s": 0.00018899999999943962,
+      "times_s": [
+        0.355586188,
+        0.355795209,
+        0.35716141
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "0.81 0.22 0.07 1/266 2470",
+    "before": "0.79 0.20 0.07 2/267 2406"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003460"
+  },
+  "name": "shrinking a GitHub file tree, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T10:59:47Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,162 @@
+{
+  "command": "bin/race run races/gateway.json --out results/gateway",
+  "commit": "c4c3762",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.066287,
+      "max_rss_mb": 26.32421875,
+      "max_s": 0.163687716,
+      "median_s": 0.161397757,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          123.0,
+          124.0,
+          125.0,
+          23.0,
+          123.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 123.0
+      },
+      "min_s": 0.064638377,
+      "name": "Nave",
+      "other_cpu_s": 0.01630100000004092,
+      "times_s": [
+        0.159784868,
+        0.162489531,
+        0.163687716,
+        0.064638377,
+        0.161397757
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "litellm"
+      ],
+      "cpu_s": 0.578611,
+      "max_rss_mb": 26.5390625,
+      "max_s": 10.014015502,
+      "median_s": 9.709299503,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          7061.0,
+          6841.0,
+          7051.0,
+          6954.0,
+          6946.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 6954.0
+      },
+      "min_s": 9.487582368,
+      "name": "LiteLLM",
+      "other_cpu_s": 13.396751999999971,
+      "times_s": [
+        9.709299503,
+        9.702614514,
+        10.014015502,
+        9.909523284,
+        9.487582368
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "portkey"
+      ],
+      "cpu_s": 0.11916299999999999,
+      "max_rss_mb": 28.703125,
+      "max_s": 0.759386748,
+      "median_s": 0.738881523,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          629.0,
+          628.0,
+          680.0,
+          653.0,
+          684.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 653.0
+      },
+      "min_s": 0.708422387,
+      "name": "Portkey",
+      "other_cpu_s": 1.0308369999999774,
+      "times_s": [
+        0.708422387,
+        0.718806456,
+        0.75783668,
+        0.738881523,
+        0.759386748
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "bifrost"
+      ],
+      "cpu_s": 0.127044,
+      "max_rss_mb": 28.75,
+      "max_s": 0.770636237,
+      "median_s": 0.692580026,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          605.0,
+          609.0,
+          615.0,
+          684.0,
+          625.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 615.0
+      },
+      "min_s": 0.6763974,
+      "name": "Bifrost",
+      "other_cpu_s": 1.0229859999999773,
+      "times_s": [
+        0.6763974,
+        0.678918793,
+        0.692580026,
+        0.770636237,
+        0.706522476
+      ]
+    }
+  ],
+  "feature": "F13",
+  "load": {
+    "after": "2.13 1.89 0.87 1/262 14471",
+    "before": "2.96 1.92 0.81 1/264 10356"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003466"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T11:30:02Z",
+  "wrong_rounds": 0
+}

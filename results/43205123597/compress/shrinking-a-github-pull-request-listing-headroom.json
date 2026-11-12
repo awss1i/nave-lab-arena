@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "f0d8bdd",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "headroom",
+        "github-pulls.json"
+      ],
+      "cpu_s": 0.65933,
+      "max_rss_mb": 136.93359375,
+      "max_s": 0.66095959,
+      "median_s": 0.657122206,
+      "metric_rounds": {
+        "bytes_kept": [
+          0.85,
+          0.85,
+          0.85
+        ],
+        "mb_per_s": [
+          13.6,
+          13.561,
+          14.219
+        ],
+        "tokens_after": [
+          39073.0,
+          39073.0,
+          39073.0
+        ],
+        "tokens_before": [
+          45965.0,
+          45965.0,
+          45965.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 0.85,
+        "mb_per_s": 13.6,
+        "tokens_after": 39073.0,
+        "tokens_before": 45965.0
+      },
+      "min_s": 0.651074951,
+      "name": "Headroom",
+      "other_cpu_s": 0.006691000000001668,
+      "times_s": [
+        0.66095959,
+        0.657122206,
+        0.651074951
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "0.79 0.20 0.07 1/267 2402",
+    "before": "0.79 0.20 0.07 2/267 2338"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003460"
+  },
+  "name": "shrinking a GitHub pull request listing, Headroom",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T10:59:45Z",
+  "wrong_rounds": 0
+}
