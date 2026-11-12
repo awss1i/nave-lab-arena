@@ -17,10 +17,13 @@ case $name.$what in
   nave.up | nave.down) exit 0;;
   openmeter.up)
     # OpenMeter's quickstart: its API, its workers, Kafka, ClickHouse, PostgreSQL and Redis, with the token meter its
-    # quickstart config defines.
+    # quickstart config defines. The quickstart config has the sink commit after every event (minCommitCount: 1),
+    # which stores about one event a second, so that line is dropped and the sink uses its own default batch.
     d="$ARENA_TOOLS/src/openmeter"
     [ -d "$d/quickstart" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/openmeterio/openmeter "$d" && git -C "$d" sparse-checkout set quickstart; } || exit 1
+    sed -i '/^  minCommitCount: 1$/d' "$d/quickstart/config.yaml"
     (cd "$d/quickstart" && compose_up arena-openmeter) || exit 1
+    version openmeter-settings "its quickstart at $(git -C "$d" rev-parse --short HEAD), with the sink's minCommitCount of 1 dropped for the sink's default of 500"
     wait_for http://127.0.0.1:48888/api/v1/meters;;
   openmeter.down) (cd "$ARENA_TOOLS/src/openmeter/quickstart" && docker compose -p arena-openmeter down -v > down-arena-openmeter.log 2>&1); exit 0;;
   lago.up)
@@ -36,5 +39,24 @@ case $name.$what in
     (cd "$d" && compose_up arena-lago) || exit 1
     wait_for -H 'authorization: Bearer arena-lago-api-key-0000000000000000' http://127.0.0.1:3000/api/v1/billable_metrics;;
   lago.down) (cd "$ARENA_TOOLS/src/lago" && docker compose -p arena-lago down -v > down-arena-lago.log 2>&1); exit 0;;
+  flexprice.up)
+    # Flexprice by its own `make dev-setup`: PostgreSQL, Kafka, ClickHouse, Redis and Temporal from its compose file,
+    # its image built from its source, its migrations and seed, then its services. It needs Go and make.
+    # Three things in its setup are changed, and each is needed before one event is counted:
+    # 1. PostgreSQL's first start runs V5__settings_unique_published_only before the table that file alters exists,
+    #    so the file is set aside (the index it adds is on settings, which the race never touches).
+    # 2. Its compose file leaves the API writing to the topic `staging_events` while its consumers read `events`,
+    #    so the API gets the topic names its own .env.local gives.
+    # 3. Its consumer ships limited to 12 events a second, so that limit is lifted.
+    d="$ARENA_TOOLS/src/flexprice"
+    [ -d "$d" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --branch v2.1.48 https://github.com/flexprice/flexprice "$d"; } || exit 1
+    mkdir -p "$ARENA_TOOLS/src/flexprice-set-aside"
+    for f in "$d"/migrations/postgres/V5__settings_unique_published_only.*.sql; do [ -e "$f" ] && mv "$f" "$ARENA_TOOLS/src/flexprice-set-aside/"; done
+    printf 'services:\n  flexprice-api:\n    environment:\n      - FLEXPRICE_KAFKA_TOPIC=events\n      - FLEXPRICE_KAFKA_TOPIC_LAZY=events_lazy\n  flexprice-consumer:\n    environment:\n      - FLEXPRICE_EVENT_PROCESSING_RATE_LIMIT=1000000\n' > "$d/docker-compose.override.yml"
+    (cd "$d" && COMPOSE_PROJECT_NAME=arena-flexprice make dev-setup > dev-setup.log 2>&1) || { echo "Flexprice's dev-setup failed: $(grep -i 'error\|failed' "$d/dev-setup.log" | tail -3)" >&2; exit 1; }
+    [ "$(basename "$CONTAINER")" = docker ] && for c in $(docker compose -p arena-flexprice ps -q 2> /dev/null); do docker update --cpuset-cpus "$GATEWAY_CPUS" "$c" > /dev/null 2>&1; done
+    version flexprice "flexprice/flexprice v2.1.48 at $(git -C "$d" rev-parse --short HEAD), built here by its make dev-setup, with one migration set aside, the API on the consumers' topic and the 12 events a second limit lifted"
+    wait_for -H 'x-api-key: sk_local_flexprice_test_key' http://127.0.0.1:8080/health;;
+  flexprice.down) (cd "$ARENA_TOOLS/src/flexprice" && COMPOSE_PROJECT_NAME=arena-flexprice docker compose down -v > down-arena-flexprice.log 2>&1); exit 0;;
   *) echo "usage: meter_servers.sh up|down NAME" >&2; exit 2;;
 esac

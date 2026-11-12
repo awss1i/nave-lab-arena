@@ -90,6 +90,20 @@ else:
                 usage = s.call("GET", f"/api/v1/customers/customer-{run}-{c}/current_usage?external_subscription_id=sub-{run}-{c}")["customer_usage"]
                 total += sum(int(float(charge["units"])) for charge in usage["charges_usage"])
             return total
+    elif tool == "flexprice":
+        # Flexprice with the API key its local setup ships: events in bulk, and its usage query summing a property.
+        s = Service("127.0.0.1", 8080, {"x-api-key": "sk_local_flexprice_test_key", "x-environment-id": "00000000-0000-0000-0000-000000000000"})
+        began = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.time() - 60))
+
+        def send(batch):
+            now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+            s.call("POST", "/v1/events/bulk", {"events": [{"event_name": f"tokens_{run}", "event_id": f"{run}-{i}", "external_customer_id": f"customer-{run}-{i % 100}", "timestamp": now, "source": "arena",
+                                                           "properties": {"tokens": tokens(i), "model": MODELS[i % 4]}} for i in batch]})
+
+        def read():
+            end = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(time.time() + 3600))
+            found = s.call("POST", "/v1/events/usage", {"event_name": f"tokens_{run}", "aggregation_type": "SUM", "property_name": "tokens", "start_time": began, "end_time": end})
+            return int(float(found.get("value") or 0))
     else:
         raise SystemExit(f"no metering tool {tool}")
     t = time.perf_counter()
