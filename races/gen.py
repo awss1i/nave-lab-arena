@@ -56,6 +56,14 @@ races = [
     alone("edges", "the API's edges, 13 checks", "one call a check, what the model received compared with what was sent", ["edges", "NAME"], "nave", mode="edges"),
     alone("edges", "the API's edges, 13 checks", "one call a check, what the model received compared with what was sent", ["edges", "NAME"], name, mode="edges"),
 ]
+# A gateway's own published benchmark, rerun here with Nave in it. Its setup file gives it as
+# "RATE CALLS CONNS|STAND-IN OPTIONS|what the benchmark is".
+own = sys.argv[7] if len(sys.argv) > 7 else ""
+if own:
+    load, standin, text = own.split("|", 2)
+    rate, calls, conns = load.split()
+    races.append(race("own", f"{title}'s own benchmark, rerun", ground + ", " + text + f", sent here at {int(rate):,} calls a second over {conns} connections, each call timed from when it was due",
+                      ["rate", "NAME", rate, calls, conns], rounds=3, mode="own", with_direct=True, env=f"STANDIN_ARGS='{standin}'" if standin else ""))
 races = [r for r in races if r]
 if anthropic_only:
     for r in races:

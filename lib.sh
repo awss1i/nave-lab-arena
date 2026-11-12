@@ -150,4 +150,6 @@ containers_cpu_us() { local total=0; for c in "$@"; do total=$((total + $(contai
 # The format a gateway takes: "chat" for OpenAI's, or "messages" for one that takes only Anthropic's, whose whole
 # job is then sent in Anthropic's format, Nave included.
 gw_default_format() { echo chat; }
+# A gateway's own published benchmark, as "RATE CALLS CONNS|STAND-IN OPTIONS|what the benchmark is", or nothing.
+gw_default_own_benchmark() { :; }
 

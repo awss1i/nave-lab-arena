@@ -47,6 +47,7 @@ case $1 in
     standin_up standin 9000 ${STANDIN_ARGS:-}
     [ "${3:-}" = fallback ] && standin_up standin-bad 9001 --status 500
     mode=${3:-}; [ "$mode" = edges ] && mode=
+    # "own" is the mode of a gateway's own benchmark. Only a gateway whose benchmark needs a setting takes it.
     # run/NAME.mode keeps the race's own mode, edges included, for a gateway that keeps a data folder per mode.
     for g in $2; do [ "$g" = direct ] || { echo "${3:-}" > "run/$g.mode"; gw "$g" start "$mode" || exit 1; }; done;;
   down)

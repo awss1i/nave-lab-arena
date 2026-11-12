@@ -57,3 +57,6 @@ bifrost_features() { echo "routes by provider and model, takes OpenAI's and Anth
 bifrost_skip() { echo cache; }
 bifrost_title() { echo "Bifrost"; }
 bifrost_image=docker.io/maximhq/bifrost:latest
+# Its own benchmark is 5,000 calls a second on four vCPUs against a mock (docs/benchmarking/t3.xl). Its mock took about
+# 1.5 s a call, which would hold 7,500 calls open, so the model here takes 100 ms.
+bifrost_own_benchmark() { echo "5000 50000 1024|--first-ms 100|Bifrost's test of 5,000 calls a second, against a model that takes 100 ms where Bifrost's own took about 1.5 s"; }

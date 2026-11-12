@@ -31,3 +31,5 @@ tensorzero_chat_path() { echo /openai/v1/chat/completions; }
 tensorzero_load_args() { printf '%s\n' --model tensorzero::model_name::mock; }
 tensorzero_skip() { echo "messages fallback cache"; }
 tensorzero_features() { echo "routes by model, takes OpenAI's format. No key check, observability off"; }
+# Its own benchmark is 10,000 calls a second on four vCPUs (docs/gateway/benchmarks).
+tensorzero_own_benchmark() { echo "10000 100000 256||TensorZero's test of 10,000 calls a second"; }

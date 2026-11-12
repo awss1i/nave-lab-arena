@@ -30,3 +30,5 @@ helicone_ai_gateway_chat_path() { echo /ai/chat/completions; }
 helicone_ai_gateway_load_args() { printf '%s\n' --model openai/mock; }
 helicone_ai_gateway_skip() { echo "messages fallback cache"; }
 helicone_ai_gateway_features() { echo "routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone"; }
+# Its own benchmark is a sustained 3,000 calls a second against a mock that takes 60 ms (benchmarks/README.md in its repo).
+helicone_ai_gateway_own_benchmark() { echo "3000 30000 512|--first-ms 60|Helicone's sustained load test of 3,000 calls a second against a model that takes 60 ms"; }

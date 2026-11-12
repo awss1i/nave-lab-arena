@@ -21,6 +21,10 @@ respan_gateway_start() { # MODE
     if [ "${1:-}" = fallback ]; then
       printf '[providers.failing]\nformats = ["openai-chat"]\nbase_url = "http://127.0.0.1:9001/v1"\n'
       printf '[routes.mock]\nto = ["failing/mock", "local/mock"]\n'
+    elif [ "${1:-}" = own ]; then
+      # Its hedging, for its own benchmark: the same model through a second provider entry, raced after 100 ms.
+      printf '[providers.second]\nformats = ["openai-chat"]\nbase_url = "http://127.0.0.1:9000/v1"\n'
+      printf '[routes.mock]\nto = ["local/mock", "second/mock"]\nhedge = "100ms"\n'
     else
       printf '[routes.mock]\nto = "local"\n'
     fi
@@ -30,3 +34,6 @@ respan_gateway_start() { # MODE
 respan_gateway_url() { echo http://127.0.0.1:8085; }
 respan_gateway_skip() { echo cache; }
 respan_gateway_features() { echo "routes by model, falls back, takes OpenAI's and Anthropic's formats. No key check on loopback, request log off, tracing off"; }
+# Its README's benchmark has a row for the 99th percentile when 5% of calls are slow, which its hedging answers: a
+# second provider is raced when the first hasn't answered in time. Here every twentieth call takes two seconds.
+respan_gateway_own_benchmark() { echo "200 4000 128|--slow-every 20 --slow-ms 2000|the slow-tail row of Respan's README table, where one call in twenty takes two seconds"; }
