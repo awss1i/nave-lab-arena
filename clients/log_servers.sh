@@ -14,6 +14,8 @@ compose_up() { # PROJECT [COMPOSE OPTIONS..], from the folder that holds the com
   docker compose -p "$project" "$@" up -d > "up-$project.log" 2>&1 || { echo "$project didn't start: $(tail -3 "up-$project.log")" >&2; return 1; }
   set -- "$project"
   [ "$(basename "$CONTAINER")" = docker ] && for c in $(docker compose -p "$1" ps -q 2> /dev/null); do docker update --cpuset-cpus "$GATEWAY_CPUS" "$c" > /dev/null 2>&1; done
+  # The images that ran, for the record.
+  version "${project:-$1}" "$(docker compose -p "${project:-$1}" images 2> /dev/null | awk 'NR > 1 && !seen[$2 ":" $3]++ { printf "%s%s:%s", sep, $2, $3; sep = ", " }')"
   return 0
 }
 compose_down() { (cd "$2" && docker compose -p "$1" "${@:3}" down -v > "down-$1.log" 2>&1); return 0; } # PROJECT FOLDER [COMPOSE OPTIONS..]

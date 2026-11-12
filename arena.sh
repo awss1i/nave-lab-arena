@@ -187,7 +187,9 @@ case $group in
     log_env driver opentelemetry-sdk opentelemetry-exporter-otlp-proto-http requests
     log_env phoenix arize-phoenix
     log_env mlflow mlflow
+    log_env openllmetry traceloop-sdk openai
     version nave-log "prototype P013, $(sha256sum bin/p013 | cut -c1-12)";;
+  meter) version nave-spend "prototype P009, $(sha256sum bin/p009 | cut -c1-12)";;
   mcp-ms) clients/ms_mcp_gateway.sh install || exit 1;;
   mcp)
     # The MCP gateways, each installed as its own docs say.

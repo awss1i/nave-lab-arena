@@ -81,7 +81,11 @@ case "$group.$name" in
     # A list or a call through an MCP gateway, at the revision the gateway speaks.
     revision=$(clients/mcp_gateways.sh revision "$name"); what=$1; shift
     MCP_KEY=$(clients/mcp_gateways.sh key "$name") taskset -c "$LOAD_CPUS" bin/mcpload "$(clients/mcp_gateways.sh url "$name")" --what "$what" $([ "$name" = ms-mcp ] && echo "--bare standin" || echo "--servers standin") --expect 8 ${revision:+--revision "$revision"} "$@";;
+  meter.nave) on python3 clients/meter_tools.py nave 20000;;
+  meter.*) quiet taskset -c "$LOAD_CPUS" python3 clients/meter_tools.py "$name" "${1:-20000}";;
   log.nave) on python3 clients/log_tools.py nave 20000;;
+  logsdk.nave) on python3 clients/log_sdk.py nave 2000;;
+  logsdk.*) (export HOME="$PWD/run/log-driver-home"; mkdir -p "$HOME"; quiet taskset -c "$LOAD_CPUS,$GATEWAY_CPUS" "$ARENA_TOOLS/log-$name/bin/python" clients/log_sdk.py "$name" 2000);;
   log.*) calls=${1:-20000}; (export HOME="$PWD/run/log-driver-home"; mkdir -p "$HOME"; quiet taskset -c "$LOAD_CPUS" "$ARENA_TOOLS/log-driver/bin/python" clients/log_tools.py "$name" "$calls");;
   pick.nave) on clients/nave_pick.sh run/pick/RouteLLM "$1";;
   pick.other) tool=$1; shift; py="$ARENA_TOOLS/pick-$tool/bin/python"; [ -x "$py" ] || py=python3

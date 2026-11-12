@@ -135,5 +135,57 @@
    "down",
    "opik"
   ]
+ },
+ {
+  "name": "what recording a call adds, Nave",
+  "feature": "F9",
+  "conditions": "a GitHub runner's CPUs. For a tool that records from inside the caller's own process: OpenAI's SDK makes 2,000 calls to the stand-in model, as it is and then with the tool switched on, and the answer is what the tool added to a call. Its spans go to a sink on the same machine, in a process of its own, that throws them away. Nave records in the gateway and adds nothing in the caller, so its figure is the gateway's own work to record a call with its bodies, over 20,000 calls from one thread",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "logsdk",
+     "nave"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && UP_PORT=9000 ./up.sh standin $MODEL_CPUS bin/standin 127.0.0.1:9000"
+  ],
+  "teardown": [
+   "./down.sh",
+   "standin"
+  ]
+ },
+ {
+  "name": "what recording a call adds, OpenLLMetry",
+  "feature": "F9",
+  "conditions": "a GitHub runner's CPUs. For a tool that records from inside the caller's own process: OpenAI's SDK makes 2,000 calls to the stand-in model, as it is and then with the tool switched on, and the answer is what the tool added to a call. Its spans go to a sink on the same machine, in a process of its own, that throws them away. Nave records in the gateway and adds nothing in the caller, so its figure is the gateway's own work to record a call with its bodies, over 20,000 calls from one thread",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "OpenLLMetry",
+    "cmd": [
+     "./entrant.sh",
+     "logsdk",
+     "openllmetry"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && UP_PORT=9000 ./up.sh standin $MODEL_CPUS bin/standin 127.0.0.1:9000"
+  ],
+  "teardown": [
+   "./down.sh",
+   "standin"
+  ]
  }
 ]
