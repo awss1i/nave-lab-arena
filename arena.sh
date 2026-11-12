@@ -51,6 +51,7 @@ case $group in
     nave_install; litellm_install; py_libs openai aisuite any-llm-sdk langchain-openai llm; node_libs ai @ai-sdk/openai-compatible token.js @tanstack/ai @tanstack/ai-openai @mariozechner/pi-ai
     # The Rust libraries, each as a small program in clients/rust, built here at the latest versions Cargo resolves.
     (cd clients/rust && CARGO_TARGET_DIR="$ARENA_TOOLS/rust-clients" cargo build --release -q) || echo "the Rust client programs didn't build" >&2
+    for b in genai rig llm; do [ -x "$ARENA_TOOLS/rust-clients/release/${b}_client" ] || { echo "the Rust client program ${b}_client is missing" >&2; exit 1; }; done
     GEM_HOME="$ARENA_TOOLS/gems" gem install -q --no-document ruby_llm > /dev/null 2>&1 || echo "ruby_llm didn't install" >&2
     version ruby_llm "$(GEM_HOME="$ARENA_TOOLS/gems" GEM_PATH="$ARENA_TOOLS/gems" gem list ruby_llm 2>/dev/null | sed -n 's/^ruby_llm (\(.*\))/\1/p')"
     for crate in genai rig-core llm; do version "$crate (Rust)" "$(cd clients/rust && cargo tree -q --depth 1 --prefix none 2>/dev/null | sed -n "s/^$crate v\([0-9.]*\).*/\1/p" | head -1)"; done;;
