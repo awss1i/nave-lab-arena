@@ -23,5 +23,39 @@
     ]
    }
   ]
+ },
+ {
+  "name": "costing a call from its model's name and token counts, tokencost",
+  "feature": "F6",
+  "conditions": "one CPU, the same usages, of which a library prices the ones whose models its own price list knows",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "tokencost",
+    "cmd": [
+     "./entrant.sh",
+     "cost",
+     "tokencost"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "costing a call from its model's name and token counts, genai-prices",
+  "feature": "F6",
+  "conditions": "one CPU, the same usages, of which a library prices the ones whose models its own price list knows",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "genai-prices",
+    "cmd": [
+     "./entrant.sh",
+     "cost",
+     "genai-prices"
+    ]
+   }
+  ]
  }
 ]

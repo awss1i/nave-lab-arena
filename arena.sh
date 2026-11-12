@@ -49,7 +49,7 @@ case $group in
   cache) nave_install; litellm_install;;
   client) nave_install; litellm_install; py_libs openai aisuite any-llm-sdk langchain-openai llm; node_libs ai @ai-sdk/openai-compatible token.js @tanstack/ai @tanstack/ai-openai @mariozechner/pi-ai;;
   template) py_libs chevron pystache; node_libs mustache;;
-  cost) litellm_install; mkdir -p run/cost; "$ARENA_TOOLS/litellm/bin/python" clients/litellm_cost.py gen run/cost;;
+  cost) litellm_install; py_libs tokencost genai-prices; mkdir -p run/cost; "$ARENA_TOOLS/litellm/bin/python" clients/litellm_cost.py gen run/cost;;
   config) litellm_install; mkdir -p run/config; bin/p019 make-large run/config/large.yaml;;
   eval)
     py_libs pyyaml; node_libs promptfoo; mkdir -p run/eval; bin/p017 make run/eval 500
