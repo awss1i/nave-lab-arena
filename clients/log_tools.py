@@ -102,6 +102,16 @@ else:
     else:
         raise SystemExit(f"no log tool {tool}")
 
+    # What the exporter itself complains about is kept, so a short count can be told from a failed send.
+    import logging
+
+    complaints = []
+
+    class Keep(logging.Handler):
+        def emit(self, record):
+            complaints.append(record.getMessage()[:300])
+
+    logging.getLogger("opentelemetry").addHandler(Keep(logging.WARNING))
     provider = TracerProvider(resource=Resource.create({"service.name": "arena", "openinference.project.name": "arena"}))
     processor = BatchSpanProcessor(OTLPSpanExporter(endpoint=endpoint, headers=headers), max_queue_size=max(n + 1, 2048), max_export_batch_size=512, schedule_delay_millis=200)
     provider.add_span_processor(processor)
@@ -133,4 +143,11 @@ else:
 print(f"recorded {n} calls and read back {held}")
 print(f"metric us_per_call={seconds * 1e6 / n:.1f}\nmetric calls_held={held}\nmetric seconds={seconds:.3f}" + (f"\nmetric bytes_per_call={size / n:.1f}" if size else ""), file=sys.stderr)
 if held != n:
+    # A short count is recorded with what the exporter and the tool's own containers said about it.
+    if tool != "nave":
+        if complaints:
+            print(f"the exporter complained {len(complaints)} times, last: {complaints[-1]}", file=sys.stderr)
+        logs = subprocess.run(["docker", "compose", "-p", f"arena-{tool}", "logs", "--no-color", "--tail", "300"], capture_output=True, text=True).stdout.splitlines()
+        for line in [x for x in logs if any(w in x.lower() for w in ("error", "fail", "exception", "timeout"))][-4:]:
+            print("its log: " + line[:300], file=sys.stderr)
     sys.exit(1)

@@ -30,4 +30,4 @@ relayplane_key() { echo sk-standin; }
 relayplane_load_args() { if [ "${1:-}" = messages ]; then printf '%s\n' --model claude-haiku-4-5; else printf '%s\n' --model gpt-4o-mini; fi; }
 relayplane_clean() { rm -rf run/relayplane-home; }
 relayplane_skip() { echo fallback; }
-relayplane_features() { echo "passes OpenAI's and Anthropic's formats on to the provider, routes by a complexity tier, prices every call and rolls it up by run and agent in SQLite, checks budgets. Passes the caller's key on. Its own limiter is set to the most it accepts, 10,000 calls a minute for a model, which is what bounds it in the throughput races"; }
+relayplane_features() { echo "passes OpenAI's and Anthropic's formats on to the provider, routes by a complexity tier, prices every call and rolls it up by run and agent in SQLite, checks budgets. Passes the caller's key on. Its own limiter is set to the most it accepts, 10,000 calls a minute for a model. A call takes it about 150 ms from a fresh install, most of it writing the call to its trace index, run store, session store and history file as it ships"; }
