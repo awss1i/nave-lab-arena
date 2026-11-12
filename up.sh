@@ -19,10 +19,13 @@ echo "--- $name started $(date -u +%H:%M:%S)" >> "run/$name.log"
 nohup taskset -c "$cpus" "$@" >> "run/$name.log" 2>&1 &
 echo $! > "run/$name.pid"
 if [ -n "${UP_PORT:-}" ]; then
-  for _ in $(seq 1 3000); do
+  # UP_POLL_S is how often the port is tried. A race that times a start sets it small, so the wait between tries
+  # isn't counted as the server's.
+  deadline=$((SECONDS + 300))
+  while [ "$SECONDS" -lt "$deadline" ]; do
     (exec 3<>"/dev/tcp/127.0.0.1/$UP_PORT") 2>/dev/null && exit 0
     kill -0 "$(cat "run/$name.pid")" 2>/dev/null || { echo "$name stopped: $(tail -3 "run/$name.log")" >&2; exit 1; }
-    sleep 0.1
+    sleep "${UP_POLL_S:-0.1}"
   done
   echo "$name never listened on $UP_PORT" >&2; exit 1
 fi

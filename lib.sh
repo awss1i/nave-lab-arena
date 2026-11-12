@@ -41,7 +41,8 @@ container_up() { # NAME PORT IMAGE-AND-ARGS..
   else
     taskset -c "$GATEWAY_CPUS" podman run -d --rm --name "arena-$name" --network host --userns=keep-id "$@" > /dev/null
   fi
-  for _ in $(seq 1 600); do (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null && return 0; sleep 0.05; done
+  local deadline=$((SECONDS + 60))
+  while [ "$SECONDS" -lt "$deadline" ]; do (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null && return 0; sleep "${UP_POLL_S:-0.05}"; done
   echo "$name never listened on $port" >&2; return 1
 }
 container_down() { for name in "$@"; do "$CONTAINER" kill "arena-$name" > /dev/null 2>&1 || true; done; }

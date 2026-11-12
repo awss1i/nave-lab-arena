@@ -34,6 +34,7 @@ case $1 in
     echo "metric calls_that_reached_the_model=$(wc -l < run/standin-calls.log)" >&2;;
   fresh)
     # One call through a gateway started for it: the time from the start command to the first right answer.
+    export UP_POLL_S=0.002
     t0=$(date +%s%N)
     start "$2" > /dev/null 2>&1
     out=$(load "$2" --calls 1 2>/dev/null)
