@@ -36,7 +36,7 @@
  {
   "name": "finding planted personal data in 500 prompts",
   "feature": "F7",
-  "conditions": "one process on two CPUs, 1,000 made-up emails, card numbers, social security numbers and IP addresses planted in 500 prompts of about 2 KB, each tool loaded first and then timed over every prompt, one at a time",
+  "conditions": "one process on two CPUs, 1,000 made-up emails, card numbers, social security numbers and IP addresses planted in 500 prompts of about 2 KB, each tool loaded first and then timed over every prompt, one at a time. NeMo Guardrails runs as a rail in front of the stand-in model, so its time holds one call to it",
   "rounds": 3,
   "normalise": "lines",
   "entrants": [
@@ -57,6 +57,22 @@
     ]
    },
    {
+    "name": "guardrails-ai",
+    "cmd": [
+     "./entrant.sh",
+     "pii",
+     "guardrails-ai"
+    ]
+   },
+   {
+    "name": "NeMo Guardrails",
+    "cmd": [
+     "./entrant.sh",
+     "pii",
+     "nemo"
+    ]
+   },
+   {
     "name": "LLM Guard",
     "cmd": [
      "./entrant.sh",
@@ -64,6 +80,15 @@
      "llm-guard"
     ]
    }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && UP_PORT=9000 ./up.sh standin $MODEL_CPUS bin/standin 127.0.0.1:9000"
+  ],
+  "teardown": [
+   "./down.sh",
+   "standin"
   ]
  }
 ]

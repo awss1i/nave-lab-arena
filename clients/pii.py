@@ -1,5 +1,5 @@
 """Runs a personal-data scanner over the prompts with planted values and says how many of them it found.
-Usage: pii.py nave|presidio|llm-guard DIR. DIR holds pii.txt, pii.jsonl and pii-planted.tsv from gen_pii.py.
+Usage: pii.py nave|presidio|llm-guard|guardrails-ai|nemo DIR. DIR holds pii.txt, pii.jsonl and pii-planted.tsv from gen_pii.py.
 
 Each tool is loaded first and then timed over every prompt, one prompt at a time, as a gateway would call it.
 Presidio runs with spaCy's small English model and only the four kinds planted, which is its quickest setting for
@@ -61,6 +61,65 @@ elif tool == "llm-guard":
     # It hands back the prompt with each value replaced, so a planted value counts as found when it's gone.
     for i, (p, out) in enumerate(zip(prompts, cleaned)):
         findings += out.count("[REDACTED_")
+        for n, kind, value in planted:
+            if int(n) == i and value not in out:
+                found[i].add(value)
+elif tool == "guardrails-ai":
+    # Its DetectPII validator, which is Presidio with spaCy's large English model, asked to replace what it finds.
+    # It logs as it loads, so standard output is pointed away until the result is printed.
+    keep = os.dup(1)
+    os.dup2(os.open(os.devnull, os.O_WRONLY), 1)
+    from guardrails import Guard
+    from guardrails_ai.detect_pii import DetectPII
+
+    guard = Guard().use(DetectPII(pii_entities=["EMAIL_ADDRESS", "CREDIT_CARD", "US_SSN", "IP_ADDRESS"], on_fail="fix"))
+    guard.validate(prompts[0])
+    t = time.perf_counter()
+    cleaned = [guard.validate(p).validated_output or p for p in prompts]
+    seconds = time.perf_counter() - t
+    sys.stdout.flush()
+    os.dup2(keep, 1)
+    for i, out in enumerate(cleaned):
+        findings += sum(out.count(f"<{k}>") for k in ("EMAIL_ADDRESS", "CREDIT_CARD", "US_SSN", "IP_ADDRESS"))
+        for n, kind, value in planted:
+            if int(n) == i and value not in out:
+                found[i].add(value)
+elif tool == "nemo":
+    # NeMo Guardrails with its rail that masks sensitive data on input, which is Presidio, in front of the stand-in
+    # model. Each prompt goes through the rail and on to the model, so its time holds one call to the stand-in,
+    # and what the model echoes back shows what reached it.
+    keep = os.dup(1)
+    os.dup2(os.open(os.devnull, os.O_WRONLY), 1)
+    from nemoguardrails import LLMRails, RailsConfig
+
+    kinds = ["EMAIL_ADDRESS", "CREDIT_CARD", "US_SSN", "IP_ADDRESS"]
+    rails = LLMRails(RailsConfig.from_content(yaml_content=f"""
+models:
+  - type: main
+    engine: openai
+    model: mock
+    parameters:
+      base_url: http://127.0.0.1:9000/v1
+      api_key: sk-standin
+rails:
+  config:
+    sensitive_data_detection:
+      input:
+        entities: [{", ".join(kinds)}]
+  input:
+    flows:
+      - mask sensitive data on input
+"""))
+    rails.generate(messages=[{"role": "user", "content": prompts[0]}])
+    t = time.perf_counter()
+    reached = [rails.generate(messages=[{"role": "user", "content": p}])["content"] for p in prompts]
+    seconds = time.perf_counter() - t
+    sys.stdout.flush()
+    os.dup2(keep, 1)
+    for i, out in enumerate(reached):
+        if not out.startswith("echo: "):
+            raise SystemExit(f"the model didn't answer prompt {i}: {out[:120]}")
+        findings += sum(out.count(f"<{k}>") for k in kinds)
         for n, kind, value in planted:
             if int(n) == i and value not in out:
                 found[i].add(value)

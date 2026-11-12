@@ -86,7 +86,17 @@ case $group in
     python3 -m venv "$ARENA_TOOLS/uv" && "$ARENA_TOOLS/uv/bin/pip" install -q uv
     "$ARENA_TOOLS/uv/bin/uv" venv -q --python 3.12 "$ARENA_TOOLS/guard-llm-guard"
     "$ARENA_TOOLS/uv/bin/uv" pip install -q --python "$ARENA_TOOLS/guard-llm-guard/bin/python" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match llm-guard pip
-    version llm-guard "$("$ARENA_TOOLS/guard-llm-guard/bin/python" -c 'import importlib.metadata as m; print(m.version("llm-guard"))')";;
+    version llm-guard "$("$ARENA_TOOLS/guard-llm-guard/bin/python" -c 'import importlib.metadata as m; print(m.version("llm-guard"))')"
+    # NeMo Guardrails with what its sensitive-data rail needs: Presidio and spaCy's large English model.
+    python3 -m venv "$ARENA_TOOLS/guard-nemo" && "$ARENA_TOOLS/guard-nemo/bin/pip" install -q 'nemoguardrails[sdd]' langchain-openai presidio-analyzer presidio-anonymizer
+    "$ARENA_TOOLS/guard-nemo/bin/python" -m spacy download en_core_web_lg > /dev/null 2>&1
+    version nemoguardrails "$("$ARENA_TOOLS/guard-nemo/bin/python" -c 'import importlib.metadata as m; print(m.version("nemoguardrails"))')"
+    # guardrails-ai with its DetectPII validator, which is a package on PyPI. Its settings file, in a home folder of
+    # its own, turns its usage metrics off. Its language model is fetched here so the race doesn't wait for it.
+    python3 -m venv "$ARENA_TOOLS/guard-guardrails-ai" && "$ARENA_TOOLS/guard-guardrails-ai/bin/pip" install -q guardrails-ai guardrails-ai-detect-pii
+    mkdir -p "$ARENA_TOOLS/guard-guardrails-ai/home" && printf 'enable_metrics=false\nuse_remote_inferencing=false\n' > "$ARENA_TOOLS/guard-guardrails-ai/home/.guardrailsrc"
+    "$ARENA_TOOLS/guard-guardrails-ai/bin/python" -m spacy download en_core_web_lg > /dev/null 2>&1
+    version guardrails-ai "$("$ARENA_TOOLS/guard-guardrails-ai/bin/python" -c 'import importlib.metadata as m; print(m.version("guardrails-ai"), "with guardrails-ai-detect-pii", m.version("guardrails-ai-detect-pii"))')";;
   compress) py_libs headroom-ai tiktoken;;
   pick)
     # RouteLLM with CPU-only PyTorch, and its repo's per-prompt results for MMLU and GSM8K, which both routers score.

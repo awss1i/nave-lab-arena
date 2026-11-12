@@ -1,5 +1,5 @@
 """Prints one file compressed by a prompt compressor, for counting its tokens and asking questions of it.
-Usage: compress_text.py headroom|headroom-ml|llmlingua2 FILE [RATE]
+Usage: compress_text.py headroom|headroom-ml|llmlingua2|rtk FILE [RATE]
 
 headroom is Headroom's `compress` as installed. headroom-ml is the same with its learned text compressor, Kompress,
 which the `ml` extra installs and which downloads its model on first use. llmlingua2 is LLMLingua-2 with its small
@@ -28,5 +28,17 @@ elif tool == "llmlingua2":
     rate = float(sys.argv[3]) if len(sys.argv) > 3 else 0.5
     compressor = PromptCompressor(model_name="microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank", use_llmlingua2=True, device_map="cpu")
     sys.stdout.write(compressor.compress_prompt(text, rate=rate, force_tokens=["\n"])["compressed_prompt"])
+elif tool == "rtk":
+    # rtk filters a command's output as it runs. For a saved output it has three commands that take a file, and the
+    # one that fits the file's kind is used: `json` for JSON, `log` for command output, `read` for code and prose.
+    import os
+    import subprocess
+
+    rtk = os.environ["RTK_BIN"]
+    name = os.path.basename(path)
+    command = ["json", path] if name.endswith(".json") else ["read", "--level", "minimal", path] if name.endswith((".rs", ".md", ".csv")) else ["log", path]
+    home = os.path.join(os.path.dirname(rtk), "home")
+    os.makedirs(home, exist_ok=True)
+    sys.stdout.write(subprocess.run([rtk] + command, capture_output=True, text=True, check=True, env={**os.environ, "HOME": home}).stdout)
 else:
     raise SystemExit(f"no compressor {tool}")
