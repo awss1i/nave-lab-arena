@@ -43,7 +43,7 @@ case "$group.$name" in
   template.mustachejs) on node clients/mustache_render.mjs "$ARENA_TOOLS/node" data/prompt.mustache data/prompt-vars.json 20000;;
   cost.nave) on bin/p009 cost-time run/cost/costs.txt 2000;;
   cost.litellm) on "$LITELLM_PY" clients/litellm_cost.py time run/cost 3;;
-  cost.tokencost | cost.genai-prices) on "$PY" clients/cost_libs.py "$name" run/cost 3;;
+  cost.tokencost | cost.genai-prices | cost.models.dev | cost.portkey-models) on "$PY" clients/cost_libs.py "$name" run/cost 3;;
   config.nave) on bin/p019 time run/config/large.yaml 20;;
   config.litellm) on "$LITELLM_PY" clients/litellm_router.py run/config/large.yaml 3;;
   eval.nave) on clients/nave_eval.sh run/eval/a.json 16;;

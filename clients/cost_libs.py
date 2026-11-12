@@ -1,5 +1,5 @@
 """Costs calls with a pricing library, on the usages the cost race gives Nave and LiteLLM, for the models the
-library's own price list knows. Usage: cost_libs.py tokencost|genai-prices DIR ITERS
+library's own price list knows. Usage: cost_libs.py tokencost|genai-prices|models.dev|portkey-models DIR ITERS
 
 A library's prices are its own, so its total isn't compared with another's. It prints how many of the usages it
 could price, and the time for each of those."""
@@ -21,6 +21,35 @@ elif lib == "genai-prices":
 
     def cost(model, i, o):
         return float(calc_price(Usage(input_tokens=i, output_tokens=o), model_ref=model).total_price)
+elif lib in ("models.dev", "portkey-models"):
+    # Two price lists that are data and not code: models.dev's api.json and the JSON files in Portkey's models
+    # repo. Each is read into a table here, so the time printed is this script's table lookup and says nothing
+    # about them. What they're in the race for is how many of the usages their list can price.
+    import glob
+    import os
+
+    prices_dir = os.path.join(os.environ["ARENA_TOOLS"], "src", "prices")
+    table = {}
+    if lib == "models.dev":
+        for provider, entry in json.load(open(f"{prices_dir}/models-dev.json")).items():
+            for name, m in entry.get("models", {}).items():
+                c = m.get("cost") or {}
+                if "input" in c and "output" in c:
+                    for key in (f"{provider}/{name}", name):
+                        table.setdefault(key, (c["input"] / 1e6, c["output"] / 1e6))
+    else:
+        for f in sorted(glob.glob(f"{prices_dir}/portkey-models/pricing/*.json")):
+            provider = os.path.basename(f)[:-5]
+            for name, m in json.load(open(f)).items():
+                pay = (m.get("pricing_config") or {}).get("pay_as_you_go") or {}
+                if name != "default" and "request_token" in pay and "response_token" in pay:
+                    # Its prices are in cents a token.
+                    for key in (f"{provider}/{name}", name):
+                        table.setdefault(key, (pay["request_token"]["price"] / 100, pay["response_token"]["price"] / 100))
+
+    def cost(model, i, o):
+        a, b = table[model]
+        return i * a + o * b
 else:
     raise SystemExit(f"no library {lib}")
 

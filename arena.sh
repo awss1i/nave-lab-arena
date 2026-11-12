@@ -74,7 +74,14 @@ case $group in
     version ruby_llm "$(GEM_HOME="$ARENA_TOOLS/gems" GEM_PATH="$ARENA_TOOLS/gems" gem list ruby_llm 2>/dev/null | sed -n 's/^ruby_llm (\(.*\))/\1/p')"
     for crate in genai rig-core llm; do version "$crate (Rust)" "$(cd clients/rust && cargo tree -q --depth 1 --prefix none 2>/dev/null | sed -n "s/^$crate v\([0-9.]*\).*/\1/p" | head -1)"; done;;
   template) py_libs chevron pystache; node_libs mustache;;
-  cost) litellm_install; py_libs tokencost genai-prices; mkdir -p run/cost; "$ARENA_TOOLS/litellm/bin/python" clients/litellm_cost.py gen run/cost;;
+  cost)
+    litellm_install; py_libs tokencost genai-prices; mkdir -p run/cost; "$ARENA_TOOLS/litellm/bin/python" clients/litellm_cost.py gen run/cost
+    # Two price lists that are data: models.dev's api.json and Portkey's models repo.
+    mkdir -p "$ARENA_TOOLS/src/prices"
+    curl -fsSL -m 120 -A arena https://models.dev/api.json -o "$ARENA_TOOLS/src/prices/models-dev.json" || echo "models.dev's price list didn't download" >&2
+    version models.dev "api.json fetched $(date -u +%Y-%m-%d), $(python3 -c 'import json, sys; print(sum(len(v.get("models", {})) for v in json.load(open(sys.argv[1])).values()))' "$ARENA_TOOLS/src/prices/models-dev.json") models"
+    [ -d "$ARENA_TOOLS/src/prices/portkey-models" ] || git clone -q --depth 1 https://github.com/Portkey-AI/models "$ARENA_TOOLS/src/prices/portkey-models"
+    version portkey-models "Portkey-AI/models at $(git -C "$ARENA_TOOLS/src/prices/portkey-models" rev-parse --short HEAD)";;
   config) litellm_install; mkdir -p run/config; bin/p019 make-large run/config/large.yaml;;
   eval)
     py_libs pyyaml; node_libs promptfoo; mkdir -p run/eval; bin/p017 make run/eval 500

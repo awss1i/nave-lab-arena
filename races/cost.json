@@ -57,5 +57,39 @@
     ]
    }
   ]
+ },
+ {
+  "name": "costing a call from its model's name and token counts, models.dev's price list",
+  "feature": "F6",
+  "conditions": "one CPU, the same usages, of which a library prices the ones whose models its own price list knows. models.dev's and Portkey's lists are data, read into a table by the race's script, so their time is that script's and only the number of usages they price is theirs",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "models.dev's price list",
+    "cmd": [
+     "./entrant.sh",
+     "cost",
+     "models.dev"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "costing a call from its model's name and token counts, Portkey's price list",
+  "feature": "F6",
+  "conditions": "one CPU, the same usages, of which a library prices the ones whose models its own price list knows. models.dev's and Portkey's lists are data, read into a table by the race's script, so their time is that script's and only the number of usages they price is theirs",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Portkey's price list",
+    "cmd": [
+     "./entrant.sh",
+     "cost",
+     "portkey-models"
+    ]
+   }
+  ]
  }
 ]
