@@ -48,7 +48,7 @@ container_up() { # NAME PORT IMAGE-AND-ARGS..
   while [ "$SECONDS" -lt "$deadline" ]; do (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null && return 0; sleep "${UP_POLL_S:-0.05}"; done
   echo "$name never listened on $port" >&2; return 1
 }
-container_down() { for name in "$@"; do "$CONTAINER" kill "arena-$name" > /dev/null 2>&1 || true; done; }
+container_down() { local c; for c in "$@"; do "$CONTAINER" kill "arena-$c" > /dev/null 2>&1 || true; done; }
 # The memory a container holds now, in MB.
 container_mb() {
   "$CONTAINER" stats --no-stream --format '{{.MemUsage}}' "arena-$1" | awk '{ v = $1; if (v ~ /GiB|GB/) { sub(/Gi?B/, "", v); printf "%.1f\n", v * 1024 } else if (v ~ /KiB|kB/) { sub(/[Kk]i?B/, "", v); printf "%.1f\n", v / 1024 } else { sub(/Mi?B/, "", v); printf "%.1f\n", v } }'
