@@ -1,0 +1,47 @@
+[
+ {
+  "name": "2,000 repeats of one call over 16 connections, with each gateway's cache on",
+  "feature": "F5",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, the same message every time, each gateway's own in-memory cache switched on, and the number of calls that still reached the model counted",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./gateways.sh",
+     "cached",
+     "nave",
+     "--calls",
+     "2000",
+     "--conns",
+     "16",
+     "--same"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./gateways.sh",
+     "cached",
+     "litellm",
+     "--calls",
+     "2000",
+     "--conns",
+     "16",
+     "--same"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   "CACHE=cache ./gateways.sh up 'nave litellm'"
+  ],
+  "teardown": [
+   "./gateways.sh",
+   "down",
+   "nave litellm"
+  ]
+ }
+]

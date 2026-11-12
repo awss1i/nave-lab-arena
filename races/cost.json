@@ -1,0 +1,27 @@
+[
+ {
+  "name": "costing a call from its model's name and token counts",
+  "feature": "F6",
+  "conditions": "one CPU, 1,925 usages over 385 models priced by the token in LiteLLM's own price list",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "cost",
+     "nave"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./entrant.sh",
+     "cost",
+     "litellm"
+    ]
+   }
+  ]
+ }
+]

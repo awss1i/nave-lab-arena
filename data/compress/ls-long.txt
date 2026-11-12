@@ -1,0 +1,34 @@
+.:
+total 64
+drwxr-xr-x. 1 user user   276 2026-11-12 07:15 .
+drwxr-xr-x. 1 user user    76 2026-11-12 07:15 ..
+drwxr-xr-x. 1 user user    16 2026-11-12 07:15 benches
+-rw-r--r--. 1 user user  1324 2026-11-12 07:15 build.rs
+-rw-r--r--. 1 user user 13515 2026-11-12 07:15 Cargo.lock
+-rw-r--r--. 1 user user     7 2026-11-12 07:15 .cargo-ok
+-rw-r--r--. 1 user user  1560 2026-11-12 07:15 Cargo.toml
+-rw-r--r--. 1 user user   933 2026-11-12 07:15 Cargo.toml.orig
+-rw-r--r--. 1 user user    94 2026-11-12 07:15 .cargo_vcs_info.json
+drwxr-xr-x. 1 user user    46 2026-11-12 07:15 .github
+-rw-r--r--. 1 user user    62 2026-11-12 07:15 .gitignore
+-rw-r--r--. 1 user user 11358 2026-11-12 07:15 LICENSE-APACHE
+-rw-r--r--. 1 user user  1097 2026-11-12 07:15 LICENSE-MIT
+-rw-r--r--. 1 user user  4399 2026-11-12 07:15 README.md
+drwxr-xr-x. 1 user user    92 2026-11-12 07:15 src
+drwxr-xr-x. 1 user user    26 2026-11-12 07:15 tests
+
+benches:
+total 4
+drwxr-xr-x. 1 user user   16 2026-11-12 07:15 .
+drwxr-xr-x. 1 user user  276 2026-11-12 07:15 ..
+-rw-r--r--. 1 user user 4020 2026-11-12 07:15 bench.rs
+
+src:
+total 80
+drwxr-xr-x. 1 user user    92 2026-11-12 07:15 .
+drwxr-xr-x. 1 user user   276 2026-11-12 07:15 ..
+-rw-r--r--. 1 user user  4999 2026-11-12 07:15 baseline.rs
+-rw-r--r--. 1 user user  4806 2026-11-12 07:15 combine.rs
+-rw-r--r--. 1 user user  8137 2026-11-12 07:15 lib.rs
+drwxr-xr-x. 1 user user    56 2026-11-12 07:15 specialized
+-rw-r--r--. 1 user user 54340 2026-11-12 07:15 table.rs

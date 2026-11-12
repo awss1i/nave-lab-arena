@@ -1,0 +1,290 @@
+[
+ {
+  "name": "shrinking a GitHub pull request listing, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "github-pulls.json"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a GitHub pull request listing, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "github-pulls.json"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a GitHub file tree, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "github-tree.json"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a GitHub file tree, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "github-tree.json"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a GitHub release listing, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "github-releases.json"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a GitHub release listing, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "github-releases.json"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a find listing, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "find-files.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a find listing, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "find-files.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking an ls -la listing, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "ls-long.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking an ls -la listing, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "ls-long.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking cargo test output, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "cargo-test.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking cargo test output, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "cargo-test.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a git log, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "git-log-stat.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking a git log, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "git-log-stat.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking Rust code, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "code-rust.rs"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "shrinking Rust code, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "code-rust.rs"
+    ]
+   }
+  ]
+ }
+]

@@ -1,0 +1,36 @@
+[
+ {
+  "name": "scanning 32 MB of text for 2,000 planted secrets, Nave",
+  "feature": "F7",
+  "conditions": "one process on two CPUs, start and file read included, AWS, GitHub, Slack and Stripe keys planted in prose",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "scan",
+     "nave"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "scanning 32 MB of text for 2,000 planted secrets, gitleaks",
+  "feature": "F7",
+  "conditions": "one process on two CPUs, start and file read included, AWS, GitHub, Slack and Stripe keys planted in prose",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "gitleaks",
+    "cmd": [
+     "./entrant.sh",
+     "scan",
+     "gitleaks"
+    ]
+   }
+  ]
+ }
+]

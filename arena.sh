@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Runs one group of the arena from start to finish: installs that group's competitors at their latest releases,
+# writes down their versions, makes the inputs, and runs the group's races with the harness, which refuses a race
+# whose entrants disagree. Usage: ./arena.sh GROUP. Groups: gateway cache client template cost config eval scan
+# compress image. Everything talks to the stand-in model in bin/ and to no real provider.
+set -uo pipefail
+. ./lib.sh
+group=$1
+py_libs() {
+  [ -x "$ARENA_TOOLS/py/bin/python" ] || python3 -m venv "$ARENA_TOOLS/py"
+  "$ARENA_TOOLS/py/bin/python" -m pip --version > /dev/null 2>&1 || "$ARENA_TOOLS/py/bin/python" -m ensurepip > /dev/null
+  "$ARENA_TOOLS/py/bin/python" -m pip install -q "$@"
+  for p in "$@"; do version "$p" "$("$ARENA_TOOLS/py/bin/python" -c "import importlib.metadata as m; print(m.version('$p'))")"; done
+}
+node_libs() {
+  mkdir -p "$ARENA_TOOLS/node"
+  npm install --silent --no-audit --no-fund --prefix "$ARENA_TOOLS/node" "$@"
+  for p in "$@"; do version "$p" "$(node -e "console.log(require('$ARENA_TOOLS/node/node_modules/$p/package.json').version)")"; done
+}
+for s in setup/*.sh; do . "$s"; done
+version runner "$(nproc) CPUs, $(awk '/MemTotal/ {printf "%.0f GB", $2 / 1e6}' /proc/meminfo), $(uname -sr), $(grep -m1 'model name' /proc/cpuinfo | cut -d: -f2 | xargs)"
+case $group in
+  gateway) nave_install; litellm_install; portkey_install; bifrost_install; bifrost_clean;;
+  # Portkey's open-source gateway answers `x-portkey-cache-status: DISABLED` to a cache setting, and Bifrost's cache
+  # needs a vector store, so the cache race is between the two gateways whose cache runs as installed.
+  cache) nave_install; litellm_install;;
+  client) nave_install; litellm_install; py_libs openai;;
+  template) py_libs chevron pystache; node_libs mustache;;
+  cost) litellm_install; mkdir -p run/cost; "$ARENA_TOOLS/litellm/bin/python" clients/litellm_cost.py gen run/cost;;
+  config) litellm_install; mkdir -p run/config; bin/p019 make-large run/config/large.yaml;;
+  eval) py_libs pyyaml; node_libs promptfoo; mkdir -p run/eval; bin/p017 make run/eval 500;;
+  scan) gitleaks_install; mkdir -p run/guard; python3 data/gen_secrets.py run/guard;;
+  compress) py_libs headroom-ai tiktoken;;
+  image)
+    portkey_install; bifrost_install
+    "$CONTAINER" pull -q ghcr.io/berriai/litellm:main-stable > /dev/null
+    version litellm-image "$("$CONTAINER" image inspect ghcr.io/berriai/litellm:main-stable --format 'created {{.Created}}') (image ghcr.io/berriai/litellm:main-stable)"
+    "$CONTAINER" build -q -t localhost/nave-arena-gateway:latest -f Containerfile . > /dev/null;;
+  *) echo "no group $group" >&2; exit 2;;
+esac
+bin/race run "races/$group.json" --out "results/$group"

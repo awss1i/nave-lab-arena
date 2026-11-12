@@ -1,0 +1,270 @@
+commit a0fa552
+Date: 2026-06-30
+
+    refactor: share invalid header handling (#221)
+
+
+ src/lib.rs | 281 ++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 138 insertions(+), 143 deletions(-)
+commit e48b248
+Date: 2026-06-21
+
+    refactor: use const generics from Rust 1.51 (#220)
+
+
+ src/iter.rs      | 8 ++------
+ src/lib.rs       | 6 +++---
+ src/simd/swar.rs | 6 +++---
+ 3 files changed, 8 insertions(+), 12 deletions(-)
+commit ac44a38
+Date: 2026-03-20
+
+    refactor: remove code duplication in chunk size parsing (#219)
+
+
+ src/lib.rs | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
+commit 4b902ec
+Date: 2026-02-06
+
+    docs: warn about retry loops on Status::Partial (#217)
+
+
+ src/lib.rs | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+commit dc64fbe
+Date: 2026-01-21
+
+    update copyright year (#216)
+
+
+ LICENSE-MIT | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 21d2805
+Date: 2025-11-10
+
+    Support no_std compile-time SIMD (#214)
+
+
+ src/lib.rs      |  2 +-
+ src/simd/mod.rs | 31 ++++++++++++++++++++-----------
+ 2 files changed, 21 insertions(+), 12 deletions(-)
+commit a51172d
+Date: 2025-11-03
+
+    remove build script, bump MSRV to use standard cfg attributes for SIMD (#213)
+
+
+ .github/workflows/ci.yml      |  44 +++-----------
+ .github/workflows/cibench.yml |  35 ++++++-----
+ Cargo.toml                    |   9 +--
+ build.rs                      | 133 ------------------------------------------
+ clippy.toml                   |   1 -
+ src/macros.rs                 |   6 +-
+ src/simd/mod.rs               |  90 +++++++++++++++-------------
+ 7 files changed, 83 insertions(+), 235 deletions(-)
+commit 3d7feb2
+Date: 2025-10-31
+
+    chore: fix clippy warnings, modernize CI (#212)
+
+
+ .github/workflows/ci.yml      | 120 ++++++++++--------------------------------
+ .github/workflows/cibench.yml |  24 +++------
+ Cargo.toml                    |   2 +-
+ src/lib.rs                    |   4 +-
+ src/simd/neon.rs              |   4 +-
+ 5 files changed, 39 insertions(+), 115 deletions(-)
+commit 3614726
+Date: 2025-03-19
+
+    refactor: update to use APIs up to MSRV (#206)
+
+
+ build.rs          | 10 +++++-----
+ src/iter.rs       |  2 +-
+ src/lib.rs        | 17 ++++++-----------
+ src/simd/avx2.rs  | 12 ++++--------
+ src/simd/sse42.rs |  6 ++----
+ src/simd/swar.rs  |  3 +--
+ 6 files changed, 19 insertions(+), 31 deletions(-)
+commit 9f29e79
+Date: 2025-03-03
+
+    v1.10.1
+
+
+ Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 11a86d1
+Date: 2025-03-03
+
+    fix(swar): utf8 support (#205)
+
+
+ src/simd/avx2.rs |   5 ++-
+ src/simd/swar.rs | 100 +++++++++++++++++++++++--------------------------------
+ 2 files changed, 44 insertions(+), 61 deletions(-)
+commit 36c38e5
+Date: 2025-02-26
+
+    docs: document the AVX2 instructions (#203)
+
+
+ src/simd/avx2.rs | 58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
+commit 876d08c
+Date: 2025-02-25
+
+    ci: upgrade fuzz job to upload-artifact v4 (#204)
+
+
+ .github/workflows/cifuzz.yml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 3308d11
+Date: 2025-01-28
+
+    v1.10.0
+
+
+ Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit c462abb
+Date: 2025-01-28
+
+    chore: update copyright year
+
+
+ LICENSE-MIT | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit b72c2ff
+Date: 2025-01-27
+
+    style: modernize byte_map! (#197)
+
+
+ src/lib.rs    | 66 +++++++++++------------------------------------------------
+ src/macros.rs | 15 +++++++++++---
+ 2 files changed, 24 insertions(+), 57 deletions(-)
+commit a7e4650
+Date: 2025-01-27
+
+    ci: fix qemu for ubuntu 24.04 noble (#199)
+
+
+ .github/workflows/ci.yml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+commit eb91549
+Date: 2025-01-10
+
+    refactor: reduce ease of soundness mistake of peek_ahead in iter.rs (#191)
+
+
+ src/iter.rs | 46 +++++++++++++++++++++++++++-------------------
+ src/lib.rs  | 21 ++++++++++++---------
+ 2 files changed, 39 insertions(+), 28 deletions(-)
+commit f1cbffc
+Date: 2024-12-27
+
+    feat(path): allow utf8 chars in path (#178)
+
+
+ src/lib.rs        | 184 ++++++++++++++++++++++++++++++++++++++++++++++--------
+ src/simd/avx2.rs  |  38 ++++-------
+ src/simd/neon.rs  |  17 ++---
+ src/simd/sse42.rs |  50 +++++----------
+ src/simd/swar.rs  |   2 +-
+ 5 files changed, 194 insertions(+), 97 deletions(-)
+commit 380f130
+Date: 2024-12-06
+
+    iter::slice_skip remove possibility of underflow in debug_assert (#187)
+
+
+ src/iter.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 0e1b088
+Date: 2024-12-04
+
+    Update MSRV from 1.36 to 1.47 also in clippy.toml. Fix related clippy issues. (#193)
+
+
+ clippy.toml |  2 +-
+ src/iter.rs |  4 ++--
+ src/lib.rs  | 26 +++++++++++++-------------
+ 3 files changed, 16 insertions(+), 16 deletions(-)
+commit 390a6d3
+Date: 2024-12-02
+
+    Update MSRV from 1.36 to 1.47 (#192)
+
+
+ .github/workflows/ci.yml | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+commit 9f6702b
+Date: 2024-10-29
+
+    Fix method parsing to reject a leading space (#190)
+
+
+ Cargo.toml       |  1 +
+ benches/parse.rs | 38 +++++++++++++++++++++++++++++++++++---
+ src/lib.rs       | 44 ++++++++++++++++++++++++++++++++++----------
+ src/simd/neon.rs |  2 +-
+ 4 files changed, 71 insertions(+), 14 deletions(-)
+commit 97c7e6e
+Date: 2024-09-30
+
+    v1.9.5
+
+
+ Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit cf69365
+Date: 2024-09-30
+
+    fix unsound pointer arithmetic (#185)
+
+
+ src/iter.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 42422dc
+Date: 2024-09-03
+
+    lint(simd): don't build simd::sse42 when +avx2 (#183)
+
+
+ src/simd/mod.rs | 1 +
+ 1 file changed, 1 insertion(+)
+commit 47853d7
+Date: 2024-09-03
+
+    perf(simd): avx2 fallack to swar instead of sse4.2 (#181)
+
+
+ src/simd/avx2.rs | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+commit fff851f
+Date: 2024-09-01
+
+    benches: lexicographically ordered bench names (#180)
+
+
+ benches/parse.rs | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+commit 38878a0
+Date: 2024-09-01
+
+    perf: cibench workflow (#179)
+
+
+ .github/workflows/cibench.yml | 123 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 123 insertions(+)
+commit ab76284
+Date: 2024-06-17
+
+    v1.9.4
+
+
+ Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)

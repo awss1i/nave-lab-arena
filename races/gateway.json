@@ -1,0 +1,373 @@
+[
+ {
+  "name": "200 calls on one kept connection",
+  "feature": "F1 and F13",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out",
+  "rounds": 7,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "nave",
+     "--calls",
+     "200",
+     "--conns",
+     "1"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "litellm",
+     "--calls",
+     "200",
+     "--conns",
+     "1"
+    ]
+   },
+   {
+    "name": "Portkey",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "portkey",
+     "--calls",
+     "200",
+     "--conns",
+     "1"
+    ]
+   },
+   {
+    "name": "Bifrost",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "bifrost",
+     "--calls",
+     "200",
+     "--conns",
+     "1"
+    ]
+   }
+  ],
+  "setup": [
+   "./gateways.sh",
+   "up"
+  ],
+  "teardown": [
+   "./gateways.sh",
+   "down"
+  ]
+ },
+ {
+  "name": "2,000 calls over 64 connections",
+  "feature": "F1 and F13",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "nave",
+     "--calls",
+     "2000",
+     "--conns",
+     "64"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "litellm",
+     "--calls",
+     "2000",
+     "--conns",
+     "64"
+    ]
+   },
+   {
+    "name": "Portkey",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "portkey",
+     "--calls",
+     "2000",
+     "--conns",
+     "64"
+    ]
+   },
+   {
+    "name": "Bifrost",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "bifrost",
+     "--calls",
+     "2000",
+     "--conns",
+     "64"
+    ]
+   }
+  ],
+  "setup": [
+   "./gateways.sh",
+   "up"
+  ],
+  "teardown": [
+   "./gateways.sh",
+   "down"
+  ]
+ },
+ {
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "feature": "F1 and F13",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "nave",
+     "--calls",
+     "500",
+     "--conns",
+     "16",
+     "--history",
+     "50000"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "litellm",
+     "--calls",
+     "500",
+     "--conns",
+     "16",
+     "--history",
+     "50000"
+    ]
+   },
+   {
+    "name": "Portkey",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "portkey",
+     "--calls",
+     "500",
+     "--conns",
+     "16",
+     "--history",
+     "50000"
+    ]
+   },
+   {
+    "name": "Bifrost",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "bifrost",
+     "--calls",
+     "500",
+     "--conns",
+     "16",
+     "--history",
+     "50000"
+    ]
+   }
+  ],
+  "setup": [
+   "./gateways.sh",
+   "up"
+  ],
+  "teardown": [
+   "./gateways.sh",
+   "down"
+  ]
+ },
+ {
+  "name": "500 streamed calls over 16 connections",
+  "feature": "F1 and F13",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "nave",
+     "--calls",
+     "500",
+     "--conns",
+     "16",
+     "--stream"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "litellm",
+     "--calls",
+     "500",
+     "--conns",
+     "16",
+     "--stream"
+    ]
+   },
+   {
+    "name": "Portkey",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "portkey",
+     "--calls",
+     "500",
+     "--conns",
+     "16",
+     "--stream"
+    ]
+   },
+   {
+    "name": "Bifrost",
+    "cmd": [
+     "./gateways.sh",
+     "load",
+     "bifrost",
+     "--calls",
+     "500",
+     "--conns",
+     "16",
+     "--stream"
+    ]
+   }
+  ],
+  "setup": [
+   "./gateways.sh",
+   "up"
+  ],
+  "teardown": [
+   "./gateways.sh",
+   "down"
+  ]
+ },
+ {
+  "name": "one call through a gateway started for it",
+  "feature": "F13",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./gateways.sh",
+     "fresh",
+     "nave"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./gateways.sh",
+     "fresh",
+     "litellm"
+    ]
+   },
+   {
+    "name": "Portkey",
+    "cmd": [
+     "./gateways.sh",
+     "fresh",
+     "portkey"
+    ]
+   },
+   {
+    "name": "Bifrost",
+    "cmd": [
+     "./gateways.sh",
+     "fresh",
+     "bifrost"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && UP_PORT=9000 ./up.sh standin $MODEL_CPUS bin/standin 127.0.0.1:9000"
+  ],
+  "teardown": [
+   "./down.sh",
+   "standin"
+  ]
+ },
+ {
+  "name": "memory held after 20,000 calls over 64 connections",
+  "feature": "F13",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./gateways.sh",
+     "memory",
+     "nave"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./gateways.sh",
+     "memory",
+     "litellm"
+    ]
+   },
+   {
+    "name": "Portkey",
+    "cmd": [
+     "./gateways.sh",
+     "memory",
+     "portkey"
+    ]
+   },
+   {
+    "name": "Bifrost",
+    "cmd": [
+     "./gateways.sh",
+     "memory",
+     "bifrost"
+    ]
+   }
+  ],
+  "setup": [
+   "./gateways.sh",
+   "up"
+  ],
+  "teardown": [
+   "./gateways.sh",
+   "down"
+  ]
+ }
+]

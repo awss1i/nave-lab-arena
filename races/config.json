@@ -1,0 +1,27 @@
+[
+ {
+  "name": "loading a LiteLLM configuration of 1,000 models",
+  "feature": "F14",
+  "conditions": "one CPU, 3,000 deployments in 592 KB of YAML: Nave's adapter, and LiteLLM's own YAML read and Router",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "config",
+     "nave"
+    ]
+   },
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./entrant.sh",
+     "config",
+     "litellm"
+    ]
+   }
+  ]
+ }
+]

@@ -1,0 +1,74 @@
+[
+ {
+  "name": "the size of the gateway's image, Nave",
+  "feature": "F18",
+  "conditions": "each project's own official image, unpacked on disk",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "image",
+     "nave",
+     "localhost/nave-arena-gateway:latest"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "the size of the gateway's image, LiteLLM",
+  "feature": "F18",
+  "conditions": "each project's own official image, unpacked on disk",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "LiteLLM",
+    "cmd": [
+     "./entrant.sh",
+     "image",
+     "litellm",
+     "ghcr.io/berriai/litellm:main-stable"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "the size of the gateway's image, Portkey",
+  "feature": "F18",
+  "conditions": "each project's own official image, unpacked on disk",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Portkey",
+    "cmd": [
+     "./entrant.sh",
+     "image",
+     "portkey",
+     "docker.io/portkeyai/gateway:latest"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "the size of the gateway's image, Bifrost",
+  "feature": "F18",
+  "conditions": "each project's own official image, unpacked on disk",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Bifrost",
+    "cmd": [
+     "./entrant.sh",
+     "image",
+     "bifrost",
+     "docker.io/maximhq/bifrost:latest"
+    ]
+   }
+  ]
+ }
+]

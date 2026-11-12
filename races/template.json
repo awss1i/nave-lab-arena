@@ -1,0 +1,43 @@
+[
+ {
+  "name": "rendering a prompt with ten documents for a call",
+  "feature": "F10",
+  "conditions": "one CPU, a Mustache template over 8.7 KB of variables: the variables read from JSON text, the prompt rendered, the text written as a JSON string",
+  "rounds": 7,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "template",
+     "nave"
+    ]
+   },
+   {
+    "name": "mustache.js",
+    "cmd": [
+     "./entrant.sh",
+     "template",
+     "mustachejs"
+    ]
+   },
+   {
+    "name": "pystache",
+    "cmd": [
+     "./entrant.sh",
+     "template",
+     "pystache"
+    ]
+   },
+   {
+    "name": "chevron",
+    "cmd": [
+     "./entrant.sh",
+     "template",
+     "chevron"
+    ]
+   }
+  ]
+ }
+]

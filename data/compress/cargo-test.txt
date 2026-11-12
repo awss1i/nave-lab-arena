@@ -1,0 +1,111 @@
+ Downloading crates ...
+  Downloaded cast v0.3.0
+  Downloaded clap_lex v1.1.1
+  Downloaded tinytemplate v1.2.1
+  Downloaded same-file v1.0.6
+  Downloaded ciborium-io v0.2.2
+  Downloaded oorandom v11.1.5
+  Downloaded alloca v0.4.0
+  Downloaded page_size v0.6.0
+  Downloaded anes v0.1.6
+  Downloaded ciborium-ll v0.2.2
+  Downloaded anstyle v1.0.14
+  Downloaded either v1.19.0
+  Downloaded quickcheck v1.1.0
+  Downloaded criterion-plot v0.8.2
+  Downloaded ciborium v0.2.2
+  Downloaded half v2.7.1
+  Downloaded walkdir v2.5.0
+  Downloaded clap v4.6.7
+  Downloaded clap_builder v4.6.7
+  Downloaded criterion v0.8.2
+  Downloaded itertools v0.13.0
+  Downloaded zerocopy-derive v0.8.63
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.27
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.191
+   Compiling zerocopy v0.8.63
+   Compiling find-msvc-tools v0.1.15
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling shlex v2.0.1
+   Compiling getrandom v0.4.3
+   Compiling rand_core v0.10.1
+   Compiling serde_json v1.0.154
+   Compiling autocfg v1.5.1
+   Compiling either v1.19.0
+   Compiling clap_lex v1.1.1
+   Compiling memchr v2.8.3
+   Compiling cc v1.11.1
+   Compiling itoa v1.0.19
+   Compiling cpufeatures v0.3.1
+   Compiling ciborium-io v0.2.2
+   Compiling anstyle v1.0.14
+   Compiling regex-syntax v0.8.11
+   Compiling chacha20 v0.10.2
+   Compiling same-file v1.0.6
+   Compiling cast v0.3.0
+   Compiling itertools v0.13.0
+   Compiling walkdir v2.5.0
+   Compiling anes v0.1.6
+   Compiling oorandom v11.1.5
+   Compiling num-traits v0.2.19
+   Compiling clap_builder v4.6.7
+   Compiling syn v2.0.119
+   Compiling syn v3.0.10
+   Compiling alloca v0.4.0
+   Compiling page_size v0.6.0
+   Compiling rand v0.10.3
+   Compiling regex-automata v0.4.18
+   Compiling quickcheck v1.1.0
+   Compiling criterion-plot v0.8.2
+   Compiling serde_derive v1.0.229
+   Compiling clap v4.6.7
+   Compiling zerocopy-derive v0.8.63
+   Compiling regex v1.13.1
+   Compiling tinytemplate v1.2.1
+   Compiling half v2.7.1
+   Compiling ciborium-ll v0.2.2
+   Compiling ciborium v0.2.2
+   Compiling criterion v0.8.2
+   Compiling crc32fast v1.5.5 (/home/user/work/crc32fast)
+    Finished `release` profile [optimized] target(s) in 8.64s
+     Running unittests src/lib.rs (/home/user/work/target/release/build/crc32fast/c9864b5cecdaaaf7/out/crc32fast-c9864b5cecdaaaf7)
+
+running 11 tests
+test baseline::test::slow ... ok
+test combine::fold_keys_match_the_x86_constants ... ok
+test baseline::test::fast_16_is_the_same_as_slow ... ok
+test combine::golden ... ok
+test specialized::pclmulqdq::test::check_large_inputs_against_baseline ... ok
+test test::total_len_for_empty_and_unknown_initial_length ... ok
+test test::total_len_tracks_resumed_and_combined_blocks ... ok
+test test::combine ... ok
+test test::combine_from_len ... ok
+test combine::shift_table_appends_zeros ... ok
+test specialized::pclmulqdq::test::check_against_baseline ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/exhaustive.rs (/home/user/work/target/release/build/crc32fast/57a3bfba17578714/out/exhaustive-57a3bfba17578714)
+
+running 5 tests
+test reference_matches_known_vectors ... ok
+test combine_matches_reference ... ok
+test large_sizes ... ok
+test streaming_random_splits ... ok
+test exhaustive_lengths_alignments_inits ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+   Doc-tests crc32fast
+
+running 3 tests
+test src/lib.rs - Hasher::total_len (line 144) ... ok
+test src/lib.rs - (line 10) ... ok
+test src/lib.rs - (line 19) ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

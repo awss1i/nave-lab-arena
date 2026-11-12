@@ -1,0 +1,36 @@
+[
+ {
+  "name": "an eval suite of 1,500 cases",
+  "feature": "F12",
+  "conditions": "two CPUs, three prompts and 500 tests with four checks each against the stand-in model, 16 calls at a time, no cache",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "eval",
+     "nave"
+    ]
+   },
+   {
+    "name": "promptfoo",
+    "cmd": [
+     "./entrant.sh",
+     "eval",
+     "promptfoo"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && UP_PORT=9000 ./up.sh standin $MODEL_CPUS bin/standin 127.0.0.1:9000"
+  ],
+  "teardown": [
+   "./down.sh",
+   "standin"
+  ]
+ }
+]

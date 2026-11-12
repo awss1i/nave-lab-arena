@@ -1,0 +1,34 @@
+name: arena
+
+on:
+  workflow_dispatch:
+    inputs:
+      groups:
+        description: The groups to run, as a JSON list
+        default: '["gateway","cache","client","template","cost","config","eval","scan","compress","image"]'
+
+permissions:
+  contents: read
+
+jobs:
+  race:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        group: ${{ fromJSON(inputs.groups) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the group
+        run: |
+          chmod +x bin/* *.sh clients/*.sh
+          ./arena.sh ${{ matrix.group }}
+      - name: Keep what the servers logged
+        if: always()
+        run: mkdir -p results/logs && cp run/*.log results/logs/ 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.group }}
+          path: results/

@@ -1,0 +1,140 @@
+[
+ {
+  "name": "1,000 calls from a client library",
+  "feature": "F2",
+  "conditions": "one process on one CPU calling the stand-in model on another, one kept connection",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave's client",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "nave",
+     "1000"
+    ]
+   },
+   {
+    "name": "LiteLLM's SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "litellm",
+     "1000"
+    ]
+   },
+   {
+    "name": "OpenAI's Python SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "openai",
+     "1000"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && UP_PORT=9000 ./up.sh standin $MODEL_CPUS bin/standin 127.0.0.1:9000"
+  ],
+  "teardown": [
+   "./down.sh",
+   "standin"
+  ]
+ },
+ {
+  "name": "300 streamed calls from a client library",
+  "feature": "F2",
+  "conditions": "one process on one CPU calling the stand-in model on another, one kept connection",
+  "rounds": 5,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave's client",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "nave",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "LiteLLM's SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "litellm",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "OpenAI's Python SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "openai",
+     "300",
+     "--stream"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && UP_PORT=9000 ./up.sh standin $MODEL_CPUS bin/standin 127.0.0.1:9000"
+  ],
+  "teardown": [
+   "./down.sh",
+   "standin"
+  ]
+ },
+ {
+  "name": "one call from a process started for it",
+  "feature": "F2",
+  "conditions": "one process on one CPU calling the stand-in model on another, one kept connection, the library loaded from nothing each time",
+  "rounds": 7,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave's client",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "nave",
+     "1"
+    ]
+   },
+   {
+    "name": "LiteLLM's SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "litellm",
+     "1"
+    ]
+   },
+   {
+    "name": "OpenAI's Python SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "openai",
+     "1"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   ". ./lib.sh && UP_PORT=9000 ./up.sh standin $MODEL_CPUS bin/standin 127.0.0.1:9000"
+  ],
+  "teardown": [
+   "./down.sh",
+   "standin"
+  ]
+ }
+]
