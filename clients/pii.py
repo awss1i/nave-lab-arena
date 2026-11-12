@@ -42,6 +42,9 @@ elif tool == "presidio":
             findings += 1
     seconds = time.perf_counter() - t
 elif tool == "llm-guard":
+    # It logs to standard output as it loads and scans, so that's pointed away until the result is printed.
+    keep = os.dup(1)
+    os.dup2(os.open(os.devnull, os.O_WRONLY), 1)
     from llm_guard.input_scanners import Anonymize
     from llm_guard.vault import Vault
 
@@ -53,6 +56,8 @@ elif tool == "llm-guard":
         out, _, _ = scanner.scan(p)
         cleaned.append(out)
     seconds = time.perf_counter() - t
+    sys.stdout.flush()
+    os.dup2(keep, 1)
     # It hands back the prompt with each value replaced, so a planted value counts as found when it's gone.
     for i, (p, out) in enumerate(zip(prompts, cleaned)):
         findings += out.count("[REDACTED_")
