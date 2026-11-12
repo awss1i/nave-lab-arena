@@ -1,0 +1,194 @@
+[
+ {
+  "name": "listing a server's tools through an MCP gateway, 1,000 lists over 4 connections, Nave",
+  "feature": "F8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "mcp",
+     "nave",
+     "list",
+     "--calls",
+     "1000",
+     "--conns",
+     "4"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh up standin && ./clients/mcp_gateways.sh up nave"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh down nave; ./clients/mcp_gateways.sh down standin"
+  ]
+ },
+ {
+  "name": "listing a server's tools through an MCP gateway, 1,000 lists over 4 connections, ContextForge",
+  "feature": "F8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "ContextForge",
+    "cmd": [
+     "./entrant.sh",
+     "mcp",
+     "contextforge",
+     "list",
+     "--calls",
+     "1000",
+     "--conns",
+     "4"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh up standin && ./clients/mcp_gateways.sh up contextforge"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh down contextforge; ./clients/mcp_gateways.sh down standin"
+  ]
+ },
+ {
+  "name": "calling a tool through an MCP gateway, 2,000 calls over 4 connections, Nave",
+  "feature": "F8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "mcp",
+     "nave",
+     "call",
+     "--calls",
+     "2000",
+     "--conns",
+     "4"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh up standin && ./clients/mcp_gateways.sh up nave"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh down nave; ./clients/mcp_gateways.sh down standin"
+  ]
+ },
+ {
+  "name": "calling a tool through an MCP gateway, 2,000 calls over 4 connections, ContextForge",
+  "feature": "F8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "ContextForge",
+    "cmd": [
+     "./entrant.sh",
+     "mcp",
+     "contextforge",
+     "call",
+     "--calls",
+     "2000",
+     "--conns",
+     "4"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh up standin && ./clients/mcp_gateways.sh up contextforge"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh down contextforge; ./clients/mcp_gateways.sh down standin"
+  ]
+ },
+ {
+  "name": "calling a tool through an MCP gateway, 1,000 calls on one connection, Nave",
+  "feature": "F8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "mcp",
+     "nave",
+     "call",
+     "--calls",
+     "1000",
+     "--conns",
+     "1"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh up standin && ./clients/mcp_gateways.sh up nave"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh down nave; ./clients/mcp_gateways.sh down standin"
+  ]
+ },
+ {
+  "name": "calling a tool through an MCP gateway, 1,000 calls on one connection, ContextForge",
+  "feature": "F8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "ContextForge",
+    "cmd": [
+     "./entrant.sh",
+     "mcp",
+     "contextforge",
+     "call",
+     "--calls",
+     "1000",
+     "--conns",
+     "1"
+    ]
+   }
+  ],
+  "setup": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh up standin && ./clients/mcp_gateways.sh up contextforge"
+  ],
+  "teardown": [
+   "sh",
+   "-c",
+   "./clients/mcp_gateways.sh down contextforge; ./clients/mcp_gateways.sh down standin"
+  ]
+ }
+]

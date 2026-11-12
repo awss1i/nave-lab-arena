@@ -163,6 +163,12 @@ case $group in
     # vLLM's semantic-router, its command from PyPI and its recipes at the tag of the same version.
     pick_env vllm-sr 3.12 vllm-sr
     [ -d "$ARENA_TOOLS/src/vllm-sr-v04" ] || { git clone -q --depth 1 --branch v0.4.0 --filter=blob:none --sparse https://github.com/vllm-project/semantic-router "$ARENA_TOOLS/src/vllm-sr-v04" && git -C "$ARENA_TOOLS/src/vllm-sr-v04" sparse-checkout set config; };;
+  mcp)
+    # The MCP gateways, each installed as its own docs say.
+    uv=$(arena_uv)
+    "$uv" venv -q --python 3.12 "$ARENA_TOOLS/mcp-contextforge" && "$uv" pip install -q --python "$ARENA_TOOLS/mcp-contextforge/bin/python" mcp-contextforge-gateway || echo "ContextForge didn't install" >&2
+    version mcp-contextforge-gateway "$("$ARENA_TOOLS/mcp-contextforge/bin/python" -c 'import importlib.metadata as m; print(m.version("mcp-contextforge-gateway"))')"
+    version nave-mcp "prototype P012, $(sha256sum bin/p012 | cut -c1-12)";;
   image)
     portkey_install; bifrost_install
     "$CONTAINER" pull -q ghcr.io/berriai/litellm:main-stable > /dev/null
