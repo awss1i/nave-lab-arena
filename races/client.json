@@ -16,6 +16,15 @@
     ]
    },
    {
+    "name": "OpenAI's Python SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "openai",
+     "1000"
+    ]
+   },
+   {
     "name": "LiteLLM's SDK",
     "cmd": [
      "./entrant.sh",
@@ -25,11 +34,74 @@
     ]
    },
    {
-    "name": "OpenAI's Python SDK",
+    "name": "LangChain",
     "cmd": [
      "./entrant.sh",
      "client",
-     "openai",
+     "langchain",
+     "1000"
+    ]
+   },
+   {
+    "name": "aisuite",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "aisuite",
+     "1000"
+    ]
+   },
+   {
+    "name": "any-llm",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "any-llm",
+     "1000"
+    ]
+   },
+   {
+    "name": "llm (Simon Willison's)",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "llm",
+     "1000"
+    ]
+   },
+   {
+    "name": "Vercel AI SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "vercel-ai",
+     "1000"
+    ]
+   },
+   {
+    "name": "token.js",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "tokenjs",
+     "1000"
+    ]
+   },
+   {
+    "name": "TanStack AI",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "tanstack-ai",
+     "1000"
+    ]
+   },
+   {
+    "name": "pi",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "pi-ai",
      "1000"
     ]
    }
@@ -62,6 +134,16 @@
     ]
    },
    {
+    "name": "OpenAI's Python SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "openai",
+     "300",
+     "--stream"
+    ]
+   },
+   {
     "name": "LiteLLM's SDK",
     "cmd": [
      "./entrant.sh",
@@ -72,11 +154,81 @@
     ]
    },
    {
-    "name": "OpenAI's Python SDK",
+    "name": "LangChain",
     "cmd": [
      "./entrant.sh",
      "client",
-     "openai",
+     "langchain",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "aisuite",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "aisuite",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "any-llm",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "any-llm",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "llm (Simon Willison's)",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "llm",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "Vercel AI SDK",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "vercel-ai",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "token.js",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "tokenjs",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "TanStack AI",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "tanstack-ai",
+     "300",
+     "--stream"
+    ]
+   },
+   {
+    "name": "pi",
+    "cmd": [
+     "./entrant.sh",
+     "client",
+     "pi-ai",
      "300",
      "--stream"
     ]
@@ -108,6 +260,14 @@
     ]
    },
    {
+    "name": "OpenAI's Python SDK",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "openai"
+    ]
+   },
+   {
     "name": "LiteLLM's SDK",
     "cmd": [
      "./entrant.sh",
@@ -116,11 +276,67 @@
     ]
    },
    {
-    "name": "OpenAI's Python SDK",
+    "name": "LangChain",
     "cmd": [
      "./entrant.sh",
      "fresh-client",
-     "openai"
+     "langchain"
+    ]
+   },
+   {
+    "name": "aisuite",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "aisuite"
+    ]
+   },
+   {
+    "name": "any-llm",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "any-llm"
+    ]
+   },
+   {
+    "name": "llm (Simon Willison's)",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "llm"
+    ]
+   },
+   {
+    "name": "Vercel AI SDK",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "vercel-ai"
+    ]
+   },
+   {
+    "name": "token.js",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "tokenjs"
+    ]
+   },
+   {
+    "name": "TanStack AI",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "tanstack-ai"
+    ]
+   },
+   {
+    "name": "pi",
+    "cmd": [
+     "./entrant.sh",
+     "fresh-client",
+     "pi-ai"
     ]
    }
   ],

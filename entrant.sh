@@ -17,11 +17,12 @@ whole() {
 }
 case "$group.$name" in
   fresh-client.nave) whole taskset -c "$LOAD_CPUS" bin/p018 calls http://127.0.0.1:9000/v1/chat/completions 1;;
-  fresh-client.litellm) whole taskset -c "$LOAD_CPUS" "$LITELLM_PY" clients/chat_client.py litellm http://127.0.0.1:9000/v1 1;;
-  fresh-client.openai) whole taskset -c "$LOAD_CPUS" "$PY" clients/chat_client.py openai http://127.0.0.1:9000/v1 1;;
+  fresh-client.*) whole "$0" client "$name" 1;;
   client.nave) taskset -c "$LOAD_CPUS" bin/p018 calls http://127.0.0.1:9000/v1/chat/completions "$@";;
   client.litellm) taskset -c "$LOAD_CPUS" "$LITELLM_PY" clients/chat_client.py litellm http://127.0.0.1:9000/v1 "$@";;
-  client.openai) taskset -c "$LOAD_CPUS" "$PY" clients/chat_client.py openai http://127.0.0.1:9000/v1 "$@";;
+  client.openai | client.aisuite | client.any-llm | client.langchain | client.llm) taskset -c "$LOAD_CPUS" "$PY" clients/chat_client.py "$name" http://127.0.0.1:9000/v1 "$@";;
+  # The JavaScript libraries are imported by name, so the script runs from beside their node_modules folder.
+  client.vercel-ai | client.tokenjs | client.tanstack-ai | client.pi-ai) cp clients/chat_client.mjs "$ARENA_TOOLS/node/" && taskset -c "$LOAD_CPUS" node "$ARENA_TOOLS/node/chat_client.mjs" "$name" http://127.0.0.1:9000/v1 "$@";;
   template.nave) on bin/p014 file data/prompt.mustache data/prompt-vars.json 20000;;
   template.chevron | template.pystache) on "$PY" clients/mustache_render.py "$name" data/prompt.mustache data/prompt-vars.json 2000;;
   template.mustachejs) on node clients/mustache_render.mjs "$ARENA_TOOLS/node" data/prompt.mustache data/prompt-vars.json 20000;;

@@ -1,5 +1,5 @@
 """N chat calls on one kept connection through a Python client library, checked and summed the way the load tool does.
-Usage: chat_client.py litellm|openai URL N [--stream]. URL is the stand-in's base, such as http://127.0.0.1:9000/v1."""
+Usage: chat_client.py litellm|openai|aisuite|any-llm|langchain|llm URL N [--stream]. URL is the stand-in's base, such as http://127.0.0.1:9000/v1."""
 import os
 import sys
 import time
@@ -31,6 +31,48 @@ if lib == "litellm":
         if stream:
             return "".join(c.choices[0].delta.content or "" for c in r)
         return r.choices[0].message.content
+elif lib == "aisuite":
+    import aisuite
+
+    client = aisuite.Client({"openai": {"api_key": key, "base_url": base, "max_retries": 0}})
+
+    def call(i):
+        r = client.chat.completions.create(model="openai:mock", messages=[{"role": "user", "content": f"call {i}"}], stream=stream)
+        if stream:
+            return "".join((c.choices[0].delta.content or "") for c in r if c.choices)
+        return r.choices[0].message.content
+elif lib == "any-llm":
+    from any_llm import completion
+
+    def call(i):
+        r = completion(model="mock", provider="openai", api_key=key, api_base=base, messages=[{"role": "user", "content": f"call {i}"}], stream=stream)
+        if stream:
+            return "".join((c.choices[0].delta.content or "") for c in r if c.choices)
+        return r.choices[0].message.content
+elif lib == "langchain":
+    from langchain_openai import ChatOpenAI
+
+    chat = ChatOpenAI(model="mock", base_url=base, api_key=key, max_retries=0)
+
+    def call(i):
+        if stream:
+            return "".join(c.content for c in chat.stream([("user", f"call {i}")]))
+        return chat.invoke([("user", f"call {i}")]).content
+elif lib == "llm":
+    # Simon Willison's llm takes an OpenAI-compatible model from a file in its own folder.
+    import tempfile
+
+    home = tempfile.mkdtemp()
+    os.environ["LLM_USER_PATH"] = home
+    with open(os.path.join(home, "extra-openai-models.yaml"), "w") as f:
+        f.write(f"- model_id: mock\n  model_name: mock\n  api_base: \"{base}\"\n")
+    import llm
+
+    model = llm.get_model("mock")
+    model.key = key
+
+    def call(i):
+        return model.prompt(f"call {i}", stream=stream).text()
 else:
     from openai import OpenAI
 
