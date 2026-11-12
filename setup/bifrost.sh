@@ -3,7 +3,16 @@
 # CPUs it has.
 bifrost_install() {
   "$CONTAINER" pull -q docker.io/maximhq/bifrost:latest > /dev/null
-  version bifrost "$("$CONTAINER" image inspect docker.io/maximhq/bifrost:latest --format '{{index .Config.Labels "org.opencontainers.image.version"}} created {{.Created}}') (image docker.io/maximhq/bifrost:latest)"
+  version bifrost "$(bifrost_version) created $("$CONTAINER" image inspect docker.io/maximhq/bifrost:latest --format '{{.Created}}') (image docker.io/maximhq/bifrost:latest)"
+}
+# The image carries no version label, so the version is the release tag that Docker Hub lists with the same digest
+# as `latest`.
+bifrost_version() {
+  curl -fsS -A arena 'https://hub.docker.com/v2/repositories/maximhq/bifrost/tags?page_size=50&ordering=last_updated' 2>/dev/null | python3 -c '
+import json, re, sys
+tags = json.load(sys.stdin)["results"]
+latest = next((t["digest"] for t in tags if t["name"] == "latest"), None)
+print(next((t["name"] for t in tags if t["digest"] == latest and re.fullmatch(r"v[0-9.]+", t["name"])), "version not found"))' 2>/dev/null || echo "version not found"
 }
 bifrost_start() {
   mkdir -p run/bifrost-data && chmod 777 run/bifrost-data

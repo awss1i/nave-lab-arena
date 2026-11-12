@@ -2,7 +2,7 @@
  {
   "name": "the size of the gateway's image, Nave",
   "feature": "F18",
-  "conditions": "each project's own official image, unpacked on disk",
+  "conditions": "each project's own official image, its files written out as one archive by the container engine's export",
   "rounds": 1,
   "normalise": "lines",
   "entrants": [
@@ -20,7 +20,7 @@
  {
   "name": "the size of the gateway's image, LiteLLM",
   "feature": "F18",
-  "conditions": "each project's own official image, unpacked on disk",
+  "conditions": "each project's own official image, its files written out as one archive by the container engine's export",
   "rounds": 1,
   "normalise": "lines",
   "entrants": [
@@ -38,7 +38,7 @@
  {
   "name": "the size of the gateway's image, Portkey",
   "feature": "F18",
-  "conditions": "each project's own official image, unpacked on disk",
+  "conditions": "each project's own official image, its files written out as one archive by the container engine's export",
   "rounds": 1,
   "normalise": "lines",
   "entrants": [
@@ -56,7 +56,7 @@
  {
   "name": "the size of the gateway's image, Bifrost",
   "feature": "F18",
-  "conditions": "each project's own official image, unpacked on disk",
+  "conditions": "each project's own official image, its files written out as one archive by the container engine's export",
   "rounds": 1,
   "normalise": "lines",
   "entrants": [

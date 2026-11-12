@@ -23,8 +23,12 @@ case "$group.$name" in
   compress.nave) on "$PY" clients/nave_compress.py "data/compress/$1" 20;;
   compress.headroom) on "$PY" clients/headroom_compress.py "data/compress/$1" 3;;
   image.*)
-    # An image's size as its registry would send it isn't known here, so this is its size unpacked on disk.
+    # What an engine reports as an image's size differs between engines: some give the layers compressed and some
+    # unpacked. A container's files written out as one archive are the same bytes on any of them.
+    id=$("$CONTAINER" create "$1") || exit 1
+    bytes=$("$CONTAINER" export "$id" | wc -c)
+    "$CONTAINER" rm "$id" > /dev/null
     echo measured
-    echo "metric image_mb=$("$CONTAINER" image inspect "$1" --format '{{.Size}}' | awk '{ printf "%.1f", $1 / 1e6 }')" >&2;;
+    echo "metric image_mb=$(awk -v b="$bytes" 'BEGIN { printf "%.2f", b / 1e6 }')" >&2;;
   *) echo "no entrant $group.$name" >&2; exit 2;;
 esac

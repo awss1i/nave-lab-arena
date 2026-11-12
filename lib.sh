@@ -30,6 +30,12 @@ peak_mb() {
 if command -v docker > /dev/null && ! docker --version 2>&1 | grep -qi podman; then CONTAINER=$(command -v docker); else CONTAINER=$(command -v podman); fi
 container_up() { # NAME PORT IMAGE-AND-ARGS..
   local name=$1 port=$2; shift 2
+  # The last container of this name has to be gone, with its port, before the next one counts as listening.
+  for _ in $(seq 1 300); do
+    "$CONTAINER" container inspect "arena-$name" > /dev/null 2>&1 || (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null || break
+    sleep 0.1
+  done
+  if (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null; then echo "$name can't start: port $port is already answering" >&2; return 1; fi
   if [ "$(basename "$CONTAINER")" = docker ]; then
     docker run -d --rm --name "arena-$name" --network host --cpuset-cpus "$GATEWAY_CPUS" "$@" > /dev/null
   else
