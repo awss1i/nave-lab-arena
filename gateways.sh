@@ -3,6 +3,7 @@
 # of them. Each gateway's own start, stop and settings are in setup/NAME.sh.
 # Usage: ./gateways.sh up "NAMES" [MODE], ./gateways.sh down "NAMES", and for one entrant:
 #   load NAME [load options]      calls in OpenAI's format
+#   quick NAME [load options]     the same, from a client that acknowledges every packet at once
 #   messages NAME [load options]  calls in Anthropic's format
 #   cached NAME [load options]    the load, then how many calls reached the model
 #   rate NAME RATE CALLS CONNS    the load at a fixed rate, with the gateway's CPU time per call
@@ -16,6 +17,7 @@ set -uo pipefail
 . ./lib.sh
 for s in setup/*.sh; do . "$s"; done
 direct_url() { echo http://127.0.0.1:9000; }
+direct_key() { echo "$LLM_KEY"; }
 direct_kind=none
 url_of() { gw "$1" url; }
 load() { # NAME PATH-KIND [load options]
@@ -23,7 +25,7 @@ load() { # NAME PATH-KIND [load options]
   path=$(gw "$name" "${kind}_path")
   local extra=()
   while IFS= read -r line; do [ -n "$line" ] && extra+=("$line"); done < <(gw "$name" load_args)
-  taskset -c "$LOAD_CPUS" bin/load "$(url_of "$name")$path" "${extra[@]}" "$@"
+  LLM_KEY=$(gw "$name" key) taskset -c "$LOAD_CPUS" bin/load "$(url_of "$name")$path" "${extra[@]}" "$@"
 }
 standin_up() { # NAME PORT [ARGS..]
   local name=$1 port=$2; shift 2
@@ -47,6 +49,9 @@ case $1 in
     for g in $2; do [ "$g" = direct ] || gw "$g" stop; done
     ./down.sh standin standin-bad;;
   load) name=$2; shift 2; load "$name" chat "$@";;
+  # The same load from a client that acknowledges every packet at once. An ordinary client waits up to 40 ms to
+  # acknowledge, and a gateway that sends its answer in two small writes without TCP_NODELAY waits on that.
+  quick) name=$2; shift 2; BENCH_QUICKACK=1 load "$name" chat "$@";;
   messages) name=$2; shift 2; load "$name" messages "$@";;
   cached)
     name=$2; shift 2
@@ -89,5 +94,5 @@ case $1 in
     name=$2
     args=()
     while IFS= read -r line; do [ -n "$line" ] && args+=("$line"); done < <(gw "$name" load_args)
-    python3 clients/edges.py "$(url_of "$name")" "$(gw "$name" chat_path)" "$(gw "$name" messages_path)" run/standin-body.txt "${args[@]}";;
+    LLM_KEY=$(gw "$name" key) python3 clients/edges.py "$(url_of "$name")" "$(gw "$name" chat_path)" "$(gw "$name" messages_path)" run/standin-body.txt "${args[@]}";;
 esac

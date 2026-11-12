@@ -12,3 +12,5 @@ printf 'streamed  '; ./gateways.sh load "$name" --calls 100 --conns 8 --stream 2
 case $skip in *" messages "*) echo "messages  skipped";; *) printf 'messages  '; ./gateways.sh messages "$name" --calls 50 --conns 4 2>&1 | show;; esac
 echo "memory    $(gw "$name" mb) MB, cpu so far $(gw "$name" cpu_us) us"
 ./gateways.sh down "$name"
+declare -F "${name//-/_}_clean" > /dev/null && "${name//-/_}_clean"
+

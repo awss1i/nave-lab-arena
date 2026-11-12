@@ -39,7 +39,10 @@ container_up() { # NAME PORT IMAGE-AND-ARGS..
   if [ "$(basename "$CONTAINER")" = docker ]; then
     docker run -d --rm --name "arena-$name" --network host --cpuset-cpus "$GATEWAY_CPUS" "$@" > /dev/null
   else
-    taskset -c "$GATEWAY_CPUS" podman run -d --rm --name "arena-$name" --network host --userns=keep-id "$@" > /dev/null
+    # PODMAN_USER is how the container's user maps here: the caller's own by default, so mounted folders are
+    # writable, and empty for an image that has to start as its own root.
+    # shellcheck disable=SC2086
+    taskset -c "$GATEWAY_CPUS" podman run -d --rm --name "arena-$name" --network host ${PODMAN_USER---userns=keep-id} "$@" > /dev/null
   fi
   local deadline=$((SECONDS + 60))
   while [ "$SECONDS" -lt "$deadline" ]; do (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null && return 0; sleep "${UP_POLL_S:-0.05}"; done
@@ -125,4 +128,23 @@ mount_of() { # LOCAL-PATH CONTAINER-PATH
 image_version() { # IMAGE
   echo "$("$CONTAINER" image inspect "$1" --format '{{index .Config.Labels "org.opencontainers.image.version"}} created {{.Created}}' 2>/dev/null | sed 's/^<no value> //; s/^ //') (image $1)"
 }
+# The key a caller sends to this gateway: the arena's own, unless the gateway makes its keys itself.
+gw_default_key() { echo "$LLM_KEY"; }
+
+# Databases a gateway's docs ask for, each as a container on the gateway's CPUs, since a gateway's database is part
+# of what it costs to run. They use ports of their own so they don't meet a database already on the machine.
+mysql_up() { # starts MySQL with the database "arena", user root, password arena, on port 3316
+  PODMAN_USER= container_up mysql 3316 -e MYSQL_ROOT_PASSWORD=arena -e MYSQL_DATABASE=arena docker.io/library/mysql:8.4 --port=3316 --bind-address=127.0.0.1 --mysqlx=OFF || return 1
+  for _ in $(seq 1 600); do "$CONTAINER" exec arena-mysql mysqladmin --protocol=tcp -P 3316 -uroot -parena ping > /dev/null 2>&1 && return 0; sleep 0.2; done
+  echo "MySQL never answered" >&2; return 1
+}
+postgres_up() { # starts PostgreSQL with the database "arena", user arena, password arena, on port 5442
+  PODMAN_USER= container_up postgres 5442 -e POSTGRES_USER=arena -e POSTGRES_PASSWORD=arena -e POSTGRES_DB=arena -e PGPORT=5442 docker.io/library/postgres:17 -c listen_addresses=127.0.0.1 || return 1
+  for _ in $(seq 1 600); do "$CONTAINER" exec arena-postgres pg_isready -h 127.0.0.1 -p 5442 -U arena > /dev/null 2>&1 && return 0; sleep 0.2; done
+  echo "PostgreSQL never answered" >&2; return 1
+}
+redis_up() { PODMAN_USER= container_up redis 6389 docker.io/library/redis:8 redis-server --port 6389 --bind 127.0.0.1 --save "" --appendonly no; }
+# The memory and CPU of several containers together, for a gateway that runs with a database.
+containers_mb() { local total=0 m; for c in "$@"; do m=$(container_mb "$c"); total=$(awk -v a="$total" -v b="${m:-0}" 'BEGIN { printf "%.1f", a + b }'); done; echo "$total"; }
+containers_cpu_us() { local total=0; for c in "$@"; do total=$((total + $(container_cpu_us "$c"))); done; echo "$total"; }
 

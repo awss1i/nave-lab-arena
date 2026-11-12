@@ -36,6 +36,8 @@ races = [
     race("many", "2,000 calls over 64 connections", ground + ", OpenAI's format in and out", ["load", "NAME", "--calls", "2000", "--conns", "64"]),
     race("history", "500 calls with 50 KB of history over 16 connections", ground + ", OpenAI's format in and out", ["load", "NAME", "--calls", "500", "--conns", "16", "--history", "50000"]),
     race("stream", "500 streamed calls over 16 connections", ground + ", OpenAI's format in and out", ["load", "NAME", "--calls", "500", "--conns", "16", "--stream"]),
+    race("many", "2,000 calls over 64 connections, the client acknowledging at once", ground + ", OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms", ["quick", "NAME", "--calls", "2000", "--conns", "64"]),
+    race("stream", "500 streamed calls over 16 connections, the client acknowledging at once", ground + ", OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms", ["quick", "NAME", "--calls", "500", "--conns", "16", "--stream"]),
     race("messages", "500 calls in Anthropic's format over 16 connections", ground + ", Anthropic's format in and OpenAI's format to the model", ["messages", "NAME", "--calls", "500", "--conns", "16"]),
     race("rate", "500 calls at 50 a second", ground + ", calls sent at a fixed rate over 16 connections whatever the answers do, each timed from when it was due", ["rate", "NAME", "50", "500", "16"], rounds=3, with_direct=True),
     race("rate", "5,000 calls at 1,000 a second", ground + ", calls sent at a fixed rate over 64 connections whatever the answers do, each timed from when it was due", ["rate", "NAME", "1000", "5000", "64"], rounds=3, with_direct=True),
