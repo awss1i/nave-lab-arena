@@ -1,0 +1,16 @@
+# The Rust client libraries of the client race, one small program each. Built on a runner by the arena's client
+# group, with the same loop, check and checksum as the other libraries' scripts.
+[package]
+name = "rust-clients"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+genai = "0"
+tokio = { version = "1", features = ["rt", "macros", "time"] }
+futures = "0.3"
+
+[profile.release]
+opt-level = 3
+
+[workspace]

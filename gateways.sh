@@ -7,6 +7,7 @@
 #   messages NAME [load options]  calls in Anthropic's format
 #   cached NAME [load options]    the load, then how many calls reached the model
 #   rate NAME RATE CALLS CONNS    the load at a fixed rate, with the gateway's CPU time per call
+#   quickrate NAME RATE CALLS CONNS  the same, from a client that acknowledges every packet at once
 #   open NAME CONNS CALLS         the load against a slow model, with the memory held while the calls are open
 #   replay NAME CONNS             a coding agent's session, replayed on each connection
 #   fresh NAME                    one call through a gateway started for it
@@ -63,6 +64,7 @@ case $1 in
     : > run/standin-calls.log
     load "$name" "$(fmt)" "$@"
     echo "metric calls_that_reached_the_model=$(wc -l < run/standin-calls.log)" >&2;;
+  quickrate) shift; BENCH_QUICKACK=1 exec "$0" rate "$@";;
   rate)
     # The same calls at the same rate for every entrant, so the CPU each one used for them compares.
     before=0; [ "$2" = direct ] || before=$(gw "$2" cpu_us)

@@ -62,8 +62,10 @@ own = sys.argv[7] if len(sys.argv) > 7 else ""
 if own:
     load, standin, text = own.split("|", 2)
     rate, calls, conns = load.split()
-    races.append(race("own", f"{title}'s own benchmark, rerun", ground + ", " + text + f", sent here at {int(rate):,} calls a second over {conns} connections, each call timed from when it was due",
-                      ["rate", "NAME", rate, calls, conns], rounds=3, mode="own", with_direct=True, env=f"STANDIN_ARGS='{standin}'" if standin else ""))
+    # The client acknowledges every packet at once here, so a gateway's own benchmark isn't held back by the
+    # 40 ms an ordinary client waits, which its own load generator may not have had.
+    races.append(race("own", f"{title}'s own benchmark, rerun", ground + ", " + text + f", sent here at {int(rate):,} calls a second over {conns} connections by a client that acknowledges every packet at once, each call timed from when it was due",
+                      ["quickrate", "NAME", rate, calls, conns], rounds=3, mode="own", with_direct=True, env=f"STANDIN_ARGS='{standin}'" if standin else ""))
 races = [r for r in races if r]
 if anthropic_only:
     for r in races:
