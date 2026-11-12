@@ -40,11 +40,12 @@ case $name.$what in
   contextforge.revision) echo 2025-06-18;;
   mcphub.up)
     # MCPHub from its own official image, with the stand-in in the settings file its README has you write before the
-    # first start, local addresses allowed, its bearer key set and its web page off.
+    # first start, local addresses allowed, its bearer key set and its web page off. Its limit of 480 MCP requests a
+    # minute is raised out of the way through its own setting, since it would cap the race.
     podman unshare rm -rf run/mcphub-data 2> /dev/null || sudo rm -rf run/mcphub-data 2> /dev/null || rm -rf run/mcphub-data
     mkdir -p run/mcphub-data && chmod 777 run/mcphub-data
     printf '{"mcpServers":{"standin":{"type":"streamable-http","url":"http://127.0.0.1:9100/mcp"}},"systemConfig":{"network":{"allowedCidrs":["127.0.0.0/8"]},"routing":{"enableGlobalRoute":true,"enableGroupNameRoute":true,"enableBearerAuth":true,"bearerAuthKey":"arena-mcp-key"}}}\n' > run/mcphub-data/mcp_settings.json
-    PODMAN_USER= container_up mcphub 3000 -e ADMIN_PASSWORD=Arena-Race-Pass-2026 -e DISABLE_WEB=true -v "$(mount_of run/mcphub-data /app/data)" docker.io/samanhappy/mcphub:latest || exit 1
+    PODMAN_USER= container_up mcphub 3000 -e ADMIN_PASSWORD=Arena-Race-Pass-2026 -e DISABLE_WEB=true -e MCP_RATE_LIMIT_MAX=off -v "$(mount_of run/mcphub-data /app/data)" docker.io/samanhappy/mcphub:latest || exit 1
     # It connects to the stand-in after its port answers, so its list is waited for.
     for _ in $(seq 1 120); do
       MCP_KEY=arena-mcp-key bin/mcpload http://127.0.0.1:3000/mcp --what list --revision 2025-06-18 --servers standin --expect 8 --calls 1 > /dev/null 2>&1 && exit 0
