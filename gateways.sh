@@ -27,7 +27,7 @@ load() { # NAME PATH-KIND [load options]
   local name=$1 kind=$2 path; shift 2
   path=$(gw "$name" "${kind}_path")
   local extra=()
-  while IFS= read -r line; do [ -n "$line" ] && extra+=("$line"); done < <(gw "$name" load_args "$kind")
+  while IFS= read -r line; do [ -n "$line" ] && extra+=("$line"); done < <(gw "$name" load_args "$kind" "$*")
   LLM_KEY=$(gw "$name" key) taskset -c "$LOAD_CPUS" bin/load "$(url_of "$name")$path" "${extra[@]}" "$@"
 }
 standin_up() { # NAME PORT [ARGS..]
@@ -100,6 +100,6 @@ case $1 in
   edges)
     name=$2
     args=()
-    while IFS= read -r line; do [ -n "$line" ] && args+=("$line"); done < <(gw "$name" load_args "$kind")
+    while IFS= read -r line; do [ -n "$line" ] && args+=("$line"); done < <(gw "$name" load_args "$kind" "$*")
     LLM_KEY=$(gw "$name" key) python3 clients/edges.py "$(url_of "$name")" "$(gw "$name" chat_path)" "$(gw "$name" messages_path)" run/standin-body.txt "${args[@]}";;
 esac
