@@ -51,7 +51,17 @@ case $group in
   template) py_libs chevron pystache; node_libs mustache;;
   cost) litellm_install; mkdir -p run/cost; "$ARENA_TOOLS/litellm/bin/python" clients/litellm_cost.py gen run/cost;;
   config) litellm_install; mkdir -p run/config; bin/p019 make-large run/config/large.yaml;;
-  eval) py_libs pyyaml; node_libs promptfoo; mkdir -p run/eval; bin/p017 make run/eval 500;;
+  eval)
+    py_libs pyyaml; node_libs promptfoo; mkdir -p run/eval; bin/p017 make run/eval 500
+    # Each eval framework in an environment of its own, since their dependencies pin different versions.
+    for spec in "inspect-ai inspect-ai" "deepeval deepeval" "ragas ragas langchain-community<0.4"; do
+      # shellcheck disable=SC2086
+      set -- $spec; pkg=$1; shift
+      [ -x "$ARENA_TOOLS/eval-$pkg/bin/python" ] || python3 -m venv "$ARENA_TOOLS/eval-$pkg"
+      "$ARENA_TOOLS/eval-$pkg/bin/python" -m pip --version > /dev/null 2>&1 || "$ARENA_TOOLS/eval-$pkg/bin/python" -m ensurepip > /dev/null
+      "$ARENA_TOOLS/eval-$pkg/bin/python" -m pip install -q openai "$@"
+      version "$pkg" "$("$ARENA_TOOLS/eval-$pkg/bin/python" -c "import importlib.metadata as m; print(m.version('$pkg'))")"
+    done;;
   scan) gitleaks_install; mkdir -p run/guard; python3 data/gen_secrets.py run/guard;;
   compress) py_libs headroom-ai tiktoken;;
   image)
