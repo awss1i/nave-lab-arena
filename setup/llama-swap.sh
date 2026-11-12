@@ -18,6 +18,7 @@ models:
     proxy: http://127.0.0.1:9000
     checkEndpoint: /v1/models
     ttl: 0
+    concurrencyLimit: 100000
 YAML
   PODMAN_USER= container_up llama-swap 8480 -v "$(mount_of run/llama-swap/config.yaml /app/config.yaml)" --entrypoint /app/llama-swap "$llama_swap_image" -config /app/config.yaml -listen 127.0.0.1:8480 || return 1
   # The first call starts the model's command, so it's made here and not inside a race.

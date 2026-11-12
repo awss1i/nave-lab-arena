@@ -34,7 +34,7 @@ services:
                   upstream_url: http://127.0.0.1:9000/v1/chat/completions
 YAML
   PODMAN_USER= container_up kong 8200 -e KONG_DATABASE=off -e KONG_DECLARATIVE_CONFIG=/kong/kong.yml -e KONG_PROXY_LISTEN=127.0.0.1:8200 -e KONG_ADMIN_LISTEN=off \
-    -e KONG_PROXY_ACCESS_LOG=off -e KONG_LOG_LEVEL=error -e KONG_NGINX_WORKER_PROCESSES="$(echo "$GATEWAY_CPUS" | tr ',' '\n' | wc -l)" -v "$(mount_of run/kong/kong.yml /kong/kong.yml)" "$kong_image"
+    -e KONG_PROXY_ACCESS_LOG=off -e KONG_LOG_LEVEL=error -e KONG_NGINX_HTTP_CLIENT_BODY_BUFFER_SIZE=4m -e KONG_NGINX_WORKER_PROCESSES="$(echo "$GATEWAY_CPUS" | tr ',' '\n' | wc -l)" -v "$(mount_of run/kong/kong.yml /kong/kong.yml)" "$kong_image"
 }
 kong_url() { echo http://127.0.0.1:8200; }
 kong_skip() { echo "messages fallback cache"; }
