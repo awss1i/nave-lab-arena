@@ -1,0 +1,64 @@
+{
+  "command": "bin/race run races/meter-openmeter.json --out results/meter-openmeter",
+  "commit": "3e8626e",
+  "conditions": "a GitHub runner's four CPUs. Made-up usage events, each a customer, a model and a number of tokens, spread over 100 customers, are recorded and the totals read back, and the clock runs until the tool's own total of the tokens is right. Nave meters inside the gateway: one thread admits and settles 20,000 calls against keys, users, teams and an organization in memory. The other tools are services on two CPUs that take events over HTTP: one client on one CPU sends them in batches of 100 and then asks the service's API for the totals. A service that needs more than a minute for 20,000 events is given 2,000, or 200 where 2,000 would take it over half an hour, and its name says so. Each service runs as its own setup ships except where that setup can't count the events, and the version line of the record says what was changed",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "meter",
+        "openmeter",
+        "200"
+      ],
+      "cpu_s": 0.368059,
+      "max_rss_mb": 26.1875,
+      "max_s": 99.90404998,
+      "median_s": 99.90404998,
+      "metric_rounds": {
+        "seconds": [
+          99.841
+        ],
+        "tokens_counted": [
+          119900.0
+        ],
+        "us_per_event": [
+          499203.91
+        ]
+      },
+      "metrics": {
+        "seconds": 99.841,
+        "tokens_counted": 119900.0,
+        "us_per_event": 499203.91
+      },
+      "min_s": 99.90404998,
+      "name": "OpenMeter, on 200 events",
+      "other_cpu_s": 26.59194099999998,
+      "times_s": [
+        99.90404998
+      ]
+    }
+  ],
+  "feature": "F6",
+  "load": {
+    "after": "0.40 0.77 0.42 1/294 13669",
+    "before": "3.51 1.24 0.44 3/1381 5970"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003626"
+  },
+  "name": "recording usage and reading the totals back, OpenMeter, on 200 events",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T06:54:51Z",
+  "wrong_rounds": 0
+}

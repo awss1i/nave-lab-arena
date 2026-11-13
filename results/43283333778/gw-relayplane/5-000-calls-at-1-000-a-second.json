@@ -1,0 +1,121 @@
+{
+  "command": "bin/race run run/gw-relayplane.json --out results/gw-relayplane",
+  "commit": "88198c8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 64 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in RelayPlane: passes OpenAI's and Anthropic's formats on to the provider, routes by a complexity tier, prices every call and rolls it up by run and agent in SQLite, checks budgets. Passes the caller's key on. Its own limiter is set to the most it accepts, 10,000 calls a minute for a model, which is what bounds it in the throughput races",
+  "correct": false,
+  "differences": [
+    {
+      "against": "No gateway",
+      "entrant": "RelayPlane",
+      "got": null,
+      "lengths": [
+        0,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 5000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "No gateway",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "relayplane",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "RelayPlane",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.29 1.15 1.02 1/258 8049",
+    "before": "0.96 1.10 1.00 6/273 7598"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003581"
+  },
+  "name": "5,000 calls at 1,000 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "No gateway",
+      "ok": true,
+      "output": "ok 5000\nbad 0\nchecksum a09558d78ccc8cf4\n",
+      "stderr": "metric calls_per_s=1000.0\nmetric p50_us=104\nmetric p99_us=176\nmetric p999_us=3072\nmetric max_us=6352\nmetric rate=1000\nmetric sent_late=0\nmetric total_s=5.000275\n"
+    },
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 5000\nbad 0\nchecksum a09558d78ccc8cf4\n",
+      "stderr": "metric calls_per_s=1000.0\nmetric p50_us=141\nmetric p99_us=159\nmetric p999_us=2946\nmetric max_us=4831\nmetric rate=1000\nmetric sent_late=0\nmetric total_s=5.000245\nmetric cpu_us_per_call=30.0\n"
+    },
+    {
+      "name": "RelayPlane",
+      "ok": false,
+      "output": "",
+      "stderr": "wrong answer to call 0: HTTP/1.1 200 OK / {\"_relayplaneStreamCache\":true,\"ssePayload\":\"data: {\\\"choices\\\":[{\\\"delta\\\":{\\\"content\\\":\\\"\\\",\\\"role\\\":\\\"assistant\\\"},\\\"finish_reason\\\":null,\\\"index\\\":0}],\\\"created\\\":0,\\\"id\\\":\\\"chatcmpl-standin\\\",\\\"model\\\":\\\"gpt-4o-mini\\\",\\\"object\\\":\\\"chat\nwrong answer to call 64: HTTP/1.1 200 OK / {\"_relayplaneStreamCache\":true,\"ssePayload\":\"data: {\\\"choices\\\":[{\\\"delta\\\":{\\\"content\\\":\\\"\\\",\\\"role\\\":\\\"assistant\\\"},\\\"finish_reason\\\":null,\\\"index\\\":0}],\\\"created\\\":0,\\\"id\\\":\\\"chatcmpl-standin\\\",\\\"model\\\":\\\"gpt-4o-mini\\\",\\\"object\\\":\\\"chat\nwrong answer to call 1: HTTP/1.1 "
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T19:15:40Z",
+  "wrong_rounds": 0
+}

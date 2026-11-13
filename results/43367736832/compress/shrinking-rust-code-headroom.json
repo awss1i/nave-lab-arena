@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "36ba0b3",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "headroom",
+        "code-rust.rs"
+      ],
+      "cpu_s": 0.41498399999999996,
+      "max_rss_mb": 105.73046875,
+      "max_s": 0.414410862,
+      "median_s": 0.411184579,
+      "metric_rounds": {
+        "bytes_kept": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mb_per_s": [
+          7.136,
+          7.234,
+          7.278
+        ],
+        "tokens_after": [
+          4486.0,
+          4486.0,
+          4486.0
+        ],
+        "tokens_before": [
+          4486.0,
+          4486.0,
+          4486.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 1.0,
+        "mb_per_s": 7.234,
+        "tokens_after": 4486.0,
+        "tokens_before": 4486.0
+      },
+      "min_s": 0.411088577,
+      "name": "Headroom",
+      "other_cpu_s": 0.005016000000001741,
+      "times_s": [
+        0.411184579,
+        0.414410862,
+        0.411088577
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "1.60 0.53 0.19 1/267 3402",
+    "before": "1.57 0.50 0.18 2/267 3341"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003616"
+  },
+  "name": "shrinking Rust code, Headroom",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T04:48:02Z",
+  "wrong_rounds": 0
+}

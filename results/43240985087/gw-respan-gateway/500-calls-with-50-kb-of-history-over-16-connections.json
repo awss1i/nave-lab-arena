@@ -1,0 +1,204 @@
+{
+  "command": "bin/race run run/gw-respan-gateway.json --out results/gw-respan-gateway",
+  "commit": "74b3b54",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Respan Gateway: routes by model, falls back, takes OpenAI's and Anthropic's formats. No key check on loopback, request log off, tracing off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.139636,
+      "max_rss_mb": 26.11328125,
+      "max_s": 0.146099974,
+      "median_s": 0.134365148,
+      "metric_rounds": {
+        "calls_per_s": [
+          4600.9,
+          4567.2,
+          5002.8,
+          4957.7,
+          4988.9
+        ],
+        "max_us": [
+          9926.0,
+          10370.0,
+          8893.0,
+          8867.0,
+          10362.0
+        ],
+        "p50_us": [
+          2861.0,
+          2904.0,
+          2615.0,
+          2682.0,
+          2705.0
+        ],
+        "p999_us": [
+          9926.0,
+          10370.0,
+          8893.0,
+          8867.0,
+          10362.0
+        ],
+        "p99_us": [
+          8664.0,
+          6970.0,
+          6583.0,
+          6473.0,
+          7100.0
+        ],
+        "total_s": [
+          0.108823,
+          0.109671,
+          0.100087,
+          0.101013,
+          0.100383
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4957.7,
+        "max_us": 9926.0,
+        "p50_us": 2705.0,
+        "p999_us": 9926.0,
+        "p99_us": 6970.0,
+        "total_s": 0.101013
+      },
+      "min_s": 0.130998016,
+      "name": "Nave",
+      "other_cpu_s": 0.0934199999999969,
+      "times_s": [
+        0.140312885,
+        0.146099974,
+        0.130998016,
+        0.134365148,
+        0.131440786
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "respan-gateway",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.126671,
+      "max_rss_mb": 26.40234375,
+      "max_s": 0.15846723,
+      "median_s": 0.155055558,
+      "metric_rounds": {
+        "calls_per_s": [
+          4210.2,
+          4024.8,
+          4033.2,
+          4086.9,
+          3951.6
+        ],
+        "first_piece_p50_us": [
+          3362.0,
+          3531.0,
+          3607.0,
+          3529.0,
+          3641.0
+        ],
+        "first_piece_p99_us": [
+          5196.0,
+          5325.0,
+          5334.0,
+          5245.0,
+          6177.0
+        ],
+        "max_us": [
+          6927.0,
+          12069.0,
+          5968.0,
+          5589.0,
+          10278.0
+        ],
+        "p50_us": [
+          3362.0,
+          3531.0,
+          3608.0,
+          3530.0,
+          3642.0
+        ],
+        "p999_us": [
+          6927.0,
+          12069.0,
+          5968.0,
+          5589.0,
+          10278.0
+        ],
+        "p99_us": [
+          5197.0,
+          5326.0,
+          5335.0,
+          5246.0,
+          6177.0
+        ],
+        "total_s": [
+          0.118949,
+          0.124395,
+          0.124127,
+          0.122499,
+          0.126697
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4033.2,
+        "first_piece_p50_us": 3531.0,
+        "first_piece_p99_us": 5325.0,
+        "max_us": 6927.0,
+        "p50_us": 3531.0,
+        "p999_us": 6927.0,
+        "p99_us": 5326.0,
+        "total_s": 0.124127
+      },
+      "min_s": 0.150474753,
+      "name": "Respan Gateway",
+      "other_cpu_s": 0.2733289999999986,
+      "times_s": [
+        0.150474753,
+        0.156121788,
+        0.155055558,
+        0.153494636,
+        0.15846723
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.06 0.31 0.11 1/262 4663",
+    "before": "1.06 0.31 0.11 1/271 4174"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003534"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:48:28Z",
+  "wrong_rounds": 0
+}

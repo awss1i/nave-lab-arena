@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V45 96-Core Processor
+nave	prototype P006, 1a772dff36bf
+9router	0.5.116 (image docker.io/decolua/9router:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+nine-router, switched on	routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps its settings and usage in a data folder
+nine-router, kinds of race it wasn't in	cache

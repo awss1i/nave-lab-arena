@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-smg.json --out results/gw-smg",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in SMG: balances load across inference workers, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.07833599999999999,
+      "max_rss_mb": 26.23046875,
+      "max_s": 0.076828778,
+      "median_s": 0.075753012,
+      "metric_rounds": {
+        "calls_per_s": [
+          9610.8,
+          9228.6,
+          10082.7,
+          9484.6,
+          9372.8
+        ],
+        "max_us": [
+          4246.0,
+          8251.0,
+          3767.0,
+          4629.0,
+          4795.0
+        ],
+        "p50_us": [
+          1341.0,
+          1298.0,
+          1296.0,
+          1356.0,
+          1410.0
+        ],
+        "p999_us": [
+          4246.0,
+          8251.0,
+          3767.0,
+          4629.0,
+          4795.0
+        ],
+        "p99_us": [
+          3130.0,
+          5603.0,
+          2810.0,
+          3162.0,
+          3101.0
+        ],
+        "total_s": [
+          0.052168,
+          0.054338,
+          0.049732,
+          0.052867,
+          0.053516
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9484.6,
+        "max_us": 4629.0,
+        "p50_us": 1341.0,
+        "p999_us": 4629.0,
+        "p99_us": 3130.0,
+        "total_s": 0.052867
+      },
+      "min_s": 0.072006348,
+      "name": "Nave",
+      "other_cpu_s": 0.03166399999999944,
+      "times_s": [
+        0.075411562,
+        0.076035473,
+        0.072006348,
+        0.075753012,
+        0.076828778
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "smg",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.078234,
+      "max_rss_mb": 26.5,
+      "max_s": 0.078326304,
+      "median_s": 0.075628736,
+      "metric_rounds": {
+        "calls_per_s": [
+          9551.5,
+          9161.5,
+          9564.2,
+          9520.6,
+          9298.8
+        ],
+        "max_us": [
+          4671.0,
+          4245.0,
+          5505.0,
+          8837.0,
+          4707.0
+        ],
+        "p50_us": [
+          1308.0,
+          1398.0,
+          1353.0,
+          1318.0,
+          1365.0
+        ],
+        "p999_us": [
+          4671.0,
+          4245.0,
+          5505.0,
+          8837.0,
+          4707.0
+        ],
+        "p99_us": [
+          3291.0,
+          2935.0,
+          3623.0,
+          3472.0,
+          3258.0
+        ],
+        "total_s": [
+          0.052513,
+          0.05476,
+          0.052427,
+          0.0527,
+          0.05395
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9520.6,
+        "max_us": 4707.0,
+        "p50_us": 1353.0,
+        "p999_us": 4707.0,
+        "p99_us": 3291.0,
+        "total_s": 0.0527
+      },
+      "min_s": 0.074248275,
+      "name": "SMG",
+      "other_cpu_s": 0.09176600000000171,
+      "times_s": [
+        0.074248275,
+        0.077242135,
+        0.074909352,
+        0.075628736,
+        0.078326304
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.00 0.44 0.14 1/289 4949",
+    "before": "0.79 0.18 0.06 1/321 4436"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003504"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:54:56Z",
+  "wrong_rounds": 0
+}

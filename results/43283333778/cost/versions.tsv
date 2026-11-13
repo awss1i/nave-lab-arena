@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+litellm	1.109.1
+tokencost	0.1.26
+genai-prices	0.2.3
+models.dev	api.json fetched 2026-11-12, 8997 models
+portkey-models	Portkey-AI/models at dbc6d0a

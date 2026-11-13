@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-smg.json --out results/gw-smg",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in SMG: balances load across inference workers, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.17967,
+      "max_rss_mb": 37.8515625,
+      "max_s": 1.104747834,
+      "median_s": 1.102821959,
+      "metric_rounds": {
+        "calls_per_s": [
+          954.0,
+          952.7,
+          954.4
+        ],
+        "kb_per_open_call": [
+          12.1,
+          10.9,
+          11.1
+        ],
+        "max_us": [
+          501620.0,
+          503271.0,
+          502591.0
+        ],
+        "memory_open_mb": [
+          7.2,
+          6.6,
+          6.7
+        ],
+        "p50_us": [
+          500151.0,
+          500159.0,
+          500156.0
+        ],
+        "p999_us": [
+          501620.0,
+          503271.0,
+          502591.0
+        ],
+        "p99_us": [
+          501405.0,
+          502726.0,
+          502420.0
+        ],
+        "total_s": [
+          1.048473,
+          1.049905,
+          1.048115
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 954.0,
+        "kb_per_open_call": 11.1,
+        "max_us": 502591.0,
+        "memory_open_mb": 6.7,
+        "p50_us": 500156.0,
+        "p999_us": 502591.0,
+        "p99_us": 502420.0,
+        "total_s": 1.048473
+      },
+      "min_s": 1.10154599,
+      "name": "Nave",
+      "other_cpu_s": 0.10590699999999914,
+      "times_s": [
+        1.104747834,
+        1.102821959,
+        1.10154599
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "smg",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.16533399999999998,
+      "max_rss_mb": 37.7109375,
+      "max_s": 4.034525562,
+      "median_s": 3.065782147,
+      "metric_rounds": {
+        "calls_per_s": [
+          640.1,
+          660.7,
+          946.5
+        ],
+        "kb_per_open_call": [
+          19.9,
+          -2.3,
+          22.7
+        ],
+        "max_us": [
+          1034284.0,
+          969677.0,
+          508565.0
+        ],
+        "memory_open_mb": [
+          74.9,
+          71.8,
+          72.1
+        ],
+        "p50_us": [
+          511725.0,
+          501184.0,
+          500631.0
+        ],
+        "p999_us": [
+          1034284.0,
+          969677.0,
+          508565.0
+        ],
+        "p99_us": [
+          1027627.0,
+          968983.0,
+          507829.0
+        ],
+        "total_s": [
+          1.562476,
+          1.513769,
+          1.05668
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 660.7,
+        "kb_per_open_call": 19.9,
+        "max_us": 969677.0,
+        "memory_open_mb": 72.1,
+        "p50_us": 501184.0,
+        "p999_us": 969677.0,
+        "p99_us": 968983.0,
+        "total_s": 1.513769
+      },
+      "min_s": 3.06072673,
+      "name": "SMG",
+      "other_cpu_s": 0.30060900000000595,
+      "times_s": [
+        3.06072673,
+        4.034525562,
+        3.065782147
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.35 0.56 0.24 1/271 17416",
+    "before": "0.32 0.35 0.17 1/299 10423"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003504"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:58:22Z",
+  "wrong_rounds": 0
+}

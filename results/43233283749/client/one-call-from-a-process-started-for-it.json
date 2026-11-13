@@ -1,0 +1,437 @@
+{
+  "command": "bin/race run races/client.json --out results/client",
+  "commit": "47f44c0",
+  "conditions": "one process on one CPU calling the stand-in model on another, each timed as a whole process from its start to its exit, the library loaded from nothing each time",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "nave"
+      ],
+      "cpu_s": 0.036618,
+      "max_rss_mb": 26.34375,
+      "max_s": 0.034282215,
+      "median_s": 0.032550462,
+      "metric_rounds": {
+        "process_ms": [
+          5.66,
+          5.82,
+          6.1,
+          5.73,
+          5.93,
+          5.75,
+          5.81
+        ]
+      },
+      "metrics": {
+        "process_ms": 5.81
+      },
+      "min_s": 0.031006143,
+      "name": "Nave's client",
+      "other_cpu_s": 0.013382000000011371,
+      "times_s": [
+        0.031006143,
+        0.033357364,
+        0.034282215,
+        0.032104545,
+        0.032971206,
+        0.032172545,
+        0.032550462
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "openai"
+      ],
+      "cpu_s": 0.640345,
+      "max_rss_mb": 61.8828125,
+      "max_s": 0.689045929,
+      "median_s": 0.633624011,
+      "metric_rounds": {
+        "process_ms": [
+          509.53,
+          639.55,
+          657.38,
+          558.09,
+          607.6,
+          663.24,
+          513.22
+        ]
+      },
+      "metrics": {
+        "process_ms": 607.6
+      },
+      "min_s": 0.533250179,
+      "name": "OpenAI's Python SDK",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        0.533250179,
+        0.666394544,
+        0.684283149,
+        0.584010835,
+        0.633624011,
+        0.689045929,
+        0.5387551
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "litellm"
+      ],
+      "cpu_s": 3.258166,
+      "max_rss_mb": 250.79296875,
+      "max_s": 3.369567403,
+      "median_s": 3.250652983,
+      "metric_rounds": {
+        "process_ms": [
+          3151.69,
+          3227.5,
+          3343.35,
+          3224.91,
+          3209.53,
+          3224.09,
+          3108.2
+        ]
+      },
+      "metrics": {
+        "process_ms": 3224.09
+      },
+      "min_s": 3.13260317,
+      "name": "LiteLLM's SDK",
+      "other_cpu_s": 0.032831999999968,
+      "times_s": [
+        3.176566142,
+        3.252890144,
+        3.369567403,
+        3.250783592,
+        3.234947835,
+        3.250652983,
+        3.13260317
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "langchain"
+      ],
+      "cpu_s": 1.125843,
+      "max_rss_mb": 99.10546875,
+      "max_s": 1.171122848,
+      "median_s": 1.117034788,
+      "metric_rounds": {
+        "process_ms": [
+          1145.49,
+          1085.11,
+          1112.06,
+          1117.7,
+          982.35,
+          1092.07,
+          1065.06
+        ]
+      },
+      "metrics": {
+        "process_ms": 1092.07
+      },
+      "min_s": 1.007252854,
+      "name": "LangChain",
+      "other_cpu_s": 0.01415699999998643,
+      "times_s": [
+        1.171122848,
+        1.111168966,
+        1.1376311829999999,
+        1.142235476,
+        1.007252854,
+        1.117034788,
+        1.090344589
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "aisuite"
+      ],
+      "cpu_s": 0.649683,
+      "max_rss_mb": 65.56640625,
+      "max_s": 0.71614992,
+      "median_s": 0.647674843,
+      "metric_rounds": {
+        "process_ms": [
+          668.88,
+          622.0,
+          689.64,
+          674.74,
+          567.99,
+          572.93,
+          602.69
+        ]
+      },
+      "metrics": {
+        "process_ms": 622.0
+      },
+      "min_s": 0.592719129,
+      "name": "aisuite",
+      "other_cpu_s": 0.004642999999986408,
+      "times_s": [
+        0.693749418,
+        0.647674843,
+        0.71614992,
+        0.699876066,
+        0.592719129,
+        0.598050943,
+        0.627709837
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "any-llm"
+      ],
+      "cpu_s": 1.8514849999999998,
+      "max_rss_mb": 123.140625,
+      "max_s": 1.919209513,
+      "median_s": 1.843399689,
+      "metric_rounds": {
+        "process_ms": [
+          1839.23,
+          1818.97,
+          1893.78,
+          1834.09,
+          1769.58,
+          1813.18,
+          1800.74
+        ]
+      },
+      "metrics": {
+        "process_ms": 1818.97
+      },
+      "min_s": 1.793950784,
+      "name": "any-llm",
+      "other_cpu_s": 0.026643000000004413,
+      "times_s": [
+        1.8649466019999998,
+        1.843399689,
+        1.919209513,
+        1.8596427260000001,
+        1.793950784,
+        1.837651288,
+        1.825477796
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "llm"
+      ],
+      "cpu_s": 0.707297,
+      "max_rss_mb": 70.7890625,
+      "max_s": 0.809346167,
+      "median_s": 0.69955445,
+      "metric_rounds": {
+        "process_ms": [
+          679.57,
+          646.61,
+          783.39,
+          673.6,
+          584.9,
+          741.15,
+          668.62
+        ]
+      },
+      "metrics": {
+        "process_ms": 673.6
+      },
+      "min_s": 0.608935191,
+      "name": "llm (Simon Willison's)",
+      "other_cpu_s": 0.004264999999972763,
+      "times_s": [
+        0.704468737,
+        0.671490705,
+        0.809346167,
+        0.69955445,
+        0.608935191,
+        0.767039331,
+        0.693239219
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "vercel-ai"
+      ],
+      "cpu_s": 0.234854,
+      "max_rss_mb": 85.6875,
+      "max_s": 0.239581948,
+      "median_s": 0.227216669,
+      "metric_rounds": {
+        "process_ms": [
+          212.88,
+          199.82,
+          208.3,
+          203.27,
+          197.36,
+          213.75,
+          200.18
+        ]
+      },
+      "metrics": {
+        "process_ms": 203.27
+      },
+      "min_s": 0.221859921,
+      "name": "Vercel AI SDK",
+      "other_cpu_s": 0.03743800000003866,
+      "times_s": [
+        0.239362922,
+        0.224889677,
+        0.234918897,
+        0.227216669,
+        0.221859921,
+        0.239581948,
+        0.225632604
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "tokenjs"
+      ],
+      "cpu_s": 0.427548,
+      "max_rss_mb": 96.52734375,
+      "max_s": 0.43741476,
+      "median_s": 0.420315835,
+      "metric_rounds": {
+        "process_ms": [
+          399.57,
+          391.17,
+          406.86,
+          399.31,
+          371.84,
+          390.83,
+          383.23
+        ]
+      },
+      "metrics": {
+        "process_ms": 391.17
+      },
+      "min_s": 0.399126966,
+      "name": "token.js",
+      "other_cpu_s": 0.008425999999997713,
+      "times_s": [
+        0.424907854,
+        0.420315835,
+        0.43741476,
+        0.425006967,
+        0.399126966,
+        0.416825301,
+        0.409016565
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "tanstack-ai"
+      ],
+      "cpu_s": 0.279667,
+      "max_rss_mb": 84.47265625,
+      "max_s": 0.281850141,
+      "median_s": 0.271270122,
+      "metric_rounds": {
+        "process_ms": [
+          251.36,
+          245.22,
+          255.74,
+          251.62,
+          230.73,
+          239.41,
+          245.89
+        ]
+      },
+      "metrics": {
+        "process_ms": 245.89
+      },
+      "min_s": 0.257478285,
+      "name": "TanStack AI",
+      "other_cpu_s": 0.050332999999984085,
+      "times_s": [
+        0.27823937,
+        0.271270122,
+        0.281850141,
+        0.279449857,
+        0.257478285,
+        0.265321468,
+        0.270832168
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "pi-ai"
+      ],
+      "cpu_s": 0.37909000000000004,
+      "max_rss_mb": 86.67578125,
+      "max_s": 0.398140986,
+      "median_s": 0.370873598,
+      "metric_rounds": {
+        "process_ms": [
+          343.61,
+          341.66,
+          363.1,
+          369.09,
+          346.84,
+          345.15,
+          340.03
+        ]
+      },
+      "metrics": {
+        "process_ms": 345.15
+      },
+      "min_s": 0.365700278,
+      "name": "pi",
+      "other_cpu_s": 0.04165500000001593,
+      "times_s": [
+        0.370076057,
+        0.368580303,
+        0.391189542,
+        0.398140986,
+        0.375473568,
+        0.370873598,
+        0.365700278
+      ]
+    }
+  ],
+  "feature": "F2",
+  "load": {
+    "after": "1.29 2.29 1.43 1/258 31346",
+    "before": "1.61 2.62 1.46 1/262 28333"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003523"
+  },
+  "name": "one call from a process started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 7,
+  "time": "2026-11-12T14:11:03Z",
+  "wrong_rounds": 0
+}

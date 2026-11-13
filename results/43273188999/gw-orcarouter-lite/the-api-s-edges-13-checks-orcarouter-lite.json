@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "50a1964",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "orcarouter-lite"
+      ],
+      "cpu_s": 0.45445499999999994,
+      "max_rss_mb": 26.828125,
+      "max_s": 3.872340862,
+      "median_s": 3.872340862,
+      "metric_rounds": {
+        "edges_passed": [
+          1.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 1.0,
+        "edges_total": 13.0
+      },
+      "min_s": 3.872340862,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 3.335544999999964,
+      "times_s": [
+        3.872340862
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.71 1.55 1.20 1/258 28687",
+    "before": "1.60 1.53 1.19 1/267 28289"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003576"
+  },
+  "name": "the API's edges, 13 checks, OrcaRouter Lite",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:12:29Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,112 @@
+{
+  "command": "bin/race run races/scan.json --out results/scan",
+  "commit": "a6906c8",
+  "conditions": "one process on two CPUs, 1,000 made-up emails, card numbers, social security numbers and IP addresses planted in 500 prompts of about 2 KB, each tool loaded first and then timed over every prompt, one at a time",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "LLM Guard",
+      "got": null,
+      "lengths": [
+        0,
+        1
+      ],
+      "line": 0,
+      "wanted": "scanned"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "nave"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "presidio"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Presidio",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "llm-guard"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "LLM Guard",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F7",
+  "load": {
+    "after": "0.97 0.44 0.18 2/256 3236",
+    "before": "0.86 0.37 0.15 2/262 3181"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003526"
+  },
+  "name": "finding planted personal data in 500 prompts",
+  "output_lines": 1,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "scanned\n",
+      "stderr": "metric planted_found=1000\nmetric planted=1000\nmetric findings=1000\nmetric us_per_prompt=2.2\nmetric mb_per_s=883.42\n"
+    },
+    {
+      "name": "Presidio",
+      "ok": true,
+      "output": "scanned\n",
+      "stderr": "metric planted_found=1000\nmetric planted=1000\nmetric findings=1000\nmetric us_per_prompt=54369.3\nmetric mb_per_s=0.04\n"
+    },
+    {
+      "name": "LLM Guard",
+      "ok": false,
+      "output": "",
+      "stderr": ""
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T14:22:40Z",
+  "wrong_rounds": 0
+}

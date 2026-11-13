@@ -1,0 +1,91 @@
+{
+  "command": "bin/race run run/gw-aiproxy.json --out results/gw-aiproxy",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in redis: not stated",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "redis",
+      "got": null,
+      "lengths": [
+        0,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 160"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "redis",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "redis",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.43 0.15 0.05 2/263 6422",
+    "before": "0.43 0.15 0.05 1/266 6335"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003500"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 160\nbad 0\nchecksum adbc5506dd8ec2f0\n",
+      "stderr": "metric calls_per_s=337.3\nmetric p50_us=10514\nmetric p99_us=32405\nmetric p999_us=34365\nmetric max_us=34365\nmetric first_piece_p50_us=3759\nmetric first_piece_p99_us=13147\nmetric total_s=0.474481\n"
+    },
+    {
+      "name": "redis",
+      "ok": false,
+      "output": "",
+      "stderr": "./lib.sh: line 95: gw_default_url: command not found\n\nthread 'main' (6381) panicked at src/bin/load.rs:55:44:\nan http:// URL\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n./gateways.sh: line 25:  6381 Aborted                    (core dumped) LLM_KEY=$(gw \"$name\" key) taskset -c \"$LOAD_CPUS\" bin/load \"$(url_of \"$name\")$path\" \"${extra[@]}\" \"$@\"\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T13:55:20Z",
+  "wrong_rounds": 0
+}

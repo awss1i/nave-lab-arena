@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-one-api.json --out results/gw-one-api",
+  "commit": "2b85868",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in One API: routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.306475,
+      "max_rss_mb": 26.16796875,
+      "max_s": 0.6029888,
+      "median_s": 0.587401114,
+      "metric_rounds": {
+        "calls_per_s": [
+          307.9,
+          299.2,
+          315.0
+        ],
+        "first_piece_p50_us": [
+          4009.0,
+          3685.0,
+          3383.0
+        ],
+        "first_piece_p99_us": [
+          12040.0,
+          14239.0,
+          12051.0
+        ],
+        "max_us": [
+          43337.0,
+          38463.0,
+          39088.0
+        ],
+        "p50_us": [
+          10788.0,
+          10923.0,
+          10541.0
+        ],
+        "p999_us": [
+          43337.0,
+          38463.0,
+          39088.0
+        ],
+        "p99_us": [
+          38217.0,
+          37592.0,
+          34103.0
+        ],
+        "total_s": [
+          0.519773,
+          0.534838,
+          0.508107
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 307.9,
+        "first_piece_p50_us": 3685.0,
+        "first_piece_p99_us": 12051.0,
+        "max_us": 39088.0,
+        "p50_us": 10788.0,
+        "p999_us": 39088.0,
+        "p99_us": 37592.0,
+        "total_s": 0.519773
+      },
+      "min_s": 0.576600924,
+      "name": "Nave",
+      "other_cpu_s": 0.8240339999999955,
+      "times_s": [
+        0.587401114,
+        0.6029888,
+        0.576600924
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "one-api",
+        "4"
+      ],
+      "cpu_s": 0.313666,
+      "max_rss_mb": 26.640625,
+      "max_s": 2.742856928,
+      "median_s": 2.742324944,
+      "metric_rounds": {
+        "calls_per_s": [
+          59.9,
+          60.4,
+          60.0
+        ],
+        "first_piece_p50_us": [
+          54179.0,
+          57919.0,
+          53681.0
+        ],
+        "first_piece_p99_us": [
+          139149.0,
+          134901.0,
+          112566.0
+        ],
+        "max_us": [
+          171677.0,
+          148101.0,
+          154772.0
+        ],
+        "p50_us": [
+          59305.0,
+          62905.0,
+          61404.0
+        ],
+        "p999_us": [
+          171677.0,
+          148101.0,
+          154772.0
+        ],
+        "p99_us": [
+          140333.0,
+          138052.0,
+          134999.0
+        ],
+        "total_s": [
+          2.672462,
+          2.648638,
+          2.668273
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 60.0,
+        "first_piece_p50_us": 54179.0,
+        "first_piece_p99_us": 134901.0,
+        "max_us": 154772.0,
+        "p50_us": 61404.0,
+        "p999_us": 154772.0,
+        "p99_us": 138052.0,
+        "total_s": 2.668273
+      },
+      "min_s": 2.719157787,
+      "name": "One API",
+      "other_cpu_s": 5.763108000000012,
+      "times_s": [
+        2.742856928,
+        2.719157787,
+        2.742324944
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "17.59 6.19 2.44 1/341 48309",
+    "before": "21.93 6.39 2.44 1/363 47994"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003574"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:39:50Z",
+  "wrong_rounds": 0
+}

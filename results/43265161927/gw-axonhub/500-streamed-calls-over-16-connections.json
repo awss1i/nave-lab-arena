@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-axonhub.json --out results/gw-axonhub",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in AxonHub: routes by model through channels, retries on another channel, takes OpenAI's and Anthropic's formats, checks the caller's key, records every request and its usage in PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.075913,
+      "max_rss_mb": 25.98046875,
+      "max_s": 0.092790094,
+      "median_s": 0.08728103,
+      "metric_rounds": {
+        "calls_per_s": [
+          9650.5,
+          9334.8,
+          10441.7,
+          8524.6,
+          9014.3
+        ],
+        "first_piece_p50_us": [
+          1377.0,
+          1373.0,
+          1315.0,
+          1575.0,
+          1568.0
+        ],
+        "first_piece_p99_us": [
+          4558.0,
+          4068.0,
+          3083.0,
+          3833.0,
+          3943.0
+        ],
+        "max_us": [
+          6516.0,
+          8786.0,
+          4556.0,
+          5890.0,
+          5626.0
+        ],
+        "p50_us": [
+          1419.0,
+          1407.0,
+          1364.0,
+          1609.0,
+          1603.0
+        ],
+        "p999_us": [
+          6516.0,
+          8786.0,
+          4556.0,
+          5890.0,
+          5626.0
+        ],
+        "p99_us": [
+          5335.0,
+          6723.0,
+          3531.0,
+          5162.0,
+          4402.0
+        ],
+        "total_s": [
+          0.051987,
+          0.053723,
+          0.04813,
+          0.058843,
+          0.055638
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9334.8,
+        "first_piece_p50_us": 1377.0,
+        "first_piece_p99_us": 3943.0,
+        "max_us": 5890.0,
+        "p50_us": 1419.0,
+        "p999_us": 5890.0,
+        "p99_us": 5162.0,
+        "total_s": 0.053723
+      },
+      "min_s": 0.082083927,
+      "name": "Nave",
+      "other_cpu_s": 0.09827200000000683,
+      "times_s": [
+        0.084324962,
+        0.08728103,
+        0.082083927,
+        0.092790094,
+        0.088927449
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "axonhub",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.095977,
+      "max_rss_mb": 26.66796875,
+      "max_s": 0.860048608,
+      "median_s": 0.842271042,
+      "metric_rounds": {
+        "calls_per_s": [
+          612.6,
+          620.7,
+          608.0,
+          645.7,
+          633.3
+        ],
+        "first_piece_p50_us": [
+          10600.0,
+          10216.0,
+          11087.0,
+          9870.0,
+          10324.0
+        ],
+        "first_piece_p99_us": [
+          47304.0,
+          44279.0,
+          37321.0,
+          46127.0,
+          29577.0
+        ],
+        "max_us": [
+          75228.0,
+          96063.0,
+          86521.0,
+          85582.0,
+          84427.0
+        ],
+        "p50_us": [
+          23803.0,
+          22750.0,
+          24335.0,
+          22908.0,
+          23091.0
+        ],
+        "p999_us": [
+          75228.0,
+          96063.0,
+          86521.0,
+          85582.0,
+          84427.0
+        ],
+        "p99_us": [
+          64322.0,
+          62477.0,
+          61712.0,
+          66111.0,
+          55370.0
+        ],
+        "total_s": [
+          0.8164,
+          0.805755,
+          0.822595,
+          0.774559,
+          0.789736
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 620.7,
+        "first_piece_p50_us": 10324.0,
+        "first_piece_p99_us": 44279.0,
+        "max_us": 85582.0,
+        "p50_us": 23091.0,
+        "p999_us": 85582.0,
+        "p99_us": 62477.0,
+        "total_s": 0.805755
+      },
+      "min_s": 0.810558707,
+      "name": "AxonHub",
+      "other_cpu_s": 1.654077,
+      "times_s": [
+        0.853114472,
+        0.842271042,
+        0.860048608,
+        0.810558707,
+        0.827146589
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "4.28 1.25 0.43 1/285 10812",
+    "before": "3.95 1.14 0.39 1/311 9538"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003555"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:03:27Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+respan-gateway	respan-gateway 0.3.0
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+respan-gateway, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats. No key check on loopback, request log off, tracing off
+respan-gateway, kinds of race it wasn't in	cache

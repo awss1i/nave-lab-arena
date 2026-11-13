@@ -1,0 +1,74 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "50a1964",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "nadirclaw",
+        "mmlu",
+        "2000"
+      ],
+      "cpu_s": 154.552457,
+      "max_rss_mb": 645.65625,
+      "max_s": 80.296372548,
+      "median_s": 80.296372548,
+      "metric_rounds": {
+        "apgr": [
+          0.5137
+        ],
+        "cpt50": [
+          48.25
+        ],
+        "cpt80": [
+          78.15
+        ],
+        "ns_per_prompt": [
+          37078320.0
+        ],
+        "prompts": [
+          2000.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5137,
+        "cpt50": 48.25,
+        "cpt80": 78.15,
+        "ns_per_prompt": 37078320.0,
+        "prompts": 2000.0
+      },
+      "min_s": 80.296372548,
+      "name": "NadirClaw",
+      "other_cpu_s": 3.127543000000287,
+      "times_s": [
+        80.296372548
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.18 2.13 1.94 1/257 3541",
+    "before": "1.91 2.08 1.88 2/259 3463"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003575"
+  },
+  "name": "routing MMLU's prompts, NadirClaw",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:22:20Z",
+  "wrong_rounds": 0
+}

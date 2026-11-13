@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-bricksllm.json --out results/gw-bricksllm",
+  "commit": "88198c8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in BricksLLM: passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.10762,
+      "max_rss_mb": 26.2109375,
+      "max_s": 0.141691967,
+      "median_s": 0.113976969,
+      "metric_rounds": {
+        "calls_per_s": [
+          4938.4,
+          6019.7,
+          6407.3,
+          4604.3,
+          6364.8
+        ],
+        "max_us": [
+          6081.0,
+          6435.0,
+          5375.0,
+          6522.0,
+          7619.0
+        ],
+        "p50_us": [
+          2695.0,
+          2123.0,
+          2146.0,
+          2594.0,
+          2123.0
+        ],
+        "p999_us": [
+          6081.0,
+          6435.0,
+          5375.0,
+          6522.0,
+          7619.0
+        ],
+        "p99_us": [
+          5847.0,
+          5542.0,
+          4983.0,
+          5776.0,
+          6059.0
+        ],
+        "total_s": [
+          0.101372,
+          0.083178,
+          0.078173,
+          0.108741,
+          0.078675
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 6019.7,
+        "max_us": 6435.0,
+        "p50_us": 2146.0,
+        "p999_us": 6435.0,
+        "p99_us": 5776.0,
+        "total_s": 0.083178
+      },
+      "min_s": 0.104157363,
+      "name": "Nave",
+      "other_cpu_s": 0.20643999999994544,
+      "times_s": [
+        0.130802438,
+        0.113976969,
+        0.104157363,
+        0.141691967,
+        0.11087495
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "bricksllm",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.15390399999999999,
+      "max_rss_mb": 26.4453125,
+      "max_s": 46.541712903,
+      "median_s": 46.374762859,
+      "metric_rounds": {
+        "calls_per_s": [
+          10.8,
+          10.8,
+          10.8,
+          10.7,
+          10.8
+        ],
+        "max_us": [
+          1668645.0,
+          1690806.0,
+          1662778.0,
+          1713526.0,
+          1722565.0
+        ],
+        "p50_us": [
+          1477354.0,
+          1476532.0,
+          1480870.0,
+          1487506.0,
+          1485628.0
+        ],
+        "p999_us": [
+          1668645.0,
+          1690806.0,
+          1662778.0,
+          1713526.0,
+          1722565.0
+        ],
+        "p99_us": [
+          1636988.0,
+          1656663.0,
+          1635114.0,
+          1651411.0,
+          1656954.0
+        ],
+        "total_s": [
+          46.117485,
+          46.346256,
+          46.26336,
+          46.512882,
+          46.355581
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 10.8,
+        "max_us": 1690806.0,
+        "p50_us": 1480870.0,
+        "p999_us": 1690806.0,
+        "p99_us": 1651411.0,
+        "total_s": 46.346256
+      },
+      "min_s": 46.144839219,
+      "name": "BricksLLM",
+      "other_cpu_s": 93.76405200000008,
+      "times_s": [
+        46.144839219,
+        46.374762859,
+        46.289468128,
+        46.541712903,
+        46.381527861
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.10 2.11 1.73 1/294 6973",
+    "before": "2.08 2.13 1.58 1/316 6145"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003582"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T19:09:33Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-otari.json --out results/gw-otari",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Otari: routes by provider and model, takes OpenAI's and Anthropic's formats, checks the caller's key, prices each call, records usage in PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.307287,
+      "max_rss_mb": 26.40625,
+      "max_s": 0.616172953,
+      "median_s": 0.58242265,
+      "metric_rounds": {
+        "calls_per_s": [
+          310.7,
+          322.7,
+          295.2
+        ],
+        "first_piece_p50_us": [
+          3500.0,
+          3895.0,
+          4457.0
+        ],
+        "first_piece_p99_us": [
+          11866.0,
+          11717.0,
+          11518.0
+        ],
+        "max_us": [
+          46770.0,
+          46247.0,
+          43401.0
+        ],
+        "p50_us": [
+          10509.0,
+          10051.0,
+          11490.0
+        ],
+        "p999_us": [
+          46770.0,
+          46247.0,
+          43401.0
+        ],
+        "p99_us": [
+          36329.0,
+          38279.0,
+          41648.0
+        ],
+        "total_s": [
+          0.515071,
+          0.495993,
+          0.542059
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 310.7,
+        "first_piece_p50_us": 3895.0,
+        "first_piece_p99_us": 11717.0,
+        "max_us": 46247.0,
+        "p50_us": 10509.0,
+        "p999_us": 46247.0,
+        "p99_us": 38279.0,
+        "total_s": 0.515071
+      },
+      "min_s": 0.563166293,
+      "name": "Nave",
+      "other_cpu_s": 0.8607470000000637,
+      "times_s": [
+        0.58242265,
+        0.563166293,
+        0.616172953
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "otari",
+        "4"
+      ],
+      "cpu_s": 0.339974,
+      "max_rss_mb": 26.6875,
+      "max_s": 7.518443169,
+      "median_s": 7.494264122,
+      "metric_rounds": {
+        "calls_per_s": [
+          21.5,
+          22.1,
+          21.6
+        ],
+        "first_piece_p50_us": [
+          35869.0,
+          40772.0,
+          38556.0
+        ],
+        "first_piece_p99_us": [
+          82670.0,
+          88935.0,
+          97132.0
+        ],
+        "max_us": [
+          492924.0,
+          521215.0,
+          525208.0
+        ],
+        "p50_us": [
+          153595.0,
+          148487.0,
+          157748.0
+        ],
+        "p999_us": [
+          492924.0,
+          521215.0,
+          525208.0
+        ],
+        "p99_us": [
+          478008.0,
+          444670.0,
+          520170.0
+        ],
+        "total_s": [
+          7.443748,
+          7.230341,
+          7.421083
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 21.6,
+        "first_piece_p50_us": 38556.0,
+        "first_piece_p99_us": 88935.0,
+        "max_us": 521215.0,
+        "p50_us": 153595.0,
+        "p999_us": 521215.0,
+        "p99_us": 478008.0,
+        "total_s": 7.421083
+      },
+      "min_s": 7.302530413,
+      "name": "Otari",
+      "other_cpu_s": 8.370026000000037,
+      "times_s": [
+        7.518443169,
+        7.302530413,
+        7.494264122
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.34 2.14 1.54 2/280 31531",
+    "before": "2.25 2.10 1.51 2/304 30590"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003558"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:22:44Z",
+  "wrong_rounds": 0
+}

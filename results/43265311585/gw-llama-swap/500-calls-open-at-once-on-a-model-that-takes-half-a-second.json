@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-llama-swap.json --out results/gw-llama-swap",
+  "commit": "3df336e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in llama-swap: starts a model's server on demand and passes calls on, in OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.218697,
+      "max_rss_mb": 37.8515625,
+      "max_s": 1.124170694,
+      "median_s": 1.1240758849999999,
+      "metric_rounds": {
+        "calls_per_s": [
+          939.0,
+          939.2,
+          942.0
+        ],
+        "kb_per_open_call": [
+          12.1,
+          11.1,
+          10.9
+        ],
+        "max_us": [
+          516105.0,
+          503949.0,
+          501500.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.6,
+          6.6
+        ],
+        "p50_us": [
+          500177.0,
+          500175.0,
+          500164.0
+        ],
+        "p999_us": [
+          516105.0,
+          503949.0,
+          501500.0
+        ],
+        "p99_us": [
+          509341.0,
+          503177.0,
+          501080.0
+        ],
+        "total_s": [
+          1.065155,
+          1.064904,
+          1.061727
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 939.2,
+        "kb_per_open_call": 11.1,
+        "max_us": 503949.0,
+        "memory_open_mb": 6.6,
+        "p50_us": 500175.0,
+        "p999_us": 503949.0,
+        "p99_us": 503177.0,
+        "total_s": 1.064904
+      },
+      "min_s": 1.12329144,
+      "name": "Nave",
+      "other_cpu_s": 0.11535199999999829,
+      "times_s": [
+        1.12329144,
+        1.1240758849999999,
+        1.124170694
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "llama-swap",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.211106,
+      "max_rss_mb": 37.78515625,
+      "max_s": 4.028062474,
+      "median_s": 3.086081054,
+      "metric_rounds": {
+        "calls_per_s": [
+          825.3,
+          828.8,
+          831.3
+        ],
+        "kb_per_open_call": [
+          -29.9,
+          37.9,
+          21.9
+        ],
+        "max_us": [
+          658239.0,
+          677166.0,
+          674446.0
+        ],
+        "memory_open_mb": [
+          77.1,
+          89.8,
+          100.5
+        ],
+        "p50_us": [
+          530101.0,
+          522620.0,
+          521559.0
+        ],
+        "p999_us": [
+          658239.0,
+          677166.0,
+          674446.0
+        ],
+        "p99_us": [
+          643940.0,
+          661450.0,
+          652307.0
+        ],
+        "total_s": [
+          1.21186,
+          1.206704,
+          1.20317
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 828.8,
+        "kb_per_open_call": 21.9,
+        "max_us": 674446.0,
+        "memory_open_mb": 89.8,
+        "p50_us": 522620.0,
+        "p999_us": 674446.0,
+        "p99_us": 652307.0,
+        "total_s": 1.206704
+      },
+      "min_s": 3.07277025,
+      "name": "llama-swap",
+      "other_cpu_s": 0.8488940000000023,
+      "times_s": [
+        3.086081054,
+        4.028062474,
+        3.07277025
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.40 1.23 0.50 1/285 20833",
+    "before": "0.46 0.58 0.28 1/312 12369"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003561"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:07:31Z",
+  "wrong_rounds": 0
+}

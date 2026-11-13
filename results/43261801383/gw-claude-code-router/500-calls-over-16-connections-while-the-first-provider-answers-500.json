@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-claude-code-router.json --out results/gw-claude-code-router",
+  "commit": "3acd007",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway given the failing provider first and the working one second. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Claude Code Router: routes by rule to a provider and model, falls back to listed models, takes OpenAI's and Anthropic's formats, checks the caller's key. Request logs off, as it ships",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.065862,
+      "max_rss_mb": 26.28125,
+      "max_s": 0.147113776,
+      "median_s": 0.143839993,
+      "metric_rounds": {
+        "calls_per_s": [
+          4585.7,
+          4258.2,
+          4575.4,
+          4434.0,
+          4326.7
+        ],
+        "max_us": [
+          5832.0,
+          6563.0,
+          6686.0,
+          7091.0,
+          6703.0
+        ],
+        "p50_us": [
+          3383.0,
+          3617.0,
+          3238.0,
+          3432.0,
+          3571.0
+        ],
+        "p999_us": [
+          5832.0,
+          6563.0,
+          6686.0,
+          7091.0,
+          6703.0
+        ],
+        "p99_us": [
+          5010.0,
+          6215.0,
+          6087.0,
+          5675.0,
+          5960.0
+        ],
+        "total_s": [
+          0.109184,
+          0.117572,
+          0.109457,
+          0.112935,
+          0.115732
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4434.0,
+        "max_us": 6686.0,
+        "p50_us": 3432.0,
+        "p999_us": 6686.0,
+        "p99_us": 5960.0,
+        "total_s": 0.112935
+      },
+      "min_s": 0.138587438,
+      "name": "Nave",
+      "other_cpu_s": 0.1741380000000091,
+      "times_s": [
+        0.138587438,
+        0.147113776,
+        0.13942382,
+        0.143839993,
+        0.146516096
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "claude-code-router",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.07070699999999999,
+      "max_rss_mb": 26.2109375,
+      "max_s": 32.690592275,
+      "median_s": 32.667529708,
+      "metric_rounds": {
+        "calls_per_s": [
+          15.3,
+          15.4,
+          15.3,
+          15.4,
+          15.3
+        ],
+        "max_us": [
+          1076551.0,
+          1089128.0,
+          1077964.0,
+          1065388.0,
+          1055274.0
+        ],
+        "p50_us": [
+          1019107.0,
+          1018528.0,
+          1016201.0,
+          1015342.0,
+          1016227.0
+        ],
+        "p999_us": [
+          1076551.0,
+          1089128.0,
+          1077964.0,
+          1065388.0,
+          1055274.0
+        ],
+        "p99_us": [
+          1068203.0,
+          1069868.0,
+          1071578.0,
+          1061281.0,
+          1048475.0
+        ],
+        "total_s": [
+          32.657619,
+          32.565374,
+          32.635138,
+          32.545752,
+          32.650847
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 15.3,
+        "max_us": 1076551.0,
+        "p50_us": 1016227.0,
+        "p999_us": 1076551.0,
+        "p99_us": 1068203.0,
+        "total_s": 32.635138
+      },
+      "min_s": 32.578241205,
+      "name": "Claude Code Router",
+      "other_cpu_s": 4.648609000000027,
+      "times_s": [
+        32.690592275,
+        32.59718485,
+        32.667529708,
+        32.578241205,
+        32.684739808
+      ]
+    }
+  ],
+  "feature": "F3",
+  "load": {
+    "after": "0.41 0.70 0.45 1/261 20755",
+    "before": "1.20 0.92 0.45 7/280 17108"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003549"
+  },
+  "name": "500 calls over 16 connections while the first provider answers 500",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T16:52:06Z",
+  "wrong_rounds": 0
+}

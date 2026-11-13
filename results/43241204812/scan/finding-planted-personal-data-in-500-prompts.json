@@ -1,0 +1,189 @@
+{
+  "command": "bin/race run races/scan.json --out results/scan",
+  "commit": "561fc67",
+  "conditions": "one process on two CPUs, 1,000 made-up emails, card numbers, social security numbers and IP addresses planted in 500 prompts of about 2 KB, each tool loaded first and then timed over every prompt, one at a time",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "nave"
+      ],
+      "cpu_s": 0.076427,
+      "max_rss_mb": 26.2265625,
+      "max_s": 0.069837727,
+      "median_s": 0.069649091,
+      "metric_rounds": {
+        "findings": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "mb_per_s": [
+          869.83,
+          862.8,
+          871.8
+        ],
+        "planted": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "planted_found": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "us_per_prompt": [
+          2.2,
+          2.2,
+          2.2
+        ]
+      },
+      "metrics": {
+        "findings": 1000.0,
+        "mb_per_s": 869.83,
+        "planted": 1000.0,
+        "planted_found": 1000.0,
+        "us_per_prompt": 2.2
+      },
+      "min_s": 0.068725698,
+      "name": "Nave",
+      "other_cpu_s": 0.0035729999999272455,
+      "times_s": [
+        0.068725698,
+        0.069649091,
+        0.069837727
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "presidio"
+      ],
+      "cpu_s": 18.115969,
+      "max_rss_mb": 192.234375,
+      "max_s": 18.203867535,
+      "median_s": 17.99807675,
+      "metric_rounds": {
+        "findings": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "mb_per_s": [
+          0.06,
+          0.06,
+          0.06
+        ],
+        "planted": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "planted_found": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "us_per_prompt": [
+          33348.4,
+          33507.9,
+          33855.4
+        ]
+      },
+      "metrics": {
+        "findings": 1000.0,
+        "mb_per_s": 0.06,
+        "planted": 1000.0,
+        "planted_found": 1000.0,
+        "us_per_prompt": 33507.9
+      },
+      "min_s": 17.893921212,
+      "name": "Presidio",
+      "other_cpu_s": 0.2483879999999914,
+      "times_s": [
+        17.893921212,
+        17.99807675,
+        18.203867535
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "llm-guard"
+      ],
+      "cpu_s": 1039.404054,
+      "max_rss_mb": 1801.984375,
+      "max_s": 535.239861596,
+      "median_s": 533.045461277,
+      "metric_rounds": {
+        "findings": [
+          1229.0,
+          1229.0,
+          1229.0
+        ],
+        "mb_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "planted": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "planted_found": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "us_per_prompt": [
+          1052810.1,
+          1046512.5,
+          1056751.1
+        ]
+      },
+      "metrics": {
+        "findings": 1229.0,
+        "mb_per_s": 0.0,
+        "planted": 1000.0,
+        "planted_found": 1000.0,
+        "us_per_prompt": 1052810.1
+      },
+      "min_s": 530.056013272,
+      "name": "LLM Guard",
+      "other_cpu_s": 12.767105000000129,
+      "times_s": [
+        533.045461277,
+        530.056013272,
+        535.239861596
+      ]
+    }
+  ],
+  "feature": "F7",
+  "load": {
+    "after": "1.93 2.04 1.92 1/249 3468",
+    "before": "0.96 0.25 0.09 2/258 2785"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003535"
+  },
+  "name": "finding planted personal data in 500 prompts",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T15:27:21Z",
+  "wrong_rounds": 0
+}

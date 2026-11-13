@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-olla.json --out results/gw-olla",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Olla: balances load across endpoints and passes calls through, in OpenAI's format. No key check, request log off, rate limits lifted",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.059184,
+      "max_rss_mb": 26.625,
+      "max_s": 0.084361328,
+      "median_s": 0.071659843,
+      "metric_rounds": {
+        "calls_per_s": [
+          13103.6,
+          12833.3,
+          12039.0,
+          8320.4,
+          8453.2
+        ],
+        "first_piece_p50_us": [
+          1036.0,
+          1020.0,
+          1140.0,
+          1766.0,
+          1755.0
+        ],
+        "first_piece_p99_us": [
+          2089.0,
+          2422.0,
+          3730.0,
+          3616.0,
+          5013.0
+        ],
+        "max_us": [
+          3854.0,
+          3992.0,
+          5457.0,
+          5141.0,
+          6822.0
+        ],
+        "p50_us": [
+          1070.0,
+          1045.0,
+          1174.0,
+          1808.0,
+          1797.0
+        ],
+        "p999_us": [
+          3854.0,
+          3992.0,
+          5457.0,
+          5141.0,
+          6822.0
+        ],
+        "p99_us": [
+          3180.0,
+          3108.0,
+          3755.0,
+          3938.0,
+          5047.0
+        ],
+        "total_s": [
+          0.038316,
+          0.03912,
+          0.041687,
+          0.060253,
+          0.059312
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 12039.0,
+        "first_piece_p50_us": 1140.0,
+        "first_piece_p99_us": 3616.0,
+        "max_us": 5141.0,
+        "p50_us": 1174.0,
+        "p999_us": 5141.0,
+        "p99_us": 3755.0,
+        "total_s": 0.041687
+      },
+      "min_s": 0.062382504,
+      "name": "Nave",
+      "other_cpu_s": 0.08919299999999858,
+      "times_s": [
+        0.062382504,
+        0.062821426,
+        0.071659843,
+        0.084361328,
+        0.082706156
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "olla",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.054745,
+      "max_rss_mb": 26.29296875,
+      "max_s": 0.105020185,
+      "median_s": 0.100715737,
+      "metric_rounds": {
+        "calls_per_s": [
+          6671.1,
+          6203.0,
+          6429.7,
+          6512.8,
+          6540.7
+        ],
+        "first_piece_p50_us": [
+          1923.0,
+          2049.0,
+          1845.0,
+          1993.0,
+          1870.0
+        ],
+        "first_piece_p99_us": [
+          5147.0,
+          6054.0,
+          6418.0,
+          5362.0,
+          5495.0
+        ],
+        "max_us": [
+          5894.0,
+          6766.0,
+          8994.0,
+          6064.0,
+          7133.0
+        ],
+        "p50_us": [
+          2055.0,
+          2194.0,
+          2004.0,
+          2125.0,
+          2000.0
+        ],
+        "p999_us": [
+          5894.0,
+          6766.0,
+          8994.0,
+          6064.0,
+          7133.0
+        ],
+        "p99_us": [
+          5203.0,
+          6134.0,
+          6554.0,
+          5438.0,
+          5564.0
+        ],
+        "total_s": [
+          0.075111,
+          0.08076,
+          0.077943,
+          0.076943,
+          0.076613
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 6512.8,
+        "first_piece_p50_us": 1923.0,
+        "first_piece_p99_us": 5495.0,
+        "max_us": 6766.0,
+        "p50_us": 2055.0,
+        "p999_us": 6766.0,
+        "p99_us": 5564.0,
+        "total_s": 0.076943
+      },
+      "min_s": 0.098477837,
+      "name": "Olla",
+      "other_cpu_s": 0.17414599999999686,
+      "times_s": [
+        0.098477837,
+        0.105020185,
+        0.101831704,
+        0.100715737,
+        0.099460547
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.39 0.58 0.20 1/278 5501",
+    "before": "2.39 0.58 0.20 1/301 4996"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003475"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:14:57Z",
+  "wrong_rounds": 0
+}

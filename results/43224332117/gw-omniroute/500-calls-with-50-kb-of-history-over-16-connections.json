@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "85f0936",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OmniRoute: routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.118908,
+      "max_rss_mb": 26.36328125,
+      "max_s": 0.125364569,
+      "median_s": 0.11474912,
+      "metric_rounds": {
+        "calls_per_s": [
+          5901.4,
+          5493.5,
+          5484.1,
+          5695.5,
+          5433.4
+        ],
+        "max_us": [
+          6856.0,
+          8235.0,
+          7950.0,
+          6645.0,
+          8110.0
+        ],
+        "p50_us": [
+          1868.0,
+          2416.0,
+          2444.0,
+          2376.0,
+          2510.0
+        ],
+        "p999_us": [
+          6856.0,
+          8235.0,
+          7950.0,
+          6645.0,
+          8110.0
+        ],
+        "p99_us": [
+          6335.0,
+          6374.0,
+          6158.0,
+          5679.0,
+          5382.0
+        ],
+        "total_s": [
+          0.084868,
+          0.091183,
+          0.091291,
+          0.087932,
+          0.092163
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 5493.5,
+        "max_us": 7950.0,
+        "p50_us": 2416.0,
+        "p999_us": 7950.0,
+        "p99_us": 6158.0,
+        "total_s": 0.091183
+      },
+      "min_s": 0.11054489,
+      "name": "Nave",
+      "other_cpu_s": 0.17109200000002045,
+      "times_s": [
+        0.11054489,
+        0.125364569,
+        0.114258049,
+        0.11474912,
+        0.115570748
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "omniroute",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.162518,
+      "max_rss_mb": 26.29296875,
+      "max_s": 18.304474966,
+      "median_s": 17.868335724,
+      "metric_rounds": {
+        "calls_per_s": [
+          44.6,
+          31.4,
+          27.8,
+          28.0,
+          27.4
+        ],
+        "max_us": [
+          1344473.0,
+          1227777.0,
+          1920833.0,
+          1916969.0,
+          2086918.0
+        ],
+        "p50_us": [
+          335003.0,
+          553539.0,
+          554739.0,
+          557302.0,
+          561745.0
+        ],
+        "p999_us": [
+          1344473.0,
+          1227777.0,
+          1920833.0,
+          1916969.0,
+          2086918.0
+        ],
+        "p99_us": [
+          871193.0,
+          800556.0,
+          1134615.0,
+          1182036.0,
+          1529980.0
+        ],
+        "total_s": [
+          11.205783,
+          15.947942,
+          18.002886,
+          17.840607,
+          18.276216
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 28.0,
+        "max_us": 1916969.0,
+        "p50_us": 554739.0,
+        "p999_us": 1916969.0,
+        "p99_us": 1134615.0,
+        "total_s": 17.840607
+      },
+      "min_s": 11.232107877,
+      "name": "OmniRoute",
+      "other_cpu_s": 19.959627000000005,
+      "times_s": [
+        11.232107877,
+        15.978080845000001,
+        18.028266376,
+        17.868335724,
+        18.304474966
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.73 2.00 1.02 1/263 22253",
+    "before": "2.72 2.11 0.94 4/306 18603"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003470"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:13:46Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone AI Gateway: routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.803127,
+      "max_rss_mb": 26.35546875,
+      "max_s": 0.928029914,
+      "median_s": 0.928029914,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.928029914,
+      "name": "Nave",
+      "other_cpu_s": 1.376873000000007,
+      "times_s": [
+        0.928029914
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "helicone-ai-gateway"
+      ],
+      "cpu_s": 0.69476,
+      "max_rss_mb": 28.8828125,
+      "max_s": 2.129288181,
+      "median_s": 2.129288181,
+      "metric_rounds": {
+        "memory_mb": [
+          35.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 35.9
+      },
+      "min_s": 2.129288181,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 2.795240000000009,
+      "times_s": [
+        2.129288181
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.55 1.36 0.48 1/266 23361",
+    "before": "0.46 0.31 0.14 1/284 22767"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003501"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:59:01Z",
+  "wrong_rounds": 0
+}

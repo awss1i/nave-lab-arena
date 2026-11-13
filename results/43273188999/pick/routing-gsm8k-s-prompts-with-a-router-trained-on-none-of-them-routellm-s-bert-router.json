@@ -1,0 +1,72 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "50a1964",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "routellm",
+        "gsm8k"
+      ],
+      "cpu_s": 489.69845300000003,
+      "max_rss_mb": 2089.37109375,
+      "max_s": 248.718733723,
+      "median_s": 248.718733723,
+      "metric_rounds": {
+        "apgr": [
+          0.5333
+        ],
+        "cpt50": [
+          44.8067
+        ],
+        "cpt80": [
+          78.2411
+        ],
+        "ns_per_prompt": [
+          182512877.0
+        ],
+        "prompts": [
+          1319.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5333,
+        "cpt50": 44.8067,
+        "cpt80": 78.2411,
+        "ns_per_prompt": 182512877.0,
+        "prompts": 1319.0
+      },
+      "min_s": 248.718733723,
+      "name": "RouteLLM's BERT router",
+      "other_cpu_s": 13.351546999999925,
+      "times_s": [
+        248.718733723
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.39 1.89 1.03 1/257 3038",
+    "before": "1.06 0.46 0.18 2/269 2821"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003575"
+  },
+  "name": "routing GSM8K's prompts with a router trained on none of them, RouteLLM's BERT router",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:58:37Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-aiproxy.json --out results/gw-aiproxy",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in AI Proxy: routes by model through channels, takes OpenAI's and Anthropic's formats, checks the caller's token, counts usage, logs each call to PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.469708,
+      "max_rss_mb": 26.265625,
+      "max_s": 0.865073652,
+      "median_s": 0.844312029,
+      "metric_rounds": {
+        "calls_per_s": [
+          210.4,
+          205.4,
+          211.4
+        ],
+        "first_piece_p50_us": [
+          5175.0,
+          3899.0,
+          4898.0
+        ],
+        "first_piece_p99_us": [
+          12389.0,
+          11605.0,
+          12259.0
+        ],
+        "max_us": [
+          64775.0,
+          63020.0,
+          59720.0
+        ],
+        "p50_us": [
+          14338.0,
+          15082.0,
+          16747.0
+        ],
+        "p999_us": [
+          64775.0,
+          63020.0,
+          59720.0
+        ],
+        "p99_us": [
+          64050.0,
+          57158.0,
+          54349.0
+        ],
+        "total_s": [
+          0.76071,
+          0.779094,
+          0.757167
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 210.4,
+        "first_piece_p50_us": 4898.0,
+        "first_piece_p99_us": 12259.0,
+        "max_us": 63020.0,
+        "p50_us": 15082.0,
+        "p999_us": 63020.0,
+        "p99_us": 57158.0,
+        "total_s": 0.76071
+      },
+      "min_s": 0.841188366,
+      "name": "Nave",
+      "other_cpu_s": 1.196179999999968,
+      "times_s": [
+        0.844312029,
+        0.865073652,
+        0.841188366
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "aiproxy",
+        "4"
+      ],
+      "cpu_s": 0.45408000000000004,
+      "max_rss_mb": 26.328125,
+      "max_s": 2.402100069,
+      "median_s": 2.3409078660000002,
+      "metric_rounds": {
+        "calls_per_s": [
+          69.1,
+          71.5,
+          71.0
+        ],
+        "first_piece_p50_us": [
+          39978.0,
+          40013.0,
+          40804.0
+        ],
+        "first_piece_p99_us": [
+          107166.0,
+          95505.0,
+          110280.0
+        ],
+        "max_us": [
+          137543.0,
+          115295.0,
+          124640.0
+        ],
+        "p50_us": [
+          52951.0,
+          49929.0,
+          50457.0
+        ],
+        "p999_us": [
+          137543.0,
+          115295.0,
+          124640.0
+        ],
+        "p99_us": [
+          129593.0,
+          110209.0,
+          122866.0
+        ],
+        "total_s": [
+          2.316462,
+          2.239113,
+          2.253323
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 71.0,
+        "first_piece_p50_us": 40013.0,
+        "first_piece_p99_us": 107166.0,
+        "max_us": 124640.0,
+        "p50_us": 50457.0,
+        "p999_us": 124640.0,
+        "p99_us": 122866.0,
+        "total_s": 2.253323
+      },
+      "min_s": 2.327072684,
+      "name": "AI Proxy",
+      "other_cpu_s": 5.015920000000027,
+      "times_s": [
+        2.402100069,
+        2.327072684,
+        2.3409078660000002
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.57 2.95 1.66 1/295 48949",
+    "before": "2.04 2.86 1.62 2/316 48624"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003556"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:08:54Z",
+  "wrong_rounds": 0
+}

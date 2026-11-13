@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V45 96-Core Processor
+nave	prototype P006, 1a772dff36bf
+gomodel	v0.2.3 created 2026-11-08T19:17:23.131242442Z (image docker.io/enterpilot/gomodel:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+gomodel, switched on	routes by model, takes OpenAI's and Anthropic's formats, tracks usage. No key check, audit log off
+gomodel, kinds of race it wasn't in	fallback cache

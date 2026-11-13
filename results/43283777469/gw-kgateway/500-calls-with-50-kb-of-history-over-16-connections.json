@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-kgateway.json --out results/gw-kgateway",
+  "commit": "eb3d469",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in kgateway: an Envoy proxy programmed through Kubernetes' Gateway API, passing every call on to one upstream by route. No key check and no LLM features in this version, which moved to agentgateway. It runs in a kind cluster of one node, and only its own pods are measured",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.130665,
+      "max_rss_mb": 26.76953125,
+      "max_s": 0.127449058,
+      "median_s": 0.126827237,
+      "metric_rounds": {
+        "calls_per_s": [
+          5531.8,
+          5725.8,
+          5429.2,
+          5643.9,
+          5507.3
+        ],
+        "max_us": [
+          10811.0,
+          7058.0,
+          8851.0,
+          9994.0,
+          7773.0
+        ],
+        "p50_us": [
+          2325.0,
+          2279.0,
+          2331.0,
+          2283.0,
+          2345.0
+        ],
+        "p999_us": [
+          10811.0,
+          7058.0,
+          8851.0,
+          9994.0,
+          7773.0
+        ],
+        "p99_us": [
+          5008.0,
+          5175.0,
+          7588.0,
+          4538.0,
+          6768.0
+        ],
+        "total_s": [
+          0.090585,
+          0.087543,
+          0.092263,
+          0.088759,
+          0.090969
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 5531.8,
+        "max_us": 8851.0,
+        "p50_us": 2325.0,
+        "p999_us": 8851.0,
+        "p99_us": 5175.0,
+        "total_s": 0.090585
+      },
+      "min_s": 0.122546631,
+      "name": "Nave",
+      "other_cpu_s": 0.08775999999999887,
+      "times_s": [
+        0.126827237,
+        0.122546631,
+        0.127322783,
+        0.124563492,
+        0.127449058
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "kgateway",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.13083,
+      "max_rss_mb": 25.87890625,
+      "max_s": 0.149068381,
+      "median_s": 0.135425968,
+      "metric_rounds": {
+        "calls_per_s": [
+          5039.3,
+          4341.8,
+          5195.0,
+          4882.6,
+          5012.2
+        ],
+        "max_us": [
+          8433.0,
+          10487.0,
+          8897.0,
+          7728.0,
+          6263.0
+        ],
+        "p50_us": [
+          2536.0,
+          2603.0,
+          2374.0,
+          2555.0,
+          2512.0
+        ],
+        "p999_us": [
+          8433.0,
+          10487.0,
+          8897.0,
+          7728.0,
+          6263.0
+        ],
+        "p99_us": [
+          6455.0,
+          8063.0,
+          6427.0,
+          6356.0,
+          5507.0
+        ],
+        "total_s": [
+          0.099445,
+          0.11533,
+          0.096416,
+          0.102558,
+          0.099941
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 5012.2,
+        "max_us": 8433.0,
+        "p50_us": 2536.0,
+        "p999_us": 8433.0,
+        "p99_us": 6427.0,
+        "total_s": 0.099941
+      },
+      "min_s": 0.131494474,
+      "name": "kgateway",
+      "other_cpu_s": 0.2595799999999864,
+      "times_s": [
+        0.132711923,
+        0.149068381,
+        0.131494474,
+        0.138986876,
+        0.135425968
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.55 1.18 0.45 1/547 16263",
+    "before": "2.21 1.06 0.41 1/577 15113"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003584"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T18:51:24Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,54 @@
+{
+  "command": "bin/race run races/log.json --out results/log",
+  "commit": "a7d5362",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "log",
+        "opik"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Opik",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F9",
+  "load": {
+    "after": "20.89 31.98 18.92 1/313 81397",
+    "before": "4.39 3.13 1.38 6/1677 22000"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003593"
+  },
+  "name": "recording calls and reading them back, Opik",
+  "output_lines": 0,
+  "outputs_when_wrong": [
+    {
+      "name": "Opik",
+      "ok": false,
+      "output": "",
+      "stderr": "    return self._call_chain(*args)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/urllib/request.py\", line 492, in _call_chain\n    result = func(*args)\n             ^^^^^^^^^^^\n  File \"/home/runner/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/urllib/request.py\", line 639, in http_error_default\n    raise HTTPError(req.full_url, code, msg, hdrs, fp)\nurllib.error.HTTPError: HTTP Error 504: Gateway Time-out\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-12T22:58:05Z",
+  "wrong_rounds": 0
+}

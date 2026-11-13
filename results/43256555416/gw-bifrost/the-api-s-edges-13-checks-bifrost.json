@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "eb7d09a",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "bifrost"
+      ],
+      "cpu_s": 0.090647,
+      "max_rss_mb": 27.1953125,
+      "max_s": 0.127658066,
+      "median_s": 0.127658066,
+      "metric_rounds": {
+        "edges_passed": [
+          11.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 11.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.127658066,
+      "name": "Bifrost",
+      "other_cpu_s": 0.0593530000000341,
+      "times_s": [
+        0.127658066
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "2.34 1.05 0.44 1/260 27363",
+    "before": "2.37 1.04 0.43 1/282 27265"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003536"
+  },
+  "name": "the API's edges, 13 checks, Bifrost",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T16:20:07Z",
+  "wrong_rounds": 0
+}

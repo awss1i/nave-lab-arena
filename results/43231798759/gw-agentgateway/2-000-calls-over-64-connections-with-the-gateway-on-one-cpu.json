@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-agentgateway.json --out results/gw-agentgateway",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in agentgateway: routes by model, takes OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.113944,
+      "max_rss_mb": 26.625,
+      "max_s": 0.137323653,
+      "median_s": 0.116992728,
+      "metric_rounds": {
+        "calls_per_s": [
+          24723.3,
+          23998.9,
+          26051.9,
+          19764.9,
+          19026.7
+        ],
+        "max_us": [
+          14015.0,
+          15747.0,
+          43850.0,
+          15013.0,
+          13292.0
+        ],
+        "p50_us": [
+          1161.0,
+          2016.0,
+          1747.0,
+          2870.0,
+          2902.0
+        ],
+        "p999_us": [
+          13809.0,
+          15548.0,
+          7479.0,
+          14987.0,
+          10669.0
+        ],
+        "p99_us": [
+          9808.0,
+          6701.0,
+          5199.0,
+          5242.0,
+          6773.0
+        ],
+        "total_s": [
+          0.081115,
+          0.083569,
+          0.077041,
+          0.101404,
+          0.105308
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 23998.9,
+        "max_us": 15013.0,
+        "p50_us": 2016.0,
+        "p999_us": 13809.0,
+        "p99_us": 6701.0,
+        "total_s": 0.083569
+      },
+      "min_s": 0.109162204,
+      "name": "Nave",
+      "other_cpu_s": 0.13045299999999488,
+      "times_s": [
+        0.114851572,
+        0.116992728,
+        0.109162204,
+        0.132842013,
+        0.137323653
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "agentgateway",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.126376,
+      "max_rss_mb": 26.703125,
+      "max_s": 0.293710648,
+      "median_s": 0.28912569,
+      "metric_rounds": {
+        "calls_per_s": [
+          7661.2,
+          8047.5,
+          7914.5,
+          7813.0,
+          7812.2
+        ],
+        "max_us": [
+          11183.0,
+          11292.0,
+          9305.0,
+          9482.0,
+          9896.0
+        ],
+        "p50_us": [
+          8205.0,
+          7809.0,
+          7924.0,
+          8015.0,
+          7991.0
+        ],
+        "p999_us": [
+          11084.0,
+          11168.0,
+          9158.0,
+          9378.0,
+          9786.0
+        ],
+        "p99_us": [
+          8886.0,
+          8576.0,
+          8700.0,
+          8683.0,
+          8637.0
+        ],
+        "total_s": [
+          0.261293,
+          0.248757,
+          0.252901,
+          0.256177,
+          0.256224
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 7813.0,
+        "max_us": 9896.0,
+        "p50_us": 7991.0,
+        "p999_us": 9786.0,
+        "p99_us": 8683.0,
+        "total_s": 0.256177
+      },
+      "min_s": 0.281409527,
+      "name": "agentgateway",
+      "other_cpu_s": 0.3036239999999926,
+      "times_s": [
+        0.293710648,
+        0.281409527,
+        0.285219568,
+        0.289136467,
+        0.28912569
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.66 0.36 0.15 1/271 17808",
+    "before": "0.66 0.36 0.15 1/293 16616"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003507"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:58:18Z",
+  "wrong_rounds": 0
+}

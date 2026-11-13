@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-litellm-rs.json --out results/gw-litellm-rs",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in litellm-rs: routes by model, takes OpenAI's format. No key check, no database, cache and rate limits off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.15298899999999999,
+      "max_rss_mb": 26.54296875,
+      "max_s": 0.172615879,
+      "median_s": 0.147602603,
+      "metric_rounds": {
+        "calls_per_s": [
+          14472.9,
+          17677.2,
+          14437.8,
+          21420.8,
+          20172.4
+        ],
+        "max_us": [
+          19129.0,
+          15835.0,
+          17387.0,
+          10897.0,
+          13035.0
+        ],
+        "p50_us": [
+          3995.0,
+          2890.0,
+          3963.0,
+          2345.0,
+          2324.0
+        ],
+        "p999_us": [
+          18658.0,
+          14729.0,
+          16223.0,
+          10123.0,
+          13034.0
+        ],
+        "p99_us": [
+          12428.0,
+          10203.0,
+          12690.0,
+          6068.0,
+          8612.0
+        ],
+        "total_s": [
+          0.138383,
+          0.113318,
+          0.138716,
+          0.093586,
+          0.099348
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 17677.2,
+        "max_us": 15835.0,
+        "p50_us": 2890.0,
+        "p999_us": 14729.0,
+        "p99_us": 10203.0,
+        "total_s": 0.113318
+      },
+      "min_s": 0.127825864,
+      "name": "Nave",
+      "other_cpu_s": 0.13701099999999206,
+      "times_s": [
+        0.172438833,
+        0.147602603,
+        0.172615879,
+        0.127825864,
+        0.133113747
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "litellm-rs",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.17423,
+      "max_rss_mb": 26.83984375,
+      "max_s": 0.836271621,
+      "median_s": 0.824926547,
+      "metric_rounds": {
+        "calls_per_s": [
+          2529.4,
+          2503.0,
+          2797.6,
+          2489.2,
+          2610.9
+        ],
+        "max_us": [
+          31127.0,
+          31025.0,
+          28596.0,
+          52168.0,
+          30219.0
+        ],
+        "p50_us": [
+          25020.0,
+          25414.0,
+          22569.0,
+          24194.0,
+          24353.0
+        ],
+        "p999_us": [
+          31108.0,
+          30786.0,
+          28355.0,
+          51643.0,
+          29387.0
+        ],
+        "p99_us": [
+          28804.0,
+          28924.0,
+          26487.0,
+          48071.0,
+          27872.0
+        ],
+        "total_s": [
+          0.790878,
+          0.799248,
+          0.71506,
+          0.803696,
+          0.766245
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 2529.4,
+        "max_us": 31025.0,
+        "p50_us": 24353.0,
+        "p999_us": 30786.0,
+        "p99_us": 28804.0,
+        "total_s": 0.790878
+      },
+      "min_s": 0.748836266,
+      "name": "litellm-rs",
+      "other_cpu_s": 1.5239540000000171,
+      "times_s": [
+        0.824926547,
+        0.833547641,
+        0.748836266,
+        0.836271621,
+        0.799612983
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "11.50 2.89 1.02 1/279 19163",
+    "before": "6.75 1.82 0.67 1/301 17946"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003505"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:58:40Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,79 @@
+{
+  "command": "bin/race run races/cost.json --out results/cost",
+  "commit": "88198c8",
+  "conditions": "one CPU, the same usages, of which a library prices the ones whose models its own price list knows. models.dev's and Portkey's lists are data, read into a table by the race's script, so their time is that script's and only the number of usages they price is theirs",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "cost",
+        "models.dev"
+      ],
+      "cpu_s": 0.145356,
+      "max_rss_mb": 47.1328125,
+      "max_s": 0.142504639,
+      "median_s": 0.140573534,
+      "metric_rounds": {
+        "ns_per_cost": [
+          210.9,
+          207.2,
+          218.1,
+          228.6,
+          213.8
+        ],
+        "usages": [
+          1925.0,
+          1925.0,
+          1925.0,
+          1925.0,
+          1925.0
+        ],
+        "usages_priced": [
+          345.0,
+          345.0,
+          345.0,
+          345.0,
+          345.0
+        ]
+      },
+      "metrics": {
+        "ns_per_cost": 213.8,
+        "usages": 1925.0,
+        "usages_priced": 345.0
+      },
+      "min_s": 0.139940633,
+      "name": "models.dev's price list",
+      "other_cpu_s": 0.0046439999999914605,
+      "times_s": [
+        0.140077739,
+        0.140620132,
+        0.140573534,
+        0.142504639,
+        0.139940633
+      ]
+    }
+  ],
+  "feature": "F6",
+  "load": {
+    "after": "0.91 0.33 0.12 1/271 3041",
+    "before": "0.91 0.33 0.12 2/271 2955"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003583"
+  },
+  "name": "costing a call from its model's name and token counts, models.dev's price list",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T18:48:05Z",
+  "wrong_rounds": 0
+}

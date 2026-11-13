@@ -1,0 +1,4 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+nave-spend	prototype P009, 97679a329709
+openmeter-settings	its quickstart at d538903, with the sink's minCommitCount of 1 dropped for the sink's default of 500
+flexprice	flexprice/flexprice v2.1.48 at 2152453, built here by its make dev-setup, with one migration set aside, the API on the consumers' topic and the 12 events a second limit lifted

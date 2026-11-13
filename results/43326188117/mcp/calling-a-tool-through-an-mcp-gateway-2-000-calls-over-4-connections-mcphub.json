@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/mcp.json --out results/mcp",
+  "commit": "69f03df",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "mcphub",
+        "call",
+        "--calls",
+        "2000",
+        "--conns",
+        "4"
+      ],
+      "cpu_s": 0.217673,
+      "max_rss_mb": 26.71484375,
+      "max_s": 5.589281114,
+      "median_s": 4.991045495,
+      "metric_rounds": {
+        "calls_per_s": [
+          363.0,
+          407.6,
+          430.1
+        ],
+        "max_us": [
+          37745.0,
+          28530.0,
+          21379.0
+        ],
+        "p50_us": [
+          9993.0,
+          9094.0,
+          8786.0
+        ],
+        "p99_us": [
+          25134.0,
+          15794.0,
+          14656.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 407.6,
+        "max_us": 28530.0,
+        "p50_us": 9094.0,
+        "p99_us": 15794.0
+      },
+      "min_s": 4.730610849,
+      "name": "MCPHub",
+      "other_cpu_s": 6.850438999999937,
+      "times_s": [
+        5.589281114,
+        4.991045495,
+        4.730610849
+      ]
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "2.11 1.36 0.72 1/268 18209",
+    "before": "1.42 1.16 0.64 2/288 17911"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003596"
+  },
+  "name": "calling a tool through an MCP gateway, 2,000 calls over 4 connections, MCPHub",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T23:16:12Z",
+  "wrong_rounds": 0
+}

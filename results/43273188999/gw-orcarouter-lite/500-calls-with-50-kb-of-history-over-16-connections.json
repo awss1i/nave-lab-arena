@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "50a1964",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.12579200000000001,
+      "max_rss_mb": 26.52734375,
+      "max_s": 0.1228836,
+      "median_s": 0.121158539,
+      "metric_rounds": {
+        "calls_per_s": [
+          5572.1,
+          5540.0,
+          5636.0,
+          5650.1,
+          5646.5
+        ],
+        "max_us": [
+          8086.0,
+          8985.0,
+          7820.0,
+          6933.0,
+          7613.0
+        ],
+        "p50_us": [
+          2327.0,
+          2324.0,
+          2294.0,
+          2314.0,
+          2279.0
+        ],
+        "p999_us": [
+          8086.0,
+          8985.0,
+          7820.0,
+          6933.0,
+          7613.0
+        ],
+        "p99_us": [
+          7413.0,
+          6793.0,
+          5660.0,
+          5671.0,
+          6161.0
+        ],
+        "total_s": [
+          0.089922,
+          0.090414,
+          0.088864,
+          0.088721,
+          0.088698
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 5636.0,
+        "max_us": 7820.0,
+        "p50_us": 2314.0,
+        "p999_us": 7820.0,
+        "p99_us": 6161.0,
+        "total_s": 0.088864
+      },
+      "min_s": 0.120839682,
+      "name": "Nave",
+      "other_cpu_s": 0.09420799999999885,
+      "times_s": [
+        0.122403852,
+        0.1228836,
+        0.120839682,
+        0.12105765,
+        0.121158539
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "orcarouter-lite",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.135701,
+      "max_rss_mb": 26.65234375,
+      "max_s": 5.704633862,
+      "median_s": 5.497805558,
+      "metric_rounds": {
+        "calls_per_s": [
+          88.2,
+          92.3,
+          92.7,
+          91.5,
+          89.1
+        ],
+        "max_us": [
+          2592508.0,
+          2277400.0,
+          3337012.0,
+          2313505.0,
+          2898719.0
+        ],
+        "p50_us": [
+          58238.0,
+          57503.0,
+          57398.0,
+          61675.0,
+          56543.0
+        ],
+        "p999_us": [
+          2592508.0,
+          2277400.0,
+          3337012.0,
+          2313505.0,
+          2898719.0
+        ],
+        "p99_us": [
+          1400655.0,
+          1628668.0,
+          1588575.0,
+          1403831.0,
+          1967755.0
+        ],
+        "total_s": [
+          5.669734,
+          5.414843,
+          5.394678,
+          5.46295,
+          5.608738
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 91.5,
+        "max_us": 2592508.0,
+        "p50_us": 57503.0,
+        "p999_us": 2592508.0,
+        "p99_us": 1588575.0,
+        "total_s": 5.46295
+      },
+      "min_s": 5.430151935,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 6.7541479999999865,
+      "times_s": [
+        5.704633862,
+        5.450148539,
+        5.430151935,
+        5.497805558,
+        5.643987526
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.74 1.04 0.45 1/267 5432",
+    "before": "1.52 0.92 0.38 1/279 4838"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003576"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:51:15Z",
+  "wrong_rounds": 0
+}

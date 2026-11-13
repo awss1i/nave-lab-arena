@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-portkey.json --out results/gw-portkey",
+  "commit": "9628046",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "portkey"
+      ],
+      "cpu_s": 0.07881200000000001,
+      "max_rss_mb": 26.66796875,
+      "max_s": 0.158146748,
+      "median_s": 0.158146748,
+      "metric_rounds": {
+        "edges_passed": [
+          9.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 9.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.158146748,
+      "name": "Portkey",
+      "other_cpu_s": 0.07118800000000568,
+      "times_s": [
+        0.158146748
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.38 1.55 0.87 1/262 26072",
+    "before": "1.38 1.55 0.87 3/295 25973"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003520"
+  },
+  "name": "the API's edges, 13 checks, Portkey",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:04:30Z",
+  "wrong_rounds": 0
+}

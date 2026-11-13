@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-antirion.json --out results/gw-antirion",
+  "commit": "6a64ad6",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Antirion's simple chat at 10,000 calls a second, sent here at 10,000 calls a second over 256 connections by a client that acknowledges every packet at once, each call timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Antirion: routes by model through deployments, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, prices every call, keeps metrics. Request log off, as in its own benchmark's minimal profile",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "direct",
+        "10000",
+        "100000",
+        "256"
+      ],
+      "cpu_s": 3.8128390000000003,
+      "max_rss_mb": 26.42578125,
+      "max_s": 10.044378623,
+      "median_s": 10.044259795,
+      "metric_rounds": {
+        "calls_per_s": [
+          9998.2,
+          9998.2,
+          9998.1
+        ],
+        "max_us": [
+          15876.0,
+          14859.0,
+          26061.0
+        ],
+        "p50_us": [
+          98.0,
+          101.0,
+          103.0
+        ],
+        "p999_us": [
+          7797.0,
+          5573.0,
+          8312.0
+        ],
+        "p99_us": [
+          933.0,
+          747.0,
+          678.0
+        ],
+        "rate": [
+          10000.0,
+          10000.0,
+          10000.0
+        ],
+        "sent_late": [
+          188.0,
+          210.0,
+          254.0
+        ],
+        "total_s": [
+          10.002585,
+          10.002789,
+          10.002582
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9998.2,
+        "max_us": 15876.0,
+        "p50_us": 101.0,
+        "p999_us": 7797.0,
+        "p99_us": 747.0,
+        "rate": 10000.0,
+        "sent_late": 210.0,
+        "total_s": 10.002585
+      },
+      "min_s": 10.043983871,
+      "name": "No gateway",
+      "other_cpu_s": 3.1068210000000054,
+      "times_s": [
+        10.044378623,
+        10.043983871,
+        10.044259795
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "nave",
+        "10000",
+        "100000",
+        "256"
+      ],
+      "cpu_s": 3.186019,
+      "max_rss_mb": 26.765625,
+      "max_s": 10.0958634,
+      "median_s": 10.09301154,
+      "metric_rounds": {
+        "calls_per_s": [
+          9998.2,
+          9998.3,
+          9998.2
+        ],
+        "cpu_us_per_call": [
+          24.3,
+          24.5,
+          24.2
+        ],
+        "max_us": [
+          11957.0,
+          14494.0,
+          14634.0
+        ],
+        "p50_us": [
+          122.0,
+          123.0,
+          115.0
+        ],
+        "p999_us": [
+          5634.0,
+          5213.0,
+          5109.0
+        ],
+        "p99_us": [
+          584.0,
+          1014.0,
+          218.0
+        ],
+        "rate": [
+          10000.0,
+          10000.0,
+          10000.0
+        ],
+        "sent_late": [
+          232.0,
+          204.0,
+          195.0
+        ],
+        "total_s": [
+          10.002518,
+          10.002392,
+          10.002451
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9998.2,
+        "cpu_us_per_call": 24.3,
+        "max_us": 14494.0,
+        "p50_us": 122.0,
+        "p999_us": 5213.0,
+        "p99_us": 584.0,
+        "rate": 10000.0,
+        "sent_late": 204.0,
+        "total_s": 10.002451
+      },
+      "min_s": 10.092565871,
+      "name": "Nave",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        10.092565871,
+        10.0958634,
+        10.09301154
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "antirion",
+        "10000",
+        "100000",
+        "256"
+      ],
+      "cpu_s": 3.820984,
+      "max_rss_mb": 28.15234375,
+      "max_s": 10.0818597,
+      "median_s": 10.079902746,
+      "metric_rounds": {
+        "calls_per_s": [
+          9998.0,
+          9997.9,
+          9997.8
+        ],
+        "cpu_us_per_call": [
+          120.3,
+          120.9,
+          121.2
+        ],
+        "max_us": [
+          51593.0,
+          40914.0,
+          40802.0
+        ],
+        "p50_us": [
+          260.0,
+          248.0,
+          245.0
+        ],
+        "p999_us": [
+          46188.0,
+          22148.0,
+          33841.0
+        ],
+        "p99_us": [
+          9890.0,
+          11463.0,
+          13301.0
+        ],
+        "rate": [
+          10000.0,
+          10000.0,
+          10000.0
+        ],
+        "sent_late": [
+          524.0,
+          232.0,
+          581.0
+        ],
+        "total_s": [
+          10.00299,
+          10.003087,
+          10.003142
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9997.9,
+        "cpu_us_per_call": 120.9,
+        "max_us": 40914.0,
+        "p50_us": 248.0,
+        "p999_us": 33841.0,
+        "p99_us": 11463.0,
+        "rate": 10000.0,
+        "sent_late": 524.0,
+        "total_s": 10.003087
+      },
+      "min_s": 10.078701653,
+      "name": "Antirion",
+      "other_cpu_s": 13.639016000000009,
+      "times_s": [
+        10.079902746,
+        10.078701653,
+        10.0818597
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.10 0.73 0.33 1/251 31584",
+    "before": "1.06 0.51 0.21 1/277 26204"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003568"
+  },
+  "name": "Antirion's own benchmark, rerun",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:26:06Z",
+  "wrong_rounds": 0
+}

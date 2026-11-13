@@ -1,0 +1,79 @@
+{
+  "command": "bin/race run races/cost.json --out results/cost",
+  "commit": "88198c8",
+  "conditions": "one CPU, the same usages, of which a library prices the ones whose models its own price list knows",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "cost",
+        "genai-prices"
+      ],
+      "cpu_s": 0.26364,
+      "max_rss_mb": 45.74609375,
+      "max_s": 0.26609523,
+      "median_s": 0.258699996,
+      "metric_rounds": {
+        "ns_per_cost": [
+          27456.2,
+          26933.1,
+          27307.4,
+          28862.3,
+          27171.5
+        ],
+        "usages": [
+          1925.0,
+          1925.0,
+          1925.0,
+          1925.0,
+          1925.0
+        ],
+        "usages_priced": [
+          70.0,
+          70.0,
+          70.0,
+          70.0,
+          70.0
+        ]
+      },
+      "metrics": {
+        "ns_per_cost": 27307.4,
+        "usages": 1925.0,
+        "usages_priced": 70.0
+      },
+      "min_s": 0.255858781,
+      "name": "genai-prices",
+      "other_cpu_s": 0.0063599999999960355,
+      "times_s": [
+        0.26609523,
+        0.256485512,
+        0.258699996,
+        0.255858781,
+        0.259521088
+      ]
+    }
+  ],
+  "feature": "F6",
+  "load": {
+    "after": "0.91 0.33 0.12 1/271 2951",
+    "before": "0.82 0.31 0.11 2/271 2866"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003583"
+  },
+  "name": "costing a call from its model's name and token counts, genai-prices",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T18:48:05Z",
+  "wrong_rounds": 0
+}

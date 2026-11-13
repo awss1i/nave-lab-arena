@@ -1,0 +1,89 @@
+{
+  "command": "bin/race run run/gw-one-api.json --out results/gw-one-api",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in One API: routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "One API",
+      "got": "ok 12500",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 20000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "one-api"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "One API",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.05 2.74 1.24 1/325 29288",
+    "before": "2.60 2.12 1.01 1/347 21398"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003559"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 20000\nbad 0\nchecksum f756b811e26dd21c\n",
+      "stderr": "metric memory_mb=0.8\n"
+    },
+    {
+      "name": "One API",
+      "ok": true,
+      "output": "ok 12500\nbad 7500\nchecksum 4f57c7dc7f5af203\n",
+      "stderr": "metric memory_mb=715.4\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-12T17:07:09Z",
+  "wrong_rounds": 0
+}

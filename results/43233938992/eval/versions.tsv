@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+pyyaml	6.0.3
+promptfoo	0.125.1
+inspect-ai	0.3.289
+deepeval	4.3.4
+ragas	0.4.3

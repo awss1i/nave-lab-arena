@@ -1,0 +1,79 @@
+{
+  "command": "bin/race run races/cost.json --out results/cost",
+  "commit": "16195af",
+  "conditions": "one CPU, the same usages, of which a library prices the ones whose models its own price list knows",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "cost",
+        "tokencost"
+      ],
+      "cpu_s": 1.298576,
+      "max_rss_mb": 102.19140625,
+      "max_s": 1.334521832,
+      "median_s": 1.293218629,
+      "metric_rounds": {
+        "ns_per_cost": [
+          2912.1,
+          2987.4,
+          2899.3,
+          2931.1,
+          2919.3
+        ],
+        "usages": [
+          1925.0,
+          1925.0,
+          1925.0,
+          1925.0,
+          1925.0
+        ],
+        "usages_priced": [
+          605.0,
+          605.0,
+          605.0,
+          605.0,
+          605.0
+        ]
+      },
+      "metrics": {
+        "ns_per_cost": 2919.3,
+        "usages": 1925.0,
+        "usages_priced": 605.0
+      },
+      "min_s": 1.261259541,
+      "name": "tokencost",
+      "other_cpu_s": 0.01815899999999826,
+      "times_s": [
+        1.261259541,
+        1.2899629830000001,
+        1.306998581,
+        1.334521832,
+        1.293218629
+      ]
+    }
+  ],
+  "feature": "F6",
+  "load": {
+    "after": "0.79 0.30 0.11 1/267 2907",
+    "before": "0.75 0.28 0.10 2/266 2821"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003525"
+  },
+  "name": "costing a call from its model's name and token counts, tokencost",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:16:22Z",
+  "wrong_rounds": 0
+}

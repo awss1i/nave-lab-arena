@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-cliproxyapi.json --out results/gw-cliproxyapi",
+  "commit": "3acd007",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in CLIProxyAPI: routes by model alias, retries and cools down a failing credential, takes OpenAI's and Anthropic's formats, checks the caller's key. Its subscription sign-ins aren't used",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.109282,
+      "max_rss_mb": 26.32421875,
+      "max_s": 0.106157837,
+      "median_s": 0.105065418,
+      "metric_rounds": {
+        "calls_per_s": [
+          24870.9,
+          25205.9,
+          25166.4,
+          34213.0,
+          35274.8
+        ],
+        "max_us": [
+          12422.0,
+          11075.0,
+          10470.0,
+          10339.0,
+          7694.0
+        ],
+        "p50_us": [
+          2348.0,
+          2277.0,
+          2308.0,
+          1388.0,
+          999.0
+        ],
+        "p999_us": [
+          12128.0,
+          10853.0,
+          7532.0,
+          6167.0,
+          6338.0
+        ],
+        "p99_us": [
+          7278.0,
+          6688.0,
+          5985.0,
+          4932.0,
+          4477.0
+        ],
+        "total_s": [
+          0.080559,
+          0.079502,
+          0.07962,
+          0.058591,
+          0.056846
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 25205.9,
+        "max_us": 10470.0,
+        "p50_us": 2277.0,
+        "p999_us": 7532.0,
+        "p99_us": 5985.0,
+        "total_s": 0.079502
+      },
+      "min_s": 0.082131694,
+      "name": "Nave",
+      "other_cpu_s": 0.10670000000000127,
+      "times_s": [
+        0.106157837,
+        0.105577058,
+        0.105065418,
+        0.083484412,
+        0.082131694
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "cliproxyapi",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.096491,
+      "max_rss_mb": 25.9296875,
+      "max_s": 0.526286064,
+      "median_s": 0.523468437,
+      "metric_rounds": {
+        "calls_per_s": [
+          3995.1,
+          4018.3,
+          4056.3,
+          4014.8,
+          4021.9
+        ],
+        "max_us": [
+          35830.0,
+          35911.0,
+          38643.0,
+          33119.0,
+          35101.0
+        ],
+        "p50_us": [
+          15061.0,
+          14997.0,
+          14632.0,
+          14932.0,
+          14231.0
+        ],
+        "p999_us": [
+          34870.0,
+          32642.0,
+          38508.0,
+          32971.0,
+          34589.0
+        ],
+        "p99_us": [
+          30930.0,
+          29913.0,
+          30193.0,
+          29965.0,
+          31494.0
+        ],
+        "total_s": [
+          0.500774,
+          0.497895,
+          0.493258,
+          0.49829,
+          0.497486
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4018.3,
+        "max_us": 35830.0,
+        "p50_us": 14932.0,
+        "p999_us": 34589.0,
+        "p99_us": 30193.0,
+        "total_s": 0.497895
+      },
+      "min_s": 0.518725856,
+      "name": "CLIProxyAPI",
+      "other_cpu_s": 1.1733879999999997,
+      "times_s": [
+        0.526286064,
+        0.523468437,
+        0.518725856,
+        0.524661712,
+        0.523137155
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.25 0.31 0.11 1/286 11983",
+    "before": "1.10 0.27 0.09 1/299 2742"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003550"
+  },
+  "name": "2,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T16:43:56Z",
+  "wrong_rounds": 0
+}

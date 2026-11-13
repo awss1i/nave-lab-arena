@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "eb7d09a",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.6119939999999999,
+      "max_rss_mb": 25.79296875,
+      "max_s": 0.860315193,
+      "median_s": 0.860315193,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.860315193,
+      "name": "Nave",
+      "other_cpu_s": 2.188006000000011,
+      "times_s": [
+        0.860315193
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "bifrost"
+      ],
+      "cpu_s": 0.870657,
+      "max_rss_mb": 28.13671875,
+      "max_s": 10.750201444,
+      "median_s": 10.750201444,
+      "metric_rounds": {
+        "memory_mb": [
+          372.6
+        ]
+      },
+      "metrics": {
+        "memory_mb": 372.6
+      },
+      "min_s": 10.750201444,
+      "name": "Bifrost",
+      "other_cpu_s": 21.819342999999996,
+      "times_s": [
+        10.750201444
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.37 1.04 0.43 1/258 27004",
+    "before": "2.31 0.93 0.38 1/294 26373"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003536"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T16:20:05Z",
+  "wrong_rounds": 0
+}

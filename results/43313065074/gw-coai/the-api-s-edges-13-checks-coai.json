@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-coai.json --out results/gw-coai",
+  "commit": "6dc8546",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "coai"
+      ],
+      "cpu_s": 0.758121,
+      "max_rss_mb": 28.69921875,
+      "max_s": 16.229483096,
+      "median_s": 16.229483096,
+      "metric_rounds": {
+        "edges_passed": [
+          4.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 4.0,
+        "edges_total": 13.0
+      },
+      "min_s": 16.229483096,
+      "name": "CoAI",
+      "other_cpu_s": 9.641879000000092,
+      "times_s": [
+        16.229483096
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.44 1.55 1.32 1/361 54375",
+    "before": "1.48 1.57 1.32 1/379 53055"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003586"
+  },
+  "name": "the API's edges, 13 checks, CoAI",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T22:09:32Z",
+  "wrong_rounds": 0
+}

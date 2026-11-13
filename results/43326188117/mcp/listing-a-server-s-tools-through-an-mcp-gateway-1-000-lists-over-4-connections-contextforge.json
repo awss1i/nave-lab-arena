@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/mcp.json --out results/mcp",
+  "commit": "69f03df",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "contextforge",
+        "list",
+        "--calls",
+        "1000",
+        "--conns",
+        "4"
+      ],
+      "cpu_s": 0.21210400000000001,
+      "max_rss_mb": 26.91015625,
+      "max_s": 21.88083205,
+      "median_s": 21.679177804,
+      "metric_rounds": {
+        "calls_per_s": [
+          47.2,
+          46.3,
+          45.9
+        ],
+        "max_us": [
+          338802.0,
+          331220.0,
+          354551.0
+        ],
+        "p50_us": [
+          79031.0,
+          79757.0,
+          80421.0
+        ],
+        "p99_us": [
+          321684.0,
+          323698.0,
+          324647.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 46.3,
+        "max_us": 338802.0,
+        "p50_us": 79757.0,
+        "p99_us": 323698.0
+      },
+      "min_s": 21.293573139,
+      "name": "ContextForge",
+      "other_cpu_s": 22.26789599999999,
+      "times_s": [
+        21.293573139,
+        21.679177804,
+        21.88083205
+      ]
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "1.71 0.96 0.39 1/299 3716",
+    "before": "2.14 0.77 0.28 1/295 3417"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003596"
+  },
+  "name": "listing a server's tools through an MCP gateway, 1,000 lists over 4 connections, ContextForge",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T23:10:43Z",
+  "wrong_rounds": 0
+}

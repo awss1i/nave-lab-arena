@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-bricksllm.json --out results/gw-bricksllm",
+  "commit": "88198c8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in BricksLLM: passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.405756,
+      "max_rss_mb": 26.78515625,
+      "max_s": 0.889073414,
+      "median_s": 0.839441756,
+      "metric_rounds": {
+        "calls_per_s": [
+          224.4,
+          215.7,
+          201.5
+        ],
+        "first_piece_p50_us": [
+          5163.0,
+          4292.0,
+          4909.0
+        ],
+        "first_piece_p99_us": [
+          12256.0,
+          12757.0,
+          12404.0
+        ],
+        "max_us": [
+          51190.0,
+          58278.0,
+          64976.0
+        ],
+        "p50_us": [
+          14919.0,
+          14576.0,
+          15831.0
+        ],
+        "p999_us": [
+          51190.0,
+          58278.0,
+          64976.0
+        ],
+        "p99_us": [
+          49985.0,
+          52922.0,
+          62641.0
+        ],
+        "total_s": [
+          0.713143,
+          0.742071,
+          0.794177
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 215.7,
+        "first_piece_p50_us": 4909.0,
+        "first_piece_p99_us": 12404.0,
+        "max_us": 58278.0,
+        "p50_us": 14919.0,
+        "p999_us": 58278.0,
+        "p99_us": 52922.0,
+        "total_s": 0.742071
+      },
+      "min_s": 0.809731625,
+      "name": "Nave",
+      "other_cpu_s": 1.6231390000004366,
+      "times_s": [
+        0.809731625,
+        0.839441756,
+        0.889073414
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "bricksllm",
+        "4"
+      ],
+      "cpu_s": 0.39898199999999995,
+      "max_rss_mb": 26.29296875,
+      "max_s": 18.486286925,
+      "median_s": 18.240847762,
+      "metric_rounds": {
+        "calls_per_s": [
+          8.8,
+          8.7,
+          8.8
+        ],
+        "first_piece_p50_us": [
+          90496.0,
+          75042.0,
+          78506.0
+        ],
+        "first_piece_p99_us": [
+          241245.0,
+          266011.0,
+          240616.0
+        ],
+        "max_us": [
+          664045.0,
+          655215.0,
+          663986.0
+        ],
+        "p50_us": [
+          459819.0,
+          452414.0,
+          457172.0
+        ],
+        "p999_us": [
+          664045.0,
+          655215.0,
+          663986.0
+        ],
+        "p99_us": [
+          664029.0,
+          614382.0,
+          648295.0
+        ],
+        "total_s": [
+          18.146693,
+          18.38329,
+          18.109891
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 8.8,
+        "first_piece_p50_us": 78506.0,
+        "first_piece_p99_us": 241245.0,
+        "max_us": 663986.0,
+        "p50_us": 457172.0,
+        "p999_us": 663986.0,
+        "p99_us": 648295.0,
+        "total_s": 18.146693
+      },
+      "min_s": 18.206533671,
+      "name": "BricksLLM",
+      "other_cpu_s": 37.31373799999913,
+      "times_s": [
+        18.240847762,
+        18.486286925,
+        18.206533671
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.01 1.85 1.72 1/294 27676",
+    "before": "1.36 1.71 1.66 1/319 27379"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003582"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T20:31:37Z",
+  "wrong_rounds": 0
+}

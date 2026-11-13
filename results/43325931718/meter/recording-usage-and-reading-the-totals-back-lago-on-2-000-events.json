@@ -1,0 +1,64 @@
+{
+  "command": "bin/race run races/meter.json --out results/meter",
+  "commit": "65c4823",
+  "conditions": "a GitHub runner's four CPUs. Made-up usage events, each a customer, a model and a number of tokens, spread over 100 customers, are recorded and the totals read back, and the clock runs until the tool's own total of the tokens is right. Nave meters inside the gateway: one thread admits and settles 20,000 calls against keys, users, teams and an organization in memory. The other tools are services on two CPUs that take events over HTTP: one client on one CPU sends them in batches of 100 and then asks the service's API for the totals. A service that takes more than a millisecond an event is given 2,000 events, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "meter",
+        "lago",
+        "2000"
+      ],
+      "cpu_s": 0.195296,
+      "max_rss_mb": 26.1015625,
+      "max_s": 23.960874795,
+      "median_s": 23.960874795,
+      "metric_rounds": {
+        "seconds": [
+          9.786
+        ],
+        "tokens_counted": [
+          1999000.0
+        ],
+        "us_per_event": [
+          4892.96
+        ]
+      },
+      "metrics": {
+        "seconds": 9.786,
+        "tokens_counted": 1999000.0,
+        "us_per_event": 4892.96
+      },
+      "min_s": 23.960874795,
+      "name": "Lago, on 2,000 events",
+      "other_cpu_s": 47.594703999999965,
+      "times_s": [
+        23.960874795
+      ]
+    }
+  ],
+  "feature": "F6",
+  "load": {
+    "after": "3.24 1.72 1.04 1/300 40354",
+    "before": "2.16 1.28 0.87 1/510 39478"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003594"
+  },
+  "name": "recording usage and reading the totals back, Lago, on 2,000 events",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T23:24:55Z",
+  "wrong_rounds": 0
+}

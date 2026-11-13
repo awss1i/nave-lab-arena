@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-one-api.json --out results/gw-one-api",
+  "commit": "b1c6144",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in One API: routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.103147,
+      "max_rss_mb": 25.8671875,
+      "max_s": 0.118506823,
+      "median_s": 0.102281721,
+      "metric_rounds": {
+        "calls_per_s": [
+          22762.2,
+          30872.2,
+          22656.2,
+          28501.9,
+          29091.3
+        ],
+        "max_us": [
+          11443.0,
+          6585.0,
+          11571.0,
+          11794.0,
+          11171.0
+        ],
+        "p50_us": [
+          2553.0,
+          1755.0,
+          2552.0,
+          1947.0,
+          1870.0
+        ],
+        "p999_us": [
+          11351.0,
+          5484.0,
+          11450.0,
+          7910.0,
+          7204.0
+        ],
+        "p99_us": [
+          6401.0,
+          3735.0,
+          8528.0,
+          4095.0,
+          3914.0
+        ],
+        "total_s": [
+          0.08805,
+          0.064962,
+          0.088451,
+          0.070343,
+          0.068937
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 28501.9,
+        "max_us": 11443.0,
+        "p50_us": 1947.0,
+        "p999_us": 7910.0,
+        "p99_us": 4095.0,
+        "total_s": 0.070343
+      },
+      "min_s": 0.096873533,
+      "name": "Nave",
+      "other_cpu_s": 0.11065399999997955,
+      "times_s": [
+        0.118506823,
+        0.102281721,
+        0.117069765,
+        0.099086955,
+        0.096873533
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "one-api",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.145506,
+      "max_rss_mb": 26.74609375,
+      "max_s": 2.079577878,
+      "median_s": 1.858533118,
+      "metric_rounds": {
+        "calls_per_s": [
+          1105.2,
+          1085.4,
+          1096.0,
+          1107.1,
+          977.8
+        ],
+        "max_us": [
+          137076.0,
+          231632.0,
+          172237.0,
+          188636.0,
+          307765.0
+        ],
+        "p50_us": [
+          53900.0,
+          51915.0,
+          52679.0,
+          51859.0,
+          52080.0
+        ],
+        "p999_us": [
+          133286.0,
+          214782.0,
+          157045.0,
+          188396.0,
+          285174.0
+        ],
+        "p99_us": [
+          112951.0,
+          151389.0,
+          132855.0,
+          128720.0,
+          263286.0
+        ],
+        "total_s": [
+          1.809811,
+          1.842868,
+          1.825023,
+          1.806749,
+          2.045563
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1096.0,
+        "max_us": 188636.0,
+        "p50_us": 52080.0,
+        "p999_us": 188396.0,
+        "p99_us": 132855.0,
+        "total_s": 1.825023
+      },
+      "min_s": 1.841741045,
+      "name": "One API",
+      "other_cpu_s": 4.353228,
+      "times_s": [
+        1.843406636,
+        1.877675348,
+        1.858533118,
+        1.841741045,
+        2.079577878
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "12.15 3.76 1.33 1/361 26140",
+    "before": "7.66 2.67 0.96 1/381 17699"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003610"
+  },
+  "name": "2,000 calls over 64 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T00:18:19Z",
+  "wrong_rounds": 0
+}

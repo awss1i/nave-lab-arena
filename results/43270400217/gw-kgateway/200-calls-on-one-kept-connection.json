@@ -1,0 +1,212 @@
+{
+  "command": "bin/race run run/gw-kgateway.json --out results/gw-kgateway",
+  "commit": "cd25d37",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in kgateway: an Envoy proxy programmed through Kubernetes' Gateway API, passing every call on to one upstream by route. No key check and no LLM features in this version, which moved to agentgateway. It runs in a kind cluster of one node, and only its own pods are measured",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "200",
+        "--conns",
+        "1"
+      ],
+      "cpu_s": 0.035276,
+      "max_rss_mb": 26.5390625,
+      "max_s": 0.047468782,
+      "median_s": 0.043245299,
+      "metric_rounds": {
+        "calls_per_s": [
+          12277.6,
+          12918.6,
+          13319.2,
+          12126.8,
+          11806.6,
+          9911.1,
+          11840.8
+        ],
+        "max_us": [
+          225.0,
+          155.0,
+          133.0,
+          154.0,
+          243.0,
+          1470.0,
+          146.0
+        ],
+        "p50_us": [
+          65.0,
+          63.0,
+          63.0,
+          67.0,
+          67.0,
+          69.0,
+          68.0
+        ],
+        "p999_us": [
+          225.0,
+          155.0,
+          133.0,
+          154.0,
+          243.0,
+          1470.0,
+          146.0
+        ],
+        "p99_us": [
+          139.0,
+          124.0,
+          104.0,
+          131.0,
+          238.0,
+          420.0,
+          122.0
+        ],
+        "total_s": [
+          0.016413,
+          0.0156,
+          0.015114,
+          0.01662,
+          0.017099,
+          0.020296,
+          0.016999
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 12126.8,
+        "max_us": 155.0,
+        "p50_us": 67.0,
+        "p999_us": 155.0,
+        "p99_us": 131.0,
+        "total_s": 0.01662
+      },
+      "min_s": 0.040912425,
+      "name": "Nave",
+      "other_cpu_s": 0.015495999999997158,
+      "times_s": [
+        0.042027091,
+        0.04197221,
+        0.040912425,
+        0.043245299,
+        0.043922068,
+        0.047468782,
+        0.044325704
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "kgateway",
+        "--calls",
+        "200",
+        "--conns",
+        "1"
+      ],
+      "cpu_s": 0.037079,
+      "max_rss_mb": 26.48046875,
+      "max_s": 0.080597595,
+      "median_s": 0.079151571,
+      "metric_rounds": {
+        "calls_per_s": [
+          3759.9,
+          3821.2,
+          3829.2,
+          3887.4,
+          3811.3,
+          3869.9,
+          3713.1
+        ],
+        "max_us": [
+          755.0,
+          945.0,
+          721.0,
+          758.0,
+          682.0,
+          537.0,
+          952.0
+        ],
+        "p50_us": [
+          244.0,
+          238.0,
+          241.0,
+          237.0,
+          239.0,
+          240.0,
+          243.0
+        ],
+        "p999_us": [
+          755.0,
+          945.0,
+          721.0,
+          758.0,
+          682.0,
+          537.0,
+          952.0
+        ],
+        "p99_us": [
+          453.0,
+          379.0,
+          434.0,
+          321.0,
+          393.0,
+          315.0,
+          631.0
+        ],
+        "total_s": [
+          0.053308,
+          0.052475,
+          0.052378,
+          0.051563,
+          0.052613,
+          0.051794,
+          0.053984
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 3821.2,
+        "max_us": 755.0,
+        "p50_us": 240.0,
+        "p999_us": 755.0,
+        "p99_us": 393.0,
+        "total_s": 0.052475
+      },
+      "min_s": 0.078057952,
+      "name": "kgateway",
+      "other_cpu_s": 0.0551539999999892,
+      "times_s": [
+        0.080597595,
+        0.079810298,
+        0.079427743,
+        0.078638649,
+        0.078057952,
+        0.078708982,
+        0.079151571
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.23 0.93 0.35 1/552 13848",
+    "before": "2.19 0.84 0.31 1/582 12667"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003570"
+  },
+  "name": "200 calls on one kept connection",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 7,
+  "time": "2026-11-12T17:33:28Z",
+  "wrong_rounds": 0
+}

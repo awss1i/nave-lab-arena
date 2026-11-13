@@ -1,0 +1,4 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, INTEL(R) XEON(R) PLATINUM 8573C
+gitleaks	8.30.1
+presidio-analyzer	2.2.366
+llm-guard	0.3.16

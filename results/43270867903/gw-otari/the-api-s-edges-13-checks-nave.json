@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-otari.json --out results/gw-otari",
+  "commit": "2b85868",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.236561,
+      "max_rss_mb": 26.78125,
+      "max_s": 0.431294861,
+      "median_s": 0.431294861,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.431294861,
+      "name": "Nave",
+      "other_cpu_s": 0.023439000000218285,
+      "times_s": [
+        0.431294861
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "2.63 2.39 2.10 1/279 60035",
+    "before": "2.86 2.43 2.11 1/283 59830"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003571"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:14:59Z",
+  "wrong_rounds": 0
+}

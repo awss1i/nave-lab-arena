@@ -1,0 +1,73 @@
+{
+  "command": "bin/race run races/pick-servers.json --out results/pick-servers",
+  "commit": "6dc8546",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "vllm-sr",
+        "gsm8k"
+      ],
+      "cpu_s": 0.979489,
+      "max_rss_mb": 26.265625,
+      "max_s": 260.541541095,
+      "median_s": 260.541541095,
+      "metric_rounds": {
+        "apgr": [
+          0.4581
+        ],
+        "cpt50": [
+          58.6808
+        ],
+        "cpt80": [
+          83.9272
+        ],
+        "ns_per_prompt": [
+          197304139.0
+        ],
+        "prompts": [
+          1319.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.4581,
+        "cpt50": 58.6808,
+        "cpt80": 83.9272,
+        "ns_per_prompt": 197304139.0,
+        "prompts": 1319.0
+      },
+      "min_s": 260.541541095,
+      "name": "vLLM's semantic-router, its Knowledge recipe",
+      "other_cpu_s": 712.4705110000003,
+      "times_s": [
+        260.541541095
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "3.75 3.42 2.57 1/265 7270",
+    "before": "2.88 2.24 1.77 1/378 6622"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003588"
+  },
+  "name": "routing GSM8K's prompts with a router trained on none of them, vLLM's semantic-router, its Knowledge recipe",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T22:17:43Z",
+  "wrong_rounds": 0
+}

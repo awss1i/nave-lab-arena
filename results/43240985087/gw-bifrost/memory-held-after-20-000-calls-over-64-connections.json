@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "74b3b54",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.801179,
+      "max_rss_mb": 26.26953125,
+      "max_s": 0.835758151,
+      "median_s": 0.835758151,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.835758151,
+      "name": "Nave",
+      "other_cpu_s": 1.5288209999999842,
+      "times_s": [
+        0.835758151
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "bifrost"
+      ],
+      "cpu_s": 1.035544,
+      "max_rss_mb": 28.4375,
+      "max_s": 8.213217903,
+      "median_s": 8.213217903,
+      "metric_rounds": {
+        "memory_mb": [
+          220.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 220.9
+      },
+      "min_s": 8.213217903,
+      "name": "Bifrost",
+      "other_cpu_s": 15.974456000000048,
+      "times_s": [
+        8.213217903
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.99 1.43 0.70 1/267 27196",
+    "before": "1.80 1.35 0.66 1/293 26595"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003533"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:53:32Z",
+  "wrong_rounds": 0
+}

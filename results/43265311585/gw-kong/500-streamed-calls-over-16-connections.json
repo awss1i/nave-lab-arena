@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-kong.json --out results/gw-kong",
+  "commit": "3df336e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Kong: routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.060609,
+      "max_rss_mb": 26.09375,
+      "max_s": 0.072460467,
+      "median_s": 0.064993428,
+      "metric_rounds": {
+        "calls_per_s": [
+          13197.8,
+          13375.7,
+          13804.5,
+          11694.7,
+          13380.7
+        ],
+        "first_piece_p50_us": [
+          1052.0,
+          1067.0,
+          1050.0,
+          1072.0,
+          1055.0
+        ],
+        "first_piece_p99_us": [
+          2175.0,
+          1854.0,
+          1862.0,
+          3437.0,
+          2415.0
+        ],
+        "max_us": [
+          4156.0,
+          2111.0,
+          2652.0,
+          8108.0,
+          3152.0
+        ],
+        "p50_us": [
+          1082.0,
+          1097.0,
+          1077.0,
+          1101.0,
+          1084.0
+        ],
+        "p999_us": [
+          4156.0,
+          2111.0,
+          2652.0,
+          8108.0,
+          3152.0
+        ],
+        "p99_us": [
+          2252.0,
+          1919.0,
+          1882.0,
+          4539.0,
+          2487.0
+        ],
+        "total_s": [
+          0.038061,
+          0.037539,
+          0.036383,
+          0.04291,
+          0.037528
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 13375.7,
+        "first_piece_p50_us": 1055.0,
+        "first_piece_p99_us": 2175.0,
+        "max_us": 3152.0,
+        "p50_us": 1084.0,
+        "p999_us": 3152.0,
+        "p99_us": 2252.0,
+        "total_s": 0.037539
+      },
+      "min_s": 0.064128271,
+      "name": "Nave",
+      "other_cpu_s": 0.06939099999999546,
+      "times_s": [
+        0.072460467,
+        0.064993428,
+        0.064128271,
+        0.070773688,
+        0.064975052
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "kong",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.053553,
+      "max_rss_mb": 26.171875,
+      "max_s": 0.085043025,
+      "median_s": 0.079935126,
+      "metric_rounds": {
+        "calls_per_s": [
+          8610.1,
+          9074.0,
+          10018.5,
+          9870.3,
+          9549.0
+        ],
+        "first_piece_p50_us": [
+          1698.0,
+          1297.0,
+          1304.0,
+          1314.0,
+          1212.0
+        ],
+        "first_piece_p99_us": [
+          2642.0,
+          2405.0,
+          1981.0,
+          1964.0,
+          2054.0
+        ],
+        "max_us": [
+          2684.0,
+          2545.0,
+          2302.0,
+          2375.0,
+          2403.0
+        ],
+        "p50_us": [
+          1698.0,
+          1297.0,
+          1304.0,
+          1314.0,
+          1218.0
+        ],
+        "p999_us": [
+          2684.0,
+          2545.0,
+          2302.0,
+          2375.0,
+          2403.0
+        ],
+        "p99_us": [
+          2642.0,
+          2406.0,
+          1981.0,
+          1964.0,
+          2054.0
+        ],
+        "total_s": [
+          0.058228,
+          0.055288,
+          0.050061,
+          0.05084,
+          0.052521
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9549.0,
+        "first_piece_p50_us": 1304.0,
+        "first_piece_p99_us": 2054.0,
+        "max_us": 2403.0,
+        "p50_us": 1304.0,
+        "p999_us": 2403.0,
+        "p99_us": 2054.0,
+        "total_s": 0.052521
+      },
+      "min_s": 0.076693163,
+      "name": "Kong",
+      "other_cpu_s": 0.1273950000000068,
+      "times_s": [
+        0.085043025,
+        0.08254513,
+        0.076693163,
+        0.078223581,
+        0.079935126
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "6.81 1.62 0.54 2/276 12699",
+    "before": "6.81 1.62 0.54 7/293 12169"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003562"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:03:52Z",
+  "wrong_rounds": 0
+}

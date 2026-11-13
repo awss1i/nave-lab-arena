@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-coai.json --out results/gw-coai",
+  "commit": "32ba8d8",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "redis"
+      ],
+      "cpu_s": 0.060700000000000004,
+      "max_rss_mb": 26.640625,
+      "max_s": 0.056936757,
+      "median_s": 0.056936757,
+      "metric_rounds": {
+        "edges_passed": [
+          0.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 0.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.056936757,
+      "name": "redis",
+      "other_cpu_s": 0.00930000000000028,
+      "times_s": [
+        0.056936757
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "0.57 0.17 0.06 1/256 7203",
+    "before": "0.57 0.17 0.06 1/257 7140"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003554"
+  },
+  "name": "the API's edges, 13 checks, redis",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:02:22Z",
+  "wrong_rounds": 0
+}

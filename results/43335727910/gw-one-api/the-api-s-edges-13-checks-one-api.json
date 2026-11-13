@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-one-api.json --out results/gw-one-api",
+  "commit": "b1c6144",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "one-api"
+      ],
+      "cpu_s": 0.331085,
+      "max_rss_mb": 28.875,
+      "max_s": 1.750377781,
+      "median_s": 1.750377781,
+      "metric_rounds": {
+        "edges_passed": [
+          10.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 10.0,
+        "edges_total": 13.0
+      },
+      "min_s": 1.750377781,
+      "name": "One API",
+      "other_cpu_s": 1.008914999999975,
+      "times_s": [
+        1.750377781
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "18.93 8.77 3.73 1/357 85765",
+    "before": "20.49 8.90 3.74 1/375 85276"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003610"
+  },
+  "name": "the API's edges, 13 checks, One API",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T00:23:56Z",
+  "wrong_rounds": 0
+}

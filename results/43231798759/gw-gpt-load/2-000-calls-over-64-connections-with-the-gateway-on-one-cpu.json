@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-gpt-load.json --out results/gw-gpt-load",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in GPT-Load: routes by model through groups of upstream keys, takes OpenAI's format on this channel, checks the caller's access key, records usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.08637500000000001,
+      "max_rss_mb": 26.28515625,
+      "max_s": 0.456994309,
+      "median_s": 0.309123616,
+      "metric_rounds": {
+        "calls_per_s": [
+          13675.6,
+          7079.1,
+          4656.1,
+          4735.6,
+          11367.4
+        ],
+        "max_us": [
+          95116.0,
+          102867.0,
+          121457.0,
+          114832.0,
+          71924.0
+        ],
+        "p50_us": [
+          1253.0,
+          1505.0,
+          11606.0,
+          7389.0,
+          1351.0
+        ],
+        "p999_us": [
+          95086.0,
+          102818.0,
+          121405.0,
+          114806.0,
+          71922.0
+        ],
+        "p99_us": [
+          94445.0,
+          97259.0,
+          119687.0,
+          113891.0,
+          71401.0
+        ],
+        "total_s": [
+          0.146433,
+          0.282716,
+          0.429714,
+          0.422499,
+          0.176104
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 7079.1,
+        "max_us": 102867.0,
+        "p50_us": 1505.0,
+        "p999_us": 102818.0,
+        "p99_us": 97259.0,
+        "total_s": 0.282716
+      },
+      "min_s": 0.173451949,
+      "name": "Nave",
+      "other_cpu_s": 0.34947899999999776,
+      "times_s": [
+        0.173451949,
+        0.309123616,
+        0.456994309,
+        0.449204281,
+        0.20284303
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "gpt-load",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.108732,
+      "max_rss_mb": 26.14453125,
+      "max_s": 3.447660199,
+      "median_s": 3.236869595,
+      "metric_rounds": {
+        "calls_per_s": [
+          658.2,
+          652.1,
+          624.4,
+          617.6,
+          585.1
+        ],
+        "max_us": [
+          156962.0,
+          176722.0,
+          174032.0,
+          176429.0,
+          208341.0
+        ],
+        "p50_us": [
+          95064.0,
+          98390.0,
+          103136.0,
+          101666.0,
+          102678.0
+        ],
+        "p999_us": [
+          153855.0,
+          152474.0,
+          173340.0,
+          176427.0,
+          190478.0
+        ],
+        "p99_us": [
+          147651.0,
+          135619.0,
+          147705.0,
+          151258.0,
+          183398.0
+        ],
+        "total_s": [
+          3.038887,
+          3.067185,
+          3.203056,
+          3.238398,
+          3.418431
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 624.4,
+        "max_us": 176429.0,
+        "p50_us": 101666.0,
+        "p999_us": 173340.0,
+        "p99_us": 147705.0,
+        "total_s": 3.203056
+      },
+      "min_s": 3.067559132,
+      "name": "GPT-Load",
+      "other_cpu_s": 3.5283059999999864,
+      "times_s": [
+        3.067559132,
+        3.096201106,
+        3.236869595,
+        3.267810341,
+        3.447660199
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.43 1.03 0.50 2/258 89259",
+    "before": "1.30 0.98 0.47 1/276 76108"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003497"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:00:11Z",
+  "wrong_rounds": 0
+}

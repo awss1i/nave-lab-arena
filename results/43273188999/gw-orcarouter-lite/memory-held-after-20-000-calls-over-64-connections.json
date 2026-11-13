@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "50a1964",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.872552,
+      "max_rss_mb": 25.97265625,
+      "max_s": 1.3420683150000001,
+      "median_s": 1.3420683150000001,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 1.3420683150000001,
+      "name": "Nave",
+      "other_cpu_s": 2.0374479999998547,
+      "times_s": [
+        1.3420683150000001
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "orcarouter-lite"
+      ],
+      "cpu_s": 1.281381,
+      "max_rss_mb": 26.54296875,
+      "max_s": 191.678461535,
+      "median_s": 191.678461535,
+      "metric_rounds": {
+        "memory_mb": [
+          376.7
+        ]
+      },
+      "metrics": {
+        "memory_mb": 376.7
+      },
+      "min_s": 191.678461535,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 211.28861899999993,
+      "times_s": [
+        191.678461535
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.56 1.52 1.19 1/259 27911",
+    "before": "1.48 1.35 0.98 1/271 27180"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003576"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:12:16Z",
+  "wrong_rounds": 0
+}

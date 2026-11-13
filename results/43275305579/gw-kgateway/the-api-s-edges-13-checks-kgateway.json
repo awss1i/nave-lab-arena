@@ -1,0 +1,54 @@
+{
+  "command": "bin/race run run/gw-kgateway.json --out results/gw-kgateway",
+  "commit": "7cd574a",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "kgateway"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "kgateway",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "3.25 1.36 0.50 1/529 16526",
+    "before": "3.25 1.36 0.50 1/530 16403"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003578"
+  },
+  "name": "the API's edges, 13 checks, kgateway",
+  "output_lines": 0,
+  "outputs_when_wrong": [
+    {
+      "name": "kgateway",
+      "ok": false,
+      "output": "",
+      "stderr": "error: the path \"/home/runner/arena-tools/k8s/kgateway-arena.yaml\" does not exist\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-12T18:02:24Z",
+  "wrong_rounds": 0
+}

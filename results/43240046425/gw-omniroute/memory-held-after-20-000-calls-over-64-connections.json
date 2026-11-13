@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "50e46ee",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OmniRoute: routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.47173200000000004,
+      "max_rss_mb": 26.828125,
+      "max_s": 0.482085464,
+      "median_s": 0.482085464,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.482085464,
+      "name": "Nave",
+      "other_cpu_s": 0.888268000000582,
+      "times_s": [
+        0.482085464
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "omniroute"
+      ],
+      "cpu_s": 0.891707,
+      "max_rss_mb": 28.56640625,
+      "max_s": 1673.489914619,
+      "median_s": 1673.489914619,
+      "metric_rounds": {
+        "memory_mb": [
+          682.3
+        ]
+      },
+      "metrics": {
+        "memory_mb": 682.3
+      },
+      "min_s": 1673.489914619,
+      "name": "OmniRoute",
+      "other_cpu_s": 1766.1982929999992,
+      "times_s": [
+        1673.489914619
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.26 1.25 1.20 1/256 155393",
+    "before": "1.73 1.35 1.16 5/293 111975"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003529"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T16:29:36Z",
+  "wrong_rounds": 0
+}

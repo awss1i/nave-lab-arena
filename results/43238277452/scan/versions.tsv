@@ -1,0 +1,4 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+gitleaks	8.30.1
+presidio-analyzer	2.2.366
+llm-guard	0.3.16

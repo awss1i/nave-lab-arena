@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-gpt-load.json --out results/gw-gpt-load",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in GPT-Load: routes by model through groups of upstream keys, takes OpenAI's format on this channel, checks the caller's access key, records usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.496024,
+      "max_rss_mb": 25.41796875,
+      "max_s": 0.554149058,
+      "median_s": 0.554149058,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.554149058,
+      "name": "Nave",
+      "other_cpu_s": 1.4539759999999886,
+      "times_s": [
+        0.554149058
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "gpt-load"
+      ],
+      "cpu_s": 0.7046600000000001,
+      "max_rss_mb": 27.9296875,
+      "max_s": 15.665691092,
+      "median_s": 15.665691092,
+      "metric_rounds": {
+        "memory_mb": [
+          215.5
+        ]
+      },
+      "metrics": {
+        "memory_mb": 215.5
+      },
+      "min_s": 15.665691092,
+      "name": "GPT-Load",
+      "other_cpu_s": 33.29534,
+      "times_s": [
+        15.665691092
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.32 1.35 0.64 1/262 134506",
+    "before": "1.95 1.19 0.57 1/282 93978"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003497"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:01:01Z",
+  "wrong_rounds": 0
+}

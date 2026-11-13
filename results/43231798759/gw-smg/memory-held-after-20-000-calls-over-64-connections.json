@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-smg.json --out results/gw-smg",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in SMG: balances load across inference workers, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.448065,
+      "max_rss_mb": 25.4765625,
+      "max_s": 0.477483113,
+      "median_s": 0.477483113,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.477483113,
+      "name": "Nave",
+      "other_cpu_s": 0.8419350000000063,
+      "times_s": [
+        0.477483113
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "smg"
+      ],
+      "cpu_s": 0.421215,
+      "max_rss_mb": 28.8203125,
+      "max_s": 1.540288392,
+      "median_s": 1.540288392,
+      "metric_rounds": {
+        "memory_mb": [
+          38.2
+        ]
+      },
+      "metrics": {
+        "memory_mb": 38.2
+      },
+      "min_s": 1.540288392,
+      "name": "SMG",
+      "other_cpu_s": 1.4187850000000033,
+      "times_s": [
+        1.540288392
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.40 0.83 0.33 1/272 21488",
+    "before": "1.74 0.68 0.28 1/298 20906"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003504"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:58:36Z",
+  "wrong_rounds": 0
+}

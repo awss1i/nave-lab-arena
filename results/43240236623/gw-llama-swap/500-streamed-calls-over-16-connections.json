@@ -1,0 +1,99 @@
+{
+  "command": "bin/race run run/gw-llama-swap.json --out results/gw-llama-swap",
+  "commit": "010bcc5",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in llama-swap: starts a model's server on demand and passes calls on, in OpenAI's and Anthropic's formats. No key check",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "llama-swap",
+      "got": "ok 493",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 500"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "llama-swap",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "llama-swap",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.70 0.47 0.16 1/279 4185",
+    "before": "1.70 0.47 0.16 1/305 4024"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003530"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 500\nbad 0\nchecksum ddea6e8eea0bc511\n",
+      "stderr": "metric calls_per_s=7401.5\nmetric p50_us=1807\nmetric p99_us=5833\nmetric p999_us=8071\nmetric max_us=8071\nmetric first_piece_p50_us=1743\nmetric first_piece_p99_us=5768\nmetric total_s=0.067712\n"
+    },
+    {
+      "name": "llama-swap",
+      "ok": false,
+      "output": "ok 493\nbad 7\nchecksum cc5e4b520f328340\n",
+      "stderr": "metric calls_per_s=2625.8\nmetric p50_us=5221\nmetric p99_us=14539\nmetric p999_us=19054\nmetric max_us=19054\nmetric first_piece_p50_us=673\nmetric first_piece_p99_us=7919\nmetric total_s=0.190599\n"
+    }
+  ],
+  "rounds": 5,
+  "time": "2026-11-12T14:44:30Z",
+  "wrong_rounds": 0
+}

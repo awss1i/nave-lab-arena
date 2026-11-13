@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz
+nave	prototype P006, 1a772dff36bf
+bricksllm	created 2025-01-05T23:49:21.906199876Z (image docker.io/luyuanxin1995/bricksllm:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+bricksllm, switched on	passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis
+bricksllm, kinds of race it wasn't in	messages fallback cache

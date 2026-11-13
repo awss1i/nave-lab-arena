@@ -1,0 +1,202 @@
+{
+  "command": "bin/race run races/cache.json --out results/cache",
+  "commit": "b467d97",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, the same message every time, each gateway's own in-memory cache switched on, and the number of calls that still reached the model counted",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "cached",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "16",
+        "--same"
+      ],
+      "cpu_s": 0.087482,
+      "max_rss_mb": 26.4765625,
+      "max_s": 0.109689682,
+      "median_s": 0.10909107,
+      "metric_rounds": {
+        "calls_per_s": [
+          25279.9,
+          25318.3,
+          26501.0,
+          26762.8,
+          26169.1
+        ],
+        "calls_that_reached_the_model": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_us": [
+          2434.0,
+          2604.0,
+          1752.0,
+          2149.0,
+          3384.0
+        ],
+        "p50_us": [
+          581.0,
+          586.0,
+          560.0,
+          552.0,
+          564.0
+        ],
+        "p999_us": [
+          2421.0,
+          2450.0,
+          1695.0,
+          2020.0,
+          2427.0
+        ],
+        "p99_us": [
+          1348.0,
+          1588.0,
+          1101.0,
+          1032.0,
+          1288.0
+        ],
+        "total_s": [
+          0.079269,
+          0.079148,
+          0.075627,
+          0.074891,
+          0.076589
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 26169.1,
+        "calls_that_reached_the_model": 0.0,
+        "max_us": 2434.0,
+        "p50_us": 564.0,
+        "p999_us": 2421.0,
+        "p99_us": 1288.0,
+        "total_s": 0.076589
+      },
+      "min_s": 0.104165305,
+      "name": "Nave",
+      "other_cpu_s": 0.13157299999999886,
+      "times_s": [
+        0.109689682,
+        0.109117881,
+        0.105067719,
+        0.104165305,
+        0.10909107
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "cached",
+        "litellm",
+        "--calls",
+        "2000",
+        "--conns",
+        "16",
+        "--same"
+      ],
+      "cpu_s": 0.11127200000000001,
+      "max_rss_mb": 26.77734375,
+      "max_s": 10.251182924,
+      "median_s": 9.706060888,
+      "metric_rounds": {
+        "calls_per_s": [
+          206.7,
+          206.9,
+          205.1,
+          207.0,
+          195.7
+        ],
+        "calls_that_reached_the_model": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_us": [
+          135124.0,
+          149215.0,
+          142321.0,
+          123903.0,
+          178372.0
+        ],
+        "p50_us": [
+          76252.0,
+          76374.0,
+          77068.0,
+          76174.0,
+          71623.0
+        ],
+        "p999_us": [
+          131453.0,
+          144170.0,
+          141394.0,
+          114630.0,
+          146456.0
+        ],
+        "p99_us": [
+          106602.0,
+          103826.0,
+          103438.0,
+          101449.0,
+          102735.0
+        ],
+        "total_s": [
+          9.676028,
+          9.667556,
+          9.750982,
+          9.661063,
+          10.221919
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 206.7,
+        "calls_that_reached_the_model": 0.0,
+        "max_us": 142321.0,
+        "p50_us": 76252.0,
+        "p999_us": 141394.0,
+        "p99_us": 103438.0,
+        "total_s": 9.676028
+      },
+      "min_s": 9.69838297,
+      "name": "LiteLLM",
+      "other_cpu_s": 19.469600000000014,
+      "times_s": [
+        9.706060888,
+        9.703672354,
+        9.780063833,
+        9.69838297,
+        10.251182924
+      ]
+    }
+  ],
+  "feature": "F5",
+  "load": {
+    "after": "2.34 0.97 0.37 1/271 3568",
+    "before": "1.89 0.59 0.21 1/296 2975"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003580"
+  },
+  "name": "2,000 repeats of one call over 16 connections, with each gateway's cache on",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T18:37:31Z",
+  "wrong_rounds": 0
+}

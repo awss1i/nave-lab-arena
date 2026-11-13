@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-claude-relay-service.json --out results/gw-claude-relay-service",
+  "commit": "c54defd",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Anthropic's format in and OpenAI's format to the model, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Claude Relay Service: routes to an upstream account by priority, moves later calls to another account when one fails, takes Anthropic's format, checks the caller's key, counts usage and cost in Redis. Its subscription sign-ins aren't used",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.082652,
+      "max_rss_mb": 26.76171875,
+      "max_s": 0.131550161,
+      "median_s": 0.103748936,
+      "metric_rounds": {
+        "calls_per_s": [
+          5052.0,
+          5952.3,
+          8748.0,
+          7109.4,
+          7657.8
+        ],
+        "first_piece_p50_us": [
+          2770.0,
+          2273.0,
+          1554.0,
+          2085.0,
+          1853.0
+        ],
+        "first_piece_p99_us": [
+          8418.0,
+          6698.0,
+          3544.0,
+          3788.0,
+          3549.0
+        ],
+        "max_us": [
+          10203.0,
+          10548.0,
+          5143.0,
+          6343.0,
+          6461.0
+        ],
+        "p50_us": [
+          2882.0,
+          2352.0,
+          1594.0,
+          2136.0,
+          1884.0
+        ],
+        "p999_us": [
+          10203.0,
+          10548.0,
+          5143.0,
+          6343.0,
+          6461.0
+        ],
+        "p99_us": [
+          9564.0,
+          7937.0,
+          3627.0,
+          4431.0,
+          3635.0
+        ],
+        "total_s": [
+          0.099119,
+          0.084143,
+          0.057293,
+          0.070485,
+          0.065448
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 7109.4,
+        "first_piece_p50_us": 2085.0,
+        "first_piece_p99_us": 3788.0,
+        "max_us": 6461.0,
+        "p50_us": 2136.0,
+        "p999_us": 6461.0,
+        "p99_us": 4431.0,
+        "total_s": 0.070485
+      },
+      "min_s": 0.087976791,
+      "name": "Nave",
+      "other_cpu_s": 0.172033,
+      "times_s": [
+        0.131550161,
+        0.117104243,
+        0.087976791,
+        0.103748936,
+        0.096209677
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "claude-relay-service",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.078897,
+      "max_rss_mb": 26.55859375,
+      "max_s": 4.282717959,
+      "median_s": 4.135163295,
+      "metric_rounds": {
+        "calls_per_s": [
+          117.7,
+          121.9,
+          121.2,
+          123.6,
+          127.2
+        ],
+        "first_piece_p50_us": [
+          132782.0,
+          130780.0,
+          131139.0,
+          127903.0,
+          125024.0
+        ],
+        "first_piece_p99_us": [
+          183784.0,
+          152175.0,
+          167379.0,
+          167214.0,
+          162962.0
+        ],
+        "max_us": [
+          190975.0,
+          154619.0,
+          172774.0,
+          169719.0,
+          163954.0
+        ],
+        "p50_us": [
+          132852.0,
+          130838.0,
+          131196.0,
+          127972.0,
+          125124.0
+        ],
+        "p999_us": [
+          190975.0,
+          154619.0,
+          172774.0,
+          169719.0,
+          163954.0
+        ],
+        "p99_us": [
+          183843.0,
+          152235.0,
+          167447.0,
+          167279.0,
+          163016.0
+        ],
+        "total_s": [
+          4.24877,
+          4.101796,
+          4.126289,
+          4.045861,
+          3.929663
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 121.9,
+        "first_piece_p50_us": 130780.0,
+        "first_piece_p99_us": 167214.0,
+        "max_us": 169719.0,
+        "p50_us": 130838.0,
+        "p999_us": 169719.0,
+        "p99_us": 167279.0,
+        "total_s": 4.101796
+      },
+      "min_s": 3.9640944019999997,
+      "name": "Claude Relay Service",
+      "other_cpu_s": 6.492728999999937,
+      "times_s": [
+        4.282717959,
+        4.135163295,
+        4.160190291,
+        4.081124018,
+        3.9640944019999997
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.59 2.20 0.99 1/282 42933",
+    "before": "4.33 2.20 0.95 1/320 39392"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003564"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:15:23Z",
+  "wrong_rounds": 0
+}

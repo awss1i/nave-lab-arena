@@ -1,0 +1,138 @@
+{
+  "command": "bin/race run run/gw-bricksllm.json --out results/gw-bricksllm",
+  "commit": "6dc8546",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in BricksLLM: passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.46404,
+      "max_rss_mb": 26.62890625,
+      "max_s": 0.920328044,
+      "median_s": 0.920328044,
+      "metric_rounds": {
+        "calls_per_s": [
+          195.4
+        ],
+        "first_piece_p50_us": [
+          4999.0
+        ],
+        "first_piece_p99_us": [
+          11473.0
+        ],
+        "max_us": [
+          65887.0
+        ],
+        "p50_us": [
+          16577.0
+        ],
+        "p999_us": [
+          65887.0
+        ],
+        "p99_us": [
+          56092.0
+        ],
+        "total_s": [
+          0.81888
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 195.4,
+        "first_piece_p50_us": 4999.0,
+        "first_piece_p99_us": 11473.0,
+        "max_us": 65887.0,
+        "p50_us": 16577.0,
+        "p999_us": 65887.0,
+        "p99_us": 56092.0,
+        "total_s": 0.81888
+      },
+      "min_s": 0.920328044,
+      "name": "Nave",
+      "other_cpu_s": 1.7659600000000182,
+      "times_s": [
+        0.920328044
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "bricksllm",
+        "4"
+      ],
+      "cpu_s": 0.475601,
+      "max_rss_mb": 26.859375,
+      "max_s": 18.046973706,
+      "median_s": 18.046973706,
+      "metric_rounds": {
+        "calls_per_s": [
+          8.9
+        ],
+        "first_piece_p50_us": [
+          87864.0
+        ],
+        "first_piece_p99_us": [
+          201121.0
+        ],
+        "max_us": [
+          621737.0
+        ],
+        "p50_us": [
+          438031.0
+        ],
+        "p999_us": [
+          621737.0
+        ],
+        "p99_us": [
+          616530.0
+        ],
+        "total_s": [
+          17.953905
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 8.9,
+        "first_piece_p50_us": 87864.0,
+        "first_piece_p99_us": 201121.0,
+        "max_us": 621737.0,
+        "p50_us": 438031.0,
+        "p999_us": 621737.0,
+        "p99_us": 616530.0,
+        "total_s": 17.953905
+      },
+      "min_s": 18.046973706,
+      "name": "BricksLLM",
+      "other_cpu_s": 36.78439900000022,
+      "times_s": [
+        18.046973706
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.68 1.48 1.43 1/295 13658",
+    "before": "1.17 1.37 1.39 2/321 13470"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003587"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T22:11:04Z",
+  "wrong_rounds": 0
+}

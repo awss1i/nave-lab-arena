@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-gpt-load.json --out results/gw-gpt-load",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in GPT-Load: routes by model through groups of upstream keys, takes OpenAI's format on this channel, checks the caller's access key, records usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.20518499999999998,
+      "max_rss_mb": 37.83203125,
+      "max_s": 1.213725333,
+      "median_s": 1.12073754,
+      "metric_rounds": {
+        "calls_per_s": [
+          939.1,
+          939.3,
+          943.5
+        ],
+        "kb_per_open_call": [
+          22.3,
+          10.9,
+          11.1
+        ],
+        "max_us": [
+          505414.0,
+          502284.0,
+          502762.0
+        ],
+        "memory_open_mb": [
+          12.2,
+          6.6,
+          6.7
+        ],
+        "p50_us": [
+          500167.0,
+          500174.0,
+          500176.0
+        ],
+        "p999_us": [
+          505414.0,
+          502284.0,
+          502762.0
+        ],
+        "p99_us": [
+          502507.0,
+          502113.0,
+          502663.0
+        ],
+        "total_s": [
+          1.065046,
+          1.064866,
+          1.060107
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 939.3,
+        "kb_per_open_call": 11.1,
+        "max_us": 502762.0,
+        "memory_open_mb": 6.7,
+        "p50_us": 500174.0,
+        "p999_us": 502762.0,
+        "p99_us": 502507.0,
+        "total_s": 1.064866
+      },
+      "min_s": 1.116521956,
+      "name": "Nave",
+      "other_cpu_s": 0.1358670000000034,
+      "times_s": [
+        1.213725333,
+        1.12073754,
+        1.116521956
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "gpt-load",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.197722,
+      "max_rss_mb": 37.9609375,
+      "max_s": 17.125718073,
+      "median_s": 17.105484778,
+      "metric_rounds": {
+        "calls_per_s": [
+          62.3,
+          62.3,
+          62.3
+        ],
+        "kb_per_open_call": [
+          12.7,
+          5.9,
+          0.6
+        ],
+        "max_us": [
+          8039281.0,
+          8011885.0,
+          8016711.0
+        ],
+        "memory_open_mb": [
+          159.9,
+          169.2,
+          176.2
+        ],
+        "p50_us": [
+          7531550.0,
+          7521473.0,
+          7542684.0
+        ],
+        "p999_us": [
+          8039281.0,
+          8011885.0,
+          8016711.0
+        ],
+        "p99_us": [
+          8034820.0,
+          8009371.0,
+          8013653.0
+        ],
+        "total_s": [
+          16.049878,
+          16.039042,
+          16.052222
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 62.3,
+        "kb_per_open_call": 5.9,
+        "max_us": 8016711.0,
+        "memory_open_mb": 169.2,
+        "p50_us": 7531550.0,
+        "p999_us": 8016711.0,
+        "p99_us": 8013653.0,
+        "total_s": 16.049878
+      },
+      "min_s": 17.091169166,
+      "name": "GPT-Load",
+      "other_cpu_s": 2.1022779999999828,
+      "times_s": [
+        17.105484778,
+        17.091169166,
+        17.125718073
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.30 0.98 0.47 1/274 75958",
+    "before": "1.10 0.85 0.40 4/294 66940"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003497"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:59:48Z",
+  "wrong_rounds": 0
+}

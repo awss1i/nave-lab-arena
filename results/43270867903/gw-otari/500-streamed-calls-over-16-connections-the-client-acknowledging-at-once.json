@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-otari.json --out results/gw-otari",
+  "commit": "2b85868",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Otari: routes by provider and model, takes OpenAI's and Anthropic's formats, checks the caller's key, prices each call, records usage in PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.085179,
+      "max_rss_mb": 26.69140625,
+      "max_s": 0.09800601,
+      "median_s": 0.094277636,
+      "metric_rounds": {
+        "calls_per_s": [
+          7756.3,
+          8444.0,
+          7847.4,
+          7981.5,
+          8596.8
+        ],
+        "first_piece_p50_us": [
+          1729.0,
+          1683.0,
+          1685.0,
+          1695.0,
+          1649.0
+        ],
+        "first_piece_p99_us": [
+          4214.0,
+          3738.0,
+          5225.0,
+          4484.0,
+          3264.0
+        ],
+        "max_us": [
+          6436.0,
+          5466.0,
+          9182.0,
+          8647.0,
+          5865.0
+        ],
+        "p50_us": [
+          1783.0,
+          1729.0,
+          1732.0,
+          1735.0,
+          1691.0
+        ],
+        "p999_us": [
+          6436.0,
+          5466.0,
+          9182.0,
+          8647.0,
+          5865.0
+        ],
+        "p99_us": [
+          5308.0,
+          4971.0,
+          6305.0,
+          4979.0,
+          4189.0
+        ],
+        "total_s": [
+          0.064599,
+          0.059343,
+          0.063861,
+          0.062776,
+          0.058291
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 7981.5,
+        "first_piece_p50_us": 1685.0,
+        "first_piece_p99_us": 4214.0,
+        "max_us": 6436.0,
+        "p50_us": 1732.0,
+        "p999_us": 6436.0,
+        "p99_us": 4979.0,
+        "total_s": 0.062776
+      },
+      "min_s": 0.089080581,
+      "name": "Nave",
+      "other_cpu_s": 0.10528400000005457,
+      "times_s": [
+        0.09800601,
+        0.092434061,
+        0.095172045,
+        0.094277636,
+        0.089080581
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "otari",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.106535,
+      "max_rss_mb": 26.18359375,
+      "max_s": 9.414141293,
+      "median_s": 8.931363524,
+      "metric_rounds": {
+        "calls_per_s": [
+          55.1,
+          56.3,
+          53.3,
+          59.3,
+          56.2
+        ],
+        "first_piece_p50_us": [
+          170930.0,
+          165257.0,
+          164735.0,
+          159595.0,
+          177635.0
+        ],
+        "first_piece_p99_us": [
+          231907.0,
+          320812.0,
+          622371.0,
+          336272.0,
+          315352.0
+        ],
+        "max_us": [
+          415223.0,
+          528346.0,
+          765392.0,
+          475737.0,
+          445806.0
+        ],
+        "p50_us": [
+          289479.0,
+          278405.0,
+          284180.0,
+          268204.0,
+          282148.0
+        ],
+        "p999_us": [
+          415223.0,
+          528346.0,
+          765392.0,
+          475737.0,
+          445806.0
+        ],
+        "p99_us": [
+          372882.0,
+          437597.0,
+          744308.0,
+          444146.0,
+          434421.0
+        ],
+        "total_s": [
+          9.066727,
+          8.876266,
+          9.37998,
+          8.42803,
+          8.898974
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 56.2,
+        "first_piece_p50_us": 165257.0,
+        "first_piece_p99_us": 320812.0,
+        "max_us": 475737.0,
+        "p50_us": 282148.0,
+        "p999_us": 475737.0,
+        "p99_us": 437597.0,
+        "total_s": 8.898974
+      },
+      "min_s": 8.462560422,
+      "name": "Otari",
+      "other_cpu_s": 10.863464999999914,
+      "times_s": [
+        9.100499618,
+        8.919829828,
+        9.414141293,
+        8.462560422,
+        8.931363524
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.91 2.18 1.36 2/279 17610",
+    "before": "2.66 2.31 1.36 2/300 13953"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003571"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:46:12Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-agent-router.json --out results/gw-agent-router",
+  "commit": "764284e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Agent Router: routes through Envoy with its router as an external processor, takes OpenAI's format as started here. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.056408,
+      "max_rss_mb": 26.42578125,
+      "max_s": 0.058133794,
+      "median_s": 0.057768861,
+      "metric_rounds": {
+        "calls_per_s": [
+          15590.9,
+          15396.6,
+          15492.3,
+          15972.0,
+          15762.3
+        ],
+        "first_piece_p50_us": [
+          940.0,
+          924.0,
+          907.0,
+          874.0,
+          930.0
+        ],
+        "first_piece_p99_us": [
+          2042.0,
+          1857.0,
+          1830.0,
+          1697.0,
+          1487.0
+        ],
+        "max_us": [
+          2951.0,
+          3302.0,
+          2956.0,
+          2549.0,
+          1694.0
+        ],
+        "p50_us": [
+          973.0,
+          953.0,
+          939.0,
+          896.0,
+          959.0
+        ],
+        "p999_us": [
+          2951.0,
+          3302.0,
+          2956.0,
+          2549.0,
+          1694.0
+        ],
+        "p99_us": [
+          2043.0,
+          1905.0,
+          1928.0,
+          1698.0,
+          1512.0
+        ],
+        "total_s": [
+          0.032265,
+          0.032648,
+          0.032442,
+          0.031478,
+          0.031902
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 15590.9,
+        "first_piece_p50_us": 924.0,
+        "first_piece_p99_us": 1830.0,
+        "max_us": 2951.0,
+        "p50_us": 953.0,
+        "p999_us": 2951.0,
+        "p99_us": 1905.0,
+        "total_s": 0.032265
+      },
+      "min_s": 0.057220863,
+      "name": "Nave",
+      "other_cpu_s": 0.06397200000000455,
+      "times_s": [
+        0.058133794,
+        0.057768861,
+        0.057858514,
+        0.057431356,
+        0.057220863
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "agent-router",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.048711000000000004,
+      "max_rss_mb": 26.4375,
+      "max_s": 0.189670523,
+      "median_s": 0.167625757,
+      "metric_rounds": {
+        "calls_per_s": [
+          3858.8,
+          3178.6,
+          3605.7,
+          3084.6,
+          3581.7
+        ],
+        "first_piece_p50_us": [
+          3953.0,
+          4079.0,
+          4083.0,
+          4160.0,
+          4068.0
+        ],
+        "first_piece_p99_us": [
+          6235.0,
+          12564.0,
+          6852.0,
+          16345.0,
+          7072.0
+        ],
+        "max_us": [
+          6481.0,
+          13717.0,
+          7146.0,
+          17598.0,
+          7691.0
+        ],
+        "p50_us": [
+          3954.0,
+          4079.0,
+          4083.0,
+          4164.0,
+          4072.0
+        ],
+        "p999_us": [
+          6481.0,
+          13717.0,
+          7146.0,
+          17598.0,
+          7691.0
+        ],
+        "p99_us": [
+          6239.0,
+          12564.0,
+          6852.0,
+          16346.0,
+          7083.0
+        ],
+        "total_s": [
+          0.129759,
+          0.157472,
+          0.138849,
+          0.162247,
+          0.139784
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 3581.7,
+        "first_piece_p50_us": 4079.0,
+        "first_piece_p99_us": 7072.0,
+        "max_us": 7691.0,
+        "p50_us": 4079.0,
+        "p999_us": 7691.0,
+        "p99_us": 7083.0,
+        "total_s": 0.139784
+      },
+      "min_s": 0.15535589,
+      "name": "Agent Router",
+      "other_cpu_s": 0.2999879999999943,
+      "times_s": [
+        0.15535589,
+        0.182381055,
+        0.165232846,
+        0.189670523,
+        0.167625757
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.50 0.64 0.22 1/268 7373",
+    "before": "2.45 0.60 0.20 1/289 6865"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003522"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:00:15Z",
+  "wrong_rounds": 0
+}

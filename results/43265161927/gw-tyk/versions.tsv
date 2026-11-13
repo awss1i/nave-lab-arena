@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+nave	prototype P006, 1a772dff36bf
+tyk	created 2021-09-30T07:30:59.963685207Z (image docker.io/tykio/tyk-gateway:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+tyk, switched on	passes one path on to the model as an API gateway, in OpenAI's format. No key check, analytics off
+tyk, kinds of race it wasn't in	messages fallback cache

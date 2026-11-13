@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-cliproxyapi.json --out results/gw-cliproxyapi",
+  "commit": "6a64ad6",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.202747,
+      "max_rss_mb": 26.8203125,
+      "max_s": 0.444268727,
+      "median_s": 0.444268727,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.444268727,
+      "name": "Nave",
+      "other_cpu_s": 0.017252999999998853,
+      "times_s": [
+        0.444268727
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.14 0.60 0.27 1/268 85067",
+    "before": "1.24 0.61 0.27 1/272 84863"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003567"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:23:34Z",
+  "wrong_rounds": 0
+}

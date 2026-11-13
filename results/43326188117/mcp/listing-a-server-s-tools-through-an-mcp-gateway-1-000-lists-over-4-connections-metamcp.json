@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/mcp.json --out results/mcp",
+  "commit": "69f03df",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "metamcp",
+        "list",
+        "--calls",
+        "1000",
+        "--conns",
+        "4"
+      ],
+      "cpu_s": 0.25857399999999997,
+      "max_rss_mb": 26.71875,
+      "max_s": 11.075579011,
+      "median_s": 10.565801363,
+      "metric_rounds": {
+        "calls_per_s": [
+          91.0,
+          95.4,
+          96.9
+        ],
+        "max_us": [
+          128040.0,
+          90000.0,
+          77700.0
+        ],
+        "p50_us": [
+          42220.0,
+          40600.0,
+          40285.0
+        ],
+        "p99_us": [
+          74850.0,
+          73669.0,
+          58833.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 95.4,
+        "max_us": 90000.0,
+        "p50_us": 40600.0,
+        "p99_us": 73669.0
+      },
+      "min_s": 10.397412997,
+      "name": "MetaMCP",
+      "other_cpu_s": 20.00882699999999,
+      "times_s": [
+        11.075579011,
+        10.565801363,
+        10.397412997
+      ]
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "4.28 2.09 1.02 1/269 19781",
+    "before": "2.05 1.40 0.75 1/353 19404"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003596"
+  },
+  "name": "listing a server's tools through an MCP gateway, 1,000 lists over 4 connections, MetaMCP",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T23:17:21Z",
+  "wrong_rounds": 0
+}

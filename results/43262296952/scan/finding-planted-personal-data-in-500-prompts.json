@@ -1,0 +1,295 @@
+{
+  "command": "bin/race run races/scan.json --out results/scan",
+  "commit": "4ab30f6",
+  "conditions": "one process on two CPUs, 1,000 made-up emails, card numbers, social security numbers and IP addresses planted in 500 prompts of about 2 KB, each tool loaded first and then timed over every prompt, one at a time. NeMo Guardrails runs as a rail in front of the stand-in model, so its time holds one call to it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "nave"
+      ],
+      "cpu_s": 0.080247,
+      "max_rss_mb": 26.7265625,
+      "max_s": 0.073398453,
+      "median_s": 0.072599552,
+      "metric_rounds": {
+        "findings": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "mb_per_s": [
+          970.38,
+          980.28,
+          973.82
+        ],
+        "planted": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "planted_found": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "us_per_prompt": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      },
+      "metrics": {
+        "findings": 1000.0,
+        "mb_per_s": 973.82,
+        "planted": 1000.0,
+        "planted_found": 1000.0,
+        "us_per_prompt": 2.0
+      },
+      "min_s": 0.072486086,
+      "name": "Nave",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        0.072486086,
+        0.073398453,
+        0.072599552
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "presidio"
+      ],
+      "cpu_s": 26.884459,
+      "max_rss_mb": 191.05859375,
+      "max_s": 26.853274533,
+      "median_s": 26.772225363,
+      "metric_rounds": {
+        "findings": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "mb_per_s": [
+          0.04,
+          0.04,
+          0.04
+        ],
+        "planted": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "planted_found": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "us_per_prompt": [
+          50875.6,
+          50696.8,
+          51030.2
+        ]
+      },
+      "metrics": {
+        "findings": 1000.0,
+        "mb_per_s": 0.04,
+        "planted": 1000.0,
+        "planted_found": 1000.0,
+        "us_per_prompt": 50875.6
+      },
+      "min_s": 26.684538427,
+      "name": "Presidio",
+      "other_cpu_s": 0.4020810000002726,
+      "times_s": [
+        26.772225363,
+        26.684538427,
+        26.853274533
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "guardrails-ai"
+      ],
+      "cpu_s": 33.819864,
+      "max_rss_mb": 902.94140625,
+      "max_s": 33.735450346,
+      "median_s": 33.70763482,
+      "metric_rounds": {
+        "findings": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "mb_per_s": [
+          0.03,
+          0.03,
+          0.03
+        ],
+        "planted": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "planted_found": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "us_per_prompt": [
+          59168.1,
+          59077.8,
+          59144.6
+        ]
+      },
+      "metrics": {
+        "findings": 1000.0,
+        "mb_per_s": 0.03,
+        "planted": 1000.0,
+        "planted_found": 1000.0,
+        "us_per_prompt": 59144.6
+      },
+      "min_s": 33.697721683,
+      "name": "guardrails-ai",
+      "other_cpu_s": 1.4101359999995609,
+      "times_s": [
+        33.735450346,
+        33.697721683,
+        33.70763482
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "nemo"
+      ],
+      "cpu_s": 35.765776,
+      "max_rss_mb": 819.98828125,
+      "max_s": 35.717865715,
+      "median_s": 35.67078094,
+      "metric_rounds": {
+        "findings": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "mb_per_s": [
+          0.03,
+          0.03,
+          0.03
+        ],
+        "planted": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "planted_found": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "us_per_prompt": [
+          65690.3,
+          65839.1,
+          65440.5
+        ]
+      },
+      "metrics": {
+        "findings": 1000.0,
+        "mb_per_s": 0.03,
+        "planted": 1000.0,
+        "planted_found": 1000.0,
+        "us_per_prompt": 65690.3
+      },
+      "min_s": 35.511402557,
+      "name": "NeMo Guardrails",
+      "other_cpu_s": 0.7925599999999093,
+      "times_s": [
+        35.67078094,
+        35.717865715,
+        35.511402557
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "llm-guard"
+      ],
+      "cpu_s": 1491.929362,
+      "max_rss_mb": 1753.546875,
+      "max_s": 769.559254904,
+      "median_s": 764.371190374,
+      "metric_rounds": {
+        "findings": [
+          1229.0,
+          1229.0,
+          1229.0
+        ],
+        "mb_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "planted": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "planted_found": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "us_per_prompt": [
+          1514323.0,
+          1524648.6,
+          1513613.1
+        ]
+      },
+      "metrics": {
+        "findings": 1229.0,
+        "mb_per_s": 0.0,
+        "planted": 1000.0,
+        "planted_found": 1000.0,
+        "us_per_prompt": 1514323.0
+      },
+      "min_s": 763.975710186,
+      "name": "LLM Guard",
+      "other_cpu_s": 36.64063799999985,
+      "times_s": [
+        764.371190374,
+        769.559254904,
+        763.975710186
+      ]
+    }
+  ],
+  "feature": "F7",
+  "load": {
+    "after": "1.80 2.13 2.08 1/258 4094",
+    "before": "1.29 0.66 0.26 1/268 3020"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003552"
+  },
+  "name": "finding planted personal data in 500 prompts",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:46:06Z",
+  "wrong_rounds": 0
+}

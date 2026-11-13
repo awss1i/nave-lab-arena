@@ -1,0 +1,72 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "c0d7462",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and RouteLLM's BERT router as released",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "routellm",
+        "gsm8k"
+      ],
+      "cpu_s": 321.34641400000004,
+      "max_rss_mb": 2087.96875,
+      "max_s": 164.444487322,
+      "median_s": 164.444487322,
+      "metric_rounds": {
+        "apgr": [
+          0.5333
+        ],
+        "cpt50": [
+          44.8067
+        ],
+        "cpt80": [
+          78.2411
+        ],
+        "ns_per_prompt": [
+          118986388.0
+        ],
+        "prompts": [
+          1319.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5333,
+        "cpt50": 44.8067,
+        "cpt80": 78.2411,
+        "ns_per_prompt": 118986388.0,
+        "prompts": 1319.0
+      },
+      "min_s": 164.444487322,
+      "name": "RouteLLM's BERT router",
+      "other_cpu_s": 4.5735859999999775,
+      "times_s": [
+        164.444487322
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.11 1.51 0.72 2/258 3395",
+    "before": "0.86 0.31 0.11 2/268 2865"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003527"
+  },
+  "name": "routing GSM8K's prompts with a router trained on none of them, RouteLLM's BERT router",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:31:56Z",
+  "wrong_rounds": 0
+}

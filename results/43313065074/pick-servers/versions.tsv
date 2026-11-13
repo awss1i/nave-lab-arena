@@ -1,0 +1,4 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, INTEL(R) XEON(R) PLATINUM 8573C
+planoai	0.4.39
+Plano's router model	katanemo/Arch-Router-1.5B.gguf, Q4_K_M, served by llama.cpp's server from ghcr.io/mostlygeek/llama-swap:cpu
+vllm-sr	0.4.0

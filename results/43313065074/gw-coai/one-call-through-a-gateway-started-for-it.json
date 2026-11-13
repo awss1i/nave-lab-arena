@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-coai.json --out results/gw-coai",
+  "commit": "6dc8546",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in CoAI: routes by model through channels with priorities, retries on the next channel, takes OpenAI's format, checks the caller's key, counts usage and quota in MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.066436,
+      "max_rss_mb": 26.31640625,
+      "max_s": 0.064659233,
+      "median_s": 0.064659233,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          24.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 24.0
+      },
+      "min_s": 0.064659233,
+      "name": "Nave",
+      "other_cpu_s": 0.02356399999991815,
+      "times_s": [
+        0.064659233
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "coai"
+      ],
+      "cpu_s": 5.7859750000000005,
+      "max_rss_mb": 28.5078125,
+      "max_s": 10.643958525,
+      "median_s": 10.643958525,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          10581.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 10581.0
+      },
+      "min_s": 10.643958525,
+      "name": "CoAI",
+      "other_cpu_s": 0.3240250000001268,
+      "times_s": [
+        10.643958525
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.02 1.31 1.17 1/362 47164",
+    "before": "1.21 1.38 1.18 1/362 37685"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003586"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T22:05:14Z",
+  "wrong_rounds": 0
+}

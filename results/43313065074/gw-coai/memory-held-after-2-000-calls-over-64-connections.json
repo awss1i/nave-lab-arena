@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run run/gw-coai.json --out results/gw-coai",
+  "commit": "6dc8546",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in CoAI: routes by model through channels with priorities, retries on the next channel, takes OpenAI's format, checks the caller's key, counts usage and quota in MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave",
+        "2000"
+      ],
+      "cpu_s": 0.09433899999999999,
+      "max_rss_mb": 26.83984375,
+      "max_s": 0.095014155,
+      "median_s": 0.095014155,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.095014155,
+      "name": "Nave",
+      "other_cpu_s": 0.0856609999998363,
+      "times_s": [
+        0.095014155
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "coai",
+        "2000"
+      ],
+      "cpu_s": 0.19963,
+      "max_rss_mb": 28.8046875,
+      "max_s": 101.408636218,
+      "median_s": 101.408636218,
+      "metric_rounds": {
+        "memory_mb": [
+          1031.5
+        ]
+      },
+      "metrics": {
+        "memory_mb": 1031.5
+      },
+      "min_s": 101.408636218,
+      "name": "CoAI",
+      "other_cpu_s": 195.35037000000017,
+      "times_s": [
+        101.408636218
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.82 1.64 1.33 1/363 52294",
+    "before": "0.93 1.29 1.16 1/383 47691"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003586"
+  },
+  "name": "memory held after 2,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T22:08:48Z",
+  "wrong_rounds": 0
+}

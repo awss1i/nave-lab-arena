@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-gomodel.json --out results/gw-gomodel",
+  "commit": "3815816",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "gomodel"
+      ],
+      "cpu_s": 0.067928,
+      "max_rss_mb": 26.171875,
+      "max_s": 7.394407048,
+      "median_s": 7.394407048,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 7.394407048,
+      "name": "GoModel",
+      "other_cpu_s": 0.09207199999999659,
+      "times_s": [
+        7.394407048
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "0.53 0.86 0.45 1/252 19405",
+    "before": "0.50 0.87 0.45 2/273 19287"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003474"
+  },
+  "name": "the API's edges, 13 checks, GoModel",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:18:50Z",
+  "wrong_rounds": 0
+}

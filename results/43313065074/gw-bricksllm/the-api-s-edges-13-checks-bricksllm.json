@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-bricksllm.json --out results/gw-bricksllm",
+  "commit": "6dc8546",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "bricksllm"
+      ],
+      "cpu_s": 0.371332,
+      "max_rss_mb": 28.359375,
+      "max_s": 2.292509164,
+      "median_s": 2.292509164,
+      "metric_rounds": {
+        "edges_passed": [
+          9.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 9.0,
+        "edges_total": 13.0
+      },
+      "min_s": 2.292509164,
+      "name": "BricksLLM",
+      "other_cpu_s": 3.6586679999997456,
+      "times_s": [
+        2.292509164
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.99 1.90 1.65 1/295 16382",
+    "before": "1.99 1.90 1.64 1/316 15896"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003587"
+  },
+  "name": "the API's edges, 13 checks, BricksLLM",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T22:16:31Z",
+  "wrong_rounds": 0
+}

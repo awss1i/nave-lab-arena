@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-bricksllm.json --out results/gw-bricksllm",
+  "commit": "88198c8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in BricksLLM: passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.058653,
+      "max_rss_mb": 26.1875,
+      "max_s": 0.115680304,
+      "median_s": 0.102533214,
+      "metric_rounds": {
+        "calls_per_s": [
+          5875.1,
+          6774.0,
+          5653.3,
+          7242.4,
+          10513.1
+        ],
+        "first_piece_p50_us": [
+          1961.0,
+          1858.0,
+          1994.0,
+          1178.0,
+          1339.0
+        ],
+        "first_piece_p99_us": [
+          5981.0,
+          5335.0,
+          6501.0,
+          5873.0,
+          2942.0
+        ],
+        "max_us": [
+          8522.0,
+          7717.0,
+          6755.0,
+          5959.0,
+          4426.0
+        ],
+        "p50_us": [
+          1987.0,
+          1887.0,
+          2041.0,
+          1264.0,
+          1374.0
+        ],
+        "p999_us": [
+          8522.0,
+          7717.0,
+          6755.0,
+          5959.0,
+          4426.0
+        ],
+        "p99_us": [
+          6031.0,
+          5336.0,
+          6507.0,
+          5875.0,
+          3596.0
+        ],
+        "total_s": [
+          0.085242,
+          0.073941,
+          0.088576,
+          0.069161,
+          0.047664
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 6774.0,
+        "first_piece_p50_us": 1858.0,
+        "first_piece_p99_us": 5873.0,
+        "max_us": 6755.0,
+        "p50_us": 1887.0,
+        "p999_us": 6755.0,
+        "p99_us": 5875.0,
+        "total_s": 0.073941
+      },
+      "min_s": 0.077427249,
+      "name": "Nave",
+      "other_cpu_s": 0.20188600000021828,
+      "times_s": [
+        0.11434971,
+        0.102533214,
+        0.115680304,
+        0.10039316,
+        0.077427249
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "bricksllm",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.110184,
+      "max_rss_mb": 25.484375,
+      "max_s": 39.540037928,
+      "median_s": 39.2633227,
+      "metric_rounds": {
+        "calls_per_s": [
+          12.7,
+          12.7,
+          12.7,
+          12.7,
+          12.8
+        ],
+        "first_piece_p50_us": [
+          70554.0,
+          70793.0,
+          71130.0,
+          70927.0,
+          69373.0
+        ],
+        "first_piece_p99_us": [
+          161145.0,
+          201723.0,
+          152765.0,
+          161217.0,
+          150221.0
+        ],
+        "max_us": [
+          1421220.0,
+          1415525.0,
+          1486973.0,
+          1491306.0,
+          1414321.0
+        ],
+        "p50_us": [
+          1259774.0,
+          1259251.0,
+          1258379.0,
+          1256637.0,
+          1258609.0
+        ],
+        "p999_us": [
+          1421220.0,
+          1415525.0,
+          1486973.0,
+          1491306.0,
+          1414321.0
+        ],
+        "p99_us": [
+          1390084.0,
+          1383861.0,
+          1409710.0,
+          1452873.0,
+          1381714.0
+        ],
+        "total_s": [
+          39.234341,
+          39.322636,
+          39.233155,
+          39.50743,
+          39.189703
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 12.7,
+        "first_piece_p50_us": 70793.0,
+        "first_piece_p99_us": 161145.0,
+        "max_us": 1421220.0,
+        "p50_us": 1258609.0,
+        "p999_us": 1421220.0,
+        "p99_us": 1390084.0,
+        "total_s": 39.234341
+      },
+      "min_s": 39.214200992,
+      "name": "BricksLLM",
+      "other_cpu_s": 79.49219600000036,
+      "times_s": [
+        39.261536066,
+        39.35434044,
+        39.2633227,
+        39.540037928,
+        39.214200992
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.06 2.13 2.07 1/291 11130",
+    "before": "1.94 2.12 2.05 1/315 10379"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003582"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T19:33:18Z",
+  "wrong_rounds": 0
+}

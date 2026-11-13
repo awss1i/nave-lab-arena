@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-traceloop-hub.json --out results/gw-traceloop-hub",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Traceloop Hub: routes by model through a pipeline, takes OpenAI's format. No key check, tracing off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.13741399999999998,
+      "max_rss_mb": 26.5625,
+      "max_s": 0.135154855,
+      "median_s": 0.13296616,
+      "metric_rounds": {
+        "calls_per_s": [
+          4742.1,
+          4788.0,
+          4853.7,
+          4864.5,
+          4860.0
+        ],
+        "max_us": [
+          9765.0,
+          8971.0,
+          10139.0,
+          9318.0,
+          11118.0
+        ],
+        "p50_us": [
+          2838.0,
+          2748.0,
+          2775.0,
+          2756.0,
+          2774.0
+        ],
+        "p999_us": [
+          9765.0,
+          8971.0,
+          10139.0,
+          9318.0,
+          11118.0
+        ],
+        "p99_us": [
+          8104.0,
+          7451.0,
+          7206.0,
+          6386.0,
+          7999.0
+        ],
+        "total_s": [
+          0.105593,
+          0.104595,
+          0.103163,
+          0.102939,
+          0.103027
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4853.7,
+        "max_us": 9765.0,
+        "p50_us": 2774.0,
+        "p999_us": 9765.0,
+        "p99_us": 7451.0,
+        "total_s": 0.103163
+      },
+      "min_s": 0.132320825,
+      "name": "Nave",
+      "other_cpu_s": 0.09258599999999689,
+      "times_s": [
+        0.135154855,
+        0.13466975,
+        0.132320825,
+        0.13296616,
+        0.132481104
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "traceloop-hub",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.13608599999999998,
+      "max_rss_mb": 26.32421875,
+      "max_s": 0.140577417,
+      "median_s": 0.133425246,
+      "metric_rounds": {
+        "calls_per_s": [
+          4498.7,
+          4665.2,
+          4837.3,
+          4919.8,
+          4979.6
+        ],
+        "max_us": [
+          10115.0,
+          7944.0,
+          13331.0,
+          8677.0,
+          9961.0
+        ],
+        "p50_us": [
+          2854.0,
+          2821.0,
+          2638.0,
+          2687.0,
+          2559.0
+        ],
+        "p999_us": [
+          10115.0,
+          7944.0,
+          13331.0,
+          8677.0,
+          9961.0
+        ],
+        "p99_us": [
+          7582.0,
+          6899.0,
+          8222.0,
+          7996.0,
+          7168.0
+        ],
+        "total_s": [
+          0.111298,
+          0.107327,
+          0.103548,
+          0.101774,
+          0.10054
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4837.3,
+        "max_us": 9961.0,
+        "p50_us": 2687.0,
+        "p999_us": 9961.0,
+        "p99_us": 7582.0,
+        "total_s": 0.103548
+      },
+      "min_s": 0.130045619,
+      "name": "Traceloop Hub",
+      "other_cpu_s": 0.22720499999999944,
+      "times_s": [
+        0.140577417,
+        0.136859046,
+        0.133425246,
+        0.130045619,
+        0.131307514
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.01 0.49 0.16 1/273 5035",
+    "before": "2.01 0.49 0.16 1/290 4524"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003499"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:54:45Z",
+  "wrong_rounds": 0
+}

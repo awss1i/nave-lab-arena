@@ -1,0 +1,276 @@
+{
+  "command": "bin/race run run/gw-higress.json --out results/gw-higress",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 64 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Higress: routes through an AI route and its ai-proxy plugin on Envoy, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.250172,
+      "max_rss_mb": 26.03125,
+      "max_s": 5.025881741,
+      "median_s": 5.02584082,
+      "metric_rounds": {
+        "calls_per_s": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "max_us": [
+          6612.0,
+          6639.0,
+          6636.0
+        ],
+        "p50_us": [
+          118.0,
+          108.0,
+          107.0
+        ],
+        "p999_us": [
+          3351.0,
+          4264.0,
+          3472.0
+        ],
+        "p99_us": [
+          296.0,
+          1277.0,
+          142.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.000241,
+          5.000263,
+          5.000232
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1000.0,
+        "max_us": 6636.0,
+        "p50_us": 108.0,
+        "p999_us": 3472.0,
+        "p99_us": 296.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.000241
+      },
+      "min_s": 5.025325944,
+      "name": "No gateway",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        5.025881741,
+        5.02584082,
+        5.025325944
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.283064,
+      "max_rss_mb": 26.453125,
+      "max_s": 5.085383959,
+      "median_s": 5.083592781,
+      "metric_rounds": {
+        "calls_per_s": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "cpu_us_per_call": [
+          34.0,
+          34.0,
+          34.0
+        ],
+        "max_us": [
+          4786.0,
+          4793.0,
+          5068.0
+        ],
+        "p50_us": [
+          134.0,
+          163.0,
+          135.0
+        ],
+        "p999_us": [
+          3560.0,
+          3187.0,
+          3668.0
+        ],
+        "p99_us": [
+          1290.0,
+          1147.0,
+          845.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.000269,
+          5.000377,
+          5.000352
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1000.0,
+        "cpu_us_per_call": 34.0,
+        "max_us": 4793.0,
+        "p50_us": 135.0,
+        "p999_us": 3560.0,
+        "p99_us": 1147.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.000352
+      },
+      "min_s": 5.080678452,
+      "name": "Nave",
+      "other_cpu_s": 0.10693599999998638,
+      "times_s": [
+        5.080678452,
+        5.085383959,
+        5.083592781
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "higress",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.28025,
+      "max_rss_mb": 28.34765625,
+      "max_s": 5.066327098,
+      "median_s": 5.064854319,
+      "metric_rounds": {
+        "calls_per_s": [
+          999.8,
+          999.8,
+          999.7
+        ],
+        "cpu_us_per_call": [
+          745.9,
+          767.1,
+          760.9
+        ],
+        "first_piece_p50_us": [
+          811.0,
+          845.0,
+          845.0
+        ],
+        "first_piece_p99_us": [
+          2161.0,
+          1960.0,
+          2118.0
+        ],
+        "max_us": [
+          8388.0,
+          7514.0,
+          7033.0
+        ],
+        "p50_us": [
+          811.0,
+          845.0,
+          845.0
+        ],
+        "p999_us": [
+          4986.0,
+          5021.0,
+          4744.0
+        ],
+        "p99_us": [
+          2162.0,
+          1961.0,
+          2118.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.001186,
+          5.00112,
+          5.001668
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 999.8,
+        "cpu_us_per_call": 760.9,
+        "first_piece_p50_us": 845.0,
+        "first_piece_p99_us": 2118.0,
+        "max_us": 7514.0,
+        "p50_us": 845.0,
+        "p999_us": 4986.0,
+        "p99_us": 2118.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.001186
+      },
+      "min_s": 5.064851701,
+      "name": "Higress",
+      "other_cpu_s": 4.956573000000009,
+      "times_s": [
+        5.064854319,
+        5.064851701,
+        5.066327098
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.77 1.46 0.88 1/266 17590",
+    "before": "1.53 1.72 0.92 7/419 15970"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003502"
+  },
+  "name": "5,000 calls at 1,000 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T14:01:45Z",
+  "wrong_rounds": 0
+}

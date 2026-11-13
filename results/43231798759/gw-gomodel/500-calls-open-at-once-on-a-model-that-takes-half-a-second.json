@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-gomodel.json --out results/gw-gomodel",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in GoModel: routes by model, takes OpenAI's and Anthropic's formats, tracks usage. No key check, audit log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.172305,
+      "max_rss_mb": 37.83203125,
+      "max_s": 1.106027544,
+      "median_s": 1.100357375,
+      "metric_rounds": {
+        "calls_per_s": [
+          953.8,
+          955.6,
+          950.8
+        ],
+        "kb_per_open_call": [
+          12.1,
+          11.1,
+          11.1
+        ],
+        "max_us": [
+          503489.0,
+          503379.0,
+          507411.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.6,
+          6.6
+        ],
+        "p50_us": [
+          500163.0,
+          500167.0,
+          500229.0
+        ],
+        "p999_us": [
+          503489.0,
+          503379.0,
+          507411.0
+        ],
+        "p99_us": [
+          502145.0,
+          503028.0,
+          504559.0
+        ],
+        "total_s": [
+          1.048678,
+          1.046635,
+          1.051846
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 953.8,
+        "kb_per_open_call": 11.1,
+        "max_us": 503489.0,
+        "memory_open_mb": 6.6,
+        "p50_us": 500167.0,
+        "p999_us": 503489.0,
+        "p99_us": 503028.0,
+        "total_s": 1.048678
+      },
+      "min_s": 1.096263866,
+      "name": "Nave",
+      "other_cpu_s": 0.11895699999999715,
+      "times_s": [
+        1.100357375,
+        1.096263866,
+        1.106027544
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "gomodel",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.160685,
+      "max_rss_mb": 37.9765625,
+      "max_s": 4.029816869,
+      "median_s": 3.07113448,
+      "metric_rounds": {
+        "calls_per_s": [
+          919.5,
+          922.3,
+          921.6
+        ],
+        "kb_per_open_call": [
+          73.1,
+          8.0,
+          9.0
+        ],
+        "max_us": [
+          532244.0,
+          536556.0,
+          534791.0
+        ],
+        "memory_open_mb": [
+          123.3,
+          127.2,
+          131.6
+        ],
+        "p50_us": [
+          504374.0,
+          504761.0,
+          502122.0
+        ],
+        "p999_us": [
+          532244.0,
+          536556.0,
+          534791.0
+        ],
+        "p99_us": [
+          527475.0,
+          534244.0,
+          532053.0
+        ],
+        "total_s": [
+          1.087709,
+          1.084427,
+          1.085296
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 921.6,
+        "kb_per_open_call": 9.0,
+        "max_us": 534791.0,
+        "memory_open_mb": 127.2,
+        "p50_us": 504374.0,
+        "p999_us": 534791.0,
+        "p99_us": 532053.0,
+        "total_s": 1.085296
+      },
+      "min_s": 3.059352238,
+      "name": "GoModel",
+      "other_cpu_s": 0.43931500000000145,
+      "times_s": [
+        3.059352238,
+        4.029816869,
+        3.07113448
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.40 0.28 0.12 1/248 17828",
+    "before": "0.52 0.29 0.12 3/272 10945"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003498"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:58:12Z",
+  "wrong_rounds": 0
+}

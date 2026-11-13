@@ -1,0 +1,200 @@
+{
+  "command": "bin/race run run/gw-apisix.json --out results/gw-apisix",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in APISIX: routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.103201,
+      "max_rss_mb": 26.65625,
+      "max_s": 0.109888588,
+      "median_s": 0.100965753,
+      "metric_rounds": {
+        "calls_per_s": [
+          26857.5,
+          23852.5,
+          29004.4,
+          28025.6,
+          25008.0
+        ],
+        "max_us": [
+          13348.0,
+          8734.0,
+          9892.0,
+          13234.0,
+          11500.0
+        ],
+        "p50_us": [
+          1921.0,
+          2331.0,
+          1860.0,
+          1900.0,
+          2304.0
+        ],
+        "p999_us": [
+          13271.0,
+          8678.0,
+          7906.0,
+          6444.0,
+          8159.0
+        ],
+        "p99_us": [
+          5471.0,
+          5843.0,
+          4131.0,
+          4222.0,
+          6335.0
+        ],
+        "total_s": [
+          0.074659,
+          0.084006,
+          0.069226,
+          0.07165,
+          0.080157
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 26857.5,
+        "max_us": 11500.0,
+        "p50_us": 1921.0,
+        "p999_us": 8159.0,
+        "p99_us": 5471.0,
+        "total_s": 0.074659
+      },
+      "min_s": 0.095542364,
+      "name": "Nave",
+      "other_cpu_s": 0.12174099999999688,
+      "times_s": [
+        0.100965753,
+        0.109888588,
+        0.095542364,
+        0.098688629,
+        0.105027674
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "apisix",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.100142,
+      "max_rss_mb": 26.609375,
+      "max_s": 0.187348685,
+      "median_s": 0.175435947,
+      "metric_rounds": {
+        "calls_per_s": [
+          13254.6,
+          12406.9,
+          13529.4,
+          13801.9,
+          13403.2
+        ],
+        "first_piece_p50_us": [
+          3378.0,
+          3806.0,
+          3769.0,
+          3389.0,
+          3765.0
+        ],
+        "first_piece_p99_us": [
+          20315.0,
+          13320.0,
+          15904.0,
+          14301.0,
+          13757.0
+        ],
+        "max_us": [
+          45690.0,
+          47578.0,
+          37659.0,
+          18940.0,
+          33050.0
+        ],
+        "p50_us": [
+          3385.0,
+          3808.0,
+          3775.0,
+          3394.0,
+          3771.0
+        ],
+        "p999_us": [
+          44159.0,
+          46024.0,
+          36852.0,
+          17244.0,
+          27193.0
+        ],
+        "p99_us": [
+          20330.0,
+          13366.0,
+          15919.0,
+          14307.0,
+          13791.0
+        ],
+        "total_s": [
+          0.151145,
+          0.161466,
+          0.148117,
+          0.145126,
+          0.149455
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 13403.2,
+        "first_piece_p50_us": 3765.0,
+        "first_piece_p99_us": 14301.0,
+        "max_us": 37659.0,
+        "p50_us": 3771.0,
+        "p999_us": 36852.0,
+        "p99_us": 14307.0,
+        "total_s": 0.149455
+      },
+      "min_s": 0.171112651,
+      "name": "APISIX",
+      "other_cpu_s": 0.3512900000000028,
+      "times_s": [
+        0.178787366,
+        0.187348685,
+        0.173831263,
+        0.171112651,
+        0.175435947
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.00 0.27 0.09 1/265 4603",
+    "before": "1.00 0.27 0.09 5/288 3398"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003518"
+  },
+  "name": "2,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:58:58Z",
+  "wrong_rounds": 0
+}

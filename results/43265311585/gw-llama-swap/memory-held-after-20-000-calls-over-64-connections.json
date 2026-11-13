@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-llama-swap.json --out results/gw-llama-swap",
+  "commit": "3df336e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in llama-swap: starts a model's server on demand and passes calls on, in OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.597873,
+      "max_rss_mb": 25.17578125,
+      "max_s": 0.606649786,
+      "median_s": 0.606649786,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.606649786,
+      "name": "Nave",
+      "other_cpu_s": 0.9521270000000114,
+      "times_s": [
+        0.606649786
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "llama-swap"
+      ],
+      "cpu_s": 0.5018,
+      "max_rss_mb": 28.20703125,
+      "max_s": 6.774547592,
+      "median_s": 6.774547592,
+      "metric_rounds": {
+        "memory_mb": [
+          53.0
+        ]
+      },
+      "metrics": {
+        "memory_mb": 53.0
+      },
+      "min_s": 6.774547592,
+      "name": "llama-swap",
+      "other_cpu_s": 10.398199999999978,
+      "times_s": [
+        6.774547592
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.13 1.38 0.57 1/284 31818",
+    "before": "3.37 1.33 0.54 1/310 30764"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003561"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:08:02Z",
+  "wrong_rounds": 0
+}

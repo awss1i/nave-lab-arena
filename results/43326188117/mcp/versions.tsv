@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz
+mcp-contextforge-gateway	1.1.1
+mcphub	1.2.3 created 2026-11-11T10:23:51.565485411Z (image docker.io/samanhappy/mcphub:latest)
+metamcp	2.4.22 created 2025-12-11T04:13:45.312886722Z (image ghcr.io/metatool-ai/metamcp:latest)
+docker-mcp-gateway	created 2026-07-23T15:43:31.931117166Z (image docker.io/docker/mcp-gateway:latest)
+nave-mcp	prototype P012, d66827feeac2

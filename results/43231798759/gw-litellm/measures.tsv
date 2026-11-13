@@ -1,0 +1,4 @@
+nave	install_s	0.1
+nave	install_mb	0.9
+litellm	install_s	32.0
+litellm	install_mb	768

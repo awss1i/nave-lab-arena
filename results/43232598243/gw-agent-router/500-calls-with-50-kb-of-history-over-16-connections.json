@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-agent-router.json --out results/gw-agent-router",
+  "commit": "764284e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Agent Router: routes through Envoy with its router as an external processor, takes OpenAI's format as started here. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.08765300000000001,
+      "max_rss_mb": 26.55078125,
+      "max_s": 0.087422392,
+      "median_s": 0.084429433,
+      "metric_rounds": {
+        "calls_per_s": [
+          8975.7,
+          8405.5,
+          8079.6,
+          8540.6,
+          8580.4
+        ],
+        "max_us": [
+          4748.0,
+          5329.0,
+          5517.0,
+          7369.0,
+          5501.0
+        ],
+        "p50_us": [
+          1416.0,
+          1534.0,
+          1576.0,
+          1484.0,
+          1478.0
+        ],
+        "p999_us": [
+          4748.0,
+          5329.0,
+          5517.0,
+          7369.0,
+          5501.0
+        ],
+        "p99_us": [
+          3645.0,
+          3863.0,
+          4556.0,
+          4237.0,
+          4152.0
+        ],
+        "total_s": [
+          0.055848,
+          0.059651,
+          0.062096,
+          0.058723,
+          0.058453
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 8540.6,
+        "max_us": 5501.0,
+        "p50_us": 1484.0,
+        "p999_us": 5501.0,
+        "p99_us": 4152.0,
+        "total_s": 0.058723
+      },
+      "min_s": 0.081399167,
+      "name": "Nave",
+      "other_cpu_s": 0.059312000000005694,
+      "times_s": [
+        0.081399167,
+        0.084937908,
+        0.087422392,
+        0.084429433,
+        0.084380651
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "agent-router",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.086896,
+      "max_rss_mb": 26.4375,
+      "max_s": 0.263222915,
+      "median_s": 0.256842811,
+      "metric_rounds": {
+        "calls_per_s": [
+          2150.1,
+          2185.3,
+          2168.2,
+          2108.7,
+          2303.7
+        ],
+        "max_us": [
+          23832.0,
+          20084.0,
+          16156.0,
+          23183.0,
+          22291.0
+        ],
+        "p50_us": [
+          5871.0,
+          5597.0,
+          5930.0,
+          5913.0,
+          5282.0
+        ],
+        "p999_us": [
+          23832.0,
+          20084.0,
+          16156.0,
+          23183.0,
+          22291.0
+        ],
+        "p99_us": [
+          18975.0,
+          18092.0,
+          15737.0,
+          19988.0,
+          15048.0
+        ],
+        "total_s": [
+          0.232735,
+          0.228949,
+          0.230782,
+          0.237265,
+          0.217221
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 2168.2,
+        "max_us": 22291.0,
+        "p50_us": 5871.0,
+        "p999_us": 22291.0,
+        "p99_us": 18092.0,
+        "total_s": 0.230782
+      },
+      "min_s": 0.242865238,
+      "name": "Agent Router",
+      "other_cpu_s": 0.46183299999999716,
+      "times_s": [
+        0.258243348,
+        0.254452565,
+        0.256842811,
+        0.263222915,
+        0.242865238
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.15 0.29 0.10 1/269 4823",
+    "before": "1.15 0.29 0.10 1/290 4317"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003522"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:00:02Z",
+  "wrong_rounds": 0
+}

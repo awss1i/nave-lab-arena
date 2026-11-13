@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-higress.json --out results/gw-higress",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Higress: routes through an AI route and its ai-proxy plugin on Envoy, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.30015899999999995,
+      "max_rss_mb": 26.18359375,
+      "max_s": 0.578809895,
+      "median_s": 0.576670913,
+      "metric_rounds": {
+        "calls_per_s": [
+          312.1,
+          313.4,
+          325.4
+        ],
+        "first_piece_p50_us": [
+          4272.0,
+          4755.0,
+          4014.0
+        ],
+        "first_piece_p99_us": [
+          11291.0,
+          11920.0,
+          11459.0
+        ],
+        "max_us": [
+          45969.0,
+          49796.0,
+          44331.0
+        ],
+        "p50_us": [
+          10859.0,
+          10553.0,
+          10073.0
+        ],
+        "p999_us": [
+          45969.0,
+          49796.0,
+          44331.0
+        ],
+        "p99_us": [
+          42537.0,
+          41626.0,
+          43014.0
+        ],
+        "total_s": [
+          0.512842,
+          0.510716,
+          0.491919
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 313.4,
+        "first_piece_p50_us": 4272.0,
+        "first_piece_p99_us": 11459.0,
+        "max_us": 45969.0,
+        "p50_us": 10553.0,
+        "p999_us": 45969.0,
+        "p99_us": 42537.0,
+        "total_s": 0.510716
+      },
+      "min_s": 0.557853722,
+      "name": "Nave",
+      "other_cpu_s": 0.7851230000000318,
+      "times_s": [
+        0.578809895,
+        0.576670913,
+        0.557853722
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "higress",
+        "4"
+      ],
+      "cpu_s": 0.152133,
+      "max_rss_mb": 26.234375,
+      "max_s": 1.014805864,
+      "median_s": 0.998603728,
+      "metric_rounds": {
+        "calls_per_s": [
+          175.3,
+          168.5,
+          171.7
+        ],
+        "first_piece_p50_us": [
+          17793.0,
+          17756.0,
+          18148.0
+        ],
+        "first_piece_p99_us": [
+          40442.0,
+          38855.0,
+          37711.0
+        ],
+        "max_us": [
+          44434.0,
+          48436.0,
+          64343.0
+        ],
+        "p50_us": [
+          20920.0,
+          20375.0,
+          20387.0
+        ],
+        "p999_us": [
+          44434.0,
+          48436.0,
+          64343.0
+        ],
+        "p99_us": [
+          43857.0,
+          45953.0,
+          44457.0
+        ],
+        "total_s": [
+          0.9129,
+          0.949753,
+          0.932141
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 171.7,
+        "first_piece_p50_us": 17793.0,
+        "first_piece_p99_us": 38855.0,
+        "max_us": 48436.0,
+        "p50_us": 20387.0,
+        "p999_us": 48436.0,
+        "p99_us": 44457.0,
+        "total_s": 0.932141
+      },
+      "min_s": 0.979428962,
+      "name": "Higress",
+      "other_cpu_s": 2.143308000000068,
+      "times_s": [
+        0.979428962,
+        1.014805864,
+        0.998603728
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.77 2.21 1.21 1/270 27834",
+    "before": "3.49 2.13 1.18 14/423 27572"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003502"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T14:03:34Z",
+  "wrong_rounds": 0
+}

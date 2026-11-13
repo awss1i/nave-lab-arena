@@ -1,0 +1,206 @@
+{
+  "command": "bin/race run run/gw-coai.json --out results/gw-coai",
+  "commit": "6dc8546",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 16 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in CoAI: routes by model through channels with priorities, retries on the next channel, takes OpenAI's format, checks the caller's key, counts usage and quota in MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.060379,
+      "max_rss_mb": 26.3671875,
+      "max_s": 10.004643036,
+      "median_s": 10.004643036,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1
+        ],
+        "max_us": [
+          520.0
+        ],
+        "p50_us": [
+          144.0
+        ],
+        "p999_us": [
+          520.0
+        ],
+        "p99_us": [
+          302.0
+        ],
+        "rate": [
+          50.0
+        ],
+        "sent_late": [
+          0.0
+        ],
+        "total_s": [
+          9.980596
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "max_us": 520.0,
+        "p50_us": 144.0,
+        "p999_us": 520.0,
+        "p99_us": 302.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980596
+      },
+      "min_s": 10.004643036,
+      "name": "No gateway",
+      "other_cpu_s": 0.20962100000020917,
+      "times_s": [
+        10.004643036
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.113944,
+      "max_rss_mb": 26.7265625,
+      "max_s": 10.05529102,
+      "median_s": 10.05529102,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1
+        ],
+        "cpu_us_per_call": [
+          60.0
+        ],
+        "max_us": [
+          4339.0
+        ],
+        "p50_us": [
+          199.0
+        ],
+        "p999_us": [
+          4339.0
+        ],
+        "p99_us": [
+          491.0
+        ],
+        "rate": [
+          50.0
+        ],
+        "sent_late": [
+          0.0
+        ],
+        "total_s": [
+          9.980591
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 60.0,
+        "max_us": 4339.0,
+        "p50_us": 199.0,
+        "p999_us": 4339.0,
+        "p99_us": 491.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980591
+      },
+      "min_s": 10.05529102,
+      "name": "Nave",
+      "other_cpu_s": 0.20605599999993635,
+      "times_s": [
+        10.05529102
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "coai",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.170493,
+      "max_rss_mb": 28.38671875,
+      "max_s": 25.456453257,
+      "median_s": 25.456453257,
+      "metric_rounds": {
+        "calls_per_s": [
+          19.7
+        ],
+        "cpu_us_per_call": [
+          101190.9
+        ],
+        "max_us": [
+          15671892.0
+        ],
+        "p50_us": [
+          8237193.0
+        ],
+        "p999_us": [
+          15671892.0
+        ],
+        "p99_us": [
+          15466056.0
+        ],
+        "rate": [
+          50.0
+        ],
+        "sent_late": [
+          483.0
+        ],
+        "total_s": [
+          25.334999
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 19.7,
+        "cpu_us_per_call": 101190.9,
+        "max_us": 15671892.0,
+        "p50_us": 8237193.0,
+        "p999_us": 15671892.0,
+        "p99_us": 15466056.0,
+        "rate": 50.0,
+        "sent_late": 483.0,
+        "total_s": 25.334999
+      },
+      "min_s": 25.456453257,
+      "name": "CoAI",
+      "other_cpu_s": 51.16950699999992,
+      "times_s": [
+        25.456453257
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.57 1.64 1.04 1/359 21611",
+    "before": "1.69 1.73 1.01 1/381 20069"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003586"
+  },
+  "name": "500 calls at 50 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T21:56:01Z",
+  "wrong_rounds": 0
+}

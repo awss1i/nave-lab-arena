@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-portkey.json --out results/gw-portkey",
+  "commit": "85f0936",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Portkey: routes by headers on each call, falls back, takes OpenAI's and Anthropic's formats. No key check, no request log, no spend",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.143001,
+      "max_rss_mb": 37.78515625,
+      "max_s": 1.08938126,
+      "median_s": 1.080184847,
+      "metric_rounds": {
+        "calls_per_s": [
+          953.8,
+          959.9,
+          962.3
+        ],
+        "kb_per_open_call": [
+          13.9,
+          13.3,
+          11.9
+        ],
+        "max_us": [
+          508132.0,
+          504536.0,
+          502269.0
+        ],
+        "memory_open_mb": [
+          8.0,
+          7.7,
+          7.0
+        ],
+        "p50_us": [
+          500219.0,
+          500303.0,
+          500408.0
+        ],
+        "p999_us": [
+          508132.0,
+          504536.0,
+          502269.0
+        ],
+        "p99_us": [
+          507558.0,
+          502373.0,
+          502111.0
+        ],
+        "total_s": [
+          1.048596,
+          1.041921,
+          1.039285
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 959.9,
+        "kb_per_open_call": 13.3,
+        "max_us": 504536.0,
+        "memory_open_mb": 7.7,
+        "p50_us": 500303.0,
+        "p999_us": 504536.0,
+        "p99_us": 502373.0,
+        "total_s": 1.041921
+      },
+      "min_s": 1.077608196,
+      "name": "Nave",
+      "other_cpu_s": 0.10577599999999487,
+      "times_s": [
+        1.08938126,
+        1.080184847,
+        1.077608196
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "portkey",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.134859,
+      "max_rss_mb": 38.19140625,
+      "max_s": 4.022196848,
+      "median_s": 3.054769416,
+      "metric_rounds": {
+        "calls_per_s": [
+          621.6,
+          653.1,
+          662.6
+        ],
+        "kb_per_open_call": [
+          116.9,
+          8.6,
+          91.5
+        ],
+        "max_us": [
+          1004445.0,
+          907826.0,
+          929155.0
+        ],
+        "memory_open_mb": [
+          210.7,
+          214.8,
+          259.0
+        ],
+        "p50_us": [
+          608949.0,
+          625572.0,
+          578039.0
+        ],
+        "p999_us": [
+          1004445.0,
+          907826.0,
+          929155.0
+        ],
+        "p99_us": [
+          996420.0,
+          903270.0,
+          922048.0
+        ],
+        "total_s": [
+          1.608919,
+          1.531273,
+          1.509352
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 653.1,
+        "kb_per_open_call": 91.5,
+        "max_us": 929155.0,
+        "memory_open_mb": 214.8,
+        "p50_us": 608949.0,
+        "p999_us": 929155.0,
+        "p99_us": 922048.0,
+        "total_s": 1.531273
+      },
+      "min_s": 3.052427178,
+      "name": "Portkey",
+      "other_cpu_s": 1.7216219999999995,
+      "times_s": [
+        3.054769416,
+        4.022196848,
+        3.052427178
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.64 0.32 0.14 1/265 14858",
+    "before": "0.57 0.28 0.12 3/301 8907"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003471"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:11:52Z",
+  "wrong_rounds": 0
+}

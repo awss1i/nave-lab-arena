@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-kong.json --out results/gw-kong",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Kong: routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.09771099999999999,
+      "max_rss_mb": 26.41015625,
+      "max_s": 0.112066891,
+      "median_s": 0.096605114,
+      "metric_rounds": {
+        "calls_per_s": [
+          35200.3,
+          28309.0,
+          35201.8,
+          23960.0,
+          23569.9
+        ],
+        "max_us": [
+          12093.0,
+          12863.0,
+          11570.0,
+          12277.0,
+          14980.0
+        ],
+        "p50_us": [
+          1342.0,
+          1616.0,
+          1380.0,
+          2387.0,
+          2281.0
+        ],
+        "p999_us": [
+          6925.0,
+          12540.0,
+          6187.0,
+          11640.0,
+          14831.0
+        ],
+        "p99_us": [
+          4648.0,
+          7061.0,
+          3823.0,
+          7300.0,
+          6577.0
+        ],
+        "total_s": [
+          0.057013,
+          0.070832,
+          0.056997,
+          0.08365,
+          0.085051
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 28309.0,
+        "max_us": 12277.0,
+        "p50_us": 1616.0,
+        "p999_us": 11640.0,
+        "p99_us": 6577.0,
+        "total_s": 0.070832
+      },
+      "min_s": 0.083492109,
+      "name": "Nave",
+      "other_cpu_s": 0.09396500000000796,
+      "times_s": [
+        0.083504827,
+        0.096605114,
+        0.083492109,
+        0.111535878,
+        0.112066891
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "kong",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.09098,
+      "max_rss_mb": 26.4140625,
+      "max_s": 0.301681254,
+      "median_s": 0.222362153,
+      "metric_rounds": {
+        "calls_per_s": [
+          10305.2,
+          8240.3,
+          10957.8,
+          10836.7,
+          7304.0
+        ],
+        "max_us": [
+          8653.0,
+          16679.0,
+          8904.0,
+          9634.0,
+          25980.0
+        ],
+        "p50_us": [
+          5946.0,
+          6819.0,
+          5613.0,
+          5625.0,
+          6793.0
+        ],
+        "p999_us": [
+          8652.0,
+          16679.0,
+          8850.0,
+          9571.0,
+          25862.0
+        ],
+        "p99_us": [
+          8574.0,
+          16375.0,
+          6200.0,
+          7643.0,
+          23937.0
+        ],
+        "total_s": [
+          0.194268,
+          0.242873,
+          0.182706,
+          0.184764,
+          0.274021
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 10305.2,
+        "max_us": 9634.0,
+        "p50_us": 5946.0,
+        "p999_us": 9571.0,
+        "p99_us": 8574.0,
+        "total_s": 0.194268
+      },
+      "min_s": 0.210140348,
+      "name": "Kong",
+      "other_cpu_s": 0.22901999999999317,
+      "times_s": [
+        0.222362153,
+        0.269504671,
+        0.210140348,
+        0.211628393,
+        0.301681254
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.56 1.63 0.60 1/271 32634",
+    "before": "5.56 1.63 0.60 3/286 31448"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003506"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:58:34Z",
+  "wrong_rounds": 0
+}

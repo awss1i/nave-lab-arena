@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-litellm-rs.json --out results/gw-litellm-rs",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in litellm-rs: routes by model, takes OpenAI's format. No key check, no database, cache and rate limits off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.424856,
+      "max_rss_mb": 26.0390625,
+      "max_s": 0.811845189,
+      "median_s": 0.781180193,
+      "metric_rounds": {
+        "calls_per_s": [
+          229.2,
+          231.6,
+          219.9
+        ],
+        "first_piece_p50_us": [
+          4956.0,
+          4700.0,
+          5621.0
+        ],
+        "first_piece_p99_us": [
+          11831.0,
+          12715.0,
+          12791.0
+        ],
+        "max_us": [
+          54527.0,
+          52653.0,
+          64810.0
+        ],
+        "p50_us": [
+          15020.0,
+          15278.0,
+          16917.0
+        ],
+        "p999_us": [
+          54527.0,
+          52653.0,
+          64810.0
+        ],
+        "p99_us": [
+          52936.0,
+          52183.0,
+          55060.0
+        ],
+        "total_s": [
+          0.698163,
+          0.691174,
+          0.727686
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 229.2,
+        "first_piece_p50_us": 4956.0,
+        "first_piece_p99_us": 12715.0,
+        "max_us": 54527.0,
+        "p50_us": 15278.0,
+        "p999_us": 54527.0,
+        "p99_us": 52936.0,
+        "total_s": 0.698163
+      },
+      "min_s": 0.777003552,
+      "name": "Nave",
+      "other_cpu_s": 1.0663199999999806,
+      "times_s": [
+        0.781180193,
+        0.777003552,
+        0.811845189
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "litellm-rs",
+        "4"
+      ],
+      "cpu_s": 0.226448,
+      "max_rss_mb": 26.66796875,
+      "max_s": 2.042722975,
+      "median_s": 2.007457304,
+      "metric_rounds": {
+        "calls_per_s": [
+          81.6,
+          83.8,
+          83.2
+        ],
+        "first_piece_p50_us": [
+          46301.0,
+          45507.0,
+          45886.0
+        ],
+        "first_piece_p99_us": [
+          53722.0,
+          52133.0,
+          55055.0
+        ],
+        "max_us": [
+          66211.0,
+          70324.0,
+          74745.0
+        ],
+        "p50_us": [
+          46902.0,
+          45768.0,
+          46319.0
+        ],
+        "p999_us": [
+          66211.0,
+          70324.0,
+          74745.0
+        ],
+        "p99_us": [
+          64616.0,
+          64032.0,
+          71675.0
+        ],
+        "total_s": [
+          1.960042,
+          1.910017,
+          1.922626
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 83.2,
+        "first_piece_p50_us": 45886.0,
+        "first_piece_p99_us": 53722.0,
+        "max_us": 70324.0,
+        "p50_us": 46319.0,
+        "p999_us": 70324.0,
+        "p99_us": 64616.0,
+        "total_s": 1.922626
+      },
+      "min_s": 1.993131429,
+      "name": "litellm-rs",
+      "other_cpu_s": 1.8135520000000205,
+      "times_s": [
+        2.042722975,
+        1.993131429,
+        2.007457304
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "10.50 2.96 1.06 1/263 19596",
+    "before": "11.50 2.89 1.02 1/301 19292"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003505"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:58:53Z",
+  "wrong_rounds": 0
+}

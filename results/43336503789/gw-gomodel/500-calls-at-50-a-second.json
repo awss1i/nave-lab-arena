@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-gomodel.json --out results/gw-gomodel",
+  "commit": "3330282",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 16 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in GoModel: routes by model, fails over through a virtual model in the fallback race, keeps exact repeats in Redis in the cache race, takes OpenAI's and Anthropic's formats, tracks usage. No key check, audit log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.092975,
+      "max_rss_mb": 26.8984375,
+      "max_s": 10.010491442,
+      "median_s": 10.008448155,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "max_us": [
+          904.0,
+          648.0,
+          1435.0
+        ],
+        "p50_us": [
+          206.0,
+          190.0,
+          195.0
+        ],
+        "p999_us": [
+          904.0,
+          648.0,
+          1435.0
+        ],
+        "p99_us": [
+          321.0,
+          293.0,
+          275.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980605,
+          9.980646,
+          9.980647
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "max_us": 904.0,
+        "p50_us": 195.0,
+        "p999_us": 904.0,
+        "p99_us": 293.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980646
+      },
+      "min_s": 10.00796584,
+      "name": "No gateway",
+      "other_cpu_s": 0.12018499999999888,
+      "times_s": [
+        10.008448155,
+        10.010491442,
+        10.00796584
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.142147,
+      "max_rss_mb": 26.7890625,
+      "max_s": 10.062631883,
+      "median_s": 10.061735826,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          100.0,
+          80.0,
+          120.0
+        ],
+        "max_us": [
+          2793.0,
+          1822.0,
+          1629.0
+        ],
+        "p50_us": [
+          341.0,
+          334.0,
+          353.0
+        ],
+        "p999_us": [
+          2793.0,
+          1822.0,
+          1629.0
+        ],
+        "p99_us": [
+          576.0,
+          549.0,
+          443.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980656,
+          9.980746,
+          9.98067
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 100.0,
+        "max_us": 1822.0,
+        "p50_us": 341.0,
+        "p999_us": 1822.0,
+        "p99_us": 549.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.98067
+      },
+      "min_s": 10.061121054,
+      "name": "Nave",
+      "other_cpu_s": 0.08981300000000397,
+      "times_s": [
+        10.062631883,
+        10.061121054,
+        10.061735826
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "gomodel",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.12584099999999998,
+      "max_rss_mb": 28.2890625,
+      "max_s": 10.050206802,
+      "median_s": 10.047022132,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          675.9,
+          654.1,
+          724.0
+        ],
+        "max_us": [
+          2465.0,
+          1511.0,
+          1555.0
+        ],
+        "p50_us": [
+          641.0,
+          636.0,
+          613.0
+        ],
+        "p999_us": [
+          2465.0,
+          1511.0,
+          1555.0
+        ],
+        "p99_us": [
+          999.0,
+          862.0,
+          832.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.98094,
+          9.981251,
+          9.98099
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 675.9,
+        "max_us": 1555.0,
+        "p50_us": 636.0,
+        "p999_us": 1555.0,
+        "p99_us": 862.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.98099
+      },
+      "min_s": 10.046568217,
+      "name": "GoModel",
+      "other_cpu_s": 0.624159,
+      "times_s": [
+        10.047022132,
+        10.050206802,
+        10.046568217
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.31 0.32 0.14 1/267 9096",
+    "before": "0.86 0.34 0.13 1/292 8187"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003613"
+  },
+  "name": "500 calls at 50 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T00:24:38Z",
+  "wrong_rounds": 0
+}

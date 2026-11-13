@@ -1,0 +1,276 @@
+{
+  "command": "bin/race run run/gw-nine-router.json --out results/gw-nine-router",
+  "commit": "f830a28",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 64 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in 9Router: routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps its settings and usage in a data folder",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.22977799999999998,
+      "max_rss_mb": 26.16796875,
+      "max_s": 5.026485611,
+      "median_s": 5.026248558,
+      "metric_rounds": {
+        "calls_per_s": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "max_us": [
+          5213.0,
+          4976.0,
+          5374.0
+        ],
+        "p50_us": [
+          104.0,
+          106.0,
+          104.0
+        ],
+        "p999_us": [
+          3265.0,
+          2165.0,
+          3185.0
+        ],
+        "p99_us": [
+          126.0,
+          461.0,
+          411.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.000294,
+          5.000321,
+          5.000173
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1000.0,
+        "max_us": 5213.0,
+        "p50_us": 104.0,
+        "p999_us": 3185.0,
+        "p99_us": 411.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.000294
+      },
+      "min_s": 5.025733587,
+      "name": "No gateway",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        5.026485611,
+        5.026248558,
+        5.025733587
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.26855799999999996,
+      "max_rss_mb": 25.9453125,
+      "max_s": 5.079785532,
+      "median_s": 5.079761041,
+      "metric_rounds": {
+        "calls_per_s": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "cpu_us_per_call": [
+          28.0,
+          32.0,
+          30.0
+        ],
+        "max_us": [
+          5580.0,
+          4462.0,
+          4694.0
+        ],
+        "p50_us": [
+          129.0,
+          130.0,
+          130.0
+        ],
+        "p999_us": [
+          3553.0,
+          2874.0,
+          3384.0
+        ],
+        "p99_us": [
+          734.0,
+          1355.0,
+          698.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.00037,
+          5.000231,
+          5.000267
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1000.0,
+        "cpu_us_per_call": 30.0,
+        "max_us": 4694.0,
+        "p50_us": 130.0,
+        "p999_us": 3384.0,
+        "p99_us": 734.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.000267
+      },
+      "min_s": 5.0795567,
+      "name": "Nave",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        5.079785532,
+        5.0795567,
+        5.079761041
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nine-router",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.27484,
+      "max_rss_mb": 28.39453125,
+      "max_s": 17.268025893,
+      "median_s": 16.487656846,
+      "metric_rounds": {
+        "calls_per_s": [
+          304.6,
+          290.8,
+          318.7
+        ],
+        "cpu_us_per_call": [
+          3652.1,
+          3821.1,
+          3346.3
+        ],
+        "first_piece_p50_us": [
+          5871969.0,
+          6572904.0,
+          5250954.0
+        ],
+        "first_piece_p99_us": [
+          11562317.0,
+          12322479.0,
+          10889432.0
+        ],
+        "max_us": [
+          11717739.0,
+          12489694.0,
+          11031101.0
+        ],
+        "p50_us": [
+          5871969.0,
+          6572905.0,
+          5250954.0
+        ],
+        "p999_us": [
+          11690316.0,
+          12452866.0,
+          11013068.0
+        ],
+        "p99_us": [
+          11562317.0,
+          12322479.0,
+          10889433.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          4902.0,
+          4904.0,
+          4894.0
+        ],
+        "total_s": [
+          16.416168,
+          17.196706,
+          15.68911
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 304.6,
+        "cpu_us_per_call": 3652.1,
+        "first_piece_p50_us": 5871969.0,
+        "first_piece_p99_us": 11562317.0,
+        "max_us": 11717739.0,
+        "p50_us": 5871969.0,
+        "p999_us": 11690316.0,
+        "p99_us": 11562317.0,
+        "rate": 1000.0,
+        "sent_late": 4902.0,
+        "total_s": 16.416168
+      },
+      "min_s": 15.761654248,
+      "name": "9Router",
+      "other_cpu_s": 19.438692000000035,
+      "times_s": [
+        16.487656846,
+        17.268025893,
+        15.761654248
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.87 0.92 0.51 1/258 11526",
+    "before": "0.56 0.92 0.46 4/296 9673"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003565"
+  },
+  "name": "5,000 calls at 1,000 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:21:07Z",
+  "wrong_rounds": 0
+}

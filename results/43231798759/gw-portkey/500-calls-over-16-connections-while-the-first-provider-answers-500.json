@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-portkey.json --out results/gw-portkey",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway given the failing provider first and the working one second. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Portkey: routes by headers on each call, falls back, takes OpenAI's format. No key check, no request log, no spend",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.048109,
+      "max_rss_mb": 26.71875,
+      "max_s": 0.106921735,
+      "median_s": 0.105527406,
+      "metric_rounds": {
+        "calls_per_s": [
+          6277.7,
+          6247.9,
+          6120.3,
+          6540.8,
+          6629.1
+        ],
+        "max_us": [
+          4124.0,
+          4046.0,
+          4825.0,
+          5665.0,
+          4310.0
+        ],
+        "p50_us": [
+          2450.0,
+          2462.0,
+          2523.0,
+          2302.0,
+          2289.0
+        ],
+        "p999_us": [
+          4124.0,
+          4046.0,
+          4825.0,
+          5665.0,
+          4310.0
+        ],
+        "p99_us": [
+          3944.0,
+          3954.0,
+          4317.0,
+          3858.0,
+          3851.0
+        ],
+        "total_s": [
+          0.079768,
+          0.080152,
+          0.081818,
+          0.07658,
+          0.075555
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 6277.7,
+        "max_us": 4310.0,
+        "p50_us": 2450.0,
+        "p999_us": 4310.0,
+        "p99_us": 3944.0,
+        "total_s": 0.079768
+      },
+      "min_s": 0.101123112,
+      "name": "Nave",
+      "other_cpu_s": 0.1316099999999784,
+      "times_s": [
+        0.106235982,
+        0.105527406,
+        0.106921735,
+        0.102345182,
+        0.101123112
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "portkey",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.052673,
+      "max_rss_mb": 26.74609375,
+      "max_s": 1.136548984,
+      "median_s": 0.882084209,
+      "metric_rounds": {
+        "calls_per_s": [
+          451.3,
+          573.2,
+          586.4,
+          677.9,
+          682.7
+        ],
+        "max_us": [
+          150559.0,
+          89192.0,
+          88040.0,
+          73716.0,
+          77940.0
+        ],
+        "p50_us": [
+          33066.0,
+          26368.0,
+          25939.0,
+          23535.0,
+          23133.0
+        ],
+        "p999_us": [
+          150559.0,
+          89192.0,
+          88040.0,
+          73716.0,
+          77940.0
+        ],
+        "p99_us": [
+          96183.0,
+          57170.0,
+          55733.0,
+          46885.0,
+          54290.0
+        ],
+        "total_s": [
+          1.107994,
+          0.872396,
+          0.852781,
+          0.73774,
+          0.732549
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 586.4,
+        "max_us": 88040.0,
+        "p50_us": 25939.0,
+        "p999_us": 88040.0,
+        "p99_us": 55733.0,
+        "total_s": 0.852781
+      },
+      "min_s": 0.760783943,
+      "name": "Portkey",
+      "other_cpu_s": 1.195137,
+      "times_s": [
+        1.136548984,
+        0.901085967,
+        0.882084209,
+        0.766205864,
+        0.760783943
+      ]
+    }
+  ],
+  "feature": "F3",
+  "load": {
+    "after": "1.47 1.61 0.83 1/272 20494",
+    "before": "1.38 1.59 0.82 8/309 16946"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003520"
+  },
+  "name": "500 calls over 16 connections while the first provider answers 500",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:03:19Z",
+  "wrong_rounds": 0
+}

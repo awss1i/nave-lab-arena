@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-claude-code-router.json --out results/gw-claude-code-router",
+  "commit": "3acd007",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Claude Code Router: routes by rule to a provider and model, falls back to listed models, takes OpenAI's and Anthropic's formats, checks the caller's key. Request logs off, as it ships",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.864321,
+      "max_rss_mb": 26.15234375,
+      "max_s": 1.119070505,
+      "median_s": 1.119070505,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 1.119070505,
+      "name": "Nave",
+      "other_cpu_s": 1.8356789999999887,
+      "times_s": [
+        1.119070505
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "claude-code-router"
+      ],
+      "cpu_s": 0.813161,
+      "max_rss_mb": 26.55078125,
+      "max_s": 18.691470802,
+      "median_s": 18.691470802,
+      "metric_rounds": {
+        "memory_mb": [
+          772.0
+        ]
+      },
+      "metrics": {
+        "memory_mb": 772.0
+      },
+      "min_s": 18.691470802,
+      "name": "Claude Code Router",
+      "other_cpu_s": 22.346839000000024,
+      "times_s": [
+        18.691470802
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.30 0.97 0.58 2/262 29702",
+    "before": "1.59 0.97 0.56 4/290 29130"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003549"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T16:53:42Z",
+  "wrong_rounds": 0
+}

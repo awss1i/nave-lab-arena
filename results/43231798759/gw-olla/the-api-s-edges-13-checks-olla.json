@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-olla.json --out results/gw-olla",
+  "commit": "9628046",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "olla"
+      ],
+      "cpu_s": 0.067292,
+      "max_rss_mb": 26.21875,
+      "max_s": 0.085706437,
+      "median_s": 0.085706437,
+      "metric_rounds": {
+        "edges_passed": [
+          10.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 10.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.085706437,
+      "name": "Olla",
+      "other_cpu_s": 0.03270800000000852,
+      "times_s": [
+        0.085706437
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "5.74 1.35 0.47 1/272 19947",
+    "before": "5.74 1.35 0.47 1/292 19852"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003521"
+  },
+  "name": "the API's edges, 13 checks, Olla",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:03:17Z",
+  "wrong_rounds": 0
+}

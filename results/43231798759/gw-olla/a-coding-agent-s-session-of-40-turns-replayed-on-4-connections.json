@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-olla.json --out results/gw-olla",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Olla: balances load across endpoints and passes calls through, in OpenAI's format. No key check, request log off, rate limits lifted",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.271234,
+      "max_rss_mb": 26.34375,
+      "max_s": 0.529297273,
+      "median_s": 0.528072798,
+      "metric_rounds": {
+        "calls_per_s": [
+          346.1,
+          346.9,
+          362.5
+        ],
+        "first_piece_p50_us": [
+          4014.0,
+          3554.0,
+          3119.0
+        ],
+        "first_piece_p99_us": [
+          12200.0,
+          12215.0,
+          11137.0
+        ],
+        "max_us": [
+          43217.0,
+          32429.0,
+          36777.0
+        ],
+        "p50_us": [
+          9448.0,
+          9111.0,
+          9489.0
+        ],
+        "p999_us": [
+          43217.0,
+          32429.0,
+          36777.0
+        ],
+        "p99_us": [
+          38982.0,
+          32327.0,
+          35550.0
+        ],
+        "total_s": [
+          0.462421,
+          0.461433,
+          0.441479
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 346.9,
+        "first_piece_p50_us": 3554.0,
+        "first_piece_p99_us": 12200.0,
+        "max_us": 36777.0,
+        "p50_us": 9448.0,
+        "p999_us": 36777.0,
+        "p99_us": 35550.0,
+        "total_s": 0.461433
+      },
+      "min_s": 0.507398016,
+      "name": "Nave",
+      "other_cpu_s": 0.7244079999999999,
+      "times_s": [
+        0.529297273,
+        0.528072798,
+        0.507398016
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "olla",
+        "4"
+      ],
+      "cpu_s": 0.240931,
+      "max_rss_mb": 26.65234375,
+      "max_s": 0.510894012,
+      "median_s": 0.489288194,
+      "metric_rounds": {
+        "calls_per_s": [
+          358.9,
+          379.1,
+          394.4
+        ],
+        "first_piece_p50_us": [
+          5252.0,
+          5128.0,
+          4782.0
+        ],
+        "first_piece_p99_us": [
+          11037.0,
+          10772.0,
+          10220.0
+        ],
+        "max_us": [
+          38389.0,
+          34022.0,
+          29965.0
+        ],
+        "p50_us": [
+          8426.0,
+          8108.0,
+          8119.0
+        ],
+        "p999_us": [
+          38389.0,
+          34022.0,
+          29965.0
+        ],
+        "p99_us": [
+          30951.0,
+          33130.0,
+          29068.0
+        ],
+        "total_s": [
+          0.445931,
+          0.422134,
+          0.405835
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 379.1,
+        "first_piece_p50_us": 5128.0,
+        "first_piece_p99_us": 10772.0,
+        "max_us": 34022.0,
+        "p50_us": 8119.0,
+        "p999_us": 34022.0,
+        "p99_us": 30951.0,
+        "total_s": 0.422134
+      },
+      "min_s": 0.48633659,
+      "name": "Olla",
+      "other_cpu_s": 0.9836949999999989,
+      "times_s": [
+        0.510894012,
+        0.48633659,
+        0.489288194
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.17 0.19 0.09 1/272 17547",
+    "before": "0.17 0.19 0.09 1/297 17292"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003521"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T14:03:07Z",
+  "wrong_rounds": 0
+}

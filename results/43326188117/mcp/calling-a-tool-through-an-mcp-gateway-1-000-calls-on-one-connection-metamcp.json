@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/mcp.json --out results/mcp",
+  "commit": "69f03df",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "metamcp",
+        "call",
+        "--calls",
+        "1000",
+        "--conns",
+        "1"
+      ],
+      "cpu_s": 0.150932,
+      "max_rss_mb": 26.7734375,
+      "max_s": 6.188205608,
+      "median_s": 5.714196511,
+      "metric_rounds": {
+        "calls_per_s": [
+          163.7,
+          177.6,
+          181.3
+        ],
+        "max_us": [
+          37144.0,
+          30438.0,
+          22008.0
+        ],
+        "p50_us": [
+          5437.0,
+          5160.0,
+          5088.0
+        ],
+        "p99_us": [
+          14109.0,
+          10526.0,
+          14091.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 177.6,
+        "max_us": 30438.0,
+        "p50_us": 5160.0,
+        "p99_us": 14091.0
+      },
+      "min_s": 5.600031731,
+      "name": "MetaMCP",
+      "other_cpu_s": 7.0690679999999135,
+      "times_s": [
+        6.188205608,
+        5.714196511,
+        5.600031731
+      ]
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "2.19 1.96 1.06 2/268 21881",
+    "before": "2.70 2.02 1.06 1/355 21556"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003596"
+  },
+  "name": "calling a tool through an MCP gateway, 1,000 calls on one connection, MetaMCP",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T23:18:38Z",
+  "wrong_rounds": 0
+}

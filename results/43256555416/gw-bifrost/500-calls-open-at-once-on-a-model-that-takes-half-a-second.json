@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "eb7d09a",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.196847,
+      "max_rss_mb": 37.78515625,
+      "max_s": 1.122855253,
+      "median_s": 1.113428126,
+      "metric_rounds": {
+        "calls_per_s": [
+          939.8,
+          942.5,
+          945.8
+        ],
+        "kb_per_open_call": [
+          16.8,
+          10.6,
+          5.3
+        ],
+        "max_us": [
+          514930.0,
+          506202.0,
+          504772.0
+        ],
+        "memory_open_mb": [
+          9.4,
+          6.5,
+          3.9
+        ],
+        "p50_us": [
+          502503.0,
+          500225.0,
+          500262.0
+        ],
+        "p999_us": [
+          514930.0,
+          506202.0,
+          504772.0
+        ],
+        "p99_us": [
+          513015.0,
+          502102.0,
+          503453.0
+        ],
+        "total_s": [
+          1.064243,
+          1.061153,
+          1.057466
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 942.5,
+        "kb_per_open_call": 10.6,
+        "max_us": 506202.0,
+        "memory_open_mb": 6.5,
+        "p50_us": 500262.0,
+        "p999_us": 506202.0,
+        "p99_us": 503453.0,
+        "total_s": 1.061153
+      },
+      "min_s": 1.111897101,
+      "name": "Nave",
+      "other_cpu_s": 0.13701200000001362,
+      "times_s": [
+        1.122855253,
+        1.113428126,
+        1.111897101
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "bifrost",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.199343,
+      "max_rss_mb": 39.20703125,
+      "max_s": 4.026215534,
+      "median_s": 3.078130042,
+      "metric_rounds": {
+        "calls_per_s": [
+          800.0,
+          759.5,
+          867.9
+        ],
+        "kb_per_open_call": [
+          216.5,
+          125.7,
+          8.2
+        ],
+        "max_us": [
+          642602.0,
+          753364.0,
+          599574.0
+        ],
+        "memory_open_mb": [
+          447.5,
+          436.4,
+          419.6
+        ],
+        "p50_us": [
+          547173.0,
+          561487.0,
+          533367.0
+        ],
+        "p999_us": [
+          642602.0,
+          753364.0,
+          599574.0
+        ],
+        "p99_us": [
+          630822.0,
+          716101.0,
+          595848.0
+        ],
+        "total_s": [
+          1.250271,
+          1.316898,
+          1.152389
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 800.0,
+        "kb_per_open_call": 125.7,
+        "max_us": 642602.0,
+        "memory_open_mb": 436.4,
+        "p50_us": 547173.0,
+        "p999_us": 642602.0,
+        "p99_us": 630822.0,
+        "total_s": 1.250271
+      },
+      "min_s": 3.073761711,
+      "name": "Bifrost",
+      "other_cpu_s": 3.970440000000016,
+      "times_s": [
+        3.078130042,
+        4.026215534,
+        3.073761711
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.70 0.49 0.23 1/265 17692",
+    "before": "0.62 0.47 0.21 1/288 12192"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003536"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T16:19:15Z",
+  "wrong_rounds": 0
+}

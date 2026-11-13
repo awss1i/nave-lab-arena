@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-antirion.json --out results/gw-antirion",
+  "commit": "6a64ad6",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.181104,
+      "max_rss_mb": 25.78125,
+      "max_s": 0.481967469,
+      "median_s": 0.481967469,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.481967469,
+      "name": "Nave",
+      "other_cpu_s": 0.5088959999999978,
+      "times_s": [
+        0.481967469
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.66 0.55 0.21 2/256 25472",
+    "before": "1.66 0.55 0.21 2/260 25261"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003568"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:23:35Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-kgateway.json --out results/gw-kgateway",
+  "commit": "eb3d469",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in kgateway: an Envoy proxy programmed through Kubernetes' Gateway API, passing every call on to one upstream by route. No key check and no LLM features in this version, which moved to agentgateway. It runs in a kind cluster of one node, and only its own pods are measured",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.6932389999999999,
+      "max_rss_mb": 26.03125,
+      "max_s": 0.736003224,
+      "median_s": 0.736003224,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.736003224,
+      "name": "Nave",
+      "other_cpu_s": 1.4167609999999569,
+      "times_s": [
+        0.736003224
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "kgateway"
+      ],
+      "cpu_s": 0.807384,
+      "max_rss_mb": 28.74609375,
+      "max_s": 1.9373221200000001,
+      "median_s": 1.9373221200000001,
+      "metric_rounds": {
+        "memory_mb": [
+          74.0
+        ]
+      },
+      "metrics": {
+        "memory_mb": 74.0
+      },
+      "min_s": 1.9373221200000001,
+      "name": "kgateway",
+      "other_cpu_s": 5.842616000000034,
+      "times_s": [
+        1.9373221200000001
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.94 1.33 0.77 1/533 44620",
+    "before": "1.41 1.18 0.71 1/563 43411"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003584"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:59:05Z",
+  "wrong_rounds": 0
+}

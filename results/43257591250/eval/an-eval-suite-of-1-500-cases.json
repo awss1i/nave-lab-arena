@@ -1,0 +1,323 @@
+{
+  "command": "bin/race run races/eval.json --out results/eval",
+  "commit": "f97c89c",
+  "conditions": "two CPUs, three prompts and 500 tests with four checks each against the stand-in model, 16 calls at a time, no cache, each tool timed as a whole process from its start to its exit. Nave, promptfoo, Inspect and OpenAI's evals make the calls themselves. DeepEval, Ragas and autoevals score answers that a loop with OpenAI's SDK fetched, as their docs do",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "nave"
+      ],
+      "cpu_s": 0.504401,
+      "max_rss_mb": 51.25390625,
+      "max_s": 0.454889182,
+      "median_s": 0.391137325,
+      "metric_rounds": {
+        "calls": [
+          1500.0,
+          1500.0,
+          1500.0
+        ],
+        "cases_per_s": [
+          3630.3,
+          4284.5,
+          4307.2
+        ],
+        "cases_per_s_by_its_own_timer": [
+          13145.0,
+          13814.0,
+          13684.0
+        ],
+        "from_cache": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "seconds": [
+          0.4132,
+          0.3501,
+          0.3483
+        ],
+        "seconds_by_its_own_timer": [
+          0.1141,
+          0.1086,
+          0.1096
+        ]
+      },
+      "metrics": {
+        "calls": 1500.0,
+        "cases_per_s": 4284.5,
+        "cases_per_s_by_its_own_timer": 13684.0,
+        "from_cache": 0.0,
+        "seconds": 0.3501,
+        "seconds_by_its_own_timer": 0.1096
+      },
+      "min_s": 0.388133753,
+      "name": "Nave",
+      "other_cpu_s": 0.07559899999992725,
+      "times_s": [
+        0.454889182,
+        0.391137325,
+        0.388133753
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "promptfoo"
+      ],
+      "cpu_s": 9.426186,
+      "max_rss_mb": 458.9375,
+      "max_s": 7.948640567,
+      "median_s": 7.563499973,
+      "metric_rounds": {
+        "cases_per_s": [
+          192.1,
+          201.7,
+          202.2
+        ],
+        "seconds": [
+          7.809,
+          7.435,
+          7.418
+        ]
+      },
+      "metrics": {
+        "cases_per_s": 201.7,
+        "seconds": 7.435
+      },
+      "min_s": 7.547320289,
+      "name": "promptfoo",
+      "other_cpu_s": 0.3138140000000096,
+      "times_s": [
+        7.948640567,
+        7.563499973,
+        7.547320289
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "inspect"
+      ],
+      "cpu_s": 25.856215,
+      "max_rss_mb": 307.48828125,
+      "max_s": 27.095402074,
+      "median_s": 25.469483805,
+      "metric_rounds": {
+        "cases_per_s": [
+          55.5,
+          59.0,
+          59.4
+        ],
+        "seconds": [
+          27.0401,
+          25.4154,
+          25.2344
+        ],
+        "seconds_inside": [
+          25.246,
+          23.691,
+          23.525
+        ]
+      },
+      "metrics": {
+        "cases_per_s": 59.0,
+        "seconds": 25.4154,
+        "seconds_inside": 23.691
+      },
+      "min_s": 25.2865305,
+      "name": "Inspect",
+      "other_cpu_s": 0.6837849999999648,
+      "times_s": [
+        27.095402074,
+        25.469483805,
+        25.2865305
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "deepeval"
+      ],
+      "cpu_s": 114.943341,
+      "max_rss_mb": 160.16015625,
+      "max_s": 120.349098301,
+      "median_s": 117.664809276,
+      "metric_rounds": {
+        "cases_per_s": [
+          12.5,
+          12.8,
+          12.9
+        ],
+        "seconds": [
+          120.2961,
+          117.6122,
+          116.196
+        ],
+        "seconds_inside": [
+          119.86,
+          117.189,
+          115.75
+        ]
+      },
+      "metrics": {
+        "cases_per_s": 12.8,
+        "seconds": 117.6122,
+        "seconds_inside": 117.189
+      },
+      "min_s": 116.248688699,
+      "name": "DeepEval",
+      "other_cpu_s": 4.70558100000008,
+      "times_s": [
+        120.349098301,
+        117.664809276,
+        116.248688699
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "ragas"
+      ],
+      "cpu_s": 5.595896000000001,
+      "max_rss_mb": 287.390625,
+      "max_s": 5.58491566,
+      "median_s": 5.42399997,
+      "metric_rounds": {
+        "cases_per_s": [
+          271.1,
+          279.2,
+          281.5
+        ],
+        "seconds": [
+          5.5323,
+          5.3716,
+          5.3295
+        ],
+        "seconds_inside": [
+          4.993,
+          4.805,
+          4.796
+        ]
+      },
+      "metrics": {
+        "cases_per_s": 279.2,
+        "seconds": 5.3716,
+        "seconds_inside": 4.805
+      },
+      "min_s": 5.381978807,
+      "name": "Ragas",
+      "other_cpu_s": 0.1609109999999232,
+      "times_s": [
+        5.58491566,
+        5.42399997,
+        5.381978807
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "autoevals"
+      ],
+      "cpu_s": 2.9031390000000004,
+      "max_rss_mb": 72.9765625,
+      "max_s": 2.891657889,
+      "median_s": 2.888237697,
+      "metric_rounds": {
+        "cases_per_s": [
+          528.5,
+          529.0,
+          530.0
+        ],
+        "seconds": [
+          2.8381,
+          2.8358,
+          2.8303
+        ],
+        "seconds_inside": [
+          2.661,
+          2.658,
+          2.65
+        ]
+      },
+      "metrics": {
+        "cases_per_s": 529.0,
+        "seconds": 2.8358,
+        "seconds_inside": 2.658
+      },
+      "min_s": 2.881909385,
+      "name": "autoevals",
+      "other_cpu_s": 0.12686099999997236,
+      "times_s": [
+        2.891657889,
+        2.888237697,
+        2.881909385
+      ]
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "eval",
+        "openai-evals"
+      ],
+      "cpu_s": 7.906419,
+      "max_rss_mb": 111.4453125,
+      "max_s": 6.208597728,
+      "median_s": 6.208515309,
+      "metric_rounds": {
+        "cases_per_s": [
+          243.7,
+          243.7,
+          249.8
+        ],
+        "seconds": [
+          6.1551,
+          6.1541,
+          6.0052
+        ]
+      },
+      "metrics": {
+        "cases_per_s": 243.7,
+        "seconds": 6.1541
+      },
+      "min_s": 6.057210526,
+      "name": "OpenAI's evals",
+      "other_cpu_s": 0.36093900000005874,
+      "times_s": [
+        6.208515309,
+        6.208597728,
+        6.057210526
+      ]
+    }
+  ],
+  "feature": "F12",
+  "load": {
+    "after": "1.31 1.38 0.98 1/258 83561",
+    "before": "1.07 0.99 0.47 2/269 3026"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003541"
+  },
+  "name": "an eval suite of 1,500 cases",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T16:35:21Z",
+  "wrong_rounds": 0
+}

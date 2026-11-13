@@ -1,0 +1,97 @@
+{
+  "command": "bin/race run run/gw-llama-swap.json --out results/gw-llama-swap",
+  "commit": "010bcc5",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in llama-swap: starts a model's server on demand and passes calls on, in OpenAI's and Anthropic's formats. No key check",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "llama-swap",
+      "got": "ok 1933",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 2000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "llama-swap",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "llama-swap",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.41 0.40 0.14 1/279 3611",
+    "before": "1.41 0.40 0.14 1/304 3303"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003530"
+  },
+  "name": "2,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 2000\nbad 0\nchecksum 8bcee7824fbc6518\n",
+      "stderr": "metric calls_per_s=16624.8\nmetric p50_us=1689\nmetric p99_us=35194\nmetric p999_us=54816\nmetric max_us=54928\nmetric total_s=0.120510\n"
+    },
+    {
+      "name": "llama-swap",
+      "ok": false,
+      "output": "ok 1933\nbad 67\nchecksum bc72a1ed66f25fb2\n",
+      "stderr": "metric calls_per_s=2560.7\nmetric p50_us=19154\nmetric p99_us=77179\nmetric p999_us=112393\nmetric max_us=127383\nmetric total_s=0.781222\n"
+    }
+  ],
+  "rounds": 5,
+  "time": "2026-11-12T14:44:28Z",
+  "wrong_rounds": 0
+}

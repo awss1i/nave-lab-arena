@@ -1,0 +1,68 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "c0d7462",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, RouteLLM's BERT router as released, which wasn't trained on MMLU, scored on 2,000 of them spread evenly",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "nave",
+        "mmlu"
+      ],
+      "cpu_s": 1.4684869999999999,
+      "max_rss_mb": 26.79296875,
+      "max_s": 1.46012513,
+      "median_s": 1.46012513,
+      "metric_rounds": {
+        "apgr": [
+          0.5678
+        ],
+        "cpt50": [
+          40.5127
+        ],
+        "cpt80": [
+          76.721
+        ],
+        "ns_per_prompt": [
+          2796.8
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5678,
+        "cpt50": 40.5127,
+        "cpt80": 76.721,
+        "ns_per_prompt": 2796.8
+      },
+      "min_s": 1.46012513,
+      "name": "Nave",
+      "other_cpu_s": 0.011513000000018314,
+      "times_s": [
+        1.46012513
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.02 1.50 0.72 1/258 3446",
+    "before": "2.11 1.51 0.72 2/257 3399"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003527"
+  },
+  "name": "routing MMLU's prompts, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:31:59Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+aisix	1.10.0 created 2026-11-12T08:23:35.265749698Z (image ghcr.io/api7/aisix:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+aisix, switched on	routes by model, takes OpenAI's and Anthropic's formats, checks the caller's key. Metrics off
+aisix, kinds of race it wasn't in	fallback cache

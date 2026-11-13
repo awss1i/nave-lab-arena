@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run races/prompts.json --out results/prompts",
+  "commit": "b1c6144",
+  "conditions": "a GitHub runner's four CPUs. A support assistant's prompt, a system message of about 1,700 characters with four variables and a user message with two, is stored under a name and published to the label production. Then it's got by name and label with its six variables filled in, and the filled messages have to be the expected ones every time. Nave does this inside the gateway: a request names the prompt and carries the variables, and one thread replaces that member with the filled messages, 200,000 times. The other tools are services on two CPUs: one client on one CPU and one kept connection asks the service's API for the prompt 2,000 times, the way an application does when it keeps no copy of its own, and fills the variables itself. Each service is its released images from its own compose file, with only its API and what the API needs started",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "prompt",
+        "agenta"
+      ],
+      "cpu_s": 4.055927,
+      "max_rss_mb": 236.95703125,
+      "max_s": 49.779911278,
+      "median_s": 49.779911278,
+      "metric_rounds": {
+        "times": [
+          2000.0
+        ],
+        "us_per_prompt": [
+          23041.135
+        ]
+      },
+      "metrics": {
+        "times": 2000.0,
+        "us_per_prompt": 23041.135
+      },
+      "min_s": 49.779911278,
+      "name": "Agenta",
+      "other_cpu_s": 50.58407300000002,
+      "times_s": [
+        49.779911278
+      ]
+    }
+  ],
+  "feature": "F10",
+  "load": {
+    "after": "1.25 1.24 0.58 1/296 6163",
+    "before": "2.76 1.31 0.50 1/488 4458"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003607"
+  },
+  "name": "getting a named prompt with its variables filled in, Agenta",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T00:19:46Z",
+  "wrong_rounds": 0
+}

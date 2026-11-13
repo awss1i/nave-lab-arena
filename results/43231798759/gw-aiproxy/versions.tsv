@@ -1,0 +1,5 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, INTEL(R) XEON(R) PLATINUM 8573C
+nave	prototype P006, 1a772dff36bf
+aiproxy	v0.7.7 created 2026-10-29T09:21:21.772613561Z (image ghcr.io/labring/aiproxy:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+redis, switched on	not stated

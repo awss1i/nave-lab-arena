@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "50e46ee",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OmniRoute: routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.20180599999999999,
+      "max_rss_mb": 37.8515625,
+      "max_s": 1.1191283890000001,
+      "median_s": 1.115690839,
+      "metric_rounds": {
+        "calls_per_s": [
+          949.6,
+          946.9,
+          949.9
+        ],
+        "kb_per_open_call": [
+          12.3,
+          11.1,
+          10.4
+        ],
+        "max_us": [
+          505337.0,
+          502866.0,
+          502147.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.5,
+          6.3
+        ],
+        "p50_us": [
+          500187.0,
+          500171.0,
+          500179.0
+        ],
+        "p999_us": [
+          505337.0,
+          502866.0,
+          502147.0
+        ],
+        "p99_us": [
+          504971.0,
+          501931.0,
+          501985.0
+        ],
+        "total_s": [
+          1.053298,
+          1.056327,
+          1.052939
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 949.6,
+        "kb_per_open_call": 11.1,
+        "max_us": 502866.0,
+        "memory_open_mb": 6.5,
+        "p50_us": 500179.0,
+        "p999_us": 502866.0,
+        "p99_us": 501985.0,
+        "total_s": 1.053298
+      },
+      "min_s": 1.109622527,
+      "name": "Nave",
+      "other_cpu_s": 0.14373399999990905,
+      "times_s": [
+        1.109622527,
+        1.1191283890000001,
+        1.115690839
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "omniroute",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.227999,
+      "max_rss_mb": 35.78515625,
+      "max_s": 54.510146563,
+      "median_s": 53.596176542,
+      "metric_rounds": {
+        "calls_per_s": [
+          19.2,
+          19.0,
+          18.7
+        ],
+        "kb_per_open_call": [
+          4.7,
+          1.6,
+          2.0
+        ],
+        "max_us": [
+          51537996.0,
+          51938610.0,
+          52850665.0
+        ],
+        "memory_open_mb": [
+          677.2,
+          731.7,
+          665.4
+        ],
+        "p50_us": [
+          1107316.0,
+          1039596.0,
+          1053453.0
+        ],
+        "p999_us": [
+          51537996.0,
+          51938610.0,
+          52850665.0
+        ],
+        "p99_us": [
+          50795733.0,
+          51026187.0,
+          52011816.0
+        ],
+        "total_s": [
+          52.134741,
+          52.543797,
+          53.455069
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 19.0,
+        "kb_per_open_call": 2.0,
+        "max_us": 51938610.0,
+        "memory_open_mb": 677.2,
+        "p50_us": 1053453.0,
+        "p999_us": 51938610.0,
+        "p99_us": 51026187.0,
+        "total_s": 52.543797
+      },
+      "min_s": 53.187343297,
+      "name": "OmniRoute",
+      "other_cpu_s": 55.91200100000033,
+      "times_s": [
+        53.187343297,
+        53.596176542,
+        54.510146563
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.18 1.17 1.10 1/256 82067",
+    "before": "0.97 1.16 1.09 7/287 72826"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003529"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T15:20:06Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,3 @@
+RouterArena	RouteWorks/RouterArena at 18383b4, its dataset from Hugging Face, its own scripts
+the two models' answers	from the leaderboard entries chuzom-solo-v32 (deepseek/deepseek-v3.2) and llm-router-g3 (gemini-3-flash-preview) in the same repository
+nave-pick	prototype P010, trained on RouteLLM's MMLU and GSM8K results

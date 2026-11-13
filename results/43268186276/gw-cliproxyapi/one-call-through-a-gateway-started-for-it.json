@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-cliproxyapi.json --out results/gw-cliproxyapi",
+  "commit": "6a64ad6",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in CLIProxyAPI: routes by model alias, retries and cools down a failing credential, takes OpenAI's and Anthropic's formats, checks the caller's key. Its subscription sign-ins aren't used",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.074338,
+      "max_rss_mb": 26.4296875,
+      "max_s": 0.071925088,
+      "median_s": 0.071633562,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          27.0,
+          27.0,
+          27.0,
+          27.0,
+          27.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 27.0
+      },
+      "min_s": 0.070486693,
+      "name": "Nave",
+      "other_cpu_s": 0.005661999999998293,
+      "times_s": [
+        0.071787845,
+        0.071925088,
+        0.070486693,
+        0.071633562,
+        0.071095692
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "cliproxyapi"
+      ],
+      "cpu_s": 0.104329,
+      "max_rss_mb": 26.51171875,
+      "max_s": 0.220659403,
+      "median_s": 0.214452529,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          67.0,
+          61.0,
+          74.0,
+          66.0,
+          66.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 66.0
+      },
+      "min_s": 0.210093595,
+      "name": "CLIProxyAPI",
+      "other_cpu_s": 0.08567099999999772,
+      "times_s": [
+        0.214452529,
+        0.210093595,
+        0.220659403,
+        0.215326182,
+        0.214133148
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.01 0.55 0.25 1/268 57232",
+    "before": "1.01 0.55 0.25 1/269 56532"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003567"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:23:21Z",
+  "wrong_rounds": 0
+}

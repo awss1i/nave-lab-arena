@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-claude-relay-service.json --out results/gw-claude-relay-service",
+  "commit": "c54defd",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 64 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Claude Relay Service: routes to an upstream account by priority, moves later calls to another account when one fails, takes Anthropic's format, checks the caller's key, counts usage and cost in Redis. Its subscription sign-ins aren't used",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.32286200000000004,
+      "max_rss_mb": 26.40625,
+      "max_s": 5.031386763,
+      "median_s": 5.030804385,
+      "metric_rounds": {
+        "calls_per_s": [
+          999.9,
+          1000.0,
+          1000.0
+        ],
+        "max_us": [
+          9103.0,
+          8851.0,
+          9636.0
+        ],
+        "p50_us": [
+          148.0,
+          146.0,
+          145.0
+        ],
+        "p999_us": [
+          4000.0,
+          3471.0,
+          4233.0
+        ],
+        "p99_us": [
+          365.0,
+          191.0,
+          483.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.000523,
+          5.000413,
+          5.000416
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1000.0,
+        "max_us": 9103.0,
+        "p50_us": 146.0,
+        "p999_us": 4000.0,
+        "p99_us": 365.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.000416
+      },
+      "min_s": 5.030253325,
+      "name": "No gateway",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        5.031386763,
+        5.030253325,
+        5.030804385
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.341613,
+      "max_rss_mb": 26.625,
+      "max_s": 5.095799798,
+      "median_s": 5.090730298,
+      "metric_rounds": {
+        "calls_per_s": [
+          999.9,
+          999.9,
+          999.9
+        ],
+        "cpu_us_per_call": [
+          70.0,
+          68.0,
+          108.0
+        ],
+        "max_us": [
+          7708.0,
+          6940.0,
+          7108.0
+        ],
+        "p50_us": [
+          183.0,
+          183.0,
+          226.0
+        ],
+        "p999_us": [
+          4859.0,
+          3089.0,
+          2750.0
+        ],
+        "p99_us": [
+          845.0,
+          310.0,
+          292.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.000481,
+          5.000468,
+          5.000507
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 999.9,
+        "cpu_us_per_call": 70.0,
+        "max_us": 7108.0,
+        "p50_us": 183.0,
+        "p999_us": 3089.0,
+        "p99_us": 310.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.000481
+      },
+      "min_s": 5.090718151,
+      "name": "Nave",
+      "other_cpu_s": 0.03814899999999544,
+      "times_s": [
+        5.095799798,
+        5.090730298,
+        5.090718151
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "claude-relay-service",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.360753,
+      "max_rss_mb": 28.67578125,
+      "max_s": 39.268135012,
+      "median_s": 39.09189523,
+      "metric_rounds": {
+        "calls_per_s": [
+          127.7,
+          128.3,
+          128.8
+        ],
+        "cpu_us_per_call": [
+          11839.5,
+          11763.6,
+          11734.7
+        ],
+        "max_us": [
+          34174695.0,
+          33979524.0,
+          33838032.0
+        ],
+        "p50_us": [
+          17433136.0,
+          17495938.0,
+          17266017.0
+        ],
+        "p999_us": [
+          34154513.0,
+          33974312.0,
+          33828353.0
+        ],
+        "p99_us": [
+          34069984.0,
+          33836191.0,
+          33712119.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          4936.0,
+          4936.0,
+          4936.0
+        ],
+        "total_s": [
+          39.150915,
+          38.973648,
+          38.829122
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 128.3,
+        "cpu_us_per_call": 11763.6,
+        "max_us": 33979524.0,
+        "p50_us": 17433136.0,
+        "p999_us": 33974312.0,
+        "p99_us": 33836191.0,
+        "rate": 1000.0,
+        "sent_late": 4936.0,
+        "total_s": 38.973648
+      },
+      "min_s": 38.947965152,
+      "name": "Claude Relay Service",
+      "other_cpu_s": 60.96456400000004,
+      "times_s": [
+        39.268135012,
+        39.09189523,
+        38.947965152
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.62 1.69 1.11 1/283 68144",
+    "before": "1.02 1.71 0.97 1/313 46296"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003564"
+  },
+  "name": "5,000 calls at 1,000 a second, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:20:47Z",
+  "wrong_rounds": 0
+}

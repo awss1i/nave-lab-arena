@@ -1,0 +1,200 @@
+{
+  "command": "bin/race run run/gw-relayplane.json --out results/gw-relayplane",
+  "commit": "88198c8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Anthropic's format in and OpenAI's format to the model. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in RelayPlane: passes OpenAI's and Anthropic's formats on to the provider, routes by a complexity tier, prices every call and rolls it up by run and agent in SQLite, checks budgets. Passes the caller's key on. Its own limiter is set to the most it accepts, 10,000 calls a minute for a model, which is what bounds it in the throughput races",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "messages",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.047243,
+      "max_rss_mb": 26.18359375,
+      "max_s": 0.052860459,
+      "median_s": 0.04531052,
+      "metric_rounds": {
+        "calls_per_s": [
+          19791.5,
+          25501.6,
+          27515.6,
+          26041.8,
+          28410.7
+        ],
+        "max_us": [
+          3958.0,
+          1780.0,
+          1198.0,
+          2564.0,
+          1393.0
+        ],
+        "p50_us": [
+          614.0,
+          505.0,
+          471.0,
+          510.0,
+          469.0
+        ],
+        "p999_us": [
+          3958.0,
+          1780.0,
+          1198.0,
+          2564.0,
+          1393.0
+        ],
+        "p99_us": [
+          3401.0,
+          1266.0,
+          1059.0,
+          1194.0,
+          952.0
+        ],
+        "total_s": [
+          0.025412,
+          0.019736,
+          0.018293,
+          0.019315,
+          0.017724
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 26041.8,
+        "max_us": 1780.0,
+        "p50_us": 505.0,
+        "p999_us": 1780.0,
+        "p99_us": 1194.0,
+        "total_s": 0.019315
+      },
+      "min_s": 0.043116312,
+      "name": "Nave",
+      "other_cpu_s": 0.04029200000014552,
+      "times_s": [
+        0.052860459,
+        0.04531052,
+        0.043116312,
+        0.045847802,
+        0.043186431
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "messages",
+        "relayplane",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.078631,
+      "max_rss_mb": 25.8203125,
+      "max_s": 44.526230359,
+      "median_s": 42.281843601,
+      "metric_rounds": {
+        "calls_per_s": [
+          12.4,
+          12.2,
+          11.8,
+          11.5,
+          11.2
+        ],
+        "first_piece_p50_us": [
+          1200347.0,
+          1235854.0,
+          1265436.0,
+          1302508.0,
+          1327257.0
+        ],
+        "first_piece_p99_us": [
+          6304391.0,
+          5842910.0,
+          5606409.0,
+          5912361.0,
+          6152422.0
+        ],
+        "max_us": [
+          10927014.0,
+          10396493.0,
+          10385700.0,
+          10669638.0,
+          10904894.0
+        ],
+        "p50_us": [
+          1200349.0,
+          1235856.0,
+          1265438.0,
+          1302510.0,
+          1327259.0
+        ],
+        "p999_us": [
+          10927014.0,
+          10396493.0,
+          10385700.0,
+          10669638.0,
+          10904894.0
+        ],
+        "p99_us": [
+          6304392.0,
+          5842911.0,
+          5606410.0,
+          5912363.0,
+          6152423.0
+        ],
+        "total_s": [
+          40.250702,
+          41.117074,
+          42.256189,
+          43.354449,
+          44.501659
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 11.8,
+        "first_piece_p50_us": 1265436.0,
+        "first_piece_p99_us": 5912361.0,
+        "max_us": 10669638.0,
+        "p50_us": 1265438.0,
+        "p999_us": 10669638.0,
+        "p99_us": 5912363.0,
+        "total_s": 42.256189
+      },
+      "min_s": 40.277289196,
+      "name": "RelayPlane",
+      "other_cpu_s": 42.96178499999996,
+      "times_s": [
+        40.277289196,
+        41.144037357,
+        42.281843601,
+        43.381530756,
+        44.526230359
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.28 1.20 1.02 1/257 7231",
+    "before": "1.12 1.18 0.93 6/273 6620"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003581"
+  },
+  "name": "500 calls in Anthropic's format over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T19:13:41Z",
+  "wrong_rounds": 0
+}

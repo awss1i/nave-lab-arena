@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.109869,
+      "max_rss_mb": 26.19921875,
+      "max_s": 0.123488891,
+      "median_s": 0.120264346,
+      "metric_rounds": {
+        "calls_per_s": [
+          20455.6,
+          21132.8,
+          21097.8,
+          21069.7,
+          21602.2
+        ],
+        "max_us": [
+          6921.0,
+          6469.0,
+          7742.0,
+          8327.0,
+          6831.0
+        ],
+        "p50_us": [
+          2827.0,
+          2672.0,
+          2779.0,
+          2735.0,
+          2684.0
+        ],
+        "p999_us": [
+          6298.0,
+          6182.0,
+          7545.0,
+          7965.0,
+          6602.0
+        ],
+        "p99_us": [
+          5218.0,
+          4685.0,
+          4534.0,
+          4719.0,
+          4153.0
+        ],
+        "total_s": [
+          0.097927,
+          0.094784,
+          0.094963,
+          0.095081,
+          0.092752
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 21097.8,
+        "max_us": 6921.0,
+        "p50_us": 2735.0,
+        "p999_us": 6602.0,
+        "p99_us": 4685.0,
+        "total_s": 0.094963
+      },
+      "min_s": 0.117745894,
+      "name": "Nave",
+      "other_cpu_s": 0.130767,
+      "times_s": [
+        0.123488891,
+        0.120737647,
+        0.120045781,
+        0.120264346,
+        0.117745894
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "bifrost",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.130627,
+      "max_rss_mb": 26.33984375,
+      "max_s": 0.965384085,
+      "median_s": 0.952268531,
+      "metric_rounds": {
+        "calls_per_s": [
+          2132.9,
+          2167.5,
+          2131.5,
+          2163.8,
+          2335.8
+        ],
+        "max_us": [
+          74913.0,
+          84513.0,
+          73137.0,
+          72407.0,
+          74500.0
+        ],
+        "p50_us": [
+          20727.0,
+          20680.0,
+          20588.0,
+          20369.0,
+          20377.0
+        ],
+        "p999_us": [
+          70126.0,
+          71409.0,
+          73060.0,
+          71106.0,
+          74371.0
+        ],
+        "p99_us": [
+          61854.0,
+          61622.0,
+          61125.0,
+          62215.0,
+          62439.0
+        ],
+        "total_s": [
+          0.937888,
+          0.922869,
+          0.938435,
+          0.924464,
+          0.856422
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 2163.8,
+        "max_us": 74500.0,
+        "p50_us": 20588.0,
+        "p999_us": 71409.0,
+        "p99_us": 61854.0,
+        "total_s": 0.924464
+      },
+      "min_s": 0.883495704,
+      "name": "Bifrost",
+      "other_cpu_s": 1.0353749999999875,
+      "times_s": [
+        0.965384085,
+        0.950472377,
+        0.964810856,
+        0.952268531,
+        0.883495704
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.02 0.71 0.34 1/276 22791",
+    "before": "0.92 0.68 0.32 1/301 21572"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003512"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:59:00Z",
+  "wrong_rounds": 0
+}

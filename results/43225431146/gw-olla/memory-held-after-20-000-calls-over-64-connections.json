@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-olla.json --out results/gw-olla",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Olla: balances load across endpoints and passes calls through, in OpenAI's format. No key check, request log off, rate limits lifted",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.695628,
+      "max_rss_mb": 26.65625,
+      "max_s": 0.710234925,
+      "median_s": 0.710234925,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.710234925,
+      "name": "Nave",
+      "other_cpu_s": 1.044372000000009,
+      "times_s": [
+        0.710234925
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "olla"
+      ],
+      "cpu_s": 0.565017,
+      "max_rss_mb": 29.18359375,
+      "max_s": 3.947918565,
+      "median_s": 3.947918565,
+      "metric_rounds": {
+        "memory_mb": [
+          19.5
+        ]
+      },
+      "metrics": {
+        "memory_mb": 19.5
+      },
+      "min_s": 3.947918565,
+      "name": "Olla",
+      "other_cpu_s": 6.8649829999999925,
+      "times_s": [
+        3.947918565
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.15 0.63 0.28 1/270 17326",
+    "before": "0.81 0.55 0.25 1/294 16621"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003475"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:19:10Z",
+  "wrong_rounds": 0
+}

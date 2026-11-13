@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-kgateway.json --out results/gw-kgateway",
+  "commit": "eb3d469",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "kgateway"
+      ],
+      "cpu_s": 10.075077,
+      "max_rss_mb": 78.046875,
+      "max_s": 16.001269188,
+      "median_s": 16.001269188,
+      "metric_rounds": {
+        "edges_passed": [
+          11.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 11.0,
+        "edges_total": 13.0
+      },
+      "min_s": 16.001269188,
+      "name": "kgateway",
+      "other_cpu_s": 4.2849229999999565,
+      "times_s": [
+        16.001269188
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.62 1.31 0.79 1/532 47880",
+    "before": "1.94 1.33 0.77 1/560 45102"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003584"
+  },
+  "name": "the API's edges, 13 checks, kgateway",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:59:55Z",
+  "wrong_rounds": 0
+}

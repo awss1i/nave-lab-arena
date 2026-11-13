@@ -1,0 +1,57 @@
+{
+  "command": "bin/race run races/pick-servers.json --out results/pick-servers",
+  "commit": "6dc8546",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "plano",
+        "mmlu",
+        "300"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Plano with Arch-Router 1.5B, on 300 prompts",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.02 2.02 1.67 2/252 4254",
+    "before": "1.99 2.05 1.51 2/297 3950"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003588"
+  },
+  "name": "routing MMLU's prompts, Plano with Arch-Router 1.5B, on 300 prompts",
+  "output_lines": 0,
+  "outputs_when_wrong": [
+    {
+      "name": "Plano with Arch-Router 1.5B, on 300 prompts",
+      "ok": false,
+      "output": "",
+      "stderr": "    return self._call_chain(*args)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/urllib/request.py\", line 492, in _call_chain\n    result = func(*args)\n             ^^^^^^^^^^^\n  File \"/home/runner/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/urllib/request.py\", line 639, in http_error_default\n    raise HTTPError(req.full_url, code, msg, hdrs, fp)\nurllib.error.HTTPError: HTTP Error 500: Internal Server Error\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-12T22:07:32Z",
+  "wrong_rounds": 0
+}

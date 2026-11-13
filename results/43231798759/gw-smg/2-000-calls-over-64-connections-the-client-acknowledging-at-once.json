@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-smg.json --out results/gw-smg",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in SMG: balances load across inference workers, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.089584,
+      "max_rss_mb": 26.33984375,
+      "max_s": 0.091790917,
+      "median_s": 0.085991043,
+      "metric_rounds": {
+        "calls_per_s": [
+          38956.4,
+          32373.6,
+          30506.6,
+          37681.0,
+          29817.0
+        ],
+        "max_us": [
+          9103.0,
+          10609.0,
+          8964.0,
+          8991.0,
+          10275.0
+        ],
+        "p50_us": [
+          1342.0,
+          1835.0,
+          1923.0,
+          1420.0,
+          1921.0
+        ],
+        "p999_us": [
+          4525.0,
+          6161.0,
+          5005.0,
+          5271.0,
+          5436.0
+        ],
+        "p99_us": [
+          3662.0,
+          3176.0,
+          3159.0,
+          3079.0,
+          3216.0
+        ],
+        "total_s": [
+          0.051504,
+          0.061971,
+          0.065753,
+          0.053252,
+          0.067328
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 32373.6,
+        "max_us": 9103.0,
+        "p50_us": 1835.0,
+        "p999_us": 5271.0,
+        "p99_us": 3176.0,
+        "total_s": 0.061971
+      },
+      "min_s": 0.075829326,
+      "name": "Nave",
+      "other_cpu_s": 0.0892280000000017,
+      "times_s": [
+        0.075829326,
+        0.085991043,
+        0.090750633,
+        0.077919136,
+        0.091790917
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "smg",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.07991,
+      "max_rss_mb": 26.625,
+      "max_s": 0.090644325,
+      "median_s": 0.085573524,
+      "metric_rounds": {
+        "calls_per_s": [
+          35012.5,
+          32654.4,
+          32294.3,
+          36025.9,
+          30470.0
+        ],
+        "max_us": [
+          11277.0,
+          10960.0,
+          23080.0,
+          10408.0,
+          26082.0
+        ],
+        "p50_us": [
+          1469.0,
+          1480.0,
+          1241.0,
+          1478.0,
+          1205.0
+        ],
+        "p999_us": [
+          11249.0,
+          10608.0,
+          22570.0,
+          10407.0,
+          25322.0
+        ],
+        "p99_us": [
+          4718.0,
+          7477.0,
+          10739.0,
+          2838.0,
+          14230.0
+        ],
+        "total_s": [
+          0.0573,
+          0.061447,
+          0.062181,
+          0.055688,
+          0.065837
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 32654.4,
+        "max_us": 11277.0,
+        "p50_us": 1469.0,
+        "p999_us": 11249.0,
+        "p99_us": 7477.0,
+        "total_s": 0.061447
+      },
+      "min_s": 0.081021443,
+      "name": "SMG",
+      "other_cpu_s": 0.15203599999999687,
+      "times_s": [
+        0.082532979,
+        0.085573524,
+        0.086898973,
+        0.081021443,
+        0.090644325
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.00 0.44 0.14 1/280 6943",
+    "before": "2.00 0.44 0.14 1/315 5751"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003504"
+  },
+  "name": "2,000 calls over 64 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:54:59Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-gomodel.json --out results/gw-gomodel",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in GoModel: routes by model, takes OpenAI's and Anthropic's formats, tracks usage. No key check, audit log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.266202,
+      "max_rss_mb": 25.8359375,
+      "max_s": 0.511909817,
+      "median_s": 0.502610071,
+      "metric_rounds": {
+        "calls_per_s": [
+          363.5,
+          363.5,
+          357.2
+        ],
+        "first_piece_p50_us": [
+          3725.0,
+          3563.0,
+          4187.0
+        ],
+        "first_piece_p99_us": [
+          10874.0,
+          11156.0,
+          12472.0
+        ],
+        "max_us": [
+          35476.0,
+          30969.0,
+          34055.0
+        ],
+        "p50_us": [
+          9243.0,
+          9707.0,
+          9601.0
+        ],
+        "p999_us": [
+          35476.0,
+          30969.0,
+          34055.0
+        ],
+        "p99_us": [
+          31491.0,
+          30827.0,
+          32983.0
+        ],
+        "total_s": [
+          0.440298,
+          0.440289,
+          0.448123
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 363.5,
+        "first_piece_p50_us": 3725.0,
+        "first_piece_p99_us": 11156.0,
+        "max_us": 34055.0,
+        "p50_us": 9601.0,
+        "p999_us": 34055.0,
+        "p99_us": 31491.0,
+        "total_s": 0.440298
+      },
+      "min_s": 0.501968464,
+      "name": "Nave",
+      "other_cpu_s": 0.6850580000000079,
+      "times_s": [
+        0.502610071,
+        0.501968464,
+        0.511909817
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "gomodel",
+        "4"
+      ],
+      "cpu_s": 0.21903,
+      "max_rss_mb": 26.39453125,
+      "max_s": 0.561451137,
+      "median_s": 0.520645694,
+      "metric_rounds": {
+        "calls_per_s": [
+          329.8,
+          351.4,
+          351.2
+        ],
+        "first_piece_p50_us": [
+          7117.0,
+          7039.0,
+          6841.0
+        ],
+        "first_piece_p99_us": [
+          16971.0,
+          14916.0,
+          15716.0
+        ],
+        "max_us": [
+          35115.0,
+          33258.0,
+          29952.0
+        ],
+        "p50_us": [
+          9610.0,
+          9545.0,
+          9206.0
+        ],
+        "p999_us": [
+          35115.0,
+          33258.0,
+          29952.0
+        ],
+        "p99_us": [
+          32391.0,
+          30952.0,
+          28829.0
+        ],
+        "total_s": [
+          0.485364,
+          0.455559,
+          0.455671
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 351.2,
+        "first_piece_p50_us": 7039.0,
+        "first_piece_p99_us": 15716.0,
+        "max_us": 33258.0,
+        "p50_us": 9545.0,
+        "p999_us": 33258.0,
+        "p99_us": 30952.0,
+        "total_s": 0.455671
+      },
+      "min_s": 0.517817015,
+      "name": "GoModel",
+      "other_cpu_s": 1.1619899999999903,
+      "times_s": [
+        0.561451137,
+        0.520645694,
+        0.517817015
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.45 0.88 0.45 1/251 17203",
+    "before": "0.45 0.88 0.45 1/274 16959"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003474"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:18:25Z",
+  "wrong_rounds": 0
+}

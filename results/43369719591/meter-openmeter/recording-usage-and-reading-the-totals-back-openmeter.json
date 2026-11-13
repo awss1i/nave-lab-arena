@@ -1,0 +1,54 @@
+{
+  "command": "bin/race run races/meter-openmeter.json --out results/meter-openmeter",
+  "commit": "24e55c8",
+  "conditions": "a GitHub runner's four CPUs. Made-up usage events, each a customer, a model and a number of tokens, spread over 100 customers, are recorded and the totals read back, and the clock runs until the tool's own total of the tokens is right. Nave meters inside the gateway: one thread admits and settles 20,000 calls against keys, users, teams and an organization in memory. The other tools are services on two CPUs that take events over HTTP: one client on one CPU sends them in batches of 100 and then asks the service's API for the totals. A service that needs more than a minute for 20,000 events is given 2,000, and its name says so. Each service runs as its own setup ships except where that setup can't count the events, and the version line of the record says what was changed. OpenMeter runs on all four of the runner's CPUs: on two it loses events",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "meter",
+        "openmeter"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "OpenMeter",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F6",
+  "load": {
+    "after": "0.34 0.41 0.44 1/301 37948",
+    "before": "5.60 1.85 0.66 6/1377 5633"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003621"
+  },
+  "name": "recording usage and reading the totals back, OpenMeter",
+  "output_lines": 1,
+  "outputs_when_wrong": [
+    {
+      "name": "OpenMeter",
+      "ok": false,
+      "output": "recorded 20000 events and read back 2942950 of 19990000 tokens\n",
+      "stderr": "metric us_per_event=45051.53\nmetric seconds=901.031\nmetric tokens_counted=2942950\nmetric seconds=901.031\nmetric tokens_counted=2942950\nthe total grew like this, seconds then tokens: 0.9:425250 1.7:999500 2.1:1424750 1.7:999500 2.1:1424750 2.8:1999000 3.2:2424250 5.2:2942950\nits log: balance-worker-1  | {\"ts\":\"2026-11-13T05:17:52Z\",\"level\":\"INFO\",\"caller\":\"openmeter/watermill/driver/kafka/logger.go:18\",\"msg\":\"client/seedbrokers close seed broker #-1 at kafka:9092 due to socket error: broken pipe\",\"deployment.environment.name\":\"unknown\",\"service.name\":\"openmeter-balance-worker\",\"service.version\""
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-13T05:21:54Z",
+  "wrong_rounds": 0
+}

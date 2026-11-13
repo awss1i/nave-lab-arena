@@ -1,0 +1,54 @@
+{
+  "command": "bin/race run races/log.json --out results/log",
+  "commit": "65c4823",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "log",
+        "langfuse"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Langfuse",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F9",
+  "load": {
+    "after": "0.87 0.87 0.83 1/294 47121",
+    "before": "3.99 1.98 0.80 2/1218 7693"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003595"
+  },
+  "name": "recording calls and reading them back, Langfuse",
+  "output_lines": 1,
+  "outputs_when_wrong": [
+    {
+      "name": "Langfuse",
+      "ok": false,
+      "output": "recorded 20000 calls and read back 19824\n",
+      "stderr": "metric us_per_call=45232.1\nmetric calls_held=19824\nmetric seconds=904.643\nmetric us_per_call=45232.1\nmetric calls_held=19824\nmetric seconds=904.643\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-12T23:24:35Z",
+  "wrong_rounds": 0
+}

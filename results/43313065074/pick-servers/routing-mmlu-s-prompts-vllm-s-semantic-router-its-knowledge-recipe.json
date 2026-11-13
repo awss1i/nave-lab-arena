@@ -1,0 +1,57 @@
+{
+  "command": "bin/race run races/pick-servers.json --out results/pick-servers",
+  "commit": "6dc8546",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "vllm-sr",
+        "mmlu",
+        "2000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "vLLM's semantic-router, its Knowledge recipe",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "3.75 3.42 2.57 1/266 7521",
+    "before": "3.75 3.42 2.57 1/266 7289"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003588"
+  },
+  "name": "routing MMLU's prompts, vLLM's semantic-router, its Knowledge recipe",
+  "output_lines": 0,
+  "outputs_when_wrong": [
+    {
+      "name": "vLLM's semantic-router, its Knowledge recipe",
+      "ok": false,
+      "output": "",
+      "stderr": "    result = func(*args)\n             ^^^^^^^^^^^\n  File \"/home/runner/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/urllib/request.py\", line 1386, in http_open\n    return self.do_open(http.client.HTTPConnection, req)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/urllib/request.py\", line 1360, in do_open\n    raise URLError(err)\nurllib.error.URLError: <urlopen error [Errno 111] Connection refused>\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-12T22:17:44Z",
+  "wrong_rounds": 0
+}

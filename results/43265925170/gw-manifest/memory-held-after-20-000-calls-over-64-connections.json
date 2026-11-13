@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-manifest.json --out results/gw-manifest",
+  "commit": "0430cfc",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Manifest: routes by model or by its own tiers, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, logs every call and its cost to PostgreSQL. Its limits on calls a minute and calls at once are raised out of the way",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.5316609999999999,
+      "max_rss_mb": 26.79296875,
+      "max_s": 0.534389851,
+      "median_s": 0.534389851,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.534389851,
+      "name": "Nave",
+      "other_cpu_s": 0.8483389999999955,
+      "times_s": [
+        0.534389851
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "manifest"
+      ],
+      "cpu_s": 0.738441,
+      "max_rss_mb": 28.7578125,
+      "max_s": 64.004394293,
+      "median_s": 64.004394293,
+      "metric_rounds": {
+        "memory_mb": [
+          1006.4
+        ]
+      },
+      "metrics": {
+        "memory_mb": 1006.4
+      },
+      "min_s": 64.004394293,
+      "name": "Manifest",
+      "other_cpu_s": 112.141559,
+      "times_s": [
+        64.004394293
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.48 3.72 1.94 2/272 32484",
+    "before": "3.00 2.32 1.28 5/301 31718"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003563"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:18:11Z",
+  "wrong_rounds": 0
+}

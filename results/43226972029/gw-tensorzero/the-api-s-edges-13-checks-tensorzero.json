@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-tensorzero.json --out results/gw-tensorzero",
+  "commit": "9efe591",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "tensorzero"
+      ],
+      "cpu_s": 0.09371,
+      "max_rss_mb": 24.84765625,
+      "max_s": 0.109099782,
+      "median_s": 0.109099782,
+      "metric_rounds": {
+        "edges_passed": [
+          5.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 5.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.109099782,
+      "name": "TensorZero",
+      "other_cpu_s": 0.03628999999999545,
+      "times_s": [
+        0.109099782
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "2.68 1.18 0.46 1/263 17655",
+    "before": "2.68 1.18 0.46 1/280 17563"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003481"
+  },
+  "name": "the API's edges, 13 checks, TensorZero",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:30:13Z",
+  "wrong_rounds": 0
+}

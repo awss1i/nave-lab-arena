@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-axonhub.json --out results/gw-axonhub",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in AxonHub: routes by model through channels, retries on another channel, takes OpenAI's and Anthropic's formats, checks the caller's key, records every request and its usage in PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.136399,
+      "max_rss_mb": 26.82421875,
+      "max_s": 0.141507615,
+      "median_s": 0.135513658,
+      "metric_rounds": {
+        "calls_per_s": [
+          18283.6,
+          18844.7,
+          20094.1,
+          19734.4,
+          25697.4
+        ],
+        "max_us": [
+          12168.0,
+          14155.0,
+          14456.0,
+          13400.0,
+          10557.0
+        ],
+        "p50_us": [
+          3028.0,
+          2902.0,
+          2807.0,
+          2816.0,
+          1734.0
+        ],
+        "p999_us": [
+          11476.0,
+          14068.0,
+          13718.0,
+          12387.0,
+          10539.0
+        ],
+        "p99_us": [
+          6185.0,
+          8719.0,
+          10124.0,
+          8442.0,
+          6643.0
+        ],
+        "total_s": [
+          0.109665,
+          0.106352,
+          0.09973,
+          0.101595,
+          0.078018
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 19734.4,
+        "max_us": 13400.0,
+        "p50_us": 2816.0,
+        "p999_us": 12387.0,
+        "p99_us": 8442.0,
+        "total_s": 0.101595
+      },
+      "min_s": 0.112298351,
+      "name": "Nave",
+      "other_cpu_s": 0.13360099999998182,
+      "times_s": [
+        0.141507615,
+        0.140562641,
+        0.133883959,
+        0.135513658,
+        0.112298351
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "axonhub",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.182213,
+      "max_rss_mb": 26.6015625,
+      "max_s": 2.87574972,
+      "median_s": 2.727187559,
+      "metric_rounds": {
+        "calls_per_s": [
+          704.7,
+          743.5,
+          736.2,
+          751.8,
+          748.9
+        ],
+        "max_us": [
+          219052.0,
+          202744.0,
+          183934.0,
+          187975.0,
+          188041.0
+        ],
+        "p50_us": [
+          86067.0,
+          81981.0,
+          81148.0,
+          80008.0,
+          81065.0
+        ],
+        "p999_us": [
+          192621.0,
+          184438.0,
+          175824.0,
+          175124.0,
+          177508.0
+        ],
+        "p99_us": [
+          158517.0,
+          145577.0,
+          155034.0,
+          148455.0,
+          148704.0
+        ],
+        "total_s": [
+          2.838288,
+          2.69007,
+          2.716766,
+          2.660555,
+          2.670925
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 743.5,
+        "max_us": 188041.0,
+        "p50_us": 81148.0,
+        "p999_us": 177508.0,
+        "p99_us": 148704.0,
+        "total_s": 2.69007
+      },
+      "min_s": 2.6981244970000002,
+      "name": "AxonHub",
+      "other_cpu_s": 5.287407999999971,
+      "times_s": [
+        2.87574972,
+        2.727187559,
+        2.755598619,
+        2.6981244970000002,
+        2.7084233749999997
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "4.88 2.71 1.24 1/279 44496",
+    "before": "4.50 2.51 1.14 2/305 40136"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003555"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:08:13Z",
+  "wrong_rounds": 0
+}

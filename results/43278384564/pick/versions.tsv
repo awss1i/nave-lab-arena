@@ -1,0 +1,12 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+routellm	0.2.0, its BERT router, checkpoint routellm/bert_gpt4_augmented
+routellm-data	RouteLLM's repo at 0b64fda
+nadirclaw	0.25.3
+uncommon-route	0.7.21
+rorf	0.1.3
+semantic-router	1.1.2
+@blockrun/clawrouter	0.12.312
+llmrouter-lib	0.4.0
+planoai	0.4.39
+Plano's router model	katanemo/Arch-Router-1.5B.gguf, Q4_K_M, served by llama.cpp's server from ghcr.io/mostlygeek/llama-swap:cpu
+vllm-sr	0.4.0

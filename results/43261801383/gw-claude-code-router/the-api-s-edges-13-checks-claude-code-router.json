@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-claude-code-router.json --out results/gw-claude-code-router",
+  "commit": "3acd007",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "claude-code-router"
+      ],
+      "cpu_s": 0.097069,
+      "max_rss_mb": 26.83984375,
+      "max_s": 0.163331522,
+      "median_s": 0.163331522,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.163331522,
+      "name": "Claude Code Router",
+      "other_cpu_s": 0.11293099999997953,
+      "times_s": [
+        0.163331522
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.36 0.99 0.59 1/266 30044",
+    "before": "1.36 0.99 0.59 6/289 29970"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003549"
+  },
+  "name": "the API's edges, 13 checks, Claude Code Router",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T16:53:48Z",
+  "wrong_rounds": 0
+}

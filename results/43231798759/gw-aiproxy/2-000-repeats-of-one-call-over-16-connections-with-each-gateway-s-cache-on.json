@@ -1,0 +1,99 @@
+{
+  "command": "bin/race run run/gw-aiproxy.json --out results/gw-aiproxy",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, the same message every time, each gateway's own in-memory cache switched on, and the number of calls that still reached the model counted. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in redis: not stated",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "redis",
+      "got": null,
+      "lengths": [
+        0,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 2000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "cached",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "16",
+        "--same"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "cached",
+        "redis",
+        "--calls",
+        "2000",
+        "--conns",
+        "16",
+        "--same"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "redis",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F5",
+  "load": {
+    "after": "0.43 0.15 0.05 2/263 6575",
+    "before": "0.43 0.15 0.05 1/266 6468"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003500"
+  },
+  "name": "2,000 repeats of one call over 16 connections, with each gateway's cache on",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 2000\nbad 0\nchecksum 4d234188a65c1120\n",
+      "stderr": "metric calls_per_s=53699.7\nmetric p50_us=255\nmetric p99_us=603\nmetric p999_us=1450\nmetric max_us=1496\nmetric total_s=0.037386\nmetric calls_that_reached_the_model=8\n"
+    },
+    {
+      "name": "redis",
+      "ok": true,
+      "output": "",
+      "stderr": "./lib.sh: line 95: gw_default_url: command not found\n\nthread 'main' (6534) panicked at src/bin/load.rs:55:44:\nan http:// URL\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n./gateways.sh: line 25:  6534 Aborted                    (core dumped) LLM_KEY=$(gw \"$name\" key) taskset -c \"$LOAD_CPUS\" bin/load \"$(url_of \"$name\")$path\" \"${extra[@]}\" \"$@\"\nmetric calls_that_reached_the_model=0\n"
+    }
+  ],
+  "rounds": 5,
+  "time": "2026-11-12T13:55:20Z",
+  "wrong_rounds": 0
+}

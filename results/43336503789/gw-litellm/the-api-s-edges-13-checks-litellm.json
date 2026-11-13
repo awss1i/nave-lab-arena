@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-litellm.json --out results/gw-litellm",
+  "commit": "3330282",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "litellm"
+      ],
+      "cpu_s": 1.265931,
+      "max_rss_mb": 26.37890625,
+      "max_s": 17.255990455,
+      "median_s": 17.255990455,
+      "metric_rounds": {
+        "edges_passed": [
+          12.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 12.0,
+        "edges_total": 13.0
+      },
+      "min_s": 17.255990455,
+      "name": "LiteLLM",
+      "other_cpu_s": 23.944069000000038,
+      "times_s": [
+        17.255990455
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "2.15 3.01 2.31 1/259 56111",
+    "before": "2.84 3.22 2.35 1/277 55029"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003612"
+  },
+  "name": "the API's edges, 13 checks, LiteLLM",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T00:50:38Z",
+  "wrong_rounds": 0
+}

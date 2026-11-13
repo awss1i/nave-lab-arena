@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-claude-code-proxy-fuergaosi233.json --out results/gw-claude-code-proxy-fuergaosi233",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Anthropic's format in and OpenAI's format to the model. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in claude-code-proxy (fuergaosi233): takes Anthropic's format and sends OpenAI's upstream. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.76901,
+      "max_rss_mb": 26.20703125,
+      "max_s": 0.919898729,
+      "median_s": 0.919898729,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.919898729,
+      "name": "Nave",
+      "other_cpu_s": 2.2209900000000093,
+      "times_s": [
+        0.919898729
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "claude-code-proxy-fuergaosi233"
+      ],
+      "cpu_s": 0.9355249999999999,
+      "max_rss_mb": 26.17578125,
+      "max_s": 35.790485857,
+      "median_s": 35.790485857,
+      "metric_rounds": {
+        "memory_mb": [
+          84.3
+        ]
+      },
+      "metrics": {
+        "memory_mb": 84.3
+      },
+      "min_s": 35.790485857,
+      "name": "claude-code-proxy (fuergaosi233)",
+      "other_cpu_s": 37.71447499999998,
+      "times_s": [
+        35.790485857
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.19 0.84 0.44 1/260 19680",
+    "before": "0.92 0.74 0.38 1/270 19138"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003519"
+  },
+  "name": "memory held after 20,000 calls over 64 connections, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:05:58Z",
+  "wrong_rounds": 0
+}

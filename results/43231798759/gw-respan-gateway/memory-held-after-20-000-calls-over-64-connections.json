@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-respan-gateway.json --out results/gw-respan-gateway",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Respan Gateway: routes by model, falls back, takes OpenAI's and Anthropic's formats. No key check on loopback, request log off, tracing off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.8207009999999999,
+      "max_rss_mb": 26.5,
+      "max_s": 0.851413864,
+      "median_s": 0.851413864,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.851413864,
+      "name": "Nave",
+      "other_cpu_s": 1.429299,
+      "times_s": [
+        0.851413864
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "respan-gateway"
+      ],
+      "cpu_s": 0.689166,
+      "max_rss_mb": 26.484375,
+      "max_s": 2.9855284429999998,
+      "median_s": 2.9855284429999998,
+      "metric_rounds": {
+        "memory_mb": [
+          21.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 21.9
+      },
+      "min_s": 2.9855284429999998,
+      "name": "Respan Gateway",
+      "other_cpu_s": 6.400834000000003,
+      "times_s": [
+        2.9855284429999998
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.34 2.71 1.19 1/284 22317",
+    "before": "5.45 2.69 1.17 1/294 21751"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003516"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:59:59Z",
+  "wrong_rounds": 0
+}

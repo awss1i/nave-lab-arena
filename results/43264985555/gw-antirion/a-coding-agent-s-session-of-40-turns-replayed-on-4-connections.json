@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-antirion.json --out results/gw-antirion",
+  "commit": "32ba8d8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Antirion: routes by model through deployments, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, prices every call, keeps metrics. Request log off, as in its own benchmark's minimal profile",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.36157,
+      "max_rss_mb": 26.5703125,
+      "max_s": 0.694144081,
+      "median_s": 0.671773782,
+      "metric_rounds": {
+        "calls_per_s": [
+          258.2,
+          267.2,
+          282.7
+        ],
+        "first_piece_p50_us": [
+          3911.0,
+          4498.0,
+          3549.0
+        ],
+        "first_piece_p99_us": [
+          12168.0,
+          12397.0,
+          11466.0
+        ],
+        "max_us": [
+          57289.0,
+          40901.0,
+          38615.0
+        ],
+        "p50_us": [
+          12121.0,
+          12315.0,
+          10811.0
+        ],
+        "p999_us": [
+          57289.0,
+          40901.0,
+          38615.0
+        ],
+        "p99_us": [
+          49580.0,
+          39353.0,
+          38453.0
+        ],
+        "total_s": [
+          0.619833,
+          0.599007,
+          0.566122
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 267.2,
+        "first_piece_p50_us": 3911.0,
+        "first_piece_p99_us": 12168.0,
+        "max_us": 40901.0,
+        "p50_us": 12121.0,
+        "p999_us": 40901.0,
+        "p99_us": 39353.0,
+        "total_s": 0.599007
+      },
+      "min_s": 0.639769263,
+      "name": "Nave",
+      "other_cpu_s": 0.9681819999999983,
+      "times_s": [
+        0.694144081,
+        0.671773782,
+        0.639769263
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "antirion",
+        "4"
+      ],
+      "cpu_s": 0.348298,
+      "max_rss_mb": 26.52734375,
+      "max_s": 0.642706781,
+      "median_s": 0.630591466,
+      "metric_rounds": {
+        "calls_per_s": [
+          280.8,
+          287.6,
+          290.1
+        ],
+        "first_piece_p50_us": [
+          4705.0,
+          5047.0,
+          5155.0
+        ],
+        "first_piece_p99_us": [
+          11448.0,
+          11014.0,
+          10737.0
+        ],
+        "max_us": [
+          43501.0,
+          45994.0,
+          35781.0
+        ],
+        "p50_us": [
+          11347.0,
+          10492.0,
+          11091.0
+        ],
+        "p999_us": [
+          43501.0,
+          45994.0,
+          35781.0
+        ],
+        "p99_us": [
+          36317.0,
+          42599.0,
+          34499.0
+        ],
+        "total_s": [
+          0.56991,
+          0.556477,
+          0.551759
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 287.6,
+        "first_piece_p50_us": 5047.0,
+        "first_piece_p99_us": 11014.0,
+        "max_us": 43501.0,
+        "p50_us": 11091.0,
+        "p999_us": 43501.0,
+        "p99_us": 36317.0,
+        "total_s": 0.556477
+      },
+      "min_s": 0.626026558,
+      "name": "Antirion",
+      "other_cpu_s": 1.1328379999999898,
+      "times_s": [
+        0.642706781,
+        0.630591466,
+        0.626026558
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.57 0.69 0.35 1/268 22554",
+    "before": "0.54 0.68 0.34 2/295 22245"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003553"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:05:39Z",
+  "wrong_rounds": 0
+}

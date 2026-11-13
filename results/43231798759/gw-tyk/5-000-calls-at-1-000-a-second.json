@@ -1,0 +1,121 @@
+{
+  "command": "bin/race run run/gw-tyk.json --out results/gw-tyk",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 64 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in redis: not stated",
+  "correct": false,
+  "differences": [
+    {
+      "against": "No gateway",
+      "entrant": "redis",
+      "got": null,
+      "lengths": [
+        0,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 5000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "No gateway",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "redis",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "redis",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.55 0.20 0.07 2/280 4446",
+    "before": "0.66 0.21 0.07 1/282 4111"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003513"
+  },
+  "name": "5,000 calls at 1,000 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "No gateway",
+      "ok": true,
+      "output": "ok 5000\nbad 0\nchecksum a09558d78ccc8cf4\n",
+      "stderr": "metric calls_per_s=999.9\nmetric p50_us=128\nmetric p99_us=161\nmetric p999_us=3088\nmetric max_us=8920\nmetric rate=1000\nmetric sent_late=0\nmetric total_s=5.000550\n"
+    },
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 5000\nbad 0\nchecksum a09558d78ccc8cf4\n",
+      "stderr": "metric calls_per_s=1000.0\nmetric p50_us=179\nmetric p99_us=215\nmetric p999_us=3727\nmetric max_us=7809\nmetric rate=1000\nmetric sent_late=0\nmetric total_s=5.000417\nmetric cpu_us_per_call=48.0\n"
+    },
+    {
+      "name": "redis",
+      "ok": false,
+      "output": "",
+      "stderr": "./lib.sh: line 95: gw_default_url: command not found\n\nthread 'main' (4401) panicked at src/bin/load.rs:55:44:\nan http:// URL\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n./gateways.sh: line 25:  4401 Aborted                    (core dumped) LLM_KEY=$(gw \"$name\" key) taskset -c \"$LOAD_CPUS\" bin/load \"$(url_of \"$name\")$path\" \"${extra[@]}\" \"$@\"\nmetric cpu_us_per_call=0.0\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T13:56:15Z",
+  "wrong_rounds": 0
+}

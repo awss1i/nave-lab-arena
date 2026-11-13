@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-claude-code-proxy.json --out results/gw-claude-code-proxy",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Anthropic's format in and OpenAI's format to the model. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in claude-code-proxy (1rgs): takes Anthropic's format and sends OpenAI's upstream. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.084708,
+      "max_rss_mb": 26.3359375,
+      "max_s": 0.095121094,
+      "median_s": 0.086803487,
+      "metric_rounds": {
+        "calls_per_s": [
+          34287.2,
+          34125.5,
+          28973.9,
+          32656.2,
+          33353.8
+        ],
+        "max_us": [
+          11147.0,
+          12304.0,
+          10082.0,
+          13553.0,
+          11393.0
+        ],
+        "p50_us": [
+          1261.0,
+          1423.0,
+          1866.0,
+          1559.0,
+          1400.0
+        ],
+        "p999_us": [
+          5544.0,
+          6747.0,
+          5269.0,
+          13538.0,
+          5050.0
+        ],
+        "p99_us": [
+          4568.0,
+          3771.0,
+          4069.0,
+          3917.0,
+          4350.0
+        ],
+        "total_s": [
+          0.058497,
+          0.058801,
+          0.069181,
+          0.061454,
+          0.060133
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 33353.8,
+        "max_us": 11393.0,
+        "p50_us": 1423.0,
+        "p999_us": 5544.0,
+        "p99_us": 4069.0,
+        "total_s": 0.060133
+      },
+      "min_s": 0.084142672,
+      "name": "Nave",
+      "other_cpu_s": 0.14535800000000398,
+      "times_s": [
+        0.084142672,
+        0.085274656,
+        0.095121094,
+        0.086803487,
+        0.087099635
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "claude-code-proxy",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.123142,
+      "max_rss_mb": 26.3125,
+      "max_s": 6.757403433,
+      "median_s": 6.68229221,
+      "metric_rounds": {
+        "calls_per_s": [
+          303.7,
+          298.0,
+          308.0,
+          297.1,
+          300.5
+        ],
+        "max_us": [
+          905424.0,
+          972920.0,
+          800904.0,
+          927275.0,
+          909227.0
+        ],
+        "p50_us": [
+          194721.0,
+          197228.0,
+          195956.0,
+          198477.0,
+          196428.0
+        ],
+        "p999_us": [
+          887967.0,
+          951834.0,
+          780944.0,
+          906976.0,
+          891700.0
+        ],
+        "p99_us": [
+          553171.0,
+          463856.0,
+          442949.0,
+          564908.0,
+          441294.0
+        ],
+        "total_s": [
+          6.58504,
+          6.712504,
+          6.494058,
+          6.730952,
+          6.655222
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 300.5,
+        "max_us": 909227.0,
+        "p50_us": 196428.0,
+        "p999_us": 891700.0,
+        "p99_us": 463856.0,
+        "total_s": 6.655222
+      },
+      "min_s": 6.520481559,
+      "name": "claude-code-proxy (1rgs)",
+      "other_cpu_s": 7.095677999999999,
+      "times_s": [
+        6.611134901,
+        6.738430398,
+        6.520481559,
+        6.757403433,
+        6.68229221
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "4.34 1.52 0.55 2/276 5053",
+    "before": "1.65 0.53 0.19 1/341 3906"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003503"
+  },
+  "name": "2,000 calls over 64 connections, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:56:20Z",
+  "wrong_rounds": 0
+}

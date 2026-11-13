@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-otari.json --out results/gw-otari",
+  "commit": "2b85868",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Otari: routes by provider and model, takes OpenAI's and Anthropic's formats, checks the caller's key, prices each call, records usage in PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.46424,
+      "max_rss_mb": 26.609375,
+      "max_s": 0.842371782,
+      "median_s": 0.808630085,
+      "metric_rounds": {
+        "calls_per_s": [
+          221.9,
+          222.8,
+          211.8
+        ],
+        "first_piece_p50_us": [
+          4839.0,
+          5765.0,
+          4571.0
+        ],
+        "first_piece_p99_us": [
+          12237.0,
+          13531.0,
+          11092.0
+        ],
+        "max_us": [
+          47718.0,
+          52545.0,
+          61482.0
+        ],
+        "p50_us": [
+          15567.0,
+          15266.0,
+          15582.0
+        ],
+        "p999_us": [
+          47718.0,
+          52545.0,
+          61482.0
+        ],
+        "p99_us": [
+          43817.0,
+          47459.0,
+          54486.0
+        ],
+        "total_s": [
+          0.721088,
+          0.71829,
+          0.755585
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 221.9,
+        "first_piece_p50_us": 4839.0,
+        "first_piece_p99_us": 12237.0,
+        "max_us": 52545.0,
+        "p50_us": 15567.0,
+        "p999_us": 52545.0,
+        "p99_us": 47459.0,
+        "total_s": 0.721088
+      },
+      "min_s": 0.806989642,
+      "name": "Nave",
+      "other_cpu_s": 1.1497239999999,
+      "times_s": [
+        0.806989642,
+        0.808630085,
+        0.842371782
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "otari",
+        "4"
+      ],
+      "cpu_s": 0.49300200000000005,
+      "max_rss_mb": 26.4140625,
+      "max_s": 14.430357184,
+      "median_s": 14.277673122,
+      "metric_rounds": {
+        "calls_per_s": [
+          11.3,
+          11.2,
+          11.3
+        ],
+        "first_piece_p50_us": [
+          65335.0,
+          61805.0,
+          74417.0
+        ],
+        "first_piece_p99_us": [
+          342186.0,
+          365917.0,
+          199046.0
+        ],
+        "max_us": [
+          1289006.0,
+          1218499.0,
+          979757.0
+        ],
+        "p50_us": [
+          296368.0,
+          276818.0,
+          299339.0
+        ],
+        "p999_us": [
+          1289006.0,
+          1218499.0,
+          979757.0
+        ],
+        "p99_us": [
+          941470.0,
+          1171074.0,
+          940261.0
+        ],
+        "total_s": [
+          14.189923,
+          14.342007,
+          14.155232
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 11.3,
+        "first_piece_p50_us": 65335.0,
+        "first_piece_p99_us": 342186.0,
+        "max_us": 1218499.0,
+        "p50_us": 296368.0,
+        "p999_us": 1218499.0,
+        "p99_us": 941470.0,
+        "total_s": 14.189923
+      },
+      "min_s": 14.244334662,
+      "name": "Otari",
+      "other_cpu_s": 15.6169979999999,
+      "times_s": [
+        14.277673122,
+        14.430357184,
+        14.244334662
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.47 2.09 1.79 1/281 33307",
+    "before": "2.12 2.31 1.84 4/304 32341"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003571"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T18:02:30Z",
+  "wrong_rounds": 0
+}

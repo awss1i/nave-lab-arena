@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-one-api.json --out results/gw-one-api",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in One API: routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.080178,
+      "max_rss_mb": 26.26953125,
+      "max_s": 0.080232547,
+      "median_s": 0.077033079,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          29.0,
+          30.0,
+          29.0,
+          28.0,
+          28.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 29.0
+      },
+      "min_s": 0.074418123,
+      "name": "Nave",
+      "other_cpu_s": 0.009822000000003411,
+      "times_s": [
+        0.077099457,
+        0.080232547,
+        0.077033079,
+        0.076391344,
+        0.074418123
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "one-api"
+      ],
+      "cpu_s": 0.39662600000000003,
+      "max_rss_mb": 28.3671875,
+      "max_s": 1.13211523,
+      "median_s": 0.796270795,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          1002.0,
+          917.0,
+          545.0,
+          581.0,
+          577.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 581.0
+      },
+      "min_s": 0.643524904,
+      "name": "One API",
+      "other_cpu_s": 0.6784600000000045,
+      "times_s": [
+        1.13211523,
+        1.017586497,
+        0.643524904,
+        0.796270795,
+        0.766702755
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.60 2.12 1.01 1/325 21255",
+    "before": "2.74 2.14 1.01 1/327 19148"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003559"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:06:49Z",
+  "wrong_rounds": 0
+}

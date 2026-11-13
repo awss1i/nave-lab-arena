@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-claude-code-proxy.json --out results/gw-claude-code-proxy",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 64 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in claude-code-proxy (1rgs): takes Anthropic's format and sends OpenAI's upstream. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.255873,
+      "max_rss_mb": 26.30078125,
+      "max_s": 5.025769108,
+      "median_s": 5.025216671,
+      "metric_rounds": {
+        "calls_per_s": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "max_us": [
+          6334.0,
+          6456.0,
+          6455.0
+        ],
+        "p50_us": [
+          121.0,
+          109.0,
+          110.0
+        ],
+        "p999_us": [
+          2313.0,
+          1567.0,
+          2460.0
+        ],
+        "p99_us": [
+          408.0,
+          134.0,
+          150.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.000372,
+          5.000254,
+          5.000345
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1000.0,
+        "max_us": 6455.0,
+        "p50_us": 110.0,
+        "p999_us": 2313.0,
+        "p99_us": 150.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.000345
+      },
+      "min_s": 5.025035771,
+      "name": "No gateway",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        5.025769108,
+        5.025035771,
+        5.025216671
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.293519,
+      "max_rss_mb": 26.41015625,
+      "max_s": 5.077758594,
+      "median_s": 5.07764734,
+      "metric_rounds": {
+        "calls_per_s": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "cpu_us_per_call": [
+          48.0,
+          64.0,
+          66.0
+        ],
+        "max_us": [
+          4808.0,
+          5212.0,
+          5731.0
+        ],
+        "p50_us": [
+          159.0,
+          177.0,
+          179.0
+        ],
+        "p999_us": [
+          2283.0,
+          3005.0,
+          2618.0
+        ],
+        "p99_us": [
+          249.0,
+          232.0,
+          716.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          5.000352,
+          5.000352,
+          5.000411
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1000.0,
+        "cpu_us_per_call": 64.0,
+        "max_us": 5212.0,
+        "p50_us": 177.0,
+        "p999_us": 2618.0,
+        "p99_us": 249.0,
+        "rate": 1000.0,
+        "sent_late": 0.0,
+        "total_s": 5.000352
+      },
+      "min_s": 5.076109337,
+      "name": "Nave",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        5.076109337,
+        5.077758594,
+        5.07764734
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "claude-code-proxy",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": 0.29217000000000004,
+      "max_rss_mb": 28.2421875,
+      "max_s": 17.147164376,
+      "median_s": 16.895844831,
+      "metric_rounds": {
+        "calls_per_s": [
+          297.8,
+          297.0,
+          292.7
+        ],
+        "cpu_us_per_call": [
+          3411.8,
+          3429.3,
+          3482.6
+        ],
+        "max_us": [
+          11938144.0,
+          11962044.0,
+          12221361.0
+        ],
+        "p50_us": [
+          5935448.0,
+          5940560.0,
+          6165402.0
+        ],
+        "p999_us": [
+          11894820.0,
+          11936867.0,
+          12188613.0
+        ],
+        "p99_us": [
+          11786702.0,
+          11836448.0,
+          12096522.0
+        ],
+        "rate": [
+          1000.0,
+          1000.0,
+          1000.0
+        ],
+        "sent_late": [
+          4914.0,
+          4915.0,
+          4914.0
+        ],
+        "total_s": [
+          16.788274,
+          16.833061,
+          17.084285
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 297.0,
+        "cpu_us_per_call": 3429.3,
+        "max_us": 11962044.0,
+        "p50_us": 5940560.0,
+        "p999_us": 11936867.0,
+        "p99_us": 11836448.0,
+        "rate": 1000.0,
+        "sent_late": 4914.0,
+        "total_s": 16.833061
+      },
+      "min_s": 16.851417665,
+      "name": "claude-code-proxy (1rgs)",
+      "other_cpu_s": 18.143058999999997,
+      "times_s": [
+        16.851417665,
+        16.895844831,
+        17.147164376
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.79 1.04 0.68 2/266 13995",
+    "before": "0.58 1.13 0.66 1/320 12412"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003503"
+  },
+  "name": "5,000 calls at 1,000 a second, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T14:02:40Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-bricksllm.json --out results/gw-bricksllm",
+  "commit": "88198c8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in BricksLLM: passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.068442,
+      "max_rss_mb": 26.63671875,
+      "max_s": 0.067370629,
+      "median_s": 0.064808836,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          25.0,
+          24.0,
+          24.0,
+          24.0,
+          24.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 24.0
+      },
+      "min_s": 0.062608967,
+      "name": "Nave",
+      "other_cpu_s": 0.004501999999708961,
+      "times_s": [
+        0.067370629,
+        0.064808836,
+        0.062608967,
+        0.065484553,
+        0.063713928
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "bricksllm"
+      ],
+      "cpu_s": 0.45623,
+      "max_rss_mb": 28.8046875,
+      "max_s": 0.827494692,
+      "median_s": 0.800457898,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          749.0,
+          729.0,
+          702.0,
+          752.0,
+          705.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 729.0
+      },
+      "min_s": 0.773123065,
+      "name": "BricksLLM",
+      "other_cpu_s": 0.3737699999999272,
+      "times_s": [
+        0.819368883,
+        0.800457898,
+        0.773123065,
+        0.827494692,
+        0.778152015
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.93 1.84 1.72 1/295 30434",
+    "before": "2.01 1.85 1.72 1/296 27708"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003582"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T20:31:42Z",
+  "wrong_rounds": 0
+}

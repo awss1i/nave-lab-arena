@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-axonhub.json --out results/gw-axonhub",
+  "commit": "fcc4a00",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.097861,
+      "max_rss_mb": 26.98828125,
+      "max_s": 0.104538565,
+      "median_s": 0.104538565,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.104538565,
+      "name": "Nave",
+      "other_cpu_s": 0.022139000000004544,
+      "times_s": [
+        0.104538565
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "7.00 3.85 1.76 1/283 58195",
+    "before": "7.00 3.85 1.76 1/288 58125"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003555"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:09:34Z",
+  "wrong_rounds": 0
+}

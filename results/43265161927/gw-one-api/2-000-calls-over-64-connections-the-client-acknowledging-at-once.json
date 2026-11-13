@@ -1,0 +1,97 @@
+{
+  "command": "bin/race run run/gw-one-api.json --out results/gw-one-api",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in One API: routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "One API",
+      "got": "ok 1351",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 2000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "one-api",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "One API",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "6.88 2.36 0.84 2/328 9817",
+    "before": "7.39 2.38 0.84 1/347 8732"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003559"
+  },
+  "name": "2,000 calls over 64 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 2000\nbad 0\nchecksum 8bcee7824fbc6518\n",
+      "stderr": "metric calls_per_s=26509.4\nmetric p50_us=1771\nmetric p99_us=8872\nmetric p999_us=12410\nmetric max_us=14652\nmetric total_s=0.075664\n"
+    },
+    {
+      "name": "One API",
+      "ok": false,
+      "output": "ok 1351\nbad 649\nchecksum 1e563afeea653f43\n",
+      "stderr": "metric calls_per_s=1381.4\nmetric p50_us=39811\nmetric p99_us=134798\nmetric p999_us=237722\nmetric max_us=246580\nmetric total_s=1.447996\n"
+    }
+  ],
+  "rounds": 5,
+  "time": "2026-11-12T17:03:47Z",
+  "wrong_rounds": 0
+}

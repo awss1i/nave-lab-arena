@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+nave	prototype P006, 1a772dff36bf
+claude-relay-service	1.1.316 created 2026-11-05T09:53:41.36099549Z (image docker.io/weishaw/claude-relay-service:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+claude-relay-service, switched on	routes to an upstream account by priority, moves later calls to another account when one fails, takes Anthropic's format, checks the caller's key, counts usage and cost in Redis. Its subscription sign-ins aren't used
+claude-relay-service, kinds of race it wasn't in	fallback cache

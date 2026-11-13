@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-portkey.json --out results/gw-portkey",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Portkey: routes by headers on each call, falls back, takes OpenAI's format. No key check, no request log, no spend",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.547092,
+      "max_rss_mb": 26.43359375,
+      "max_s": 0.601806403,
+      "median_s": 0.601806403,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.601806403,
+      "name": "Nave",
+      "other_cpu_s": 1.0229080000000215,
+      "times_s": [
+        0.601806403
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "portkey"
+      ],
+      "cpu_s": 0.599281,
+      "max_rss_mb": 28.25,
+      "max_s": 16.759400013,
+      "median_s": 16.759400013,
+      "metric_rounds": {
+        "memory_mb": [
+          162.2
+        ]
+      },
+      "metrics": {
+        "memory_mb": 162.2
+      },
+      "min_s": 16.759400013,
+      "name": "Portkey",
+      "other_cpu_s": 18.830718999999977,
+      "times_s": [
+        16.759400013
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.50 1.58 0.88 1/261 25718",
+    "before": "1.41 1.58 0.85 7/312 25127"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003520"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:04:28Z",
+  "wrong_rounds": 0
+}

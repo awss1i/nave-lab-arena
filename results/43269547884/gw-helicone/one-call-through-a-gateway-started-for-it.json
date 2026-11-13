@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-helicone.json --out results/gw-helicone",
+  "commit": "daa4346",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone: passes OpenAI's and Anthropic's formats on to the upstream named in a header, checks its own API key, logs every call with its body to ClickHouse and MinIO, prices it. Its web app, PostgreSQL, ClickHouse and MinIO run in the same container and count as its own",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.076743,
+      "max_rss_mb": 26.42578125,
+      "max_s": 0.078612978,
+      "median_s": 0.07472047,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          29.0,
+          27.0,
+          29.0,
+          31.0,
+          30.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 29.0
+      },
+      "min_s": 0.071810231,
+      "name": "Nave",
+      "other_cpu_s": 0.04325700000011823,
+      "times_s": [
+        0.07472047,
+        0.071810231,
+        0.072711481,
+        0.078612978,
+        0.076211308
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "helicone"
+      ],
+      "cpu_s": 4.275213,
+      "max_rss_mb": 28.84765625,
+      "max_s": 11.384370511,
+      "median_s": 10.656997552,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          10451.0,
+          11150.0,
+          10199.0,
+          10356.0,
+          10425.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 10425.0
+      },
+      "min_s": 10.431116349,
+      "name": "Helicone",
+      "other_cpu_s": 17.254337,
+      "times_s": [
+        10.685634917,
+        11.384370511,
+        10.431116349,
+        10.587402138,
+        10.656997552
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.70 3.04 1.92 1/272 64452",
+    "before": "2.81 2.75 1.75 1/274 38701"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003569"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:42:17Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+gpt-load	v2.0.0-rc.63 created 2026-11-08T15:06:07.692049422Z (image ghcr.io/tbphp/gpt-load:2)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+gpt-load, switched on	routes by model through groups of upstream keys, takes OpenAI's format on this channel, checks the caller's access key, records usage in SQLite
+gpt-load, kinds of race it wasn't in	messages fallback cache

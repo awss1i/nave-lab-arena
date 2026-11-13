@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone AI Gateway: routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.315707,
+      "max_rss_mb": 26.53125,
+      "max_s": 0.674602346,
+      "median_s": 0.664715393,
+      "metric_rounds": {
+        "calls_per_s": [
+          282.9,
+          279.2,
+          274.8
+        ],
+        "first_piece_p50_us": [
+          4362.0,
+          4120.0,
+          4268.0
+        ],
+        "first_piece_p99_us": [
+          11535.0,
+          11749.0,
+          12767.0
+        ],
+        "max_us": [
+          43983.0,
+          45037.0,
+          43600.0
+        ],
+        "p50_us": [
+          10974.0,
+          12394.0,
+          13066.0
+        ],
+        "p999_us": [
+          43983.0,
+          45037.0,
+          43600.0
+        ],
+        "p99_us": [
+          38046.0,
+          42714.0,
+          39689.0
+        ],
+        "total_s": [
+          0.565681,
+          0.573331,
+          0.582404
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 279.2,
+        "first_piece_p50_us": 4268.0,
+        "first_piece_p99_us": 11749.0,
+        "max_us": 43983.0,
+        "p50_us": 12394.0,
+        "p999_us": 43983.0,
+        "p99_us": 39689.0,
+        "total_s": 0.573331
+      },
+      "min_s": 0.65823815,
+      "name": "Nave",
+      "other_cpu_s": 0.7968819999999994,
+      "times_s": [
+        0.65823815,
+        0.664715393,
+        0.674602346
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "helicone-ai-gateway",
+        "4"
+      ],
+      "cpu_s": 0.295296,
+      "max_rss_mb": 26.30078125,
+      "max_s": 1.78742674,
+      "median_s": 1.764978811,
+      "metric_rounds": {
+        "calls_per_s": [
+          96.1,
+          95.7,
+          94.4
+        ],
+        "first_piece_p50_us": [
+          2444.0,
+          2312.0,
+          2208.0
+        ],
+        "first_piece_p99_us": [
+          6477.0,
+          42510.0,
+          6880.0
+        ],
+        "max_us": [
+          75309.0,
+          62070.0,
+          70463.0
+        ],
+        "p50_us": [
+          44294.0,
+          44353.0,
+          44223.0
+        ],
+        "p999_us": [
+          75309.0,
+          62070.0,
+          70463.0
+        ],
+        "p99_us": [
+          65262.0,
+          59450.0,
+          67951.0
+        ],
+        "total_s": [
+          1.66492,
+          1.671891,
+          1.6954
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 95.7,
+        "first_piece_p50_us": 2312.0,
+        "first_piece_p99_us": 6880.0,
+        "max_us": 70463.0,
+        "p50_us": 44294.0,
+        "p999_us": 70463.0,
+        "p99_us": 65262.0,
+        "total_s": 1.671891
+      },
+      "min_s": 1.756297569,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 1.1511480000000027,
+      "times_s": [
+        1.756297569,
+        1.764978811,
+        1.78742674
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.36 0.28 0.13 1/267 18378",
+    "before": "0.43 0.29 0.13 1/285 18101"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003501"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:58:43Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-aiproxy.json --out results/gw-aiproxy",
+  "commit": "fcc4a00",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "aiproxy"
+      ],
+      "cpu_s": 0.09475700000000001,
+      "max_rss_mb": 26.25390625,
+      "max_s": 0.22607578,
+      "median_s": 0.22607578,
+      "metric_rounds": {
+        "edges_passed": [
+          12.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 12.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.22607578,
+      "name": "AI Proxy",
+      "other_cpu_s": 0.1952429999999636,
+      "times_s": [
+        0.22607578
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "3.55 3.17 1.85 1/297 71972",
+    "before": "3.55 3.17 1.85 3/317 71873"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003556"
+  },
+  "name": "the API's edges, 13 checks, AI Proxy",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:10:18Z",
+  "wrong_rounds": 0
+}

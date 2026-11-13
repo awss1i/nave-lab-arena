@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-aiproxy.json --out results/gw-aiproxy",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in AI Proxy: routes by model through channels, takes OpenAI's and Anthropic's formats, checks the caller's token, counts usage, logs each call to PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.08143,
+      "max_rss_mb": 26.4609375,
+      "max_s": 0.100708878,
+      "median_s": 0.092322913,
+      "metric_rounds": {
+        "calls_per_s": [
+          8108.7,
+          8525.6,
+          8730.4,
+          7498.3,
+          7191.9
+        ],
+        "first_piece_p50_us": [
+          1617.0,
+          1568.0,
+          1573.0,
+          1928.0,
+          1912.0
+        ],
+        "first_piece_p99_us": [
+          3711.0,
+          4714.0,
+          4578.0,
+          4598.0,
+          4918.0
+        ],
+        "max_us": [
+          7370.0,
+          6970.0,
+          7416.0,
+          6669.0,
+          6295.0
+        ],
+        "p50_us": [
+          1656.0,
+          1609.0,
+          1617.0,
+          1965.0,
+          1951.0
+        ],
+        "p999_us": [
+          7370.0,
+          6970.0,
+          7416.0,
+          6669.0,
+          6295.0
+        ],
+        "p99_us": [
+          5686.0,
+          4944.0,
+          5087.0,
+          5172.0,
+          5593.0
+        ],
+        "total_s": [
+          0.061801,
+          0.058791,
+          0.057459,
+          0.066829,
+          0.069694
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 8108.7,
+        "first_piece_p50_us": 1617.0,
+        "first_piece_p99_us": 4598.0,
+        "max_us": 6970.0,
+        "p50_us": 1656.0,
+        "p999_us": 6970.0,
+        "p99_us": 5172.0,
+        "total_s": 0.061801
+      },
+      "min_s": 0.088218882,
+      "name": "Nave",
+      "other_cpu_s": 0.11126699999999773,
+      "times_s": [
+        0.092322913,
+        0.089606628,
+        0.088218882,
+        0.098840221,
+        0.100708878
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "aiproxy",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.096779,
+      "max_rss_mb": 26.6328125,
+      "max_s": 0.776737703,
+      "median_s": 0.749073319,
+      "metric_rounds": {
+        "calls_per_s": [
+          697.6,
+          672.9,
+          711.5,
+          706.8,
+          699.4
+        ],
+        "first_piece_p50_us": [
+          14351.0,
+          14070.0,
+          13535.0,
+          13338.0,
+          14126.0
+        ],
+        "first_piece_p99_us": [
+          25692.0,
+          35312.0,
+          31568.0,
+          33500.0,
+          37324.0
+        ],
+        "max_us": [
+          38779.0,
+          50971.0,
+          50638.0,
+          64937.0,
+          59517.0
+        ],
+        "p50_us": [
+          22107.0,
+          22373.0,
+          21807.0,
+          21827.0,
+          21801.0
+        ],
+        "p999_us": [
+          38779.0,
+          50971.0,
+          50638.0,
+          64937.0,
+          59517.0
+        ],
+        "p99_us": [
+          33261.0,
+          45324.0,
+          41216.0,
+          41944.0,
+          52619.0
+        ],
+        "total_s": [
+          0.716971,
+          0.743205,
+          0.702952,
+          0.707571,
+          0.715126
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 699.4,
+        "first_piece_p50_us": 14070.0,
+        "first_piece_p99_us": 33500.0,
+        "max_us": 50971.0,
+        "p50_us": 21827.0,
+        "p999_us": 50971.0,
+        "p99_us": 41944.0,
+        "total_s": 0.715126
+      },
+      "min_s": 0.735960227,
+      "name": "AI Proxy",
+      "other_cpu_s": 1.5332209999999955,
+      "times_s": [
+        0.74975678,
+        0.776737703,
+        0.735960227,
+        0.740317918,
+        0.749073319
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "8.41 2.61 0.91 1/312 13298",
+    "before": "8.05 2.35 0.81 1/335 11766"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003556"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:03:40Z",
+  "wrong_rounds": 0
+}

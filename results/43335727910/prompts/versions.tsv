@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave-prompt	prototype P014, a85dcbc61111
+arena-agenta	ghcr.io/agenta-ai/agenta-api:latest, postgres:17, redis:8, chrislusf/seaweedfs:4.47, supertokens/supertokens-postgresql:11
+agenta-sdk	0.128.13
+arena-pezzo	clickhouse/clickhouse-server:23-alpine, ghcr.io/pezzolabs/pezzo/server:latest, postgres:15-alpine3.17, supertokens/supertokens-postgresql:5.0, redis/redis-stack-server:7.2.0-v0
+pezzo	pezzolabs/pezzo at 5bd81aa, its released server image

@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/mcp.json --out results/mcp",
+  "commit": "c3c4e1c",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "docker-mcp",
+        "call",
+        "--calls",
+        "2000",
+        "--conns",
+        "4"
+      ],
+      "cpu_s": 0.176849,
+      "max_rss_mb": 26.94921875,
+      "max_s": 0.507136208,
+      "median_s": 0.498966735,
+      "metric_rounds": {
+        "calls_per_s": [
+          4741.8,
+          4751.7,
+          4670.9
+        ],
+        "max_us": [
+          3350.0,
+          3367.0,
+          3492.0
+        ],
+        "p50_us": [
+          675.0,
+          679.0,
+          674.0
+        ],
+        "p99_us": [
+          2028.0,
+          2028.0,
+          2267.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4741.8,
+        "max_us": 3367.0,
+        "p50_us": 675.0,
+        "p99_us": 2028.0
+      },
+      "min_s": 0.498202528,
+      "name": "Docker's MCP gateway",
+      "other_cpu_s": 1.1064379999999727,
+      "times_s": [
+        0.498202528,
+        0.498966735,
+        0.507136208
+      ]
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "2.96 1.97 1.00 1/275 21893",
+    "before": "2.79 1.92 0.98 1/294 21583"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003590"
+  },
+  "name": "calling a tool through an MCP gateway, 2,000 calls over 4 connections, Docker's MCP gateway",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T22:04:04Z",
+  "wrong_rounds": 0
+}

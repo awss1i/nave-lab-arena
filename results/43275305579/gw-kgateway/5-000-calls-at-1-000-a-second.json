@@ -1,0 +1,121 @@
+{
+  "command": "bin/race run run/gw-kgateway.json --out results/gw-kgateway",
+  "commit": "7cd574a",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 64 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in kgateway: an Envoy proxy programmed through Kubernetes' Gateway API, passing every call on to one upstream by route. No key check and no LLM features in this version, which moved to agentgateway. It runs in a kind cluster of one node, and only its own pods are measured",
+  "correct": false,
+  "differences": [
+    {
+      "against": "No gateway",
+      "entrant": "kgateway",
+      "got": null,
+      "lengths": [
+        0,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 5000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "No gateway",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "kgateway",
+        "1000",
+        "5000",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "kgateway",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.84 1.40 0.51 1/528 13842",
+    "before": "4.54 1.45 0.51 2/535 13370"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003578"
+  },
+  "name": "5,000 calls at 1,000 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "No gateway",
+      "ok": true,
+      "output": "ok 5000\nbad 0\nchecksum a09558d78ccc8cf4\n",
+      "stderr": "metric calls_per_s=999.9\nmetric p50_us=128\nmetric p99_us=168\nmetric p999_us=3920\nmetric max_us=9475\nmetric rate=1000\nmetric sent_late=0\nmetric total_s=5.000502\n"
+    },
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 5000\nbad 0\nchecksum a09558d78ccc8cf4\n",
+      "stderr": "metric calls_per_s=999.7\nmetric p50_us=180\nmetric p99_us=636\nmetric p999_us=4123\nmetric max_us=8852\nmetric rate=1000\nmetric sent_late=0\nmetric total_s=5.001487\nmetric cpu_us_per_call=54.0\n"
+    },
+    {
+      "name": "kgateway",
+      "ok": false,
+      "output": "",
+      "stderr": "\nthread '<unnamed>' (13694) panicked at src/bin/load.rs:126:20:\nthe router closed\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n./gateways.sh: line 26: 13693 Aborted                    (core dumped) LLM_KEY=$(gw \"$name\" key) taskset -c \"$LOAD_CPUS\" bin/load \"$(url_of \"$name\")$path\" \"${extra[@]}\" \"$@\"\nmetric cpu_us_per_call=0.0\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T18:02:14Z",
+  "wrong_rounds": 0
+}

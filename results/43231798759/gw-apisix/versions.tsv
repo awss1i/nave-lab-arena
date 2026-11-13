@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, INTEL(R) XEON(R) PLATINUM 8573C
+nave	prototype P006, 1a772dff36bf
+apisix	3.19.0 (image docker.io/apache/apisix:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+apisix, switched on	routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off
+apisix, kinds of race it wasn't in	messages fallback cache

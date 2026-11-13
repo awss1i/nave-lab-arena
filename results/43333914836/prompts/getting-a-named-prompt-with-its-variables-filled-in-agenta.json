@@ -1,0 +1,54 @@
+{
+  "command": "bin/race run races/prompts.json --out results/prompts",
+  "commit": "0b49ba9",
+  "conditions": "a GitHub runner's four CPUs. A support assistant's prompt, a system message of about 1,700 characters with four variables and a user message with two, is stored under a name and published to the label production. Then it's got by name and label with its six variables filled in, and the filled messages have to be the expected ones every time. Nave does this inside the gateway: a request names the prompt and carries the variables, and one thread replaces that member with the filled messages, 200,000 times. The other tools are services on two CPUs: one client on one CPU and one kept connection asks the service's API for the prompt 2,000 times, the way an application does when it keeps no copy of its own, and fills the variables itself. Each service is its released images from its own compose file, with only its API and what the API needs started",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "prompt",
+        "agenta"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Agenta",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F10",
+  "load": {
+    "after": "3.91 0.97 0.32 1/308 3499",
+    "before": "3.91 0.97 0.32 2/366 3151"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003600"
+  },
+  "name": "getting a named prompt with its variables filled in, Agenta",
+  "output_lines": 0,
+  "outputs_when_wrong": [
+    {
+      "name": "Agenta",
+      "ok": false,
+      "output": "",
+      "stderr": "taskset: failed to execute /home/runner/arena-tools/prompts-agenta/bin/python: No such file or directory\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-13T00:03:49Z",
+  "wrong_rounds": 0
+}

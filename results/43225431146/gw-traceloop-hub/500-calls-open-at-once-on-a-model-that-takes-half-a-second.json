@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-traceloop-hub.json --out results/gw-traceloop-hub",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Traceloop Hub: routes by model through a pipeline, takes OpenAI's format. No key check, tracing off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.205665,
+      "max_rss_mb": 37.6875,
+      "max_s": 1.120211521,
+      "median_s": 1.118656039,
+      "metric_rounds": {
+        "calls_per_s": [
+          939.4,
+          943.1,
+          940.9
+        ],
+        "kb_per_open_call": [
+          12.1,
+          9.2,
+          11.3
+        ],
+        "max_us": [
+          505514.0,
+          502443.0,
+          501899.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          5.7,
+          6.7
+        ],
+        "p50_us": [
+          500180.0,
+          500186.0,
+          500171.0
+        ],
+        "p999_us": [
+          505514.0,
+          502443.0,
+          501899.0
+        ],
+        "p99_us": [
+          502777.0,
+          502179.0,
+          501674.0
+        ],
+        "total_s": [
+          1.06472,
+          1.060565,
+          1.06302
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 940.9,
+        "kb_per_open_call": 11.3,
+        "max_us": 502443.0,
+        "memory_open_mb": 6.7,
+        "p50_us": 500180.0,
+        "p999_us": 502443.0,
+        "p99_us": 502179.0,
+        "total_s": 1.06302
+      },
+      "min_s": 1.114988902,
+      "name": "Nave",
+      "other_cpu_s": 0.1232219999999983,
+      "times_s": [
+        1.120211521,
+        1.114988902,
+        1.118656039
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "traceloop-hub",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.185692,
+      "max_rss_mb": 37.8671875,
+      "max_s": 4.030769427,
+      "median_s": 3.069587423,
+      "metric_rounds": {
+        "calls_per_s": [
+          942.2,
+          946.0,
+          945.3
+        ],
+        "kb_per_open_call": [
+          6.8,
+          4.3,
+          2.0
+        ],
+        "max_us": [
+          503666.0,
+          504971.0,
+          503746.0
+        ],
+        "memory_open_mb": [
+          40.1,
+          42.2,
+          43.2
+        ],
+        "p50_us": [
+          500777.0,
+          500404.0,
+          500392.0
+        ],
+        "p999_us": [
+          503666.0,
+          504971.0,
+          503746.0
+        ],
+        "p99_us": [
+          503426.0,
+          502546.0,
+          502908.0
+        ],
+        "total_s": [
+          1.061577,
+          1.057325,
+          1.058136
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 945.3,
+        "kb_per_open_call": 4.3,
+        "max_us": 503746.0,
+        "memory_open_mb": 42.2,
+        "p50_us": 500404.0,
+        "p999_us": 503746.0,
+        "p99_us": 502908.0,
+        "total_s": 1.058136
+      },
+      "min_s": 3.06825699,
+      "name": "Traceloop Hub",
+      "other_cpu_s": 0.25430800000000486,
+      "times_s": [
+        3.069587423,
+        4.030769427,
+        3.06825699
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.16 0.22 0.10 1/269 13543",
+    "before": "0.22 0.23 0.10 1/287 8099"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003477"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:18:23Z",
+  "wrong_rounds": 0
+}

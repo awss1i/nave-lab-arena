@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-new-api.json --out results/gw-new-api",
+  "commit": "fcc4a00",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "new-api"
+      ],
+      "cpu_s": 0.100631,
+      "max_rss_mb": 26.734375,
+      "max_s": 0.143006129,
+      "median_s": 0.143006129,
+      "metric_rounds": {
+        "edges_passed": [
+          12.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 12.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.143006129,
+      "name": "New API",
+      "other_cpu_s": 0.06936900000001592,
+      "times_s": [
+        0.143006129
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "11.99 5.51 2.34 1/320 19432",
+    "before": "11.99 5.51 2.34 1/337 19334"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003557"
+  },
+  "name": "the API's edges, 13 checks, New API",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:08:40Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "74b3b54",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.086313,
+      "max_rss_mb": 26.6484375,
+      "max_s": 0.116820553,
+      "median_s": 0.088370057,
+      "metric_rounds": {
+        "calls_per_s": [
+          5895.6,
+          8627.3,
+          9017.4,
+          8850.1,
+          8401.2
+        ],
+        "first_piece_p50_us": [
+          2441.0,
+          1547.0,
+          1524.0,
+          1526.0,
+          1521.0
+        ],
+        "first_piece_p99_us": [
+          6949.0,
+          3393.0,
+          3652.0,
+          4004.0,
+          4521.0
+        ],
+        "max_us": [
+          8733.0,
+          8075.0,
+          6220.0,
+          8676.0,
+          6353.0
+        ],
+        "p50_us": [
+          2551.0,
+          1594.0,
+          1572.0,
+          1569.0,
+          1563.0
+        ],
+        "p999_us": [
+          8733.0,
+          8075.0,
+          6220.0,
+          8676.0,
+          6353.0
+        ],
+        "p99_us": [
+          7657.0,
+          5003.0,
+          4604.0,
+          5096.0,
+          4646.0
+        ],
+        "total_s": [
+          0.084973,
+          0.058103,
+          0.055644,
+          0.056673,
+          0.059685
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 8627.3,
+        "first_piece_p50_us": 1526.0,
+        "first_piece_p99_us": 4004.0,
+        "max_us": 8075.0,
+        "p50_us": 1572.0,
+        "p999_us": 8075.0,
+        "p99_us": 5003.0,
+        "total_s": 0.058103
+      },
+      "min_s": 0.088136465,
+      "name": "Nave",
+      "other_cpu_s": 0.10368699999999773,
+      "times_s": [
+        0.116820553,
+        0.088136465,
+        0.088370057,
+        0.088170194,
+        0.091569755
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "bifrost",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.110501,
+      "max_rss_mb": 26.4296875,
+      "max_s": 0.309287258,
+      "median_s": 0.290330989,
+      "metric_rounds": {
+        "calls_per_s": [
+          1903.8,
+          2051.7,
+          2034.3,
+          1827.3,
+          1973.8
+        ],
+        "first_piece_p50_us": [
+          6671.0,
+          6216.0,
+          6254.0,
+          6811.0,
+          6398.0
+        ],
+        "first_piece_p99_us": [
+          19774.0,
+          20299.0,
+          18252.0,
+          18151.0,
+          18069.0
+        ],
+        "max_us": [
+          21938.0,
+          24853.0,
+          20674.0,
+          25425.0,
+          23273.0
+        ],
+        "p50_us": [
+          7298.0,
+          6931.0,
+          6661.0,
+          7594.0,
+          7084.0
+        ],
+        "p999_us": [
+          21938.0,
+          24853.0,
+          20674.0,
+          25425.0,
+          23273.0
+        ],
+        "p99_us": [
+          20950.0,
+          21428.0,
+          20305.0,
+          19275.0,
+          19548.0
+        ],
+        "total_s": [
+          0.262865,
+          0.243906,
+          0.245954,
+          0.273802,
+          0.253525
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1973.8,
+        "first_piece_p50_us": 6398.0,
+        "first_piece_p99_us": 18252.0,
+        "max_us": 23273.0,
+        "p50_us": 7084.0,
+        "p999_us": 23273.0,
+        "p99_us": 20305.0,
+        "total_s": 0.253525
+      },
+      "min_s": 0.278570417,
+      "name": "Bifrost",
+      "other_cpu_s": 0.5594990000000017,
+      "times_s": [
+        0.297332755,
+        0.278570417,
+        0.282648019,
+        0.309287258,
+        0.290330989
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "6.55 1.62 0.55 1/272 8604",
+    "before": "6.42 1.51 0.51 3/297 8057"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003533"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:49:13Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-one-api.json --out results/gw-one-api",
+  "commit": "2b85868",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in One API: routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.052124000000000004,
+      "max_rss_mb": 26.390625,
+      "max_s": 0.063534369,
+      "median_s": 0.057074169,
+      "metric_rounds": {
+        "calls_per_s": [
+          17591.4,
+          14155.2,
+          16391.8,
+          15421.4,
+          15283.1
+        ],
+        "first_piece_p50_us": [
+          826.0,
+          918.0,
+          871.0,
+          912.0,
+          959.0
+        ],
+        "first_piece_p99_us": [
+          1494.0,
+          2372.0,
+          1560.0,
+          1771.0,
+          2006.0
+        ],
+        "max_us": [
+          2461.0,
+          3317.0,
+          1818.0,
+          2824.0,
+          2434.0
+        ],
+        "p50_us": [
+          852.0,
+          949.0,
+          900.0,
+          935.0,
+          983.0
+        ],
+        "p999_us": [
+          2461.0,
+          3317.0,
+          1818.0,
+          2824.0,
+          2434.0
+        ],
+        "p99_us": [
+          1522.0,
+          2463.0,
+          1565.0,
+          2033.0,
+          2030.0
+        ],
+        "total_s": [
+          0.028569,
+          0.035562,
+          0.030662,
+          0.032565,
+          0.03288
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 15421.4,
+        "first_piece_p50_us": 912.0,
+        "first_piece_p99_us": 1771.0,
+        "max_us": 2461.0,
+        "p50_us": 935.0,
+        "p999_us": 2461.0,
+        "p99_us": 2030.0,
+        "total_s": 0.032565
+      },
+      "min_s": 0.053254193,
+      "name": "Nave",
+      "other_cpu_s": 0.05787599999999943,
+      "times_s": [
+        0.053254193,
+        0.063534369,
+        0.055915722,
+        0.057074169,
+        0.057296323
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "one-api",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.063804,
+      "max_rss_mb": 26.47265625,
+      "max_s": 0.345173764,
+      "median_s": 0.332948971,
+      "metric_rounds": {
+        "calls_per_s": [
+          1586.2,
+          1577.0,
+          1682.6,
+          1636.0,
+          1773.8
+        ],
+        "first_piece_p50_us": [
+          8940.0,
+          9050.0,
+          8645.0,
+          8445.0,
+          8281.0
+        ],
+        "first_piece_p99_us": [
+          25722.0,
+          23983.0,
+          20859.0,
+          20656.0,
+          16659.0
+        ],
+        "max_us": [
+          32907.0,
+          26348.0,
+          25137.0,
+          30762.0,
+          18187.0
+        ],
+        "p50_us": [
+          9143.0,
+          9323.0,
+          8862.0,
+          8745.0,
+          8561.0
+        ],
+        "p999_us": [
+          32907.0,
+          26348.0,
+          25137.0,
+          30762.0,
+          18187.0
+        ],
+        "p99_us": [
+          25825.0,
+          24254.0,
+          20932.0,
+          21034.0,
+          16755.0
+        ],
+        "total_s": [
+          0.31539,
+          0.317212,
+          0.297333,
+          0.305781,
+          0.282051
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1636.0,
+        "first_piece_p50_us": 8645.0,
+        "first_piece_p99_us": 20859.0,
+        "max_us": 26348.0,
+        "p50_us": 8862.0,
+        "p999_us": 26348.0,
+        "p99_us": 21034.0,
+        "total_s": 0.305781
+      },
+      "min_s": 0.309413967,
+      "name": "One API",
+      "other_cpu_s": 0.7642489999999983,
+      "times_s": [
+        0.341760497,
+        0.345173764,
+        0.325303735,
+        0.332948971,
+        0.309413967
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.95 1.72 0.59 1/350 15906",
+    "before": "5.07 1.48 0.51 1/371 14164"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003574"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:35:35Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,74 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "8ed9d80",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "rorf",
+        "mmlu",
+        "300"
+      ],
+      "cpu_s": 2087.5933560000003,
+      "max_rss_mb": 5158.6484375,
+      "max_s": 1098.299096239,
+      "median_s": 1098.299096239,
+      "metric_rounds": {
+        "apgr": [
+          0.5146
+        ],
+        "cpt50": [
+          48.6667
+        ],
+        "cpt80": [
+          82.3333
+        ],
+        "ns_per_prompt": [
+          3626704599.0
+        ],
+        "prompts": [
+          300.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5146,
+        "cpt50": 48.6667,
+        "cpt80": 82.3333,
+        "ns_per_prompt": 3626704599.0,
+        "prompts": 300.0
+      },
+      "min_s": 1098.299096239,
+      "name": "RoRF, on 300 prompts",
+      "other_cpu_s": 86.15664399999969,
+      "times_s": [
+        1098.299096239
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "1.97 2.09 2.08 1/258 10960",
+    "before": "2.41 2.20 2.12 2/259 7596"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003579"
+  },
+  "name": "routing MMLU's prompts, RoRF, on 300 prompts",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T20:21:32Z",
+  "wrong_rounds": 0
+}

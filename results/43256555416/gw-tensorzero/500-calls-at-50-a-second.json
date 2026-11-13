@@ -1,0 +1,276 @@
+{
+  "command": "bin/race run run/gw-tensorzero.json --out results/gw-tensorzero",
+  "commit": "eb7d09a",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 16 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in TensorZero: routes by model, takes OpenAI's format. No key check, observability off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.101822,
+      "max_rss_mb": 26.4140625,
+      "max_s": 10.012468905,
+      "median_s": 10.011487731,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "max_us": [
+          1980.0,
+          2345.0,
+          3465.0
+        ],
+        "p50_us": [
+          231.0,
+          229.0,
+          231.0
+        ],
+        "p999_us": [
+          1980.0,
+          2345.0,
+          3465.0
+        ],
+        "p99_us": [
+          323.0,
+          327.0,
+          337.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980763,
+          9.980784,
+          9.980786
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "max_us": 2345.0,
+        "p50_us": 231.0,
+        "p999_us": 2345.0,
+        "p99_us": 327.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980784
+      },
+      "min_s": 10.010001481,
+      "name": "No gateway",
+      "other_cpu_s": 0.17106899999999603,
+      "times_s": [
+        10.012468905,
+        10.010001481,
+        10.011487731
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.157244,
+      "max_rss_mb": 26.62890625,
+      "max_s": 10.077339699,
+      "median_s": 10.069733855,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          100.0,
+          120.0,
+          100.0
+        ],
+        "max_us": [
+          2163.0,
+          627.0,
+          3064.0
+        ],
+        "p50_us": [
+          373.0,
+          373.0,
+          398.0
+        ],
+        "p999_us": [
+          2163.0,
+          627.0,
+          3064.0
+        ],
+        "p99_us": [
+          504.0,
+          493.0,
+          617.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980831,
+          9.980716,
+          9.980734
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 100.0,
+        "max_us": 2163.0,
+        "p50_us": 373.0,
+        "p999_us": 2163.0,
+        "p99_us": 504.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980734
+      },
+      "min_s": 10.068650624,
+      "name": "Nave",
+      "other_cpu_s": 0.07275600000000398,
+      "times_s": [
+        10.077339699,
+        10.069733855,
+        10.068650624
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "tensorzero",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.150678,
+      "max_rss_mb": 28.44921875,
+      "max_s": 10.058524994,
+      "median_s": 10.055276873,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          570.2,
+          552.5,
+          576.5
+        ],
+        "first_piece_p50_us": [
+          734.0,
+          727.0,
+          736.0
+        ],
+        "first_piece_p99_us": [
+          1033.0,
+          1032.0,
+          1027.0
+        ],
+        "max_us": [
+          3377.0,
+          3491.0,
+          1654.0
+        ],
+        "p50_us": [
+          735.0,
+          728.0,
+          737.0
+        ],
+        "p999_us": [
+          3377.0,
+          3491.0,
+          1654.0
+        ],
+        "p99_us": [
+          1035.0,
+          1033.0,
+          1028.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.981333,
+          9.98118,
+          9.981268
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 570.2,
+        "first_piece_p50_us": 734.0,
+        "first_piece_p99_us": 1032.0,
+        "max_us": 3377.0,
+        "p50_us": 735.0,
+        "p999_us": 3377.0,
+        "p99_us": 1033.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.981268
+      },
+      "min_s": 10.054552193,
+      "name": "TensorZero",
+      "other_cpu_s": 0.5246999999999997,
+      "times_s": [
+        10.055276873,
+        10.054552193,
+        10.058524994
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.21 0.21 0.10 1/274 8413",
+    "before": "0.60 0.26 0.10 1/293 7604"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003539"
+  },
+  "name": "500 calls at 50 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T16:18:46Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,158 @@
+{
+  "command": "bin/race run races/scan.json --out results/scan",
+  "commit": "6705b73",
+  "conditions": "one process on two CPUs, 1,000 made-up emails, card numbers, social security numbers and IP addresses planted in 500 prompts of about 2 KB, each tool loaded first and then timed over every prompt, one at a time. NeMo Guardrails runs as a rail in front of the stand-in model, so its time holds one call to it",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "NeMo Guardrails",
+      "got": null,
+      "lengths": [
+        0,
+        1
+      ],
+      "line": 0,
+      "wanted": "scanned"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "nave"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "presidio"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Presidio",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "guardrails-ai"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "guardrails-ai",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "nemo"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "NeMo Guardrails",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pii",
+        "llm-guard"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "LLM Guard",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F7",
+  "load": {
+    "after": "2.17 1.83 1.05 1/260 3670",
+    "before": "1.40 0.58 0.22 1/266 3305"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003547"
+  },
+  "name": "finding planted personal data in 500 prompts",
+  "output_lines": 1,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "scanned\n",
+      "stderr": "metric planted_found=1000\nmetric planted=1000\nmetric findings=1000\nmetric us_per_prompt=1.4\nmetric mb_per_s=1325.74\n"
+    },
+    {
+      "name": "Presidio",
+      "ok": true,
+      "output": "scanned\n",
+      "stderr": "metric planted_found=1000\nmetric planted=1000\nmetric findings=1000\nmetric us_per_prompt=34794.2\nmetric mb_per_s=0.06\n"
+    },
+    {
+      "name": "guardrails-ai",
+      "ok": true,
+      "output": "scanned\n",
+      "stderr": "metric planted_found=1000\nmetric planted=1000\nmetric findings=1000\nmetric us_per_prompt=40592.1\nmetric mb_per_s=0.05\n"
+    },
+    {
+      "name": "NeMo Guardrails",
+      "ok": false,
+      "output": "",
+      "stderr": ""
+    },
+    {
+      "name": "LLM Guard",
+      "ok": true,
+      "output": "scanned\n",
+      "stderr": "metric planted_found=1000\nmetric planted=1000\nmetric findings=1229\nmetric us_per_prompt=1010985.3\nmetric mb_per_s=0.00\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T16:44:07Z",
+  "wrong_rounds": 0
+}

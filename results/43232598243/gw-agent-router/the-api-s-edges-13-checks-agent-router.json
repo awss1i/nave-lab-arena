@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-agent-router.json --out results/gw-agent-router",
+  "commit": "764284e",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "agent-router"
+      ],
+      "cpu_s": 0.068452,
+      "max_rss_mb": 26.74609375,
+      "max_s": 0.085778241,
+      "median_s": 0.085778241,
+      "metric_rounds": {
+        "edges_passed": [
+          10.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 10.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.085778241,
+      "name": "Agent Router",
+      "other_cpu_s": 0.03154799999999432,
+      "times_s": [
+        0.085778241
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.48 0.74 0.33 1/259 22896",
+    "before": "1.48 0.74 0.33 1/277 22819"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003522"
+  },
+  "name": "the API's edges, 13 checks, Agent Router",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:04:13Z",
+  "wrong_rounds": 0
+}

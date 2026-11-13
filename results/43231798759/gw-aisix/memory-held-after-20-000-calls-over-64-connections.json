@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-aisix.json --out results/gw-aisix",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in AISIX: routes by model, takes OpenAI's and Anthropic's formats, checks the caller's key. Metrics off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.59623,
+      "max_rss_mb": 26.51171875,
+      "max_s": 0.905578374,
+      "median_s": 0.905578374,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.905578374,
+      "name": "Nave",
+      "other_cpu_s": 1.3737699999999988,
+      "times_s": [
+        0.905578374
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "aisix"
+      ],
+      "cpu_s": 0.70358,
+      "max_rss_mb": 28.79296875,
+      "max_s": 2.479501752,
+      "median_s": 2.479501752,
+      "metric_rounds": {
+        "memory_mb": [
+          27.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 27.8
+      },
+      "min_s": 2.479501752,
+      "name": "AISIX",
+      "other_cpu_s": 4.3664199999999935,
+      "times_s": [
+        2.479501752
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.61 0.38 0.17 1/273 20650",
+    "before": "0.66 0.39 0.17 1/298 20066"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003515"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:59:37Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-helicone.json --out results/gw-helicone",
+  "commit": "daa4346",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.18789,
+      "max_rss_mb": 26.39453125,
+      "max_s": 0.38595225,
+      "median_s": 0.38595225,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.38595225,
+      "name": "Nave",
+      "other_cpu_s": 0.012110000000045473,
+      "times_s": [
+        0.38595225
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "2.89 2.92 1.98 1/274 67027",
+    "before": "2.89 2.92 1.98 1/278 66819"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003569"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:43:44Z",
+  "wrong_rounds": 0
+}

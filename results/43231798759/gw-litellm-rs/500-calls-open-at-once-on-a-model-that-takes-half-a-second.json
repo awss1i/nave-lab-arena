@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-litellm-rs.json --out results/gw-litellm-rs",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in litellm-rs: routes by model, takes OpenAI's format. No key check, no database, cache and rate limits off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.29533,
+      "max_rss_mb": 37.8515625,
+      "max_s": 1.162715153,
+      "median_s": 1.16235,
+      "metric_rounds": {
+        "calls_per_s": [
+          919.7,
+          924.3,
+          922.2
+        ],
+        "kb_per_open_call": [
+          12.1,
+          11.3,
+          11.3
+        ],
+        "max_us": [
+          506183.0,
+          508138.0,
+          505210.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.7,
+          6.7
+        ],
+        "p50_us": [
+          500230.0,
+          500269.0,
+          500238.0
+        ],
+        "p999_us": [
+          506183.0,
+          508138.0,
+          505210.0
+        ],
+        "p99_us": [
+          502424.0,
+          503132.0,
+          503606.0
+        ],
+        "total_s": [
+          1.087563,
+          1.08214,
+          1.084609
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 922.2,
+        "kb_per_open_call": 11.3,
+        "max_us": 506183.0,
+        "memory_open_mb": 6.7,
+        "p50_us": 500238.0,
+        "p999_us": 506183.0,
+        "p99_us": 503132.0,
+        "total_s": 1.084609
+      },
+      "min_s": 1.159145252,
+      "name": "Nave",
+      "other_cpu_s": 0.23374400000000112,
+      "times_s": [
+        1.16235,
+        1.159145252,
+        1.162715153
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "litellm-rs",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.28742,
+      "max_rss_mb": 37.9375,
+      "max_s": 4.035887615,
+      "median_s": 3.092411183,
+      "metric_rounds": {
+        "calls_per_s": [
+          837.5,
+          825.9,
+          836.7
+        ],
+        "kb_per_open_call": [
+          9.4,
+          4.5,
+          2.3
+        ],
+        "max_us": [
+          593067.0,
+          581491.0,
+          573371.0
+        ],
+        "memory_open_mb": [
+          136.9,
+          139.1,
+          140.0
+        ],
+        "p50_us": [
+          515987.0,
+          529667.0,
+          517858.0
+        ],
+        "p999_us": [
+          593067.0,
+          581491.0,
+          573371.0
+        ],
+        "p99_us": [
+          580968.0,
+          580408.0,
+          572716.0
+        ],
+        "total_s": [
+          1.194313,
+          1.210985,
+          1.195329
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 836.7,
+        "kb_per_open_call": 4.5,
+        "max_us": 581491.0,
+        "memory_open_mb": 139.1,
+        "p50_us": 517858.0,
+        "p999_us": 581491.0,
+        "p99_us": 580408.0,
+        "total_s": 1.195329
+      },
+      "min_s": 3.091295333,
+      "name": "litellm-rs",
+      "other_cpu_s": 1.0825800000000045,
+      "times_s": [
+        3.091295333,
+        4.035887615,
+        3.092411183
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "7.25 1.83 0.66 1/280 17819",
+    "before": "0.68 0.46 0.22 1/302 10848"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003505"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:58:34Z",
+  "wrong_rounds": 0
+}

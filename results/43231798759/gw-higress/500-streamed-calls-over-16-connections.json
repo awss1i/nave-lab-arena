@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-higress.json --out results/gw-higress",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Higress: routes through an AI route and its ai-proxy plugin on Envoy, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.057762,
+      "max_rss_mb": 26.50390625,
+      "max_s": 0.063889755,
+      "median_s": 0.062516103,
+      "metric_rounds": {
+        "calls_per_s": [
+          13576.4,
+          13686.8,
+          13209.7,
+          13566.6,
+          13899.1
+        ],
+        "first_piece_p50_us": [
+          1048.0,
+          710.0,
+          1039.0,
+          1043.0,
+          1033.0
+        ],
+        "first_piece_p99_us": [
+          1892.0,
+          4276.0,
+          2226.0,
+          1808.0,
+          2166.0
+        ],
+        "max_us": [
+          4044.0,
+          6004.0,
+          4355.0,
+          3806.0,
+          2754.0
+        ],
+        "p50_us": [
+          1079.0,
+          735.0,
+          1069.0,
+          1077.0,
+          1064.0
+        ],
+        "p999_us": [
+          4044.0,
+          6004.0,
+          4355.0,
+          3806.0,
+          2754.0
+        ],
+        "p99_us": [
+          2277.0,
+          4403.0,
+          2797.0,
+          1899.0,
+          2212.0
+        ],
+        "total_s": [
+          0.036974,
+          0.036674,
+          0.037994,
+          0.036987,
+          0.036135
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 13576.4,
+        "first_piece_p50_us": 1039.0,
+        "first_piece_p99_us": 2166.0,
+        "max_us": 4044.0,
+        "p50_us": 1069.0,
+        "p999_us": 4044.0,
+        "p99_us": 2277.0,
+        "total_s": 0.036974
+      },
+      "min_s": 0.0618259,
+      "name": "Nave",
+      "other_cpu_s": 0.07059599999999545,
+      "times_s": [
+        0.062516103,
+        0.063005457,
+        0.063889755,
+        0.062235798,
+        0.0618259
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "higress",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.050145999999999996,
+      "max_rss_mb": 26.546875,
+      "max_s": 0.348955886,
+      "median_s": 0.33489744,
+      "metric_rounds": {
+        "calls_per_s": [
+          1626.0,
+          1618.1,
+          1548.0,
+          1557.0,
+          1667.2
+        ],
+        "first_piece_p50_us": [
+          6927.0,
+          6558.0,
+          5102.0,
+          4927.0,
+          6307.0
+        ],
+        "first_piece_p99_us": [
+          25796.0,
+          30136.0,
+          48390.0,
+          56525.0,
+          30231.0
+        ],
+        "max_us": [
+          28584.0,
+          31361.0,
+          59056.0,
+          60205.0,
+          33674.0
+        ],
+        "p50_us": [
+          6927.0,
+          6558.0,
+          5107.0,
+          4928.0,
+          6308.0
+        ],
+        "p999_us": [
+          28584.0,
+          31361.0,
+          59056.0,
+          60205.0,
+          33674.0
+        ],
+        "p99_us": [
+          25802.0,
+          30142.0,
+          48390.0,
+          56531.0,
+          30231.0
+        ],
+        "total_s": [
+          0.307666,
+          0.309142,
+          0.323156,
+          0.321283,
+          0.300053
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1618.1,
+        "first_piece_p50_us": 6307.0,
+        "first_piece_p99_us": 30231.0,
+        "max_us": 33674.0,
+        "p50_us": 6308.0,
+        "p999_us": 33674.0,
+        "p99_us": 30231.0,
+        "total_s": 0.309142
+      },
+      "min_s": 0.326174891,
+      "name": "Higress",
+      "other_cpu_s": 0.6403289999999977,
+      "times_s": [
+        0.333391548,
+        0.33489744,
+        0.348955886,
+        0.347334944,
+        0.326174891
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "4.24 1.81 0.69 1/271 9227",
+    "before": "4.52 1.83 0.69 1/421 8686"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003502"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:56:58Z",
+  "wrong_rounds": 0
+}

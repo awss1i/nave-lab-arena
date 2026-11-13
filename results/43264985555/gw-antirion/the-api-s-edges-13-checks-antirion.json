@@ -1,0 +1,67 @@
+{
+  "command": "bin/race run run/gw-antirion.json --out results/gw-antirion",
+  "commit": "32ba8d8",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "antirion"
+      ],
+      "cpu_s": 0.07602400000000001,
+      "max_rss_mb": 26.19140625,
+      "max_s": 0.076032547,
+      "median_s": 0.076032547,
+      "metric_rounds": {
+        "edges_passed": [
+          3.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 3.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.076032547,
+      "name": "Antirion",
+      "other_cpu_s": 0.003975999999984076,
+      "times_s": [
+        0.076032547
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "0.91 0.78 0.39 1/270 25550",
+    "before": "1.17 0.82 0.40 2/293 25427"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003553"
+  },
+  "name": "the API's edges, 13 checks, Antirion",
+  "output_lines": 14,
+  "outputs_when_wrong": [
+    {
+      "name": "Antirion",
+      "ok": true,
+      "output": "FAIL  text with quotes, backslashes, new lines, other scripts and emoji comes back the same (status 429)\nFAIL  a message of one megabyte goes through whole (status 429, 0 characters back)\nFAIL  tools and tool_choice reach the model unchanged (status 429)\nFAIL  an image part reaches the model unchanged (status 429)\nFAIL  temperature, top_p, max_tokens, stop, seed, response_format and user reach the model unchanged (status 429, changed or lost: temperature, top_p, max_tokens, stop, seed, response_format, user)\nFAIL  a stream asked for usage ends with it, and its text is whole (status 429, text '",
+      "round": 0,
+      "stderr": "metric edges_passed=3\nmetric edges_total=13\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-12T17:06:06Z",
+  "wrong_rounds": 1
+}

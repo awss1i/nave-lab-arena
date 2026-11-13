@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "85f0936",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OmniRoute: routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.05952,
+      "max_rss_mb": 25.91015625,
+      "max_s": 0.080849346,
+      "median_s": 0.076760211,
+      "metric_rounds": {
+        "calls_per_s": [
+          8934.3,
+          9244.1,
+          9425.4,
+          9351.0,
+          9744.7
+        ],
+        "first_piece_p50_us": [
+          1613.0,
+          1481.0,
+          1512.0,
+          1095.0,
+          1472.0
+        ],
+        "first_piece_p99_us": [
+          3478.0,
+          5519.0,
+          2600.0,
+          6034.0,
+          3691.0
+        ],
+        "max_us": [
+          4502.0,
+          6466.0,
+          4627.0,
+          8574.0,
+          4482.0
+        ],
+        "p50_us": [
+          1653.0,
+          1523.0,
+          1557.0,
+          1137.0,
+          1512.0
+        ],
+        "p999_us": [
+          4502.0,
+          6466.0,
+          4627.0,
+          8574.0,
+          4482.0
+        ],
+        "p99_us": [
+          3614.0,
+          5520.0,
+          3632.0,
+          6036.0,
+          3947.0
+        ],
+        "total_s": [
+          0.056108,
+          0.054234,
+          0.053202,
+          0.053616,
+          0.051437
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9351.0,
+        "first_piece_p50_us": 1481.0,
+        "first_piece_p99_us": 3691.0,
+        "max_us": 4627.0,
+        "p50_us": 1523.0,
+        "p999_us": 4627.0,
+        "p99_us": 3947.0,
+        "total_s": 0.053616
+      },
+      "min_s": 0.07411727,
+      "name": "Nave",
+      "other_cpu_s": 0.12217100000006366,
+      "times_s": [
+        0.080849346,
+        0.076760211,
+        0.074718234,
+        0.077524078,
+        0.07411727
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "omniroute",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.083238,
+      "max_rss_mb": 26.50390625,
+      "max_s": 17.958921281,
+      "median_s": 17.386919657,
+      "metric_rounds": {
+        "calls_per_s": [
+          27.9,
+          28.9,
+          28.8,
+          29.4,
+          28.7
+        ],
+        "first_piece_p50_us": [
+          547227.0,
+          535277.0,
+          533049.0,
+          521318.0,
+          524130.0
+        ],
+        "first_piece_p99_us": [
+          1338808.0,
+          1309214.0,
+          1387654.0,
+          1109524.0,
+          1201467.0
+        ],
+        "max_us": [
+          2068088.0,
+          1848824.0,
+          2131580.0,
+          1780903.0,
+          1812598.0
+        ],
+        "p50_us": [
+          549306.0,
+          537248.0,
+          534888.0,
+          523111.0,
+          526311.0
+        ],
+        "p999_us": [
+          2068088.0,
+          1848824.0,
+          2131580.0,
+          1780903.0,
+          1812598.0
+        ],
+        "p99_us": [
+          1344417.0,
+          1311196.0,
+          1389662.0,
+          1111356.0,
+          1203342.0
+        ],
+        "total_s": [
+          17.9346,
+          17.329908,
+          17.361758,
+          16.981419,
+          17.40324
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 28.8,
+        "first_piece_p50_us": 533049.0,
+        "first_piece_p99_us": 1309214.0,
+        "max_us": 1848824.0,
+        "p50_us": 534888.0,
+        "p999_us": 1848824.0,
+        "p99_us": 1311196.0,
+        "total_s": 17.361758
+      },
+      "min_s": 17.010995174,
+      "name": "OmniRoute",
+      "other_cpu_s": 19.63825800000003,
+      "times_s": [
+        17.958921281,
+        17.359994375,
+        17.386919657,
+        17.010995174,
+        17.428577059
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.66 1.85 1.07 1/264 26024",
+    "before": "1.73 2.00 1.02 6/297 22412"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003470"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:15:39Z",
+  "wrong_rounds": 0
+}

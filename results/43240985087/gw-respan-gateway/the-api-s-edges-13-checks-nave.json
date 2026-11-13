@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-respan-gateway.json --out results/gw-respan-gateway",
+  "commit": "74b3b54",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.093084,
+      "max_rss_mb": 26.55078125,
+      "max_s": 0.098369783,
+      "median_s": 0.098369783,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.098369783,
+      "name": "Nave",
+      "other_cpu_s": 0.01691599999998522,
+      "times_s": [
+        0.098369783
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "5.73 2.34 0.94 1/267 21978",
+    "before": "5.73 2.34 0.94 1/271 21906"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003534"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:52:26Z",
+  "wrong_rounds": 0
+}

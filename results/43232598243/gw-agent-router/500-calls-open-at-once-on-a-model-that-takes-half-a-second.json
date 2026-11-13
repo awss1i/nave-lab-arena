@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-agent-router.json --out results/gw-agent-router",
+  "commit": "764284e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Agent Router: routes through Envoy with its router as an external processor, takes OpenAI's format as started here. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.194158,
+      "max_rss_mb": 37.75,
+      "max_s": 1.111670513,
+      "median_s": 1.111582644,
+      "metric_rounds": {
+        "calls_per_s": [
+          951.1,
+          951.9,
+          952.8
+        ],
+        "kb_per_open_call": [
+          11.7,
+          10.9,
+          11.1
+        ],
+        "max_us": [
+          503216.0,
+          502800.0,
+          502498.0
+        ],
+        "memory_open_mb": [
+          6.9,
+          6.5,
+          6.6
+        ],
+        "p50_us": [
+          500220.0,
+          500153.0,
+          500158.0
+        ],
+        "p999_us": [
+          503216.0,
+          502800.0,
+          502498.0
+        ],
+        "p99_us": [
+          502458.0,
+          502290.0,
+          502282.0
+        ],
+        "total_s": [
+          1.05165,
+          1.050813,
+          1.04975
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 951.9,
+        "kb_per_open_call": 11.1,
+        "max_us": 502800.0,
+        "memory_open_mb": 6.6,
+        "p50_us": 500158.0,
+        "p999_us": 502800.0,
+        "p99_us": 502290.0,
+        "total_s": 1.050813
+      },
+      "min_s": 1.110530144,
+      "name": "Nave",
+      "other_cpu_s": 0.11584200000000228,
+      "times_s": [
+        1.111670513,
+        1.111582644,
+        1.110530144
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "agent-router",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.20933200000000002,
+      "max_rss_mb": 37.8359375,
+      "max_s": 1.245647978,
+      "median_s": 1.237130058,
+      "metric_rounds": {
+        "calls_per_s": [
+          862.3,
+          874.0,
+          851.9
+        ],
+        "kb_per_open_call": [
+          66.6,
+          1.2,
+          16.4
+        ],
+        "max_us": [
+          585102.0,
+          565236.0,
+          596525.0
+        ],
+        "memory_open_mb": [
+          380.0,
+          381.6,
+          389.6
+        ],
+        "p50_us": [
+          540026.0,
+          535741.0,
+          532300.0
+        ],
+        "p999_us": [
+          585102.0,
+          565236.0,
+          596525.0
+        ],
+        "p99_us": [
+          573460.0,
+          563082.0,
+          596044.0
+        ],
+        "total_s": [
+          1.159869,
+          1.144416,
+          1.174073
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 862.3,
+        "kb_per_open_call": 16.4,
+        "max_us": 585102.0,
+        "memory_open_mb": 381.6,
+        "p50_us": 535741.0,
+        "p999_us": 585102.0,
+        "p99_us": 573460.0,
+        "total_s": 1.159869
+      },
+      "min_s": 1.215039252,
+      "name": "Agent Router",
+      "other_cpu_s": 0.5806680000000062,
+      "times_s": [
+        1.237130058,
+        1.215039252,
+        1.245647978
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.40 0.48 0.23 1/256 15617",
+    "before": "0.47 0.50 0.23 1/278 10130"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003522"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T14:03:33Z",
+  "wrong_rounds": 0
+}

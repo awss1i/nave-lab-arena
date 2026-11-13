@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "eb7d09a",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.080583,
+      "max_rss_mb": 25.3203125,
+      "max_s": 0.089659749,
+      "median_s": 0.089659749,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.089659749,
+      "name": "Nave",
+      "other_cpu_s": 0.019417000000022736,
+      "times_s": [
+        0.089659749
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "2.37 1.04 0.43 1/259 27116",
+    "before": "2.37 1.04 0.43 1/263 27047"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003536"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T16:20:05Z",
+  "wrong_rounds": 0
+}

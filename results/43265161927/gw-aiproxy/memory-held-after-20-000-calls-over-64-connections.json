@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-aiproxy.json --out results/gw-aiproxy",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in AI Proxy: routes by model through channels, takes OpenAI's and Anthropic's formats, checks the caller's token, counts usage, logs each call to PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.775386,
+      "max_rss_mb": 26.52734375,
+      "max_s": 0.824882393,
+      "median_s": 0.824882393,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.824882393,
+      "name": "Nave",
+      "other_cpu_s": 1.5146140000000203,
+      "times_s": [
+        0.824882393
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "aiproxy"
+      ],
+      "cpu_s": 1.2446700000000002,
+      "max_rss_mb": 28.46875,
+      "max_s": 31.30660465,
+      "median_s": 31.30660465,
+      "metric_rounds": {
+        "memory_mb": [
+          317.6
+        ]
+      },
+      "metrics": {
+        "memory_mb": 317.6
+      },
+      "min_s": 31.30660465,
+      "name": "AI Proxy",
+      "other_cpu_s": 57.95532999999993,
+      "times_s": [
+        31.30660465
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.69 3.19 1.85 1/295 71559",
+    "before": "2.25 2.86 1.65 2/317 54673"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003556"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:10:15Z",
+  "wrong_rounds": 0
+}

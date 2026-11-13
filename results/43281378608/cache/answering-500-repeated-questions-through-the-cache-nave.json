@@ -1,0 +1,71 @@
+{
+  "command": "bin/race run races/cache.json --out results/cache",
+  "commit": "b467d97",
+  "conditions": "one Python client asks 500 different questions through the cache, then asks them all again, and the second pass is timed. Nave's cache is its gateway's, on two CPUs, reached with OpenAI's SDK from a client on one CPU. A library's cache runs inside the client, which gets all three CPUs, with the library's default local embedding model. ModelCache is a service of its own on the gateway's two CPUs, asked over HTTP. The questions differ from each other in a topic and a number, so a cache that matches by meaning can take one for another, and its wrong answers are counted. Each cache is also asked a reworded form of every question and 500 questions it has never seen",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "cachelib",
+        "nave"
+      ],
+      "cpu_s": 1.57805,
+      "max_rss_mb": 55.5703125,
+      "max_s": 1.614343958,
+      "median_s": 1.614343958,
+      "metric_rounds": {
+        "repeats_that_reached_the_model": [
+          0.0
+        ],
+        "reworded_answered_from_cache": [
+          0.0
+        ],
+        "unseen_answered_from_cache": [
+          500.0
+        ],
+        "us_per_repeat": [
+          808.2
+        ],
+        "wrong_answers": [
+          0.0
+        ]
+      },
+      "metrics": {
+        "repeats_that_reached_the_model": 0.0,
+        "reworded_answered_from_cache": 0.0,
+        "unseen_answered_from_cache": 500.0,
+        "us_per_repeat": 808.2,
+        "wrong_answers": 0.0
+      },
+      "min_s": 1.614343958,
+      "name": "Nave",
+      "other_cpu_s": 0.5219499999999944,
+      "times_s": [
+        1.614343958
+      ]
+    }
+  ],
+  "feature": "F5",
+  "load": {
+    "after": "2.23 0.97 0.37 2/271 3829",
+    "before": "2.34 0.97 0.37 3/287 3692"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003580"
+  },
+  "name": "answering 500 repeated questions through the cache, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:37:36Z",
+  "wrong_rounds": 0
+}

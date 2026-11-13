@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-kong.json --out results/gw-kong",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Kong: routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.5611200000000001,
+      "max_rss_mb": 27.0859375,
+      "max_s": 0.586630586,
+      "median_s": 0.586630586,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.586630586,
+      "name": "Nave",
+      "other_cpu_s": 1.0388799999999943,
+      "times_s": [
+        0.586630586
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "kong"
+      ],
+      "cpu_s": 0.530786,
+      "max_rss_mb": 27.74609375,
+      "max_s": 2.722215996,
+      "median_s": 2.722215996,
+      "metric_rounds": {
+        "memory_mb": [
+          324.3
+        ]
+      },
+      "metrics": {
+        "memory_mb": 324.3
+      },
+      "min_s": 2.722215996,
+      "name": "Kong",
+      "other_cpu_s": 3.599214000000024,
+      "times_s": [
+        2.722215996
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "7.97 2.40 0.88 1/272 48871",
+    "before": "4.40 1.62 0.62 3/288 48276"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003506"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:58:57Z",
+  "wrong_rounds": 0
+}

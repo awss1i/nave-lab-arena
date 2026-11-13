@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+nave	prototype P006, 1a772dff36bf
+litellm-rs	0.10.1 created 2026-11-07T06:35:19.256085126Z (image ghcr.io/majiayu000/litellm-rs:0.10.1)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+litellm-rs, switched on	routes by model, takes OpenAI's format. No key check, no database, cache and rate limits off
+litellm-rs, kinds of race it wasn't in	messages fallback cache

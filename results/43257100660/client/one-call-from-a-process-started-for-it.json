@@ -1,0 +1,410 @@
+{
+  "command": "bin/race run races/client.json --out results/client",
+  "commit": "2d5838b",
+  "conditions": "one process on one CPU calling the stand-in model on another, each timed as a whole process from its start to its exit, the library loaded from nothing each time",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave's client",
+      "entrant": "llm (graniet's)",
+      "got": "",
+      "lengths": [
+        1,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 1"
+    },
+    {
+      "against": "Nave's client",
+      "entrant": "rig",
+      "got": "",
+      "lengths": [
+        1,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 1"
+    },
+    {
+      "against": "Nave's client",
+      "entrant": "rust-genai",
+      "got": "",
+      "lengths": [
+        1,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 1"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "nave"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave's client",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "graniet-llm"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "llm (graniet's)",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "rig"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "rig",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "genai"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "rust-genai",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "openai"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "OpenAI's Python SDK",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "litellm"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "LiteLLM's SDK",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "langchain"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "LangChain",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "aisuite"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "aisuite",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "any-llm"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "any-llm",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "llm"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "llm (Simon Willison's)",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "vercel-ai"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Vercel AI SDK",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "tokenjs"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "token.js",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "tanstack-ai"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "TanStack AI",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "pi-ai"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "pi",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./entrant.sh",
+        "fresh-client",
+        "ruby_llm"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "ruby_llm",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F2",
+  "load": {
+    "after": "2.22 1.46 0.61 1/255 13553",
+    "before": "2.44 1.48 0.60 1/257 13045"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003540"
+  },
+  "name": "one call from a process started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave's client",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=4.91\n"
+    },
+    {
+      "name": "llm (graniet's)",
+      "ok": false,
+      "output": "\n",
+      "stderr": "metric process_ms=21.11\n"
+    },
+    {
+      "name": "rig",
+      "ok": false,
+      "output": "\n",
+      "stderr": "metric process_ms=21.48\n"
+    },
+    {
+      "name": "rust-genai",
+      "ok": false,
+      "output": "\n",
+      "stderr": "metric process_ms=20.10\n"
+    },
+    {
+      "name": "OpenAI's Python SDK",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=388.42\n"
+    },
+    {
+      "name": "LiteLLM's SDK",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=2673.36\n"
+    },
+    {
+      "name": "LangChain",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=773.90\n"
+    },
+    {
+      "name": "aisuite",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=420.78\n"
+    },
+    {
+      "name": "any-llm",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=1451.80\n"
+    },
+    {
+      "name": "llm (Simon Willison's)",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=479.74\n"
+    },
+    {
+      "name": "Vercel AI SDK",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=157.65\n"
+    },
+    {
+      "name": "token.js",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=280.82\n"
+    },
+    {
+      "name": "TanStack AI",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=180.86\n"
+    },
+    {
+      "name": "pi",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=236.08\n"
+    },
+    {
+      "name": "ruby_llm",
+      "ok": true,
+      "output": "ok 1\nbad 0\nchecksum b3501ef70f945d52\n",
+      "stderr": "metric process_ms=354.53\n"
+    }
+  ],
+  "rounds": 7,
+  "time": "2026-11-12T16:21:30Z",
+  "wrong_rounds": 0
+}

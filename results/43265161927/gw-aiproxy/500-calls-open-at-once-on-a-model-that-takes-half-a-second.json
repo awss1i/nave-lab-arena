@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-aiproxy.json --out results/gw-aiproxy",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in AI Proxy: routes by model through channels, takes OpenAI's and Anthropic's formats, checks the caller's token, counts usage, logs each call to PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.303838,
+      "max_rss_mb": 37.7421875,
+      "max_s": 1.167962988,
+      "median_s": 1.161426379,
+      "metric_rounds": {
+        "calls_per_s": [
+          923.3,
+          924.5,
+          924.5
+        ],
+        "kb_per_open_call": [
+          8.0,
+          10.9,
+          5.1
+        ],
+        "max_us": [
+          504198.0,
+          502750.0,
+          503158.0
+        ],
+        "memory_open_mb": [
+          5.1,
+          6.5,
+          3.7
+        ],
+        "p50_us": [
+          500237.0,
+          500234.0,
+          500234.0
+        ],
+        "p999_us": [
+          504198.0,
+          502750.0,
+          503158.0
+        ],
+        "p99_us": [
+          503192.0,
+          502323.0,
+          502218.0
+        ],
+        "total_s": [
+          1.0833,
+          1.081816,
+          1.08184
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 924.5,
+        "kb_per_open_call": 8.0,
+        "max_us": 503158.0,
+        "memory_open_mb": 5.1,
+        "p50_us": 500234.0,
+        "p999_us": 503158.0,
+        "p99_us": 502323.0,
+        "total_s": 1.08184
+      },
+      "min_s": 1.160040197,
+      "name": "Nave",
+      "other_cpu_s": 0.1861620000000091,
+      "times_s": [
+        1.167962988,
+        1.160040197,
+        1.161426379
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "aiproxy",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.357422,
+      "max_rss_mb": 37.91015625,
+      "max_s": 12.057304844,
+      "median_s": 11.10722439,
+      "metric_rounds": {
+        "calls_per_s": [
+          506.5,
+          482.7,
+          524.8
+        ],
+        "kb_per_open_call": [
+          304.9,
+          147.5,
+          117.6
+        ],
+        "max_us": [
+          1048442.0,
+          1059560.0,
+          986000.0
+        ],
+        "memory_open_mb": [
+          581.8,
+          654.7,
+          716.6
+        ],
+        "p50_us": [
+          856663.0,
+          904324.0,
+          850573.0
+        ],
+        "p999_us": [
+          1048442.0,
+          1059560.0,
+          986000.0
+        ],
+        "p99_us": [
+          1030945.0,
+          1050180.0,
+          975300.0
+        ],
+        "total_s": [
+          1.974581,
+          2.072011,
+          1.90575
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 506.5,
+        "kb_per_open_call": 147.5,
+        "max_us": 1048442.0,
+        "memory_open_mb": 654.7,
+        "p50_us": 856663.0,
+        "p999_us": 1048442.0,
+        "p99_us": 1030945.0,
+        "total_s": 1.974581
+      },
+      "min_s": 11.104212682,
+      "name": "AI Proxy",
+      "other_cpu_s": 3.4425780000000112,
+      "times_s": [
+        11.104212682,
+        12.057304844,
+        11.10722439
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.25 2.97 1.62 102/394 43645",
+    "before": "2.53 3.12 1.59 1/327 34406"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003556"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:08:19Z",
+  "wrong_rounds": 0
+}

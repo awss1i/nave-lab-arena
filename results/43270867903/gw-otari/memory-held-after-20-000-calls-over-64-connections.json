@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-otari.json --out results/gw-otari",
+  "commit": "2b85868",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Otari: routes by provider and model, takes OpenAI's and Anthropic's formats, checks the caller's key, prices each call, records usage in PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.786289,
+      "max_rss_mb": 26.53125,
+      "max_s": 1.004567789,
+      "median_s": 1.004567789,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 1.004567789,
+      "name": "Nave",
+      "other_cpu_s": 1.6737110000000364,
+      "times_s": [
+        1.004567789
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "otari"
+      ],
+      "cpu_s": 1.6551420000000001,
+      "max_rss_mb": 28.65625,
+      "max_s": 335.244293693,
+      "median_s": 335.244293693,
+      "metric_rounds": {
+        "memory_mb": [
+          1130.6
+        ]
+      },
+      "metrics": {
+        "memory_mb": 1130.6
+      },
+      "min_s": 335.244293693,
+      "name": "Otari",
+      "other_cpu_s": 422.62485799999973,
+      "times_s": [
+        335.244293693
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.86 2.43 2.11 1/278 59786",
+    "before": "1.80 2.05 1.81 2/305 58418"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003571"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:14:58Z",
+  "wrong_rounds": 0
+}

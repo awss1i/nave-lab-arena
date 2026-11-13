@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-higress.json --out results/gw-higress",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Higress: routes through an AI route and its ai-proxy plugin on Envoy, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.209977,
+      "max_rss_mb": 37.8515625,
+      "max_s": 1.118990588,
+      "median_s": 1.118410987,
+      "metric_rounds": {
+        "calls_per_s": [
+          943.3,
+          942.4,
+          943.9
+        ],
+        "kb_per_open_call": [
+          12.1,
+          10.9,
+          10.9
+        ],
+        "max_us": [
+          503115.0,
+          502559.0,
+          503151.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.5,
+          6.6
+        ],
+        "p50_us": [
+          500176.0,
+          500169.0,
+          500175.0
+        ],
+        "p999_us": [
+          503115.0,
+          502559.0,
+          503151.0
+        ],
+        "p99_us": [
+          501581.0,
+          501420.0,
+          502045.0
+        ],
+        "total_s": [
+          1.060344,
+          1.061273,
+          1.05956
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 943.3,
+        "kb_per_open_call": 10.9,
+        "max_us": 503115.0,
+        "memory_open_mb": 6.6,
+        "p50_us": 500175.0,
+        "p999_us": 503115.0,
+        "p99_us": 501581.0,
+        "total_s": 1.060344
+      },
+      "min_s": 1.117944158,
+      "name": "Nave",
+      "other_cpu_s": 0.1395609999999659,
+      "times_s": [
+        1.117944158,
+        1.118990588,
+        1.118410987
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "higress",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.17361100000000002,
+      "max_rss_mb": 37.9765625,
+      "max_s": 4.026223038,
+      "median_s": 3.067769554,
+      "metric_rounds": {
+        "calls_per_s": [
+          797.9,
+          799.4,
+          793.2
+        ],
+        "first_piece_p50_us": [
+          555961.0,
+          554783.0,
+          551908.0
+        ],
+        "first_piece_p99_us": [
+          672382.0,
+          678597.0,
+          679348.0
+        ],
+        "kb_per_open_call": [
+          55.5,
+          54.1,
+          55.7
+        ],
+        "max_us": [
+          679713.0,
+          685936.0,
+          691688.0
+        ],
+        "memory_open_mb": [
+          980.6,
+          1007.0,
+          1034.2
+        ],
+        "p50_us": [
+          555961.0,
+          554783.0,
+          551909.0
+        ],
+        "p999_us": [
+          679713.0,
+          685936.0,
+          691688.0
+        ],
+        "p99_us": [
+          672382.0,
+          678597.0,
+          679348.0
+        ],
+        "total_s": [
+          1.253502,
+          1.251125,
+          1.260916
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 797.9,
+        "first_piece_p50_us": 554783.0,
+        "first_piece_p99_us": 678597.0,
+        "kb_per_open_call": 55.5,
+        "max_us": 685936.0,
+        "memory_open_mb": 1007.0,
+        "p50_us": 554783.0,
+        "p999_us": 685936.0,
+        "p99_us": 678597.0,
+        "total_s": 1.253502
+      },
+      "min_s": 3.06649785,
+      "name": "Higress",
+      "other_cpu_s": 1.0963890000000387,
+      "times_s": [
+        3.067769554,
+        4.026223038,
+        3.06649785
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.59 1.60 0.96 1/268 24152",
+    "before": "1.85 1.65 0.96 1/417 18581"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003502"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T14:02:25Z",
+  "wrong_rounds": 0
+}

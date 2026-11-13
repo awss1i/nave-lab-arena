@@ -1,0 +1,4 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+headroom-ai	0.44.0
+tiktoken	0.14.0
+headroom-benchmark	headroomlabs-ai/headroom at 9f2cc01, benchmarks/bench_latency.py

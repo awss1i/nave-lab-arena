@@ -1,0 +1,5 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+otari	v0.46.0 (image docker.io/mzdotai/otari:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+postgres, switched on	not stated

@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone AI Gateway: routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.14174199999999998,
+      "max_rss_mb": 26.4609375,
+      "max_s": 0.137936981,
+      "median_s": 0.137050532,
+      "metric_rounds": {
+        "calls_per_s": [
+          4679.1,
+          4572.8,
+          4581.8,
+          4582.9,
+          4673.6
+        ],
+        "max_us": [
+          15428.0,
+          9783.0,
+          10107.0,
+          12374.0,
+          10644.0
+        ],
+        "p50_us": [
+          2781.0,
+          2900.0,
+          2876.0,
+          2865.0,
+          2883.0
+        ],
+        "p999_us": [
+          15428.0,
+          9783.0,
+          10107.0,
+          12374.0,
+          10644.0
+        ],
+        "p99_us": [
+          6973.0,
+          7431.0,
+          8166.0,
+          7924.0,
+          6948.0
+        ],
+        "total_s": [
+          0.107024,
+          0.109547,
+          0.109282,
+          0.109266,
+          0.107158
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4582.9,
+        "max_us": 10644.0,
+        "p50_us": 2876.0,
+        "p999_us": 10644.0,
+        "p99_us": 7431.0,
+        "total_s": 0.109266
+      },
+      "min_s": 0.13393819,
+      "name": "Nave",
+      "other_cpu_s": 0.09656899999999488,
+      "times_s": [
+        0.13393819,
+        0.137936981,
+        0.137629505,
+        0.137050532,
+        0.135717132
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "helicone-ai-gateway",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.13779,
+      "max_rss_mb": 26.74609375,
+      "max_s": 0.135074843,
+      "median_s": 0.134641293,
+      "metric_rounds": {
+        "calls_per_s": [
+          4723.4,
+          4683.0,
+          4696.3,
+          4758.8,
+          4877.4
+        ],
+        "max_us": [
+          10803.0,
+          10149.0,
+          9907.0,
+          9639.0,
+          8097.0
+        ],
+        "p50_us": [
+          2746.0,
+          2676.0,
+          2726.0,
+          2769.0,
+          2514.0
+        ],
+        "p999_us": [
+          10803.0,
+          10149.0,
+          9907.0,
+          9639.0,
+          8097.0
+        ],
+        "p99_us": [
+          7446.0,
+          8439.0,
+          8279.0,
+          7139.0,
+          6720.0
+        ],
+        "total_s": [
+          0.106015,
+          0.106936,
+          0.106643,
+          0.105229,
+          0.102721
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4723.4,
+        "max_us": 9907.0,
+        "p50_us": 2726.0,
+        "p999_us": 9907.0,
+        "p99_us": 7446.0,
+        "total_s": 0.106015
+      },
+      "min_s": 0.132529137,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 0.24187800000000256,
+      "times_s": [
+        0.134641293,
+        0.134447331,
+        0.134899805,
+        0.135074843,
+        0.132529137
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.92 0.51 0.17 1/289 5079",
+    "before": "1.92 0.51 0.17 1/306 4578"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003479"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:14:59Z",
+  "wrong_rounds": 0
+}

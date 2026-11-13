@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-respan-gateway.json --out results/gw-respan-gateway",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Respan Gateway: routes by model, falls back, takes OpenAI's and Anthropic's formats. No key check on loopback, request log off, tracing off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.330329,
+      "max_rss_mb": 26.59375,
+      "max_s": 0.62992944,
+      "median_s": 0.595813741,
+      "metric_rounds": {
+        "calls_per_s": [
+          285.5,
+          306.2,
+          307.9
+        ],
+        "first_piece_p50_us": [
+          4936.0,
+          4035.0,
+          4115.0
+        ],
+        "first_piece_p99_us": [
+          13289.0,
+          11218.0,
+          12084.0
+        ],
+        "max_us": [
+          41703.0,
+          44325.0,
+          43475.0
+        ],
+        "p50_us": [
+          10892.0,
+          10215.0,
+          10358.0
+        ],
+        "p999_us": [
+          41703.0,
+          44325.0,
+          43475.0
+        ],
+        "p99_us": [
+          40739.0,
+          40857.0,
+          42514.0
+        ],
+        "total_s": [
+          0.56049,
+          0.52267,
+          0.519781
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 306.2,
+        "first_piece_p50_us": 4115.0,
+        "first_piece_p99_us": 12084.0,
+        "max_us": 43475.0,
+        "p50_us": 10358.0,
+        "p999_us": 43475.0,
+        "p99_us": 40857.0,
+        "total_s": 0.52267
+      },
+      "min_s": 0.588591809,
+      "name": "Nave",
+      "other_cpu_s": 0.7996710000000097,
+      "times_s": [
+        0.62992944,
+        0.595813741,
+        0.588591809
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "respan-gateway",
+        "4"
+      ],
+      "cpu_s": 0.217306,
+      "max_rss_mb": 26.515625,
+      "max_s": 1.877800244,
+      "median_s": 1.867997805,
+      "metric_rounds": {
+        "calls_per_s": [
+          89.4,
+          89.0,
+          89.7
+        ],
+        "first_piece_p50_us": [
+          2895.0,
+          3083.0,
+          2906.0
+        ],
+        "first_piece_p99_us": [
+          6398.0,
+          8088.0,
+          6406.0
+        ],
+        "max_us": [
+          58850.0,
+          61899.0,
+          62083.0
+        ],
+        "p50_us": [
+          43697.0,
+          43758.0,
+          43688.0
+        ],
+        "p999_us": [
+          58850.0,
+          61899.0,
+          62083.0
+        ],
+        "p99_us": [
+          56880.0,
+          61355.0,
+          57543.0
+        ],
+        "total_s": [
+          1.789373,
+          1.79859,
+          1.783746
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 89.4,
+        "first_piece_p50_us": 2906.0,
+        "first_piece_p99_us": 6406.0,
+        "max_us": 61899.0,
+        "p50_us": 43697.0,
+        "p999_us": 61899.0,
+        "p99_us": 57543.0,
+        "total_s": 1.789373
+      },
+      "min_s": 1.859130522,
+      "name": "Respan Gateway",
+      "other_cpu_s": 1.318016999999992,
+      "times_s": [
+        1.867997805,
+        1.877800244,
+        1.859130522
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.15 0.60 0.26 1/269 18377",
+    "before": "1.09 0.57 0.25 1/277 18158"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003478"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:18:29Z",
+  "wrong_rounds": 0
+}

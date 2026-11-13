@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-llama-swap.json --out results/gw-llama-swap",
+  "commit": "010bcc5",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in llama-swap: starts a model's server on demand and passes calls on, in OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.431924,
+      "max_rss_mb": 26.34375,
+      "max_s": 0.808290488,
+      "median_s": 0.797563937,
+      "metric_rounds": {
+        "calls_per_s": [
+          226.3,
+          221.2,
+          224.1
+        ],
+        "first_piece_p50_us": [
+          4759.0,
+          4327.0,
+          4208.0
+        ],
+        "first_piece_p99_us": [
+          12219.0,
+          11886.0,
+          11871.0
+        ],
+        "max_us": [
+          58832.0,
+          54278.0,
+          51017.0
+        ],
+        "p50_us": [
+          14835.0,
+          15162.0,
+          14416.0
+        ],
+        "p999_us": [
+          58832.0,
+          54278.0,
+          51017.0
+        ],
+        "p99_us": [
+          53543.0,
+          49266.0,
+          49730.0
+        ],
+        "total_s": [
+          0.707125,
+          0.72357,
+          0.714171
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 224.1,
+        "first_piece_p50_us": 4327.0,
+        "first_piece_p99_us": 11886.0,
+        "max_us": 54278.0,
+        "p50_us": 14835.0,
+        "p999_us": 54278.0,
+        "p99_us": 49730.0,
+        "total_s": 0.714171
+      },
+      "min_s": 0.790264912,
+      "name": "Nave",
+      "other_cpu_s": 1.0915260000000102,
+      "times_s": [
+        0.790264912,
+        0.808290488,
+        0.797563937
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "llama-swap",
+        "4"
+      ],
+      "cpu_s": 0.350817,
+      "max_rss_mb": 26.46484375,
+      "max_s": 0.815831677,
+      "median_s": 0.776734961,
+      "metric_rounds": {
+        "calls_per_s": [
+          218.7,
+          230.9,
+          231.4
+        ],
+        "first_piece_p50_us": [
+          4910.0,
+          4502.0,
+          4422.0
+        ],
+        "first_piece_p99_us": [
+          12049.0,
+          12299.0,
+          10326.0
+        ],
+        "max_us": [
+          49110.0,
+          61789.0,
+          54381.0
+        ],
+        "p50_us": [
+          16010.0,
+          14667.0,
+          14651.0
+        ],
+        "p999_us": [
+          49110.0,
+          61789.0,
+          54381.0
+        ],
+        "p99_us": [
+          48059.0,
+          57390.0,
+          52097.0
+        ],
+        "total_s": [
+          0.731903,
+          0.693254,
+          0.691636
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 230.9,
+        "first_piece_p50_us": 4502.0,
+        "first_piece_p99_us": 12049.0,
+        "max_us": 54381.0,
+        "p50_us": 14667.0,
+        "p999_us": 54381.0,
+        "p99_us": 52097.0,
+        "total_s": 0.693254
+      },
+      "min_s": 0.776059727,
+      "name": "llama-swap",
+      "other_cpu_s": 1.6751919999999818,
+      "times_s": [
+        0.815831677,
+        0.776734961,
+        0.776059727
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.99 0.58 0.26 1/269 10574",
+    "before": "0.99 0.57 0.25 1/296 10320"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003530"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T14:47:53Z",
+  "wrong_rounds": 0
+}

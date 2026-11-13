@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+routellm	0.2.0, its BERT router, checkpoint routellm/bert_gpt4_augmented
+routellm-data	RouteLLM's repo at 0b64fda
+nadirclaw	0.25.3
+uncommon-route	0.7.21
+rorf	0.1.3

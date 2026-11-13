@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-helicone.json --out results/gw-helicone",
+  "commit": "daa4346",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone: passes OpenAI's and Anthropic's formats on to the upstream named in a header, checks its own API key, logs every call with its body to ClickHouse and MinIO, prices it. Its web app, PostgreSQL, ClickHouse and MinIO run in the same container and count as its own",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.21099299999999999,
+      "max_rss_mb": 37.71875,
+      "max_s": 1.177735622,
+      "median_s": 1.15696325,
+      "metric_rounds": {
+        "calls_per_s": [
+          923.7,
+          928.9,
+          918.3
+        ],
+        "kb_per_open_call": [
+          2.9,
+          7.4,
+          18.6
+        ],
+        "max_us": [
+          527906.0,
+          532839.0,
+          549139.0
+        ],
+        "memory_open_mb": [
+          2.7,
+          4.9,
+          10.4
+        ],
+        "p50_us": [
+          506794.0,
+          502276.0,
+          502410.0
+        ],
+        "p999_us": [
+          527906.0,
+          532839.0,
+          549139.0
+        ],
+        "p99_us": [
+          527089.0,
+          530977.0,
+          538231.0
+        ],
+        "total_s": [
+          1.082835,
+          1.076752,
+          1.089115
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 923.7,
+        "kb_per_open_call": 7.4,
+        "max_us": 532839.0,
+        "memory_open_mb": 4.9,
+        "p50_us": 502410.0,
+        "p999_us": 532839.0,
+        "p99_us": 530977.0,
+        "total_s": 1.082835
+      },
+      "min_s": 1.14337111,
+      "name": "Nave",
+      "other_cpu_s": 2.0890069999999543,
+      "times_s": [
+        1.15696325,
+        1.14337111,
+        1.177735622
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "helicone",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.194123,
+      "max_rss_mb": 36.09375,
+      "max_s": 8.418563756,
+      "median_s": 8.215164883,
+      "metric_rounds": {
+        "calls_per_s": [
+          149.5,
+          135.9,
+          140.2
+        ],
+        "kb_per_open_call": [
+          262.1,
+          54.5,
+          207.7
+        ],
+        "max_us": [
+          6106711.0,
+          6802532.0,
+          6561575.0
+        ],
+        "memory_open_mb": [
+          1550.3,
+          1947.6,
+          2084.9
+        ],
+        "p50_us": [
+          566686.0,
+          825410.0,
+          579056.0
+        ],
+        "p999_us": [
+          6106711.0,
+          6802532.0,
+          6561575.0
+        ],
+        "p99_us": [
+          6003266.0,
+          6695951.0,
+          6447436.0
+        ],
+        "total_s": [
+          6.68715,
+          7.359827,
+          7.134236
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 140.2,
+        "kb_per_open_call": 207.7,
+        "max_us": 6561575.0,
+        "memory_open_mb": 1947.6,
+        "p50_us": 579056.0,
+        "p999_us": 6561575.0,
+        "p99_us": 6447436.0,
+        "total_s": 7.134236
+      },
+      "min_s": 7.754614113,
+      "name": "Helicone",
+      "other_cpu_s": 13.496200000000027,
+      "times_s": [
+        7.754614113,
+        8.418563756,
+        8.215164883
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.90 2.77 1.68 1/271 33541",
+    "before": "3.08 2.77 1.63 8/1020 28133"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003569"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:40:00Z",
+  "wrong_rounds": 0
+}

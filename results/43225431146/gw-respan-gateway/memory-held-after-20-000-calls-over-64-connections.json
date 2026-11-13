@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-respan-gateway.json --out results/gw-respan-gateway",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Respan Gateway: routes by model, falls back, takes OpenAI's and Anthropic's formats. No key check on loopback, request log off, tracing off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.63031,
+      "max_rss_mb": 26.2734375,
+      "max_s": 0.770984896,
+      "median_s": 0.770984896,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.770984896,
+      "name": "Nave",
+      "other_cpu_s": 1.2496899999999953,
+      "times_s": [
+        0.770984896
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "respan-gateway"
+      ],
+      "cpu_s": 0.625116,
+      "max_rss_mb": 26.671875,
+      "max_s": 2.35918592,
+      "median_s": 2.35918592,
+      "metric_rounds": {
+        "memory_mb": [
+          22.2
+        ]
+      },
+      "metrics": {
+        "memory_mb": 22.2
+      },
+      "min_s": 2.35918592,
+      "name": "Respan Gateway",
+      "other_cpu_s": 5.164883999999992,
+      "times_s": [
+        2.35918592
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.14 0.61 0.27 1/269 19602",
+    "before": "1.06 0.59 0.26 1/277 19040"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003478"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:18:37Z",
+  "wrong_rounds": 0
+}

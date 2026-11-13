@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+nave	prototype P006, 1a772dff36bf
+portkey-gateway	1.15.2 (image docker.io/portkeyai/gateway:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+portkey, switched on	routes by headers on each call, falls back, takes OpenAI's format. No key check, no request log, no spend
+portkey, kinds of race it wasn't in	cache messages

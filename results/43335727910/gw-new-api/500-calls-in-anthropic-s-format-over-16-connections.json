@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-new-api.json --out results/gw-new-api",
+  "commit": "b1c6144",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Anthropic's format in and OpenAI's format to the model. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in New API: routes by model through channels, takes OpenAI's and Anthropic's formats, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "messages",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.059659000000000004,
+      "max_rss_mb": 26.16015625,
+      "max_s": 0.065359012,
+      "median_s": 0.061057869,
+      "metric_rounds": {
+        "calls_per_s": [
+          22529.8,
+          15251.3,
+          15259.3,
+          18505.7,
+          16935.5
+        ],
+        "max_us": [
+          1779.0,
+          3639.0,
+          3728.0,
+          1728.0,
+          2442.0
+        ],
+        "p50_us": [
+          501.0,
+          937.0,
+          936.0,
+          636.0,
+          793.0
+        ],
+        "p999_us": [
+          1779.0,
+          3639.0,
+          3728.0,
+          1728.0,
+          2442.0
+        ],
+        "p99_us": [
+          1620.0,
+          1591.0,
+          1521.0,
+          1564.0,
+          1957.0
+        ],
+        "total_s": [
+          0.022323,
+          0.032912,
+          0.032901,
+          0.027144,
+          0.029646
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 16935.5,
+        "max_us": 2442.0,
+        "p50_us": 793.0,
+        "p999_us": 2442.0,
+        "p99_us": 1591.0,
+        "total_s": 0.029646
+      },
+      "min_s": 0.056530787,
+      "name": "Nave",
+      "other_cpu_s": 0.07255799999999546,
+      "times_s": [
+        0.056530787,
+        0.065359012,
+        0.063871404,
+        0.059421773,
+        0.061057869
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "messages",
+        "new-api",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.084098,
+      "max_rss_mb": 26.68359375,
+      "max_s": 0.678148937,
+      "median_s": 0.658137802,
+      "metric_rounds": {
+        "calls_per_s": [
+          780.7,
+          818.8,
+          805.2,
+          783.4,
+          810.0
+        ],
+        "max_us": [
+          37025.0,
+          41988.0,
+          43216.0,
+          43669.0,
+          41584.0
+        ],
+        "p50_us": [
+          19410.0,
+          18725.0,
+          18967.0,
+          19370.0,
+          18588.0
+        ],
+        "p999_us": [
+          37025.0,
+          41988.0,
+          43216.0,
+          43669.0,
+          41584.0
+        ],
+        "p99_us": [
+          34899.0,
+          33895.0,
+          32376.0,
+          36153.0,
+          34397.0
+        ],
+        "total_s": [
+          0.640552,
+          0.610799,
+          0.621101,
+          0.638348,
+          0.617464
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 805.2,
+        "max_us": 41988.0,
+        "p50_us": 18967.0,
+        "p999_us": 41988.0,
+        "p99_us": 34397.0,
+        "total_s": 0.621101
+      },
+      "min_s": 0.64952181,
+      "name": "New API",
+      "other_cpu_s": 1.464174999999983,
+      "times_s": [
+        0.678148937,
+        0.64952181,
+        0.658137802,
+        0.677364585,
+        0.654025162
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "7.40 2.41 0.87 1/363 9418",
+    "before": "6.48 2.15 0.78 1/382 8894"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003609"
+  },
+  "name": "500 calls in Anthropic's format over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T00:17:55Z",
+  "wrong_rounds": 0
+}

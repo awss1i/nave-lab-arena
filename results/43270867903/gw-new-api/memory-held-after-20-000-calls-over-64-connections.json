@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-new-api.json --out results/gw-new-api",
+  "commit": "2b85868",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in New API: routes by model through channels, takes OpenAI's and Anthropic's formats, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.572381,
+      "max_rss_mb": 26.24609375,
+      "max_s": 0.70330773,
+      "median_s": 0.70330773,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.70330773,
+      "name": "Nave",
+      "other_cpu_s": 1.1376189999999795,
+      "times_s": [
+        0.70330773
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "new-api"
+      ],
+      "cpu_s": 0.928109,
+      "max_rss_mb": 28.3828125,
+      "max_s": 28.555592169,
+      "median_s": 28.555592169,
+      "metric_rounds": {
+        "memory_mb": [
+          927.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 927.9
+      },
+      "min_s": 28.555592169,
+      "name": "New API",
+      "other_cpu_s": 44.81189100000001,
+      "times_s": [
+        28.555592169
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "22.04 10.82 4.41 1/356 25399",
+    "before": "20.41 8.17 3.21 1/375 24779"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003572"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:41:05Z",
+  "wrong_rounds": 0
+}

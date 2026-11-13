@@ -1,0 +1,5 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V45 96-Core Processor
+nave	prototype P006, 1a772dff36bf
+antirion	antirion 0.1.1 (321a35a95b8d7f901164eefb0b63ff7e9a03bde0) (image docker.io/eliasbiondo/antirion:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+antirion, switched on	routes by model through deployments, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, prices every call, keeps metrics. Request log off, as in its own benchmark's minimal profile

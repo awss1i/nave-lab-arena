@@ -1,0 +1,73 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "c0d7462",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, RouteLLM's BERT router as released, which wasn't trained on MMLU, scored on 2,000 of them spread evenly",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "routellm",
+        "mmlu",
+        "2000"
+      ],
+      "cpu_s": 749.7771620000001,
+      "max_rss_mb": 2169.59375,
+      "max_s": 378.718191628,
+      "median_s": 378.718191628,
+      "metric_rounds": {
+        "apgr": [
+          0.5241
+        ],
+        "cpt50": [
+          46.7
+        ],
+        "cpt80": [
+          77.15
+        ],
+        "ns_per_prompt": [
+          185586049.0
+        ],
+        "prompts": [
+          2000.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5241,
+        "cpt50": 46.7,
+        "cpt80": 77.15,
+        "ns_per_prompt": 185586049.0,
+        "prompts": 2000.0
+      },
+      "min_s": 378.718191628,
+      "name": "RouteLLM's BERT router",
+      "other_cpu_s": 9.032837999999629,
+      "times_s": [
+        378.718191628
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.04 2.05 1.52 1/258 3688",
+    "before": "2.02 1.50 0.72 2/258 3450"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003527"
+  },
+  "name": "routing MMLU's prompts, RouteLLM's BERT router",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:44:39Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,2 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+openmeter-settings	its quickstart at d538903, with the sink's minCommitCount of 1 dropped for the sink's default of 500

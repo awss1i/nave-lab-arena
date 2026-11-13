@@ -1,0 +1,97 @@
+{
+  "command": "bin/race run run/gw-relayplane.json --out results/gw-relayplane",
+  "commit": "88198c8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in RelayPlane: passes OpenAI's and Anthropic's formats on to the provider, routes by a complexity tier, prices every call and rolls it up by run and agent in SQLite, checks budgets. Passes the caller's key on. Its own limiter is set to the most it accepts, 10,000 calls a minute for a model, which is what bounds it in the throughput races",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "RelayPlane",
+      "got": null,
+      "lengths": [
+        0,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 2000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "relayplane",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "RelayPlane",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.13 1.22 0.86 1/258 5963",
+    "before": "1.34 1.27 0.85 6/276 5590"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003581"
+  },
+  "name": "2,000 calls over 64 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 2000\nbad 0\nchecksum 8bcee7824fbc6518\n",
+      "stderr": "metric calls_per_s=24839.5\nmetric p50_us=1506\nmetric p99_us=28580\nmetric p999_us=29954\nmetric max_us=30479\nmetric total_s=0.080688\n"
+    },
+    {
+      "name": "RelayPlane",
+      "ok": false,
+      "output": "",
+      "stderr": "wrong answer to call 0: HTTP/1.1 200 OK / {\"_relayplaneStreamCache\":true,\"ssePayload\":\"data: {\\\"choices\\\":[{\\\"delta\\\":{\\\"content\\\":\\\"\\\",\\\"role\\\":\\\"assistant\\\"},\\\"finish_reason\\\":null,\\\"index\\\":0}],\\\"created\\\":0,\\\"id\\\":\\\"chatcmpl-standin\\\",\\\"model\\\":\\\"gpt-4o-mini\\\",\\\"object\\\":\\\"chat\nwrong answer to call 64: HTTP/1.1 200 OK / {\"_relayplaneStreamCache\":true,\"ssePayload\":\"data: {\\\"choices\\\":[{\\\"delta\\\":{\\\"content\\\":\\\"\\\",\\\"role\\\":\\\"assistant\\\"},\\\"finish_reason\\\":null,\\\"index\\\":0}],\\\"created\\\":0,\\\"id\\\":\\\"chatcmpl-standin\\\",\\\"model\\\":\\\"gpt-4o-mini\\\",\\\"object\\\":\\\"chat\nwrong answer to call 1: HTTP/1.1 "
+    }
+  ],
+  "rounds": 5,
+  "time": "2026-11-12T19:05:12Z",
+  "wrong_rounds": 0
+}

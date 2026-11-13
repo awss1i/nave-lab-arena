@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-tyk.json --out results/gw-tyk",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Tyk: passes one path on to the model as an API gateway, in OpenAI's format. No key check, analytics off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.464806,
+      "max_rss_mb": 26.28125,
+      "max_s": 0.869092803,
+      "median_s": 0.847009017,
+      "metric_rounds": {
+        "calls_per_s": [
+          209.7,
+          218.9,
+          204.4
+        ],
+        "first_piece_p50_us": [
+          4081.0,
+          4822.0,
+          4460.0
+        ],
+        "first_piece_p99_us": [
+          13090.0,
+          12188.0,
+          12397.0
+        ],
+        "max_us": [
+          58774.0,
+          59208.0,
+          67442.0
+        ],
+        "p50_us": [
+          15545.0,
+          14124.0,
+          16389.0
+        ],
+        "p999_us": [
+          58774.0,
+          59208.0,
+          67442.0
+        ],
+        "p99_us": [
+          57317.0,
+          55160.0,
+          58101.0
+        ],
+        "total_s": [
+          0.762985,
+          0.731151,
+          0.783073
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 209.7,
+        "first_piece_p50_us": 4460.0,
+        "first_piece_p99_us": 12397.0,
+        "max_us": 59208.0,
+        "p50_us": 15545.0,
+        "p999_us": 59208.0,
+        "p99_us": 57317.0,
+        "total_s": 0.762985
+      },
+      "min_s": 0.816826153,
+      "name": "Nave",
+      "other_cpu_s": 1.1999700000000018,
+      "times_s": [
+        0.847009017,
+        0.816826153,
+        0.869092803
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "tyk",
+        "4"
+      ],
+      "cpu_s": 0.26348099999999997,
+      "max_rss_mb": 26.53515625,
+      "max_s": 0.697595413,
+      "median_s": 0.692326189,
+      "metric_rounds": {
+        "calls_per_s": [
+          261.4,
+          263.9,
+          269.9
+        ],
+        "first_piece_p50_us": [
+          5814.0,
+          5074.0,
+          5992.0
+        ],
+        "first_piece_p99_us": [
+          13816.0,
+          13287.0,
+          12893.0
+        ],
+        "max_us": [
+          41929.0,
+          44500.0,
+          52602.0
+        ],
+        "p50_us": [
+          12807.0,
+          12002.0,
+          12299.0
+        ],
+        "p999_us": [
+          41929.0,
+          44500.0,
+          52602.0
+        ],
+        "p99_us": [
+          38532.0,
+          42242.0,
+          44870.0
+        ],
+        "total_s": [
+          0.612306,
+          0.606493,
+          0.592919
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 263.9,
+        "first_piece_p50_us": 5814.0,
+        "first_piece_p99_us": 13287.0,
+        "max_us": 44500.0,
+        "p50_us": 12299.0,
+        "p999_us": 44500.0,
+        "p99_us": 42242.0,
+        "total_s": 0.606493
+      },
+      "min_s": 0.679234306,
+      "name": "Tyk",
+      "other_cpu_s": 1.026518999999992,
+      "times_s": [
+        0.697595413,
+        0.692326189,
+        0.679234306
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.93 1.09 0.57 1/281 18340",
+    "before": "0.58 1.02 0.55 1/307 18088"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003560"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:06:45Z",
+  "wrong_rounds": 0
+}

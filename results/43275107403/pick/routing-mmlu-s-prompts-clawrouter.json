@@ -1,0 +1,74 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "72604d6",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "clawrouter",
+        "mmlu",
+        "2000"
+      ],
+      "cpu_s": 0.508591,
+      "max_rss_mb": 81.5390625,
+      "max_s": 0.467784434,
+      "median_s": 0.467784434,
+      "metric_rounds": {
+        "apgr": [
+          0.5209
+        ],
+        "cpt50": [
+          50.55
+        ],
+        "cpt80": [
+          71.2
+        ],
+        "ns_per_prompt": [
+          126971.0
+        ],
+        "prompts": [
+          2000.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5209,
+        "cpt50": 50.55,
+        "cpt80": 71.2,
+        "ns_per_prompt": 126971.0,
+        "prompts": 2000.0
+      },
+      "min_s": 0.467784434,
+      "name": "ClawRouter",
+      "other_cpu_s": 0.09140900000036378,
+      "times_s": [
+        0.467784434
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.70 2.33 2.19 1/249 10589",
+    "before": "2.70 2.33 2.19 3/249 10535"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003577"
+  },
+  "name": "routing MMLU's prompts, ClawRouter",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T19:36:27Z",
+  "wrong_rounds": 0
+}

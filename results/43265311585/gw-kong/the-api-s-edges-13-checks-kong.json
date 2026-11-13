@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-kong.json --out results/gw-kong",
+  "commit": "3df336e",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "kong"
+      ],
+      "cpu_s": 0.083678,
+      "max_rss_mb": 26.87109375,
+      "max_s": 0.121570522,
+      "median_s": 0.121570522,
+      "metric_rounds": {
+        "edges_passed": [
+          11.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 11.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.121570522,
+      "name": "Kong",
+      "other_cpu_s": 0.17632200000001932,
+      "times_s": [
+        0.121570522
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.24 1.15 0.59 1/267 50930",
+    "before": "1.24 1.15 0.59 4/281 50834"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003562"
+  },
+  "name": "the API's edges, 13 checks, Kong",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:07:59Z",
+  "wrong_rounds": 0
+}

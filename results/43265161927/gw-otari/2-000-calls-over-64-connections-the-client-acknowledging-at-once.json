@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-otari.json --out results/gw-otari",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Otari: routes by provider and model, takes OpenAI's and Anthropic's formats, checks the caller's key, prices each call, records usage in PostgreSQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.08995600000000001,
+      "max_rss_mb": 26.48046875,
+      "max_s": 0.088422863,
+      "median_s": 0.085962191,
+      "metric_rounds": {
+        "calls_per_s": [
+          31849.8,
+          31124.6,
+          33012.5,
+          31303.9,
+          37789.1
+        ],
+        "max_us": [
+          8543.0,
+          8662.0,
+          13436.0,
+          9552.0,
+          8740.0
+        ],
+        "p50_us": [
+          1858.0,
+          1899.0,
+          1476.0,
+          1879.0,
+          1349.0
+        ],
+        "p999_us": [
+          8427.0,
+          5090.0,
+          11166.0,
+          4799.0,
+          7564.0
+        ],
+        "p99_us": [
+          2997.0,
+          3277.0,
+          5733.0,
+          2967.0,
+          4246.0
+        ],
+        "total_s": [
+          0.062943,
+          0.06441,
+          0.060724,
+          0.064037,
+          0.053073
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 31849.8,
+        "max_us": 8740.0,
+        "p50_us": 1858.0,
+        "p999_us": 7564.0,
+        "p99_us": 3277.0,
+        "total_s": 0.062943
+      },
+      "min_s": 0.076259552,
+      "name": "Nave",
+      "other_cpu_s": 0.10374400000006366,
+      "times_s": [
+        0.085962191,
+        0.088422863,
+        0.083335691,
+        0.087611674,
+        0.076259552
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "otari",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.111598,
+      "max_rss_mb": 26.5859375,
+      "max_s": 23.398730723,
+      "median_s": 21.811012301,
+      "metric_rounds": {
+        "calls_per_s": [
+          94.1,
+          91.8,
+          85.6,
+          92.4,
+          90.0
+        ],
+        "max_us": [
+          2852578.0,
+          2475613.0,
+          2739952.0,
+          2181233.0,
+          2221988.0
+        ],
+        "p50_us": [
+          581206.0,
+          591493.0,
+          630984.0,
+          601855.0,
+          601389.0
+        ],
+        "p999_us": [
+          2377457.0,
+          2417357.0,
+          2457864.0,
+          2082178.0,
+          2155027.0
+        ],
+        "p99_us": [
+          1670783.0,
+          1807933.0,
+          1884573.0,
+          1651735.0,
+          1726802.0
+        ],
+        "total_s": [
+          21.256952,
+          21.783747,
+          23.372914,
+          21.649159,
+          22.233544
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 91.8,
+        "max_us": 2475613.0,
+        "p50_us": 601389.0,
+        "p999_us": 2377457.0,
+        "p99_us": 1726802.0,
+        "total_s": 21.783747
+      },
+      "min_s": 21.281907303,
+      "name": "Otari",
+      "other_cpu_s": 27.720533999999983,
+      "times_s": [
+        21.281907303,
+        21.811012301,
+        23.398730723,
+        21.675810534,
+        22.260259053
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.03 1.71 0.87 2/276 12399",
+    "before": "1.79 1.43 0.66 2/302 10865"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003558"
+  },
+  "name": "2,000 calls over 64 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:09:51Z",
+  "wrong_rounds": 0
+}

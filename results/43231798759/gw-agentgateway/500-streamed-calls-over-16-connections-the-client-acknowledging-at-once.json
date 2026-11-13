@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-agentgateway.json --out results/gw-agentgateway",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in agentgateway: routes by model, takes OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.084412,
+      "max_rss_mb": 26.64453125,
+      "max_s": 0.096594508,
+      "median_s": 0.093554839,
+      "metric_rounds": {
+        "calls_per_s": [
+          7789.9,
+          8282.4,
+          8961.2,
+          10350.9,
+          9718.2
+        ],
+        "first_piece_p50_us": [
+          1651.0,
+          1672.0,
+          1574.0,
+          1317.0,
+          1333.0
+        ],
+        "first_piece_p99_us": [
+          5500.0,
+          4169.0,
+          4044.0,
+          3138.0,
+          3225.0
+        ],
+        "max_us": [
+          6523.0,
+          6295.0,
+          4481.0,
+          4531.0,
+          5340.0
+        ],
+        "p50_us": [
+          1709.0,
+          1713.0,
+          1616.0,
+          1364.0,
+          1381.0
+        ],
+        "p999_us": [
+          6523.0,
+          6295.0,
+          4481.0,
+          4531.0,
+          5340.0
+        ],
+        "p99_us": [
+          5642.0,
+          4309.0,
+          4045.0,
+          3774.0,
+          3845.0
+        ],
+        "total_s": [
+          0.064367,
+          0.060585,
+          0.055973,
+          0.048511,
+          0.051661
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 8961.2,
+        "first_piece_p50_us": 1574.0,
+        "first_piece_p99_us": 4044.0,
+        "max_us": 5340.0,
+        "p50_us": 1616.0,
+        "p999_us": 5340.0,
+        "p99_us": 4045.0,
+        "total_s": 0.055973
+      },
+      "min_s": 0.081904607,
+      "name": "Nave",
+      "other_cpu_s": 0.09887099999999971,
+      "times_s": [
+        0.096594508,
+        0.095170505,
+        0.093554839,
+        0.081904607,
+        0.083710031
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "agentgateway",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.08802499999999999,
+      "max_rss_mb": 26.45703125,
+      "max_s": 0.115222456,
+      "median_s": 0.10459238,
+      "metric_rounds": {
+        "calls_per_s": [
+          7144.4,
+          6946.6,
+          7103.3,
+          6265.8,
+          7398.7
+        ],
+        "first_piece_p50_us": [
+          1589.0,
+          1617.0,
+          1585.0,
+          1608.0,
+          1484.0
+        ],
+        "first_piece_p99_us": [
+          2570.0,
+          5114.0,
+          2608.0,
+          7365.0,
+          2371.0
+        ],
+        "max_us": [
+          3406.0,
+          5886.0,
+          4269.0,
+          10045.0,
+          3220.0
+        ],
+        "p50_us": [
+          2109.0,
+          2121.0,
+          2116.0,
+          2103.0,
+          2031.0
+        ],
+        "p999_us": [
+          3406.0,
+          5886.0,
+          4269.0,
+          10045.0,
+          3220.0
+        ],
+        "p99_us": [
+          3378.0,
+          5435.0,
+          3075.0,
+          8477.0,
+          3109.0
+        ],
+        "total_s": [
+          0.070187,
+          0.072177,
+          0.07058,
+          0.080013,
+          0.06782
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 7103.3,
+        "first_piece_p50_us": 1589.0,
+        "first_piece_p99_us": 2608.0,
+        "max_us": 4269.0,
+        "p50_us": 2109.0,
+        "p999_us": 4269.0,
+        "p99_us": 3378.0,
+        "total_s": 0.07058
+      },
+      "min_s": 0.099385508,
+      "name": "agentgateway",
+      "other_cpu_s": 0.19250000000000114,
+      "times_s": [
+        0.102607476,
+        0.10459238,
+        0.106297069,
+        0.115222456,
+        0.099385508
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.09 0.28 0.10 1/288 7616",
+    "before": "1.09 0.28 0.10 1/315 7090"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003507"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:54:52Z",
+  "wrong_rounds": 0
+}

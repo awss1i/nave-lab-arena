@@ -1,0 +1,5 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+arize-phoenix	21.0.0
+mlflow	3.18.0
+traceloop-sdk	0.63.0
+nave-log	prototype P013, b684e31b2ff9

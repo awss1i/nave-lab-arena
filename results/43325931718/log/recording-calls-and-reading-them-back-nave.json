@@ -1,0 +1,67 @@
+{
+  "command": "bin/race run races/log.json --out results/log",
+  "commit": "65c4823",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "log",
+        "nave"
+      ],
+      "cpu_s": 0.22936499999999999,
+      "max_rss_mb": 39.41015625,
+      "max_s": 0.201047466,
+      "median_s": 0.201047466,
+      "metric_rounds": {
+        "bytes_per_call": [
+          70.5
+        ],
+        "calls_held": [
+          20000.0
+        ],
+        "seconds": [
+          0.124
+        ],
+        "us_per_call": [
+          6.2
+        ]
+      },
+      "metrics": {
+        "bytes_per_call": 70.5,
+        "calls_held": 20000.0,
+        "seconds": 0.124,
+        "us_per_call": 6.2
+      },
+      "min_s": 0.201047466,
+      "name": "Nave",
+      "other_cpu_s": 0.1806349999999966,
+      "times_s": [
+        0.201047466
+      ]
+    }
+  ],
+  "feature": "F9",
+  "load": {
+    "after": "1.19 0.63 0.24 2/271 2777",
+    "before": "1.19 0.63 0.24 2/271 2726"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003595"
+  },
+  "name": "recording calls and reading them back, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T23:06:40Z",
+  "wrong_rounds": 0
+}

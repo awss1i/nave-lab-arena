@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-olla.json --out results/gw-olla",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Olla: balances load across endpoints and passes calls through, in OpenAI's format. No key check, request log off, rate limits lifted",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.212306,
+      "max_rss_mb": 37.8046875,
+      "max_s": 1.12159317,
+      "median_s": 1.121499392,
+      "metric_rounds": {
+        "calls_per_s": [
+          939.5,
+          940.8,
+          940.7
+        ],
+        "kb_per_open_call": [
+          12.1,
+          10.9,
+          10.9
+        ],
+        "max_us": [
+          503836.0,
+          502401.0,
+          502306.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.6,
+          6.6
+        ],
+        "p50_us": [
+          500187.0,
+          500182.0,
+          500187.0
+        ],
+        "p999_us": [
+          503836.0,
+          502401.0,
+          502306.0
+        ],
+        "p99_us": [
+          502426.0,
+          501902.0,
+          502082.0
+        ],
+        "total_s": [
+          1.064587,
+          1.063216,
+          1.063207
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 940.7,
+        "kb_per_open_call": 10.9,
+        "max_us": 502401.0,
+        "memory_open_mb": 6.6,
+        "p50_us": 500187.0,
+        "p999_us": 502401.0,
+        "p99_us": 502082.0,
+        "total_s": 1.063216
+      },
+      "min_s": 1.121450358,
+      "name": "Nave",
+      "other_cpu_s": 0.12802800000000342,
+      "times_s": [
+        1.12159317,
+        1.121499392,
+        1.121450358
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "olla",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.18740199999999999,
+      "max_rss_mb": 38.1015625,
+      "max_s": 11.093296682,
+      "median_s": 11.085758315,
+      "metric_rounds": {
+        "calls_per_s": [
+          99.7,
+          99.6,
+          99.6
+        ],
+        "kb_per_open_call": [
+          12.9,
+          43.0,
+          48.7
+        ],
+        "max_us": [
+          5019576.0,
+          5022599.0,
+          5023846.0
+        ],
+        "memory_open_mb": [
+          52.9,
+          55.5,
+          53.6
+        ],
+        "p50_us": [
+          5002078.0,
+          5002052.0,
+          5001649.0
+        ],
+        "p999_us": [
+          5019576.0,
+          5022599.0,
+          5023846.0
+        ],
+        "p99_us": [
+          5017291.0,
+          5020662.0,
+          5022890.0
+        ],
+        "total_s": [
+          10.034583,
+          10.03628,
+          10.041955
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 99.6,
+        "kb_per_open_call": 43.0,
+        "max_us": 5022599.0,
+        "memory_open_mb": 53.6,
+        "p50_us": 5002052.0,
+        "p999_us": 5022599.0,
+        "p99_us": 5020662.0,
+        "total_s": 10.03628
+      },
+      "min_s": 11.08423691,
+      "name": "Olla",
+      "other_cpu_s": 0.6288109999999931,
+      "times_s": [
+        11.08423691,
+        11.085758315,
+        11.093296682
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.75 0.52 0.24 1/269 13470",
+    "before": "0.61 0.48 0.21 1/292 8349"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003475"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:18:49Z",
+  "wrong_rounds": 0
+}

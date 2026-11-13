@@ -1,0 +1,128 @@
+{
+  "command": "bin/race run run/gw-coai.json --out results/gw-coai",
+  "commit": "6dc8546",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in CoAI: routes by model through channels with priorities, retries on the next channel, takes OpenAI's format, checks the caller's key, counts usage and quota in MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.08388,
+      "max_rss_mb": 26.72265625,
+      "max_s": 0.085381737,
+      "median_s": 0.085381737,
+      "metric_rounds": {
+        "calls_per_s": [
+          33991.2
+        ],
+        "max_us": [
+          10061.0
+        ],
+        "p50_us": [
+          1633.0
+        ],
+        "p999_us": [
+          6446.0
+        ],
+        "p99_us": [
+          5157.0
+        ],
+        "total_s": [
+          0.059044
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 33991.2,
+        "max_us": 10061.0,
+        "p50_us": 1633.0,
+        "p999_us": 6446.0,
+        "p99_us": 5157.0,
+        "total_s": 0.059044
+      },
+      "min_s": 0.085381737,
+      "name": "Nave",
+      "other_cpu_s": 0.10611999999994089,
+      "times_s": [
+        0.085381737
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "coai",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.166891,
+      "max_rss_mb": 26.33203125,
+      "max_s": 100.798435638,
+      "median_s": 100.798435638,
+      "metric_rounds": {
+        "calls_per_s": [
+          19.8
+        ],
+        "max_us": [
+          5486868.0
+        ],
+        "p50_us": [
+          3138803.0
+        ],
+        "p999_us": [
+          5446696.0
+        ],
+        "p99_us": [
+          4829364.0
+        ],
+        "total_s": [
+          100.769588
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 19.8,
+        "max_us": 5486868.0,
+        "p50_us": 3138803.0,
+        "p999_us": 5446696.0,
+        "p99_us": 4829364.0,
+        "total_s": 100.769588
+      },
+      "min_s": 100.798435638,
+      "name": "CoAI",
+      "other_cpu_s": 204.53310899999994,
+      "times_s": [
+        100.798435638
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.19 1.79 0.99 1/362 17781",
+    "before": "1.70 1.41 0.69 1/383 13270"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003586"
+  },
+  "name": "2,000 calls over 64 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T21:53:42Z",
+  "wrong_rounds": 0
+}

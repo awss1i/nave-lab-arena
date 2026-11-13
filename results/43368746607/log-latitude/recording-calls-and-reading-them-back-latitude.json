@@ -1,0 +1,63 @@
+{
+  "command": "bin/race run races/log-latitude.json --out results/log-latitude",
+  "commit": "02bda8a",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "log",
+        "latitude"
+      ],
+      "cpu_s": 1.932146,
+      "max_rss_mb": 121.87890625,
+      "max_s": 15.494577393,
+      "median_s": 15.494577393,
+      "metric_rounds": {
+        "calls_held": [
+          20000.0
+        ],
+        "seconds": [
+          15.113
+        ],
+        "us_per_call": [
+          755.7
+        ]
+      },
+      "metrics": {
+        "calls_held": 20000.0,
+        "seconds": 15.113,
+        "us_per_call": 755.7
+      },
+      "min_s": 15.494577393,
+      "name": "Latitude",
+      "other_cpu_s": 30.50785399999994,
+      "times_s": [
+        15.494577393
+      ]
+    }
+  ],
+  "feature": "F9",
+  "load": {
+    "after": "6.12 4.02 1.71 1/337 9193",
+    "before": "5.66 3.55 1.45 2/1355 7935"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003618"
+  },
+  "name": "recording calls and reading them back, Latitude",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T05:00:38Z",
+  "wrong_rounds": 0
+}

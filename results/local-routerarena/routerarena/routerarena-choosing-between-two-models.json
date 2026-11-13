@@ -1,0 +1,132 @@
+{
+ "name": "RouterArena's 8,400 queries, choosing between two models",
+ "feature": "F4",
+ "conditions": "this machine, not a runner. RouterArena's own prediction, inference and evaluation scripts score a router that names a model for each of its 8,400 queries. The router chooses between deepseek/deepseek-v3.2, the cheaper, and gemini-3-flash-preview. No provider is called: both models' answers to every query are in RouterArena's repository, in the prediction files of the leaderboard entries that send every query to one of them, and its inference step reads them from there. Always choosing one model reproduces those two entries' rows on the leaderboard, which shows the scoring here is the leaderboard's. RouterArena forbids training on its data, so Nave's router is trained on RouteLLM's MMLU and GSM8K results only, and its threshold is the score that half of the RouteLLM prompts it didn't train on fall under. The other two entrants are leaderboard entries, scored again here. The score is RouterArena's own, out of 100, from accuracy and cost. Robustness is the share of 420 reworded queries that keep their model. With the threshold at the quarter mark Nave sends 7,290 queries to the stronger model and gets 77.24% right at $0.44 per 1,000, a score of 74.83 and robustness 0.81. With the threshold at the three-quarter mark Nave sends 2,190 queries to the stronger model and gets 72.87% right at $0.23 per 1,000, a score of 71.89 and robustness 0.81.",
+ "correct": true,
+ "differences": [],
+ "rounds": 1,
+ "wrong_rounds": 0,
+ "outputs_when_wrong": [],
+ "output_lines": 1,
+ "dirty": false,
+ "command": "clients/routerarena/routerarena.sh REPO weak strong q50 q25 q75",
+ "commit": "6ec0810",
+ "time": "2026-11-13T00:19:13Z",
+ "machine": {
+  "cpu": "AMD Ryzen 7 255 w/ Radeon 780M Graphics",
+  "cpus": 16,
+  "kernel": "Linux 7.2.11-200.fc44.x86_64",
+  "runner": "this machine",
+  "memory_gb": 57.3
+ },
+ "entrants": [
+  {
+   "name": "Nave",
+   "cmd": [
+    "clients/routerarena/routerarena.sh",
+    "REPO",
+    "q50"
+   ],
+   "metrics": {
+    "arena_score": 73.62,
+    "accuracy_percent": 75.55,
+    "usd_per_1000_queries": 0.3726,
+    "robustness": 0.6929,
+    "queries_to_the_stronger_model": 5636,
+    "queries": 8400
+   },
+   "metric_rounds": {
+    "arena_score": [
+     73.62
+    ],
+    "accuracy_percent": [
+     75.55
+    ],
+    "usd_per_1000_queries": [
+     0.3726
+    ],
+    "robustness": [
+     0.6929
+    ],
+    "queries_to_the_stronger_model": [
+     5636
+    ],
+    "queries": [
+     8400
+    ]
+   }
+  },
+  {
+   "name": "chuzom-solo-v32, every query to the cheaper model",
+   "cmd": [
+    "clients/routerarena/routerarena.sh",
+    "REPO",
+    "weak"
+   ],
+   "metrics": {
+    "arena_score": 70.56,
+    "accuracy_percent": 70.62,
+    "usd_per_1000_queries": 0.1092,
+    "robustness": 1.0,
+    "queries_to_the_stronger_model": 0,
+    "queries": 8400
+   },
+   "metric_rounds": {
+    "arena_score": [
+     70.56
+    ],
+    "accuracy_percent": [
+     70.62
+    ],
+    "usd_per_1000_queries": [
+     0.1092
+    ],
+    "robustness": [
+     1.0
+    ],
+    "queries_to_the_stronger_model": [
+     0
+    ],
+    "queries": [
+     8400
+    ]
+   }
+  },
+  {
+   "name": "LLM Router, every query to the stronger model",
+   "cmd": [
+    "clients/routerarena/routerarena.sh",
+    "REPO",
+    "strong"
+   ],
+   "metrics": {
+    "arena_score": 75.77,
+    "accuracy_percent": 78.54,
+    "usd_per_1000_queries": 0.4905,
+    "robustness": 1.0,
+    "queries_to_the_stronger_model": 8400,
+    "queries": 8400
+   },
+   "metric_rounds": {
+    "arena_score": [
+     75.77
+    ],
+    "accuracy_percent": [
+     78.54
+    ],
+    "usd_per_1000_queries": [
+     0.4905
+    ],
+    "robustness": [
+     1.0
+    ],
+    "queries_to_the_stronger_model": [
+     8400
+    ],
+    "queries": [
+     8400
+    ]
+   }
+  }
+ ]
+}

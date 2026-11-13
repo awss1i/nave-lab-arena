@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V45 96-Core Processor
+nave	prototype P006, 1a772dff36bf
+agent-router	v1.2.1
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+agent-router, switched on	routes through Envoy with its router as an external processor, takes OpenAI's format as started here. No key check
+agent-router, kinds of race it wasn't in	messages fallback cache

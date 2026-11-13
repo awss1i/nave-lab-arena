@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-claude-code-proxy.json --out results/gw-claude-code-proxy",
+  "commit": "9628046",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.07785900000000001,
+      "max_rss_mb": 26.12890625,
+      "max_s": 0.086059315,
+      "median_s": 0.086059315,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.086059315,
+      "name": "Nave",
+      "other_cpu_s": 0.042141000000004536,
+      "times_s": [
+        0.086059315
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.24 1.02 0.57 1/265 45455",
+    "before": "1.24 1.02 0.57 1/269 45385"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003503"
+  },
+  "name": "the API's edges, 13 checks, Nave, in Anthropic's format",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:41:14Z",
+  "wrong_rounds": 0
+}

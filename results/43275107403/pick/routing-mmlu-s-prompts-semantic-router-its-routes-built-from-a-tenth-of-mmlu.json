@@ -1,0 +1,74 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "72604d6",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "semantic-router",
+        "mmlu",
+        "2000"
+      ],
+      "cpu_s": 770.7044589999999,
+      "max_rss_mb": 8701.99609375,
+      "max_s": 386.179735847,
+      "median_s": 386.179735847,
+      "metric_rounds": {
+        "apgr": [
+          0.5225
+        ],
+        "cpt50": [
+          42.15
+        ],
+        "cpt80": [
+          81.45
+        ],
+        "ns_per_prompt": [
+          36692890.0
+        ],
+        "prompts": [
+          2000.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5225,
+        "cpt50": 42.15,
+        "cpt80": 81.45,
+        "ns_per_prompt": 36692890.0,
+        "prompts": 2000.0
+      },
+      "min_s": 386.179735847,
+      "name": "semantic-router, its routes built from a tenth of MMLU",
+      "other_cpu_s": 21.68554099999949,
+      "times_s": [
+        386.179735847
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.70 2.33 2.19 1/246 10470",
+    "before": "2.35 2.23 2.14 2/247 10329"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003577"
+  },
+  "name": "routing MMLU's prompts, semantic-router, its routes built from a tenth of MMLU",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T19:36:26Z",
+  "wrong_rounds": 0
+}

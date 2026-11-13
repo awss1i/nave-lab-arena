@@ -14,3 +14,8 @@ A group that was run again has records in more than one run, and the latest run 
 | 43210396930 | The race that times a start tries the port every 2 ms | gateway |
 
 In run 43205123597 the harness refused two gateway races, because LiteLLM wasn't listening when its turn came.
+
+Every run after those is one competitor's job (`gw-NAME`) or one part's group, and its folder here is named by the
+run's number on this repository's Actions page, where its log is. `local-routerarena` is the one group that ran on the
+lab's own machine: RouterArena's own scripts, which need a 7 GB install. A group split over several jobs (a tool that
+needed a job of its own) has its records under each job's run.

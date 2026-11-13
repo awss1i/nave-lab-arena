@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/mcp-ms.json --out results/mcp-ms",
+  "commit": "c3c4e1c",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked. Microsoft's gateway speaks revision 2026-07-28, as Nave's does. It runs in a kind cluster and reaches the stand-in MCP server as a pod it deployed itself from an image, so its upstream is inside the cluster",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "ms-mcp",
+        "list",
+        "--calls",
+        "1000",
+        "--conns",
+        "4"
+      ],
+      "cpu_s": 0.313319,
+      "max_rss_mb": 26.671875,
+      "max_s": 4.126972818,
+      "median_s": 4.084612363,
+      "metric_rounds": {
+        "calls_per_s": [
+          248.3,
+          263.6,
+          251.0
+        ],
+        "max_us": [
+          103882.0,
+          133282.0,
+          636146.0
+        ],
+        "p50_us": [
+          6785.0,
+          6240.0,
+          6195.0
+        ],
+        "p99_us": [
+          76736.0,
+          71468.0,
+          71695.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 251.0,
+        "max_us": 133282.0,
+        "p50_us": 6240.0,
+        "p99_us": 71695.0
+      },
+      "min_s": 3.888722672,
+      "name": "Microsoft's MCP gateway",
+      "other_cpu_s": 3.725277999999992,
+      "times_s": [
+        4.126972818,
+        3.888722672,
+        4.084612363
+      ]
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "1.36 0.79 0.32 1/689 13240",
+    "before": "1.54 0.79 0.31 1/683 12936"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003591"
+  },
+  "name": "listing a server's tools through an MCP gateway, 1,000 lists over 4 connections, Microsoft's MCP gateway",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T21:57:52Z",
+  "wrong_rounds": 0
+}

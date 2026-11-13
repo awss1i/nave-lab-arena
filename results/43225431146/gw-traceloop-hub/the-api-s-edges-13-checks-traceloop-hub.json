@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-traceloop-hub.json --out results/gw-traceloop-hub",
+  "commit": "3815816",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "traceloop-hub"
+      ],
+      "cpu_s": 0.071681,
+      "max_rss_mb": 26.6328125,
+      "max_s": 0.081979113,
+      "median_s": 0.081979113,
+      "metric_rounds": {
+        "edges_passed": [
+          8.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 8.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.081979113,
+      "name": "Traceloop Hub",
+      "other_cpu_s": 0.0083189999999983,
+      "times_s": [
+        0.081979113
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "5.65 1.35 0.47 1/270 17223",
+    "before": "5.65 1.35 0.47 1/284 17131"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003477"
+  },
+  "name": "the API's edges, 13 checks, Traceloop Hub",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:18:35Z",
+  "wrong_rounds": 0
+}

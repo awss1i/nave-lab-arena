@@ -1,0 +1,73 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "72604d6",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "uncommonroute",
+        "gsm8k"
+      ],
+      "cpu_s": 162.080482,
+      "max_rss_mb": 680.82421875,
+      "max_s": 83.164914501,
+      "median_s": 83.164914501,
+      "metric_rounds": {
+        "apgr": [
+          0.4856
+        ],
+        "cpt50": [
+          51.9333
+        ],
+        "cpt80": [
+          82.7142
+        ],
+        "ns_per_prompt": [
+          59912340.0
+        ],
+        "prompts": [
+          1319.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.4856,
+        "cpt50": 51.9333,
+        "cpt80": 82.7142,
+        "ns_per_prompt": 59912340.0,
+        "prompts": 1319.0
+      },
+      "min_s": 83.164914501,
+      "name": "UncommonRoute",
+      "other_cpu_s": 1.4495180000002108,
+      "times_s": [
+        83.164914501
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.26 2.10 1.63 1/247 3464",
+    "before": "2.01 2.00 1.50 2/246 3361"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003577"
+  },
+  "name": "routing GSM8K's prompts with a router trained on none of them, UncommonRoute",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:21:54Z",
+  "wrong_rounds": 0
+}

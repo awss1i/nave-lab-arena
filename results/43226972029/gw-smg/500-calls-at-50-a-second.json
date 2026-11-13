@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-smg.json --out results/gw-smg",
+  "commit": "9efe591",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 16 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in SMG: balances load across inference workers, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.06988,
+      "max_rss_mb": 26.21875,
+      "max_s": 10.000773964,
+      "median_s": 10.00069213,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "max_us": [
+          2698.0,
+          933.0,
+          947.0
+        ],
+        "p50_us": [
+          188.0,
+          188.0,
+          178.0
+        ],
+        "p999_us": [
+          2698.0,
+          933.0,
+          947.0
+        ],
+        "p99_us": [
+          264.0,
+          235.0,
+          271.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980496,
+          9.980443,
+          9.980451
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "max_us": 947.0,
+        "p50_us": 188.0,
+        "p999_us": 947.0,
+        "p99_us": 264.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980451
+      },
+      "min_s": 10.00065784,
+      "name": "No gateway",
+      "other_cpu_s": 0.07012000000000057,
+      "times_s": [
+        10.00065784,
+        10.00069213,
+        10.000773964
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.098505,
+      "max_rss_mb": 26.421875,
+      "max_s": 10.035289871,
+      "median_s": 10.034624387,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          40.0,
+          60.0,
+          40.0
+        ],
+        "max_us": [
+          1730.0,
+          2184.0,
+          920.0
+        ],
+        "p50_us": [
+          249.0,
+          251.0,
+          277.0
+        ],
+        "p999_us": [
+          1730.0,
+          2184.0,
+          920.0
+        ],
+        "p99_us": [
+          400.0,
+          357.0,
+          485.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980467,
+          9.980474,
+          9.980474
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 40.0,
+        "max_us": 1730.0,
+        "p50_us": 251.0,
+        "p999_us": 1730.0,
+        "p99_us": 400.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980474
+      },
+      "min_s": 10.034178034,
+      "name": "Nave",
+      "other_cpu_s": 0.42137800000000314,
+      "times_s": [
+        10.035289871,
+        10.034624387,
+        10.034178034
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "smg",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.094191,
+      "max_rss_mb": 28.0390625,
+      "max_s": 10.03563615,
+      "median_s": 10.034802549,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          164.2,
+          175.5,
+          185.5
+        ],
+        "max_us": [
+          1259.0,
+          1116.0,
+          1090.0
+        ],
+        "p50_us": [
+          295.0,
+          298.0,
+          309.0
+        ],
+        "p999_us": [
+          1259.0,
+          1116.0,
+          1090.0
+        ],
+        "p99_us": [
+          571.0,
+          548.0,
+          562.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980567,
+          9.980535,
+          9.9805
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 175.5,
+        "max_us": 1116.0,
+        "p50_us": 298.0,
+        "p999_us": 1116.0,
+        "p99_us": 562.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980535
+      },
+      "min_s": 10.034714341,
+      "name": "SMG",
+      "other_cpu_s": 0.04252400000000056,
+      "times_s": [
+        10.034714341,
+        10.034802549,
+        10.03563615
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.26 0.20 0.09 1/262 6457",
+    "before": "0.73 0.18 0.06 1/299 5664"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003480"
+  },
+  "name": "500 calls at 50 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:26:53Z",
+  "wrong_rounds": 0
+}

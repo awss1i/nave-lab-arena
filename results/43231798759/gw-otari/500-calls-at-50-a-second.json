@@ -1,0 +1,121 @@
+{
+  "command": "bin/race run run/gw-otari.json --out results/gw-otari",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 16 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in postgres: not stated",
+  "correct": false,
+  "differences": [
+    {
+      "against": "No gateway",
+      "entrant": "postgres",
+      "got": null,
+      "lengths": [
+        0,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 500"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "No gateway",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "postgres",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "postgres",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.80 0.81 0.30 2/277 3867",
+    "before": "2.42 0.86 0.31 1/291 3678"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003510"
+  },
+  "name": "500 calls at 50 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "No gateway",
+      "ok": true,
+      "output": "ok 500\nbad 0\nchecksum ddea6e8eea0bc511\n",
+      "stderr": "metric calls_per_s=50.1\nmetric p50_us=215\nmetric p99_us=316\nmetric p999_us=897\nmetric max_us=897\nmetric rate=50\nmetric sent_late=0\nmetric total_s=9.980677\n"
+    },
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 500\nbad 0\nchecksum ddea6e8eea0bc511\n",
+      "stderr": "metric calls_per_s=50.1\nmetric p50_us=353\nmetric p99_us=788\nmetric p999_us=865\nmetric max_us=865\nmetric rate=50\nmetric sent_late=0\nmetric total_s=9.980735\nmetric cpu_us_per_call=100.0\n"
+    },
+    {
+      "name": "postgres",
+      "ok": false,
+      "output": "",
+      "stderr": "./lib.sh: line 95: gw_default_url: command not found\n\nthread 'main' (3822) panicked at src/bin/load.rs:55:44:\nan http:// URL\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n./gateways.sh: line 25:  3822 Aborted                    (core dumped) LLM_KEY=$(gw \"$name\" key) taskset -c \"$LOAD_CPUS\" bin/load \"$(url_of \"$name\")$path\" \"${extra[@]}\" \"$@\"\nmetric cpu_us_per_call=0.0\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T13:55:26Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-relayplane.json --out results/gw-relayplane",
+  "commit": "6dc8546",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in RelayPlane: passes OpenAI's and Anthropic's formats on to the provider, routes by a complexity tier, prices every call and rolls it up by run and agent in SQLite, checks budgets. Passes the caller's key on. Its own limiter is set to the most it accepts, 10,000 calls a minute for a model, which is what bounds it in the throughput races",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.34587999999999997,
+      "max_rss_mb": 26.25390625,
+      "max_s": 0.751183285,
+      "median_s": 0.739307803,
+      "metric_rounds": {
+        "calls_per_s": [
+          242.2,
+          247.0,
+          246.6
+        ],
+        "first_piece_p50_us": [
+          4481.0,
+          4333.0,
+          4011.0
+        ],
+        "first_piece_p99_us": [
+          11494.0,
+          11460.0,
+          12197.0
+        ],
+        "max_us": [
+          65609.0,
+          62066.0,
+          67137.0
+        ],
+        "p50_us": [
+          11869.0,
+          13278.0,
+          12562.0
+        ],
+        "p999_us": [
+          65609.0,
+          62066.0,
+          67137.0
+        ],
+        "p99_us": [
+          61188.0,
+          55517.0,
+          64651.0
+        ],
+        "total_s": [
+          0.66068,
+          0.647791,
+          0.648848
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 246.6,
+        "first_piece_p50_us": 4333.0,
+        "first_piece_p99_us": 11494.0,
+        "max_us": 65609.0,
+        "p50_us": 12562.0,
+        "p999_us": 65609.0,
+        "p99_us": 61188.0,
+        "total_s": 0.648848
+      },
+      "min_s": 0.73789643,
+      "name": "Nave",
+      "other_cpu_s": 0.9341199999997454,
+      "times_s": [
+        0.751183285,
+        0.73789643,
+        0.739307803
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "relayplane",
+        "4"
+      ],
+      "cpu_s": 0.22542600000000002,
+      "max_rss_mb": 26.14453125,
+      "max_s": 17.976584199,
+      "median_s": 17.209719173,
+      "metric_rounds": {
+        "calls_per_s": [
+          8.9,
+          9.3,
+          9.4
+        ],
+        "first_piece_p50_us": [
+          438140.0,
+          422489.0,
+          416252.0
+        ],
+        "first_piece_p99_us": [
+          586911.0,
+          593720.0,
+          526501.0
+        ],
+        "max_us": [
+          744905.0,
+          652248.0,
+          669045.0
+        ],
+        "p50_us": [
+          442541.0,
+          426898.0,
+          421479.0
+        ],
+        "p999_us": [
+          744905.0,
+          652248.0,
+          669045.0
+        ],
+        "p99_us": [
+          598081.0,
+          599307.0,
+          531475.0
+        ],
+        "total_s": [
+          17.880491,
+          17.118814,
+          17.101443
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 9.3,
+        "first_piece_p50_us": 422489.0,
+        "first_piece_p99_us": 586911.0,
+        "max_us": 669045.0,
+        "p50_us": 426898.0,
+        "p999_us": 669045.0,
+        "p99_us": 598081.0,
+        "total_s": 17.118814
+      },
+      "min_s": 17.191579961,
+      "name": "RelayPlane",
+      "other_cpu_s": 18.454574000000292,
+      "times_s": [
+        17.976584199,
+        17.209719173,
+        17.191579961
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.06 1.04 1.02 1/249 11493",
+    "before": "1.22 1.05 1.02 6/266 11262"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003589"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T22:33:12Z",
+  "wrong_rounds": 0
+}

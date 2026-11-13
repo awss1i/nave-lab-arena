@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/mcp.json --out results/mcp",
+  "commit": "69f03df",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "nave",
+        "list",
+        "--calls",
+        "1000",
+        "--conns",
+        "4"
+      ],
+      "cpu_s": 0.122547,
+      "max_rss_mb": 26.828125,
+      "max_s": 0.104935783,
+      "median_s": 0.104371956,
+      "metric_rounds": {
+        "calls_per_s": [
+          44087.7,
+          46477.3,
+          44406.1
+        ],
+        "max_us": [
+          806.0,
+          547.0,
+          456.0
+        ],
+        "p50_us": [
+          70.0,
+          66.0,
+          69.0
+        ],
+        "p99_us": [
+          206.0,
+          186.0,
+          232.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 44406.1,
+        "max_us": 547.0,
+        "p50_us": 69.0,
+        "p99_us": 206.0
+      },
+      "min_s": 0.103627942,
+      "name": "Nave",
+      "other_cpu_s": 0.02701800000000569,
+      "times_s": [
+        0.104935783,
+        0.104371956,
+        0.103627942
+      ]
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "2.38 0.75 0.26 1/274 3281",
+    "before": "2.38 0.75 0.26 1/277 3014"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003596"
+  },
+  "name": "listing a server's tools through an MCP gateway, 1,000 lists over 4 connections, Nave",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T23:09:02Z",
+  "wrong_rounds": 0
+}

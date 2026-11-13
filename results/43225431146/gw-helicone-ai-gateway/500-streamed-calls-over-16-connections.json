@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone AI Gateway: routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.077113,
+      "max_rss_mb": 26.86328125,
+      "max_s": 0.088962124,
+      "median_s": 0.085662529,
+      "metric_rounds": {
+        "calls_per_s": [
+          8261.5,
+          8715.8,
+          8470.1,
+          8801.9,
+          8760.1
+        ],
+        "first_piece_p50_us": [
+          1584.0,
+          1574.0,
+          1551.0,
+          1555.0,
+          1555.0
+        ],
+        "first_piece_p99_us": [
+          5485.0,
+          3721.0,
+          4379.0,
+          4798.0,
+          4435.0
+        ],
+        "max_us": [
+          7491.0,
+          7829.0,
+          7821.0,
+          6374.0,
+          8927.0
+        ],
+        "p50_us": [
+          1622.0,
+          1616.0,
+          1591.0,
+          1593.0,
+          1598.0
+        ],
+        "p999_us": [
+          7491.0,
+          7829.0,
+          7821.0,
+          6374.0,
+          8927.0
+        ],
+        "p99_us": [
+          5570.0,
+          6700.0,
+          5560.0,
+          4902.0,
+          7825.0
+        ],
+        "total_s": [
+          0.060723,
+          0.057522,
+          0.059195,
+          0.05698,
+          0.057246
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 8715.8,
+        "first_piece_p50_us": 1555.0,
+        "first_piece_p99_us": 4435.0,
+        "max_us": 7821.0,
+        "p50_us": 1598.0,
+        "p999_us": 7821.0,
+        "p99_us": 5570.0,
+        "total_s": 0.057522
+      },
+      "min_s": 0.08543346,
+      "name": "Nave",
+      "other_cpu_s": 0.11095700000000483,
+      "times_s": [
+        0.088962124,
+        0.08543346,
+        0.087847501,
+        0.085451629,
+        0.085662529
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "helicone-ai-gateway",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.0662,
+      "max_rss_mb": 26.48046875,
+      "max_s": 0.793857847,
+      "median_s": 0.747807114,
+      "metric_rounds": {
+        "calls_per_s": [
+          653.9,
+          694.7,
+          696.4,
+          658.9,
+          785.1
+        ],
+        "first_piece_p50_us": [
+          620.0,
+          620.0,
+          525.0,
+          536.0,
+          503.0
+        ],
+        "first_piece_p99_us": [
+          45386.0,
+          43037.0,
+          43163.0,
+          43177.0,
+          43472.0
+        ],
+        "max_us": [
+          48161.0,
+          43341.0,
+          44748.0,
+          44103.0,
+          44898.0
+        ],
+        "p50_us": [
+          709.0,
+          760.0,
+          591.0,
+          604.0,
+          601.0
+        ],
+        "p999_us": [
+          48161.0,
+          43341.0,
+          44748.0,
+          44103.0,
+          44898.0
+        ],
+        "p99_us": [
+          45387.0,
+          43038.0,
+          43167.0,
+          43178.0,
+          43481.0
+        ],
+        "total_s": [
+          0.764811,
+          0.719915,
+          0.718108,
+          0.758965,
+          0.636997
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 694.7,
+        "first_piece_p50_us": 536.0,
+        "first_piece_p99_us": 43177.0,
+        "max_us": 44748.0,
+        "p50_us": 604.0,
+        "p999_us": 44748.0,
+        "p99_us": 43178.0,
+        "total_s": 0.719915
+      },
+      "min_s": 0.665330713,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 0.19379999999999803,
+      "times_s": [
+        0.793857847,
+        0.747807114,
+        0.745534661,
+        0.787548872,
+        0.665330713
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.84 0.52 0.18 1/283 5826",
+    "before": "1.92 0.51 0.17 1/305 5243"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003479"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:15:06Z",
+  "wrong_rounds": 0
+}

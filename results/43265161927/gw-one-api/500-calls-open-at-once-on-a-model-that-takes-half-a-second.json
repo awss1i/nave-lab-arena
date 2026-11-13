@@ -1,0 +1,93 @@
+{
+  "command": "bin/race run run/gw-one-api.json --out results/gw-one-api",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in One API: routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "One API",
+      "got": "ok 328",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 1000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "one-api",
+        "500",
+        "1000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "One API",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.55 1.88 0.89 1/324 17383",
+    "before": "1.60 1.89 0.89 3/345 15222"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003559"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 1000\nbad 0\nchecksum e39e842f12c8aa34\n",
+      "stderr": "metric calls_per_s=935.9\nmetric p50_us=500943\nmetric p99_us=507113\nmetric p999_us=508354\nmetric max_us=508354\nmetric total_s=1.068695\nmetric memory_open_mb=7.6\nmetric kb_per_open_call=13.9\n"
+    },
+    {
+      "name": "One API",
+      "ok": false,
+      "output": "ok 328\nbad 672\nchecksum 3e3145c252b5706d\n",
+      "stderr": "metric calls_per_s=708.2\nmetric p50_us=94084\nmetric p99_us=816349\nmetric p999_us=830745\nmetric max_us=830745\nmetric total_s=1.412244\nmetric memory_open_mb=672.6\nmetric kb_per_open_call=84.6\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T17:06:21Z",
+  "wrong_rounds": 0
+}

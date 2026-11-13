@@ -1,0 +1,54 @@
+{
+  "command": "bin/race run races/log.json --out results/log",
+  "commit": "b604b94",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "log",
+        "opik"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Opik",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F9",
+  "load": {
+    "after": "19.38 23.59 21.45 1/330 182079",
+    "before": "4.64 3.14 1.41 4/1701 22866"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003599"
+  },
+  "name": "recording calls and reading them back, Opik",
+  "output_lines": 1,
+  "outputs_when_wrong": [
+    {
+      "name": "Opik",
+      "ok": false,
+      "output": "recorded 20000 calls and read back 0\n",
+      "stderr": "metric us_per_call=65192.9\nmetric calls_held=0\nmetric seconds=1303.857\nmetric us_per_call=65192.9\nmetric calls_held=0\nmetric seconds=1303.857\nthe exporter complained 40 times, last: Failed to export spans batch due to timeout, max retries or shutdown.\nits log: python-backend-1       | [2026-11-12 23:59:25 +0000] [9] [ERROR] Error closing threads for workspace default attempt 2: status=504, body=<html>\nits log: python-backend-1       | 2026-11-12 23:59:25 ERROR    Error closing threads for workspace default attempt\nits log: python-backend-1       | [2026-11-13 00:04:07 +0000] [9] [ERROR] Error "
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-13T00:07:12Z",
+  "wrong_rounds": 0
+}

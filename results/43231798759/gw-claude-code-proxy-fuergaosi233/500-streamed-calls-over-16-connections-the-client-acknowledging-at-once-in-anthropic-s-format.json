@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-claude-code-proxy-fuergaosi233.json --out results/gw-claude-code-proxy-fuergaosi233",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Anthropic's format in and OpenAI's format to the model, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in claude-code-proxy (fuergaosi233): takes Anthropic's format and sends OpenAI's upstream. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.087522,
+      "max_rss_mb": 26.22265625,
+      "max_s": 0.120714362,
+      "median_s": 0.105500555,
+      "metric_rounds": {
+        "calls_per_s": [
+          6487.8,
+          5547.8,
+          7074.8,
+          7619.9,
+          6629.1
+        ],
+        "first_piece_p50_us": [
+          2251.0,
+          2451.0,
+          1783.0,
+          1840.0,
+          1969.0
+        ],
+        "first_piece_p99_us": [
+          4734.0,
+          7077.0,
+          5547.0,
+          3526.0,
+          5933.0
+        ],
+        "max_us": [
+          7756.0,
+          11071.0,
+          8611.0,
+          5587.0,
+          9673.0
+        ],
+        "p50_us": [
+          2335.0,
+          2559.0,
+          1822.0,
+          1899.0,
+          2022.0
+        ],
+        "p999_us": [
+          7756.0,
+          11071.0,
+          8611.0,
+          5587.0,
+          9673.0
+        ],
+        "p99_us": [
+          6071.0,
+          8100.0,
+          6386.0,
+          3722.0,
+          8995.0
+        ],
+        "total_s": [
+          0.077242,
+          0.090277,
+          0.070829,
+          0.065769,
+          0.075565
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 6629.1,
+        "first_piece_p50_us": 1969.0,
+        "first_piece_p99_us": 5547.0,
+        "max_us": 8611.0,
+        "p50_us": 2022.0,
+        "p999_us": 8611.0,
+        "p99_us": 6386.0,
+        "total_s": 0.075565
+      },
+      "min_s": 0.093901131,
+      "name": "Nave",
+      "other_cpu_s": 0.1612920000000091,
+      "times_s": [
+        0.107812954,
+        0.120714362,
+        0.101047673,
+        0.093901131,
+        0.105500555
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "claude-code-proxy-fuergaosi233",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.14504,
+      "max_rss_mb": 26.40625,
+      "max_s": 1.742912469,
+      "median_s": 1.6749587510000001,
+      "metric_rounds": {
+        "calls_per_s": [
+          291.9,
+          304.1,
+          308.4,
+          310.2,
+          302.3
+        ],
+        "first_piece_p50_us": [
+          13444.0,
+          13370.0,
+          13143.0,
+          13119.0,
+          13120.0
+        ],
+        "first_piece_p99_us": [
+          30214.0,
+          25869.0,
+          26001.0,
+          25565.0,
+          25573.0
+        ],
+        "max_us": [
+          112760.0,
+          77273.0,
+          77220.0,
+          75453.0,
+          76254.0
+        ],
+        "p50_us": [
+          52556.0,
+          52410.0,
+          51731.0,
+          51329.0,
+          51451.0
+        ],
+        "p999_us": [
+          112760.0,
+          77273.0,
+          77220.0,
+          75453.0,
+          76254.0
+        ],
+        "p99_us": [
+          106266.0,
+          64909.0,
+          64900.0,
+          63529.0,
+          64234.0
+        ],
+        "total_s": [
+          1.71312,
+          1.644583,
+          1.621365,
+          1.611934,
+          1.654316
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 304.1,
+        "first_piece_p50_us": 13143.0,
+        "first_piece_p99_us": 25869.0,
+        "max_us": 77220.0,
+        "p50_us": 51731.0,
+        "p999_us": 77220.0,
+        "p99_us": 64900.0,
+        "total_s": 1.644583
+      },
+      "min_s": 1.64121356,
+      "name": "claude-code-proxy (fuergaosi233)",
+      "other_cpu_s": 1.7149600000000136,
+      "times_s": [
+        1.742912469,
+        1.6749587510000001,
+        1.65078162,
+        1.64121356,
+        1.6847975609999999
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.69 0.89 0.33 2/264 7186",
+    "before": "1.20 0.56 0.22 1/274 6674"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003519"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:00:31Z",
+  "wrong_rounds": 0
+}

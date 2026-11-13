@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-litellm-rs.json --out results/gw-litellm-rs",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in litellm-rs: routes by model, takes OpenAI's format. No key check, no database, cache and rate limits off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.102033,
+      "max_rss_mb": 26.4609375,
+      "max_s": 0.099624854,
+      "median_s": 0.097278201,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          37.0,
+          37.0,
+          36.0,
+          38.0,
+          37.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 37.0
+      },
+      "min_s": 0.093534087,
+      "name": "Nave",
+      "other_cpu_s": 0.007114000000013637,
+      "times_s": [
+        0.097278201,
+        0.0976324,
+        0.095528815,
+        0.099624854,
+        0.093534087
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "litellm-rs"
+      ],
+      "cpu_s": 0.286168,
+      "max_rss_mb": 28.69921875,
+      "max_s": 0.676156033,
+      "median_s": 0.667013281,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          576.0,
+          574.0,
+          556.0,
+          567.0,
+          551.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 567.0
+      },
+      "min_s": 0.647440629,
+      "name": "litellm-rs",
+      "other_cpu_s": 0.6433439999999977,
+      "times_s": [
+        0.676156033,
+        0.675960153,
+        0.655081152,
+        0.667013281,
+        0.647440629
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "9.74 2.92 1.06 1/265 21158",
+    "before": "10.50 2.96 1.06 1/266 19628"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003505"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:58:57Z",
+  "wrong_rounds": 0
+}

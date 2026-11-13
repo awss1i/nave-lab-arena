@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-nine-router.json --out results/gw-nine-router",
+  "commit": "f830a28",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in 9Router: routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps its settings and usage in a data folder",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.197597,
+      "max_rss_mb": 37.8515625,
+      "max_s": 1.124781608,
+      "median_s": 1.112666165,
+      "metric_rounds": {
+        "calls_per_s": [
+          953.5,
+          951.4,
+          942.2
+        ],
+        "kb_per_open_call": [
+          12.3,
+          10.9,
+          11.3
+        ],
+        "max_us": [
+          503102.0,
+          502569.0,
+          507188.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.5,
+          6.7
+        ],
+        "p50_us": [
+          500166.0,
+          500159.0,
+          500173.0
+        ],
+        "p999_us": [
+          503102.0,
+          502569.0,
+          507188.0
+        ],
+        "p99_us": [
+          502457.0,
+          501606.0,
+          503603.0
+        ],
+        "total_s": [
+          1.048943,
+          1.051632,
+          1.061535
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 951.4,
+        "kb_per_open_call": 11.3,
+        "max_us": 503102.0,
+        "memory_open_mb": 6.7,
+        "p50_us": 500166.0,
+        "p999_us": 503102.0,
+        "p99_us": 502457.0,
+        "total_s": 1.051632
+      },
+      "min_s": 1.106362777,
+      "name": "Nave",
+      "other_cpu_s": 0.12240299999999318,
+      "times_s": [
+        1.106362777,
+        1.112666165,
+        1.124781608
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nine-router",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.198909,
+      "max_rss_mb": 36.3515625,
+      "max_s": 6.728633279,
+      "median_s": 6.28056638,
+      "metric_rounds": {
+        "calls_per_s": [
+          176.3,
+          203.2,
+          191.5
+        ],
+        "first_piece_p50_us": [
+          681752.0,
+          760368.0,
+          821032.0
+        ],
+        "first_piece_p99_us": [
+          4941480.0,
+          4282160.0,
+          4640433.0
+        ],
+        "kb_per_open_call": [
+          105.9,
+          5.7,
+          76.8
+        ],
+        "max_us": [
+          5112399.0,
+          4360452.0,
+          4671551.0
+        ],
+        "memory_open_mb": [
+          298.0,
+          301.4,
+          394.0
+        ],
+        "p50_us": [
+          681752.0,
+          760368.0,
+          821032.0
+        ],
+        "p999_us": [
+          5112399.0,
+          4360452.0,
+          4671551.0
+        ],
+        "p99_us": [
+          4941480.0,
+          4282161.0,
+          4640433.0
+        ],
+        "total_s": [
+          5.672795,
+          4.920534,
+          5.223463
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 191.5,
+        "first_piece_p50_us": 760368.0,
+        "first_piece_p99_us": 4640433.0,
+        "kb_per_open_call": 76.8,
+        "max_us": 4671551.0,
+        "memory_open_mb": 301.4,
+        "p50_us": 760368.0,
+        "p999_us": 4671551.0,
+        "p99_us": 4640433.0,
+        "total_s": 5.223463
+      },
+      "min_s": 5.975475098,
+      "name": "9Router",
+      "other_cpu_s": 6.120050999999993,
+      "times_s": [
+        6.728633279,
+        5.975475098,
+        6.28056638
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.78 0.90 0.52 1/257 16956",
+    "before": "0.87 0.92 0.51 2/280 11656"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003565"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:21:39Z",
+  "wrong_rounds": 0
+}

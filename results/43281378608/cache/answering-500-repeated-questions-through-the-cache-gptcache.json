@@ -1,0 +1,71 @@
+{
+  "command": "bin/race run races/cache.json --out results/cache",
+  "commit": "b467d97",
+  "conditions": "one Python client asks 500 different questions through the cache, then asks them all again, and the second pass is timed. Nave's cache is its gateway's, on two CPUs, reached with OpenAI's SDK from a client on one CPU. A library's cache runs inside the client, which gets all three CPUs, with the library's default local embedding model. ModelCache is a service of its own on the gateway's two CPUs, asked over HTTP. The questions differ from each other in a topic and a number, so a cache that matches by meaning can take one for another, and its wrong answers are counted. Each cache is also asked a reworded form of every question and 500 questions it has never seen",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "cachelib",
+        "gptcache"
+      ],
+      "cpu_s": 2321.755734,
+      "max_rss_mb": 359.98828125,
+      "max_s": 585.327534473,
+      "median_s": 585.327534473,
+      "metric_rounds": {
+        "repeats_that_reached_the_model": [
+          0.0
+        ],
+        "reworded_answered_from_cache": [
+          500.0
+        ],
+        "unseen_answered_from_cache": [
+          500.0
+        ],
+        "us_per_repeat": [
+          290467.3
+        ],
+        "wrong_answers": [
+          1480.0
+        ]
+      },
+      "metrics": {
+        "repeats_that_reached_the_model": 0.0,
+        "reworded_answered_from_cache": 500.0,
+        "unseen_answered_from_cache": 500.0,
+        "us_per_repeat": 290467.3,
+        "wrong_answers": 1480.0
+      },
+      "min_s": 585.327534473,
+      "name": "GPTCache",
+      "other_cpu_s": 14.57426600000008,
+      "times_s": [
+        585.327534473
+      ]
+    }
+  ],
+  "feature": "F5",
+  "load": {
+    "after": "5.96 5.63 4.21 1/259 4418",
+    "before": "2.23 0.97 0.37 3/288 3955"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003580"
+  },
+  "name": "answering 500 repeated questions through the cache, GPTCache",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:57:12Z",
+  "wrong_rounds": 0
+}

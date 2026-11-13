@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-respan-gateway.json --out results/gw-respan-gateway",
+  "commit": "3815816",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "respan-gateway"
+      ],
+      "cpu_s": 0.08713699999999999,
+      "max_rss_mb": 26.52734375,
+      "max_s": 0.104593595,
+      "median_s": 0.104593595,
+      "metric_rounds": {
+        "edges_passed": [
+          12.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 12.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.104593595,
+      "name": "Respan Gateway",
+      "other_cpu_s": 0.02286299999999944,
+      "times_s": [
+        0.104593595
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.14 0.61 0.27 1/270 19822",
+    "before": "1.14 0.61 0.27 1/275 19757"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003478"
+  },
+  "name": "the API's edges, 13 checks, Respan Gateway",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:18:39Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+llama-swap	version: v272 (802f1c4), built at 2026-11-10T06:55:17Z (image ghcr.io/mostlygeek/llama-swap:cpu)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+llama-swap, switched on	starts a model's server on demand and passes calls on, in OpenAI's and Anthropic's formats. No key check
+llama-swap, kinds of race it wasn't in	fallback cache

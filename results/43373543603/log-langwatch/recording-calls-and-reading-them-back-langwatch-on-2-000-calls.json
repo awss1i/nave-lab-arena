@@ -1,0 +1,64 @@
+{
+  "command": "bin/race run races/log-langwatch.json --out results/log-langwatch",
+  "commit": "a031b39",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "log",
+        "langwatch",
+        "2000"
+      ],
+      "cpu_s": 0.587707,
+      "max_rss_mb": 53.27734375,
+      "max_s": 190.47663135,
+      "median_s": 190.47663135,
+      "metric_rounds": {
+        "calls_held": [
+          2000.0
+        ],
+        "seconds": [
+          188.795
+        ],
+        "us_per_call": [
+          94397.3
+        ]
+      },
+      "metrics": {
+        "calls_held": 2000.0,
+        "seconds": 188.795,
+        "us_per_call": 94397.3
+      },
+      "min_s": 190.47663135,
+      "name": "LangWatch, on 2,000 calls",
+      "other_cpu_s": 358.74229299999996,
+      "times_s": [
+        190.47663135
+      ]
+    }
+  ],
+  "feature": "F9",
+  "load": {
+    "after": "17.80 10.52 4.77 2/254 4994",
+    "before": "2.65 1.08 0.40 3/1058 4569"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003624"
+  },
+  "name": "recording calls and reading them back, LangWatch, on 2,000 calls",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T05:48:05Z",
+  "wrong_rounds": 0
+}

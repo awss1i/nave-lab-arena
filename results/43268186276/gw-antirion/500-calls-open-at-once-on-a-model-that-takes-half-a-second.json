@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-antirion.json --out results/gw-antirion",
+  "commit": "6a64ad6",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Antirion: routes by model through deployments, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, prices every call, keeps metrics. Request log off, as in its own benchmark's minimal profile",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.171419,
+      "max_rss_mb": 37.83203125,
+      "max_s": 1.101026219,
+      "median_s": 1.099224267,
+      "metric_rounds": {
+        "calls_per_s": [
+          955.8,
+          954.2,
+          955.3
+        ],
+        "kb_per_open_call": [
+          12.1,
+          10.9,
+          11.1
+        ],
+        "max_us": [
+          501992.0,
+          503384.0,
+          501978.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.5,
+          6.6
+        ],
+        "p50_us": [
+          500147.0,
+          500385.0,
+          500146.0
+        ],
+        "p999_us": [
+          501992.0,
+          503384.0,
+          501978.0
+        ],
+        "p99_us": [
+          501652.0,
+          503062.0,
+          501549.0
+        ],
+        "total_s": [
+          1.04646,
+          1.048153,
+          1.046931
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 955.3,
+        "kb_per_open_call": 11.1,
+        "max_us": 501992.0,
+        "memory_open_mb": 6.6,
+        "p50_us": 500147.0,
+        "p999_us": 501992.0,
+        "p99_us": 501652.0,
+        "total_s": 1.046931
+      },
+      "min_s": 1.097892037,
+      "name": "Nave",
+      "other_cpu_s": 0.10682300000000114,
+      "times_s": [
+        1.097892037,
+        1.101026219,
+        1.099224267
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "antirion",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.156906,
+      "max_rss_mb": 38.2265625,
+      "max_s": 4.029756047,
+      "median_s": 3.0705261,
+      "metric_rounds": {
+        "calls_per_s": [
+          951.5,
+          952.8,
+          950.5
+        ],
+        "kb_per_open_call": [
+          -4.1,
+          -29.7,
+          9.0
+        ],
+        "max_us": [
+          505678.0,
+          506180.0,
+          506990.0
+        ],
+        "memory_open_mb": [
+          157.9,
+          118.1,
+          100.4
+        ],
+        "p50_us": [
+          501373.0,
+          501430.0,
+          501282.0
+        ],
+        "p999_us": [
+          505678.0,
+          506180.0,
+          506990.0
+        ],
+        "p99_us": [
+          505129.0,
+          504229.0,
+          506070.0
+        ],
+        "total_s": [
+          1.051147,
+          1.049694,
+          1.052229
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 951.5,
+        "kb_per_open_call": -4.1,
+        "max_us": 506180.0,
+        "memory_open_mb": 118.1,
+        "p50_us": 501373.0,
+        "p999_us": 506180.0,
+        "p99_us": 505129.0,
+        "total_s": 1.051147
+      },
+      "min_s": 3.066567285,
+      "name": "Antirion",
+      "other_cpu_s": 0.23540600000000056,
+      "times_s": [
+        3.066567285,
+        4.029756047,
+        3.0705261
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.21 0.22 0.10 1/256 17052",
+    "before": "0.27 0.24 0.10 2/286 11510"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003568"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:23:15Z",
+  "wrong_rounds": 0
+}

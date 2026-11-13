@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-agentgateway.json --out results/gw-agentgateway",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in agentgateway: routes by model, takes OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.26930200000000004,
+      "max_rss_mb": 37.8359375,
+      "max_s": 1.163390647,
+      "median_s": 1.151539407,
+      "metric_rounds": {
+        "calls_per_s": [
+          929.9,
+          918.5,
+          928.4
+        ],
+        "kb_per_open_call": [
+          12.3,
+          10.9,
+          11.1
+        ],
+        "max_us": [
+          503282.0,
+          511960.0,
+          503595.0
+        ],
+        "memory_open_mb": [
+          7.2,
+          6.5,
+          6.6
+        ],
+        "p50_us": [
+          500203.0,
+          500212.0,
+          500207.0
+        ],
+        "p999_us": [
+          503282.0,
+          511960.0,
+          503595.0
+        ],
+        "p99_us": [
+          502979.0,
+          503154.0,
+          502386.0
+        ],
+        "total_s": [
+          1.075656,
+          1.089038,
+          1.077348
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 928.4,
+        "kb_per_open_call": 11.1,
+        "max_us": 503595.0,
+        "memory_open_mb": 6.6,
+        "p50_us": 500207.0,
+        "p999_us": 503595.0,
+        "p99_us": 502979.0,
+        "total_s": 1.077348
+      },
+      "min_s": 1.149625579,
+      "name": "Nave",
+      "other_cpu_s": 0.14564999999999662,
+      "times_s": [
+        1.149625579,
+        1.163390647,
+        1.151539407
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "agentgateway",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.243079,
+      "max_rss_mb": 37.8515625,
+      "max_s": 4.043494403,
+      "median_s": 3.09490264,
+      "metric_rounds": {
+        "calls_per_s": [
+          931.3,
+          932.2,
+          931.2
+        ],
+        "kb_per_open_call": [
+          21.7,
+          34.0,
+          22.5
+        ],
+        "max_us": [
+          506319.0,
+          506291.0,
+          506106.0
+        ],
+        "memory_open_mb": [
+          47.8,
+          51.9,
+          44.0
+        ],
+        "p50_us": [
+          501370.0,
+          501140.0,
+          500901.0
+        ],
+        "p999_us": [
+          506319.0,
+          506291.0,
+          506106.0
+        ],
+        "p99_us": [
+          504961.0,
+          505163.0,
+          505115.0
+        ],
+        "total_s": [
+          1.074008,
+          1.072959,
+          1.074245
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 931.3,
+        "kb_per_open_call": 22.5,
+        "max_us": 506291.0,
+        "memory_open_mb": 47.8,
+        "p50_us": 501140.0,
+        "p999_us": 506291.0,
+        "p99_us": 505115.0,
+        "total_s": 1.074008
+      },
+      "min_s": 3.090245999,
+      "name": "agentgateway",
+      "other_cpu_s": 0.4284790000000017,
+      "times_s": [
+        3.090245999,
+        4.043494403,
+        3.09490264
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.66 0.36 0.15 1/270 16491",
+    "before": "0.63 0.34 0.14 1/297 11026"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003507"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:58:15Z",
+  "wrong_rounds": 0
+}

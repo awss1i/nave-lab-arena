@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-bricksllm.json --out results/gw-bricksllm",
+  "commit": "88198c8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in BricksLLM: passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.188946,
+      "max_rss_mb": 37.81640625,
+      "max_s": 1.195883486,
+      "median_s": 1.119807976,
+      "metric_rounds": {
+        "calls_per_s": [
+          939.7,
+          876.5,
+          947.5
+        ],
+        "kb_per_open_call": [
+          20.7,
+          18.6,
+          12.5
+        ],
+        "max_us": [
+          542368.0,
+          613702.0,
+          501655.0
+        ],
+        "memory_open_mb": [
+          11.3,
+          10.3,
+          7.3
+        ],
+        "p50_us": [
+          502522.0,
+          505017.0,
+          500186.0
+        ],
+        "p999_us": [
+          542368.0,
+          613702.0,
+          501655.0
+        ],
+        "p99_us": [
+          537891.0,
+          612939.0,
+          501459.0
+        ],
+        "total_s": [
+          1.064318,
+          1.141104,
+          1.055538
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 939.7,
+        "kb_per_open_call": 18.6,
+        "max_us": 542368.0,
+        "memory_open_mb": 10.3,
+        "p50_us": 502522.0,
+        "p999_us": 542368.0,
+        "p99_us": 537891.0,
+        "total_s": 1.064318
+      },
+      "min_s": 1.106469736,
+      "name": "Nave",
+      "other_cpu_s": 0.3010539999997817,
+      "times_s": [
+        1.119807976,
+        1.195883486,
+        1.106469736
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "bricksllm",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.33387,
+      "max_rss_mb": 37.83203125,
+      "max_s": 85.677355859,
+      "median_s": 84.964347085,
+      "metric_rounds": {
+        "calls_per_s": [
+          12.4,
+          12.5,
+          12.5
+        ],
+        "kb_per_open_call": [
+          62.7,
+          94.4,
+          103.8
+        ],
+        "max_us": [
+          40732117.0,
+          40263439.0,
+          40335702.0
+        ],
+        "memory_open_mb": [
+          286.6,
+          297.2,
+          291.0
+        ],
+        "p50_us": [
+          39813044.0,
+          39567355.0,
+          39495649.0
+        ],
+        "p999_us": [
+          40732117.0,
+          40263439.0,
+          40335702.0
+        ],
+        "p99_us": [
+          40500659.0,
+          40088231.0,
+          40059324.0
+        ],
+        "total_s": [
+          80.61598,
+          79.895723,
+          79.841239
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 12.5,
+        "kb_per_open_call": 94.4,
+        "max_us": 40335702.0,
+        "memory_open_mb": 291.0,
+        "p50_us": 39567355.0,
+        "p999_us": 40335702.0,
+        "p99_us": 40088231.0,
+        "total_s": 79.895723
+      },
+      "min_s": 84.902554526,
+      "name": "BricksLLM",
+      "other_cpu_s": 161.18199800000022,
+      "times_s": [
+        85.677355859,
+        84.964347085,
+        84.902554526
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.10 2.10 2.09 1/294 23751",
+    "before": "1.78 2.11 2.10 1/318 15961"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003582"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T20:10:05Z",
+  "wrong_rounds": 0
+}

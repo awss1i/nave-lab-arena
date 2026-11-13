@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-antirion.json --out results/gw-antirion",
+  "commit": "6a64ad6",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Antirion: routes by model through deployments, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, prices every call, keeps metrics. Request log off, as in its own benchmark's minimal profile",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.07174,
+      "max_rss_mb": 26.64453125,
+      "max_s": 0.091932399,
+      "median_s": 0.084369509,
+      "metric_rounds": {
+        "calls_per_s": [
+          30133.3,
+          33184.1,
+          33434.3,
+          33891.7,
+          33968.3
+        ],
+        "max_us": [
+          10764.0,
+          10136.0,
+          9180.0,
+          8841.0,
+          8536.0
+        ],
+        "p50_us": [
+          1793.0,
+          1720.0,
+          1716.0,
+          1724.0,
+          1715.0
+        ],
+        "p999_us": [
+          10206.0,
+          6274.0,
+          5110.0,
+          6276.0,
+          7238.0
+        ],
+        "p99_us": [
+          5766.0,
+          3972.0,
+          3158.0,
+          3193.0,
+          2719.0
+        ],
+        "total_s": [
+          0.066522,
+          0.060444,
+          0.060015,
+          0.059267,
+          0.059059
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 33434.3,
+        "max_us": 9180.0,
+        "p50_us": 1720.0,
+        "p999_us": 6276.0,
+        "p99_us": 3193.0,
+        "total_s": 0.060015
+      },
+      "min_s": 0.083221883,
+      "name": "Nave",
+      "other_cpu_s": 0.08961599999999659,
+      "times_s": [
+        0.091932399,
+        0.084404318,
+        0.084369509,
+        0.083221883,
+        0.083377212
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "antirion",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.07491400000000001,
+      "max_rss_mb": 26.5234375,
+      "max_s": 0.228364229,
+      "median_s": 0.157196071,
+      "metric_rounds": {
+        "calls_per_s": [
+          9907.6,
+          15349.1,
+          12107.4,
+          15174.2,
+          15044.5
+        ],
+        "max_us": [
+          11829.0,
+          6618.0,
+          11893.0,
+          5662.0,
+          5921.0
+        ],
+        "p50_us": [
+          5144.0,
+          3952.0,
+          4126.0,
+          4047.0,
+          4060.0
+        ],
+        "p999_us": [
+          11664.0,
+          6617.0,
+          11892.0,
+          5239.0,
+          5850.0
+        ],
+        "p99_us": [
+          11189.0,
+          5971.0,
+          11347.0,
+          4802.0,
+          5151.0
+        ],
+        "total_s": [
+          0.202015,
+          0.130483,
+          0.165374,
+          0.131986,
+          0.133121
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 15044.5,
+        "max_us": 6618.0,
+        "p50_us": 4060.0,
+        "p999_us": 6617.0,
+        "p99_us": 5971.0,
+        "total_s": 0.133121
+      },
+      "min_s": 0.155318482,
+      "name": "Antirion",
+      "other_cpu_s": 0.21503099999999914,
+      "times_s": [
+        0.228364229,
+        0.155318482,
+        0.189087929,
+        0.155445137,
+        0.157196071
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.67 0.32 0.13 1/256 22072",
+    "before": "0.67 0.32 0.13 1/279 20868"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003568"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:23:19Z",
+  "wrong_rounds": 0
+}

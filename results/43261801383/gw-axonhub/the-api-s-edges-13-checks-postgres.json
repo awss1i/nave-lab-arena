@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-axonhub.json --out results/gw-axonhub",
+  "commit": "3acd007",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "postgres"
+      ],
+      "cpu_s": 0.056542999999999996,
+      "max_rss_mb": 27.12109375,
+      "max_s": 0.052964179,
+      "median_s": 0.052964179,
+      "metric_rounds": {
+        "edges_passed": [
+          0.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 0.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.052964179,
+      "name": "postgres",
+      "other_cpu_s": 0.013457000000000288,
+      "times_s": [
+        0.052964179
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "2.29 0.53 0.17 1/271 7186",
+    "before": "2.29 0.53 0.17 1/272 7123"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003551"
+  },
+  "name": "the API's edges, 13 checks, postgres",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T16:44:34Z",
+  "wrong_rounds": 0
+}

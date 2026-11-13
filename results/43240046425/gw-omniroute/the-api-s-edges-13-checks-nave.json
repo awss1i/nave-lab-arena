@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "50e46ee",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.070132,
+      "max_rss_mb": 26.96875,
+      "max_s": 0.074502506,
+      "median_s": 0.074502506,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.074502506,
+      "name": "Nave",
+      "other_cpu_s": 0.00986799999992724,
+      "times_s": [
+        0.074502506
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.26 1.25 1.20 2/257 155505",
+    "before": "1.26 1.25 1.20 1/261 155436"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003529"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T16:29:37Z",
+  "wrong_rounds": 0
+}

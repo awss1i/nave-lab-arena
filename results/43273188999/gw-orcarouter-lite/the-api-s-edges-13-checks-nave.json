@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "50a1964",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.241759,
+      "max_rss_mb": 26.390625,
+      "max_s": 0.436071708,
+      "median_s": 0.436071708,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.436071708,
+      "name": "Nave",
+      "other_cpu_s": 0.02824099999998181,
+      "times_s": [
+        0.436071708
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.56 1.52 1.19 1/260 28160",
+    "before": "1.56 1.52 1.19 1/263 27954"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003576"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:12:17Z",
+  "wrong_rounds": 0
+}

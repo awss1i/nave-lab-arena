@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-relayplane.json --out results/gw-relayplane",
+  "commit": "6dc8546",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "relayplane"
+      ],
+      "cpu_s": 0.194097,
+      "max_rss_mb": 26.40625,
+      "max_s": 4.658241531,
+      "median_s": 4.658241531,
+      "metric_rounds": {
+        "edges_passed": [
+          4.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 4.0,
+        "edges_total": 13.0
+      },
+      "min_s": 4.658241531,
+      "name": "RelayPlane",
+      "other_cpu_s": 4.275902999999345,
+      "times_s": [
+        4.658241531
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.43 1.29 1.27 1/248 15218",
+    "before": "1.51 1.30 1.27 4/262 14976"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003589"
+  },
+  "name": "the API's edges, 13 checks, RelayPlane",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T23:28:23Z",
+  "wrong_rounds": 0
+}

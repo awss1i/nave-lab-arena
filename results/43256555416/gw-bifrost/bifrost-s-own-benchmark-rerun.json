@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "eb7d09a",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Bifrost's test of 5,000 calls a second, against a model that takes 100 ms where Bifrost's own took about 1.5 s, sent here at 5,000 calls a second over 1024 connections by a client that acknowledges every packet at once, each call timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "direct",
+        "5000",
+        "50000",
+        "1024"
+      ],
+      "cpu_s": 3.175242,
+      "max_rss_mb": 77.78515625,
+      "max_s": 10.153001609,
+      "median_s": 10.151540592,
+      "metric_rounds": {
+        "calls_per_s": [
+          4949.5,
+          4949.5,
+          4949.5
+        ],
+        "max_us": [
+          114552.0,
+          114537.0,
+          112646.0
+        ],
+        "p50_us": [
+          100190.0,
+          100189.0,
+          100194.0
+        ],
+        "p999_us": [
+          110837.0,
+          111218.0,
+          110560.0
+        ],
+        "p99_us": [
+          103113.0,
+          103008.0,
+          102916.0
+        ],
+        "rate": [
+          5000.0,
+          5000.0,
+          5000.0
+        ],
+        "sent_late": [
+          11.0,
+          10.0,
+          11.0
+        ],
+        "total_s": [
+          10.102603,
+          10.102589,
+          10.102593
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4949.5,
+        "max_us": 114537.0,
+        "p50_us": 100190.0,
+        "p999_us": 110837.0,
+        "p99_us": 103008.0,
+        "rate": 5000.0,
+        "sent_late": 11.0,
+        "total_s": 10.102593
+      },
+      "min_s": 10.14776927,
+      "name": "No gateway",
+      "other_cpu_s": 8.194758000000004,
+      "times_s": [
+        10.14776927,
+        10.153001609,
+        10.151540592
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "nave",
+        "5000",
+        "50000",
+        "1024"
+      ],
+      "cpu_s": 2.7651980000000003,
+      "max_rss_mb": 77.6875,
+      "max_s": 10.197033363,
+      "median_s": 10.195256745,
+      "metric_rounds": {
+        "calls_per_s": [
+          4949.4,
+          4949.4,
+          4949.3
+        ],
+        "cpu_us_per_call": [
+          37.4,
+          36.6,
+          37.6
+        ],
+        "max_us": [
+          110258.0,
+          110354.0,
+          110379.0
+        ],
+        "p50_us": [
+          100233.0,
+          100243.0,
+          100255.0
+        ],
+        "p999_us": [
+          108353.0,
+          108427.0,
+          108094.0
+        ],
+        "p99_us": [
+          102328.0,
+          102156.0,
+          102239.0
+        ],
+        "rate": [
+          5000.0,
+          5000.0,
+          5000.0
+        ],
+        "sent_late": [
+          10.0,
+          10.0,
+          10.0
+        ],
+        "total_s": [
+          10.103034,
+          10.10295,
+          10.103193
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4949.4,
+        "cpu_us_per_call": 37.4,
+        "max_us": 110354.0,
+        "p50_us": 100243.0,
+        "p999_us": 108353.0,
+        "p99_us": 102239.0,
+        "rate": 5000.0,
+        "sent_late": 10.0,
+        "total_s": 10.103034
+      },
+      "min_s": 10.192446222,
+      "name": "Nave",
+      "other_cpu_s": 6.372479999999975,
+      "times_s": [
+        10.195256745,
+        10.192446222,
+        10.197033363
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "bifrost",
+        "5000",
+        "50000",
+        "1024"
+      ],
+      "cpu_s": 2.859461,
+      "max_rss_mb": 83.78515625,
+      "max_s": 17.34425686,
+      "median_s": 17.330829286,
+      "metric_rounds": {
+        "calls_per_s": [
+          2900.0,
+          2926.5,
+          2898.5
+        ],
+        "cpu_us_per_call": [
+          680.1,
+          672.9,
+          679.2
+        ],
+        "max_us": [
+          7557642.0,
+          7490282.0,
+          7609474.0
+        ],
+        "p50_us": [
+          3668458.0,
+          3509794.0,
+          3566111.0
+        ],
+        "p999_us": [
+          7299997.0,
+          7244567.0,
+          7370555.0
+        ],
+        "p99_us": [
+          7087056.0,
+          6970883.0,
+          7091858.0
+        ],
+        "rate": [
+          5000.0,
+          5000.0,
+          5000.0
+        ],
+        "sent_late": [
+          48825.0,
+          48035.0,
+          47975.0
+        ],
+        "total_s": [
+          17.242741,
+          17.086356,
+          17.251787
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 2900.0,
+        "cpu_us_per_call": 679.2,
+        "max_us": 7557642.0,
+        "p50_us": 3566111.0,
+        "p999_us": 7299997.0,
+        "p99_us": 7087056.0,
+        "rate": 5000.0,
+        "sent_late": 48035.0,
+        "total_s": 17.242741
+      },
+      "min_s": 17.178580676,
+      "name": "Bifrost",
+      "other_cpu_s": 37.008423,
+      "times_s": [
+        17.330829286,
+        17.178580676,
+        17.34425686
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.07 1.54 0.72 1/259 46274",
+    "before": "2.34 1.05 0.44 1/285 27522"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003536"
+  },
+  "name": "Bifrost's own benchmark, rerun",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T16:22:41Z",
+  "wrong_rounds": 0
+}

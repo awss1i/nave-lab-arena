@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+one-api	v0.6.11-preview.7 created 2025-02-16T10:05:00.111089821Z (image docker.io/justsong/one-api:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+one-api, switched on	routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL
+one-api, kinds of race it wasn't in	messages cache

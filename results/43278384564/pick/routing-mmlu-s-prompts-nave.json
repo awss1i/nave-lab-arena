@@ -1,0 +1,68 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "8ed9d80",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "nave",
+        "mmlu"
+      ],
+      "cpu_s": 1.632214,
+      "max_rss_mb": 26.66015625,
+      "max_s": 1.621093283,
+      "median_s": 1.621093283,
+      "metric_rounds": {
+        "apgr": [
+          0.5678
+        ],
+        "cpt50": [
+          40.5127
+        ],
+        "cpt80": [
+          76.721
+        ],
+        "ns_per_prompt": [
+          3133.8
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5678,
+        "cpt50": 40.5127,
+        "cpt80": 76.721,
+        "ns_per_prompt": 3133.8
+      },
+      "min_s": 1.621093283,
+      "name": "Nave",
+      "other_cpu_s": 0.017786000000090896,
+      "times_s": [
+        1.621093283
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.01 1.89 1.13 1/262 3427",
+    "before": "2.10 1.90 1.13 2/261 3380"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003579"
+  },
+  "name": "routing MMLU's prompts, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:30:20Z",
+  "wrong_rounds": 0
+}

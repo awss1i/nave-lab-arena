@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-kgateway.json --out results/gw-kgateway",
+  "commit": "eb3d469",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in kgateway: an Envoy proxy programmed through Kubernetes' Gateway API, passing every call on to one upstream by route. No key check and no LLM features in this version, which moved to agentgateway. It runs in a kind cluster of one node, and only its own pods are measured",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.27647,
+      "max_rss_mb": 37.81640625,
+      "max_s": 1.161300839,
+      "median_s": 1.161258664,
+      "metric_rounds": {
+        "calls_per_s": [
+          927.2,
+          929.4,
+          929.1
+        ],
+        "kb_per_open_call": [
+          12.1,
+          10.4,
+          8.4
+        ],
+        "max_us": [
+          503808.0,
+          502570.0,
+          506172.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.4,
+          5.4
+        ],
+        "p50_us": [
+          500208.0,
+          500201.0,
+          500405.0
+        ],
+        "p999_us": [
+          503808.0,
+          502570.0,
+          506172.0
+        ],
+        "p99_us": [
+          503028.0,
+          502039.0,
+          504608.0
+        ],
+        "total_s": [
+          1.078747,
+          1.076198,
+          1.076598
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 929.1,
+        "kb_per_open_call": 10.4,
+        "max_us": 503808.0,
+        "memory_open_mb": 6.4,
+        "p50_us": 500208.0,
+        "p999_us": 503808.0,
+        "p99_us": 503028.0,
+        "total_s": 1.076598
+      },
+      "min_s": 1.15842885,
+      "name": "Nave",
+      "other_cpu_s": 0.25570200000002047,
+      "times_s": [
+        1.161300839,
+        1.15842885,
+        1.161258664
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "kgateway",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.314087,
+      "max_rss_mb": 37.95703125,
+      "max_s": 1.254489655,
+      "median_s": 1.252370046,
+      "metric_rounds": {
+        "calls_per_s": [
+          896.5,
+          898.7,
+          898.4
+        ],
+        "kb_per_open_call": [
+          1.8,
+          1.2,
+          2.5
+        ],
+        "max_us": [
+          535638.0,
+          542067.0,
+          535240.0
+        ],
+        "memory_open_mb": [
+          96.3,
+          96.5,
+          97.2
+        ],
+        "p50_us": [
+          506505.0,
+          506035.0,
+          505492.0
+        ],
+        "p999_us": [
+          535638.0,
+          542067.0,
+          535240.0
+        ],
+        "p99_us": [
+          533060.0,
+          539547.0,
+          529471.0
+        ],
+        "total_s": [
+          1.115654,
+          1.112979,
+          1.113296
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 898.4,
+        "kb_per_open_call": 1.8,
+        "max_us": 535638.0,
+        "memory_open_mb": 96.5,
+        "p50_us": 506035.0,
+        "p999_us": 535638.0,
+        "p99_us": 533060.0,
+        "total_s": 1.113296
+      },
+      "min_s": 1.247426111,
+      "name": "kgateway",
+      "other_cpu_s": 0.8959129999999795,
+      "times_s": [
+        1.254489655,
+        1.247426111,
+        1.252370046
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.58 0.89 0.55 1/536 33866",
+    "before": "0.43 0.88 0.54 1/565 27555"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003584"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T18:56:28Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,5 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz
+nave	prototype P006, 1a772dff36bf
+bifrost	v2.5.1 created 2026-11-10T08:13:06.292592996Z (image docker.io/maximhq/bifrost:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+bifrost, switched on	routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it

@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-portkey.json --out results/gw-portkey",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Portkey: routes by headers on each call, falls back, takes OpenAI's format. No key check, no request log, no spend",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.085282,
+      "max_rss_mb": 26.6015625,
+      "max_s": 0.084255473,
+      "median_s": 0.081665884,
+      "metric_rounds": {
+        "calls_per_s": [
+          35408.3,
+          35894.4,
+          36713.3,
+          34088.7,
+          37302.6
+        ],
+        "max_us": [
+          11697.0,
+          11054.0,
+          11223.0,
+          13568.0,
+          10368.0
+        ],
+        "p50_us": [
+          1363.0,
+          1321.0,
+          1297.0,
+          1291.0,
+          1325.0
+        ],
+        "p999_us": [
+          11602.0,
+          6400.0,
+          11220.0,
+          12205.0,
+          5432.0
+        ],
+        "p99_us": [
+          3958.0,
+          3753.0,
+          3701.0,
+          5411.0,
+          3499.0
+        ],
+        "total_s": [
+          0.056651,
+          0.055882,
+          0.05466,
+          0.058839,
+          0.053786
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 35894.4,
+        "max_us": 11223.0,
+        "p50_us": 1321.0,
+        "p999_us": 11220.0,
+        "p99_us": 3753.0,
+        "total_s": 0.055882
+      },
+      "min_s": 0.078760152,
+      "name": "Nave",
+      "other_cpu_s": 0.0947179999999784,
+      "times_s": [
+        0.082144715,
+        0.081518087,
+        0.081665884,
+        0.084255473,
+        0.078760152
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "portkey",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.10880400000000001,
+      "max_rss_mb": 26.671875,
+      "max_s": 1.907976962,
+      "median_s": 1.7153709209999999,
+      "metric_rounds": {
+        "calls_per_s": [
+          1064.2,
+          1186.0,
+          1149.6,
+          1267.5,
+          1254.3
+        ],
+        "max_us": [
+          1042621.0,
+          929892.0,
+          925328.0,
+          802434.0,
+          850049.0
+        ],
+        "p50_us": [
+          42286.0,
+          37655.0,
+          37446.0,
+          34978.0,
+          35291.0
+        ],
+        "p999_us": [
+          1013653.0,
+          901354.0,
+          902540.0,
+          771405.0,
+          829433.0
+        ],
+        "p99_us": [
+          549044.0,
+          436184.0,
+          480528.0,
+          388887.0,
+          404483.0
+        ],
+        "total_s": [
+          1.879547,
+          1.686454,
+          1.739938,
+          1.578023,
+          1.594662
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 1186.0,
+        "max_us": 925328.0,
+        "p50_us": 37446.0,
+        "p999_us": 901354.0,
+        "p99_us": 436184.0,
+        "total_s": 1.686454
+      },
+      "min_s": 1.606532922,
+      "name": "Portkey",
+      "other_cpu_s": 1.7322680000000126,
+      "times_s": [
+        1.907976962,
+        1.7153709209999999,
+        1.7690261299999999,
+        1.606532922,
+        1.623566357
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.55 1.62 0.84 1/271 21850",
+    "before": "1.47 1.61 0.83 3/307 20649"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003520"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:03:33Z",
+  "wrong_rounds": 0
+}

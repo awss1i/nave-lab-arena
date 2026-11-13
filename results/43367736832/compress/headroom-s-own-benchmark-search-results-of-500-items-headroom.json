@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "36ba0b3",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "headroom",
+        "headroom-bench/json-search-results-500-items.txt"
+      ],
+      "cpu_s": 0.6043069999999999,
+      "max_rss_mb": 128.765625,
+      "max_s": 0.60109889,
+      "median_s": 0.60040879,
+      "metric_rounds": {
+        "bytes_kept": [
+          0.6421,
+          0.6421,
+          0.6421
+        ],
+        "mb_per_s": [
+          20.957,
+          21.056,
+          20.769
+        ],
+        "tokens_after": [
+          27147.0,
+          27147.0,
+          27147.0
+        ],
+        "tokens_before": [
+          45179.0,
+          45179.0,
+          45179.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 0.6421,
+        "mb_per_s": 20.957,
+        "tokens_after": 27147.0,
+        "tokens_before": 45179.0
+      },
+      "min_s": 0.597834638,
+      "name": "Headroom",
+      "other_cpu_s": 0.00863799999999948,
+      "times_s": [
+        0.60109889,
+        0.597834638,
+        0.60040879
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "1.55 0.53 0.19 1/270 3679",
+    "before": "1.55 0.53 0.19 2/269 3614"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003616"
+  },
+  "name": "Headroom's own benchmark, search results of 500 items, Headroom",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T04:48:10Z",
+  "wrong_rounds": 0
+}

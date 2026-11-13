@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run races/mcp.json --out results/mcp",
+  "commit": "c3c4e1c",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "mcphub",
+        "list",
+        "--calls",
+        "1000",
+        "--conns",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "MCPHub",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "1.26 1.19 0.63 2/273 17236",
+    "before": "1.26 1.19 0.63 2/294 17110"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003590"
+  },
+  "name": "listing a server's tools through an MCP gateway, 1,000 lists over 4 connections, MCPHub",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "MCPHub",
+      "ok": false,
+      "output": "ok 464\nbad 536\nchecksum 264900370c90e580\n",
+      "stderr": "metric calls_per_s=817.9\nmetric p50_us=2117\nmetric p99_us=15910\nmetric max_us=32433\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T22:01:59Z",
+  "wrong_rounds": 0
+}

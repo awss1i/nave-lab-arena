@@ -1,0 +1,68 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "50a1964",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "nave",
+        "mmlu"
+      ],
+      "cpu_s": 1.538304,
+      "max_rss_mb": 26.48828125,
+      "max_s": 1.5271566559999998,
+      "median_s": 1.5271566559999998,
+      "metric_rounds": {
+        "apgr": [
+          0.5678
+        ],
+        "cpt50": [
+          40.5127
+        ],
+        "cpt80": [
+          76.721
+        ],
+        "ns_per_prompt": [
+          2981.9
+        ]
+      },
+      "metrics": {
+        "apgr": 0.5678,
+        "cpt50": 40.5127,
+        "cpt80": 76.721,
+        "ns_per_prompt": 2981.9
+      },
+      "min_s": 1.5271566559999998,
+      "name": "Nave",
+      "other_cpu_s": 0.021695999999945537,
+      "times_s": [
+        1.5271566559999998
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.39 1.89 1.03 1/258 3089",
+    "before": "2.39 1.89 1.03 2/257 3042"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003575"
+  },
+  "name": "routing MMLU's prompts, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:58:40Z",
+  "wrong_rounds": 0
+}

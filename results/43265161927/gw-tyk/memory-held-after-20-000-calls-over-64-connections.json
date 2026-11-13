@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-tyk.json --out results/gw-tyk",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Tyk: passes one path on to the model as an API gateway, in OpenAI's format. No key check, analytics off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.678381,
+      "max_rss_mb": 25.36328125,
+      "max_s": 0.694492593,
+      "median_s": 0.694492593,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.694492593,
+      "name": "Nave",
+      "other_cpu_s": 1.751619000000007,
+      "times_s": [
+        0.694492593
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "tyk"
+      ],
+      "cpu_s": 0.666932,
+      "max_rss_mb": 28.78515625,
+      "max_s": 4.813756629,
+      "median_s": 4.813756629,
+      "metric_rounds": {
+        "memory_mb": [
+          29.3
+        ]
+      },
+      "metrics": {
+        "memory_mb": 29.3
+      },
+      "min_s": 4.813756629,
+      "name": "Tyk",
+      "other_cpu_s": 4.643067999999974,
+      "times_s": [
+        4.813756629
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.26 1.15 0.60 1/281 20494",
+    "before": "0.94 1.09 0.57 2/308 19878"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003560"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:07:00Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-new-api.json --out results/gw-new-api",
+  "commit": "b1c6144",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in New API: routes by model through channels, takes OpenAI's and Anthropic's formats, checks the caller's token, counts quota, logs each call to MySQL",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.081934,
+      "max_rss_mb": 26.46875,
+      "max_s": 0.106876384,
+      "median_s": 0.096386725,
+      "metric_rounds": {
+        "calls_per_s": [
+          6815.2,
+          7933.1,
+          8926.2,
+          7558.0,
+          8140.6
+        ],
+        "first_piece_p50_us": [
+          2011.0,
+          1673.0,
+          1584.0,
+          1895.0,
+          1778.0
+        ],
+        "first_piece_p99_us": [
+          4513.0,
+          5258.0,
+          3422.0,
+          4657.0,
+          3702.0
+        ],
+        "max_us": [
+          7115.0,
+          8059.0,
+          3773.0,
+          6144.0,
+          5894.0
+        ],
+        "p50_us": [
+          2069.0,
+          1723.0,
+          1636.0,
+          1934.0,
+          1817.0
+        ],
+        "p999_us": [
+          7115.0,
+          8059.0,
+          3773.0,
+          6144.0,
+          5894.0
+        ],
+        "p99_us": [
+          5494.0,
+          5789.0,
+          3505.0,
+          5156.0,
+          3935.0
+        ],
+        "total_s": [
+          0.073499,
+          0.063193,
+          0.056195,
+          0.066294,
+          0.061565
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 7933.1,
+        "first_piece_p50_us": 1778.0,
+        "first_piece_p99_us": 4513.0,
+        "max_us": 6144.0,
+        "p50_us": 1817.0,
+        "p999_us": 6144.0,
+        "p99_us": 5156.0,
+        "total_s": 0.063193
+      },
+      "min_s": 0.089668847,
+      "name": "Nave",
+      "other_cpu_s": 0.11265500000001705,
+      "times_s": [
+        0.106876384,
+        0.096386725,
+        0.089668847,
+        0.098869643,
+        0.094469659
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "new-api",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.102334,
+      "max_rss_mb": 26.15625,
+      "max_s": 0.727717159,
+      "median_s": 0.716238545,
+      "metric_rounds": {
+        "calls_per_s": [
+          741.6,
+          737.7,
+          725.2,
+          757.3,
+          737.5
+        ],
+        "first_piece_p50_us": [
+          9945.0,
+          9779.0,
+          10066.0,
+          9613.0,
+          9650.0
+        ],
+        "first_piece_p99_us": [
+          20962.0,
+          22292.0,
+          23143.0,
+          21415.0,
+          21507.0
+        ],
+        "max_us": [
+          38370.0,
+          44313.0,
+          41627.0,
+          40949.0,
+          39944.0
+        ],
+        "p50_us": [
+          20464.0,
+          20614.0,
+          21305.0,
+          20053.0,
+          20845.0
+        ],
+        "p999_us": [
+          38370.0,
+          44313.0,
+          41627.0,
+          40949.0,
+          39944.0
+        ],
+        "p99_us": [
+          36319.0,
+          37232.0,
+          37911.0,
+          35172.0,
+          34708.0
+        ],
+        "total_s": [
+          0.674363,
+          0.677988,
+          0.689635,
+          0.66037,
+          0.678113
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 737.7,
+        "first_piece_p50_us": 9779.0,
+        "first_piece_p99_us": 21507.0,
+        "max_us": 40949.0,
+        "p50_us": 20614.0,
+        "p999_us": 40949.0,
+        "p99_us": 36319.0,
+        "total_s": 0.677988
+      },
+      "min_s": 0.700075449,
+      "name": "New API",
+      "other_cpu_s": 1.655182999999991,
+      "times_s": [
+        0.711540151,
+        0.716238545,
+        0.727717159,
+        0.700075449,
+        0.716375517
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.60 1.22 0.45 1/361 6682",
+    "before": "3.22 1.10 0.40 1/379 6101"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003609"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T00:17:27Z",
+  "wrong_rounds": 0
+}

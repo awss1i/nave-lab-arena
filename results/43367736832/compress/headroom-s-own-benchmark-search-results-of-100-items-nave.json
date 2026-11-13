@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "36ba0b3",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "nave",
+        "headroom-bench/json-search-results-100-items.txt"
+      ],
+      "cpu_s": 0.332665,
+      "max_rss_mb": 98.28515625,
+      "max_s": 0.330218667,
+      "median_s": 0.328663821,
+      "metric_rounds": {
+        "bytes_kept": [
+          0.7159,
+          0.7159,
+          0.7159
+        ],
+        "mb_per_s": [
+          24.4,
+          24.5,
+          24.6
+        ],
+        "tokens_after": [
+          6401.0,
+          6401.0,
+          6401.0
+        ],
+        "tokens_before": [
+          9103.0,
+          9103.0,
+          9103.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 0.7159,
+        "mb_per_s": 24.5,
+        "tokens_after": 6401.0,
+        "tokens_before": 9103.0
+      },
+      "min_s": 0.327629455,
+      "name": "Nave",
+      "other_cpu_s": 0.018344999999994338,
+      "times_s": [
+        0.328663821,
+        0.330218667,
+        0.327629455
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "1.60 0.53 0.19 1/267 3471",
+    "before": "1.60 0.53 0.19 2/267 3406"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003616"
+  },
+  "name": "Headroom's own benchmark, search results of 100 items, Nave",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T04:48:04Z",
+  "wrong_rounds": 0
+}

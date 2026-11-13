@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone AI Gateway: routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.9329750000000001,
+      "max_rss_mb": 27.01953125,
+      "max_s": 1.153813662,
+      "median_s": 1.153813662,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 1.153813662,
+      "name": "Nave",
+      "other_cpu_s": 1.7170250000000056,
+      "times_s": [
+        1.153813662
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "helicone-ai-gateway"
+      ],
+      "cpu_s": 0.7726850000000001,
+      "max_rss_mb": 28.31640625,
+      "max_s": 3.089257185,
+      "median_s": 3.089257185,
+      "metric_rounds": {
+        "memory_mb": [
+          35.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 35.9
+      },
+      "min_s": 3.089257185,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 4.927314999999989,
+      "times_s": [
+        3.089257185
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.47 0.69 0.30 1/271 20780",
+    "before": "1.11 0.60 0.27 1/291 20185"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003479"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:19:08Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-tyk.json --out results/gw-tyk",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Tyk: passes one path on to the model as an API gateway, in OpenAI's format. No key check, analytics off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.273613,
+      "max_rss_mb": 37.83203125,
+      "max_s": 1.154208614,
+      "median_s": 1.152807391,
+      "metric_rounds": {
+        "calls_per_s": [
+          927.6,
+          921.7,
+          923.6
+        ],
+        "kb_per_open_call": [
+          12.1,
+          10.9,
+          11.3
+        ],
+        "max_us": [
+          502618.0,
+          504761.0,
+          505489.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          6.5,
+          6.7
+        ],
+        "p50_us": [
+          500217.0,
+          500231.0,
+          500232.0
+        ],
+        "p999_us": [
+          502618.0,
+          504761.0,
+          505489.0
+        ],
+        "p99_us": [
+          502241.0,
+          503774.0,
+          504155.0
+        ],
+        "total_s": [
+          1.078206,
+          1.085116,
+          1.082908
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 923.6,
+        "kb_per_open_call": 11.3,
+        "max_us": 504761.0,
+        "memory_open_mb": 6.7,
+        "p50_us": 500231.0,
+        "p999_us": 504761.0,
+        "p99_us": 503774.0,
+        "total_s": 1.082908
+      },
+      "min_s": 1.143911508,
+      "name": "Nave",
+      "other_cpu_s": 0.1655599999999977,
+      "times_s": [
+        1.143911508,
+        1.154208614,
+        1.152807391
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "tyk",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.290823,
+      "max_rss_mb": 37.9765625,
+      "max_s": 8.042858027,
+      "median_s": 7.104909552,
+      "metric_rounds": {
+        "calls_per_s": [
+          911.9,
+          911.5,
+          913.4
+        ],
+        "kb_per_open_call": [
+          24.6,
+          3.3,
+          1.8
+        ],
+        "max_us": [
+          527023.0,
+          523951.0,
+          531139.0
+        ],
+        "memory_open_mb": [
+          82.6,
+          84.2,
+          85.1
+        ],
+        "p50_us": [
+          501371.0,
+          501169.0,
+          501142.0
+        ],
+        "p999_us": [
+          527023.0,
+          523951.0,
+          531139.0
+        ],
+        "p99_us": [
+          522564.0,
+          522154.0,
+          527455.0
+        ],
+        "total_s": [
+          1.096988,
+          1.097284,
+          1.094997
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 911.9,
+        "kb_per_open_call": 3.3,
+        "max_us": 527023.0,
+        "memory_open_mb": 84.2,
+        "p50_us": 501169.0,
+        "p999_us": 527023.0,
+        "p99_us": 522564.0,
+        "total_s": 1.096988
+      },
+      "min_s": 7.10019953,
+      "name": "Tyk",
+      "other_cpu_s": 0.5191770000000022,
+      "times_s": [
+        7.10019953,
+        8.042858027,
+        7.104909552
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.54 1.02 0.54 2/282 16612",
+    "before": "0.64 1.10 0.55 1/305 11028"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003560"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:06:35Z",
+  "wrong_rounds": 0
+}

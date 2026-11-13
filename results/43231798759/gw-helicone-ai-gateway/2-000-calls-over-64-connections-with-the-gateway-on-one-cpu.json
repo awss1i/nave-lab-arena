@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone AI Gateway: routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.11649,
+      "max_rss_mb": 26.921875,
+      "max_s": 0.117084675,
+      "median_s": 0.111239922,
+      "metric_rounds": {
+        "calls_per_s": [
+          22058.4,
+          26214.3,
+          24250.1,
+          22748.2,
+          24807.1
+        ],
+        "max_us": [
+          9228.0,
+          8711.0,
+          6478.0,
+          12279.0,
+          11362.0
+        ],
+        "p50_us": [
+          2511.0,
+          1894.0,
+          2470.0,
+          2445.0,
+          2334.0
+        ],
+        "p999_us": [
+          7486.0,
+          8557.0,
+          6299.0,
+          8535.0,
+          11325.0
+        ],
+        "p99_us": [
+          6408.0,
+          7041.0,
+          5048.0,
+          5492.0,
+          5405.0
+        ],
+        "total_s": [
+          0.090855,
+          0.076475,
+          0.082651,
+          0.088114,
+          0.080814
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 24250.1,
+        "max_us": 9228.0,
+        "p50_us": 2445.0,
+        "p999_us": 8535.0,
+        "p99_us": 5492.0,
+        "total_s": 0.082651
+      },
+      "min_s": 0.10481272,
+      "name": "Nave",
+      "other_cpu_s": 0.10025700000000795,
+      "times_s": [
+        0.117084675,
+        0.10481272,
+        0.109255731,
+        0.116146674,
+        0.111239922
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "helicone-ai-gateway",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.100036,
+      "max_rss_mb": 26.64453125,
+      "max_s": 0.192818055,
+      "median_s": 0.186542818,
+      "metric_rounds": {
+        "calls_per_s": [
+          12722.7,
+          13186.7,
+          13034.8,
+          12113.1,
+          12420.7
+        ],
+        "max_us": [
+          8098.0,
+          8001.0,
+          7599.0,
+          8572.0,
+          7725.0
+        ],
+        "p50_us": [
+          4800.0,
+          4608.0,
+          4744.0,
+          4852.0,
+          4885.0
+        ],
+        "p999_us": [
+          7962.0,
+          7944.0,
+          7568.0,
+          8364.0,
+          7688.0
+        ],
+        "p99_us": [
+          6528.0,
+          6032.0,
+          5681.0,
+          6815.0,
+          6328.0
+        ],
+        "total_s": [
+          0.157403,
+          0.151869,
+          0.153641,
+          0.165288,
+          0.161225
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 12722.7,
+        "max_us": 8001.0,
+        "p50_us": 4800.0,
+        "p999_us": 7944.0,
+        "p99_us": 6328.0,
+        "total_s": 0.157403
+      },
+      "min_s": 0.180164784,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 0.21108000000000227,
+      "times_s": [
+        0.186542818,
+        0.180164784,
+        0.180906296,
+        0.192818055,
+        0.188732906
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.46 0.30 0.13 1/267 17937",
+    "before": "0.46 0.30 0.13 1/282 16675"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003501"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:58:32Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run run/gw-bricksllm.json --out results/gw-bricksllm",
+  "commit": "6dc8546",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in BricksLLM: passes OpenAI's format on to a custom provider's route, checks the caller's key, counts each key's requests and spend in PostgreSQL and Redis",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave",
+        "2000"
+      ],
+      "cpu_s": 0.146785,
+      "max_rss_mb": 24.76171875,
+      "max_s": 0.143068226,
+      "median_s": 0.143068226,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.143068226,
+      "name": "Nave",
+      "other_cpu_s": 0.15321499999972715,
+      "times_s": [
+        0.143068226
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "bricksllm",
+        "2000"
+      ],
+      "cpu_s": 0.276876,
+      "max_rss_mb": 28.33984375,
+      "max_s": 158.018765142,
+      "median_s": 158.018765142,
+      "metric_rounds": {
+        "memory_mb": [
+          238.0
+        ]
+      },
+      "metrics": {
+        "memory_mb": 238.0
+      },
+      "min_s": 158.018765142,
+      "name": "BricksLLM",
+      "other_cpu_s": 310.8531240000001,
+      "times_s": [
+        158.018765142
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.99 1.90 1.64 1/294 15505",
+    "before": "1.68 1.48 1.43 1/322 14606"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003587"
+  },
+  "name": "memory held after 2,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T22:16:24Z",
+  "wrong_rounds": 0
+}

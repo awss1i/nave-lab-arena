@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, INTEL(R) XEON(R) PLATINUM 8573C
+nave	prototype P006, 1a772dff36bf
+smg	1.14.0 (image docker.io/lightseekorg/smg:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+smg, switched on	balances load across inference workers, takes OpenAI's format. No key check
+smg, kinds of race it wasn't in	messages fallback cache

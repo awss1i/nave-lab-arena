@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/mcp.json --out results/mcp",
+  "commit": "e0bc21e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in MCP server with eight tools on one, the gateway on two. Nave's gateway speaks MCP's revision 2026-07-28, which has no sessions. The other gateways speak an earlier revision, so the load tool opens each connection to them with the earlier handshake and keeps the session it's given. Every answer is checked",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "mcp",
+        "nave",
+        "call",
+        "--calls",
+        "1000",
+        "--conns",
+        "1"
+      ],
+      "cpu_s": 0.152173,
+      "max_rss_mb": 26.4765625,
+      "max_s": 0.226284728,
+      "median_s": 0.224409625,
+      "metric_rounds": {
+        "calls_per_s": [
+          7402.2,
+          7704.5,
+          7999.6
+        ],
+        "max_us": [
+          2366.0,
+          3386.0,
+          233.0
+        ],
+        "p50_us": [
+          108.0,
+          108.0,
+          107.0
+        ],
+        "p99_us": [
+          169.0,
+          149.0,
+          145.0
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 7704.5,
+        "max_us": 2366.0,
+        "p50_us": 108.0,
+        "p99_us": 149.0
+      },
+      "min_s": 0.22248088,
+      "name": "Nave",
+      "other_cpu_s": 0.09209000000000911,
+      "times_s": [
+        0.226284728,
+        0.224409625,
+        0.22248088
+      ]
+    }
+  ],
+  "feature": "F8",
+  "load": {
+    "after": "1.32 1.06 0.51 1/264 12371",
+    "before": "1.35 1.06 0.51 1/269 12122"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003585"
+  },
+  "name": "calling a tool through an MCP gateway, 1,000 calls on one connection, Nave",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T21:45:09Z",
+  "wrong_rounds": 0
+}

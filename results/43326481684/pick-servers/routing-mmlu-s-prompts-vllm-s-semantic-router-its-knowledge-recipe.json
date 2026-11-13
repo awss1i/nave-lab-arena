@@ -1,0 +1,74 @@
+{
+  "command": "bin/race run races/pick-servers.json --out results/pick-servers",
+  "commit": "a47c071",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "vllm-sr",
+        "mmlu",
+        "2000"
+      ],
+      "cpu_s": 1.428074,
+      "max_rss_mb": 31.83984375,
+      "max_s": 571.584921627,
+      "median_s": 571.584921627,
+      "metric_rounds": {
+        "apgr": [
+          0.4431
+        ],
+        "cpt50": [
+          57.3
+        ],
+        "cpt80": [
+          86.35
+        ],
+        "ns_per_prompt": [
+          285651476.0
+        ],
+        "prompts": [
+          2000.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.4431,
+        "cpt50": 57.3,
+        "cpt80": 86.35,
+        "ns_per_prompt": 285651476.0,
+        "prompts": 2000.0
+      },
+      "min_s": 571.584921627,
+      "name": "vLLM's semantic-router, its Knowledge recipe",
+      "other_cpu_s": 1492.611926000001,
+      "times_s": [
+        571.584921627
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.86 3.09 3.09 1/424 9315",
+    "before": "3.47 3.25 2.70 1/423 8393"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003597"
+  },
+  "name": "routing MMLU's prompts, vLLM's semantic-router, its Knowledge recipe",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T00:38:55Z",
+  "wrong_rounds": 0
+}

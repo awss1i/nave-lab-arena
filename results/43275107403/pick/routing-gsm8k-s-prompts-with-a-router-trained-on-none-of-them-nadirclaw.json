@@ -1,0 +1,73 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "72604d6",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "nadirclaw",
+        "gsm8k"
+      ],
+      "cpu_s": 42.2048,
+      "max_rss_mb": 615.83984375,
+      "max_s": 23.309680114,
+      "median_s": 23.309680114,
+      "metric_rounds": {
+        "apgr": [
+          0.4625
+        ],
+        "cpt50": [
+          55.1933
+        ],
+        "cpt80": [
+          83.624
+        ],
+        "ns_per_prompt": [
+          14308861.0
+        ],
+        "prompts": [
+          1319.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.4625,
+        "cpt50": 55.1933,
+        "cpt80": 83.624,
+        "ns_per_prompt": 14308861.0,
+        "prompts": 1319.0
+      },
+      "min_s": 23.309680114,
+      "name": "NadirClaw",
+      "other_cpu_s": 0.30519999999999214,
+      "times_s": [
+        23.309680114
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "1.95 1.99 1.44 1/248 3282",
+    "before": "1.99 2.02 1.41 2/246 3200"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003577"
+  },
+  "name": "routing GSM8K's prompts with a router trained on none of them, NadirClaw",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:17:23Z",
+  "wrong_rounds": 0
+}

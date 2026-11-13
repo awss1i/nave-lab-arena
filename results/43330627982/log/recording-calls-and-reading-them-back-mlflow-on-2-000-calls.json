@@ -1,0 +1,64 @@
+{
+  "command": "bin/race run races/log.json --out results/log",
+  "commit": "b604b94",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "log",
+        "mlflow",
+        "2000"
+      ],
+      "cpu_s": 0.369091,
+      "max_rss_mb": 53.1875,
+      "max_s": 8.244935221,
+      "median_s": 8.244935221,
+      "metric_rounds": {
+        "calls_held": [
+          2000.0
+        ],
+        "seconds": [
+          8.044
+        ],
+        "us_per_call": [
+          4021.9
+        ]
+      },
+      "metrics": {
+        "calls_held": 2000.0,
+        "seconds": 8.044,
+        "us_per_call": 4021.9
+      },
+      "min_s": 8.244935221,
+      "name": "MLflow, on 2,000 calls",
+      "other_cpu_s": 8.230909000000024,
+      "times_s": [
+        8.244935221
+      ]
+    }
+  ],
+  "feature": "F9",
+  "load": {
+    "after": "2.85 1.05 0.39 6/389 3810",
+    "before": "2.35 0.79 0.28 10/333 3677"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003599"
+  },
+  "name": "recording calls and reading them back, MLflow, on 2,000 calls",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T23:40:57Z",
+  "wrong_rounds": 0
+}

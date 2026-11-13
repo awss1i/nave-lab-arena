@@ -1,0 +1,200 @@
+{
+  "command": "bin/race run run/gw-aisix.json --out results/gw-aisix",
+  "commit": "3815816",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in AISIX: routes by model, takes OpenAI's and Anthropic's formats, checks the caller's key. Metrics off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.085191,
+      "max_rss_mb": 26.2890625,
+      "max_s": 0.084379103,
+      "median_s": 0.082716612,
+      "metric_rounds": {
+        "calls_per_s": [
+          33658.4,
+          33937.8,
+          34902.0,
+          33357.2,
+          34300.9
+        ],
+        "max_us": [
+          11663.0,
+          22000.0,
+          11656.0,
+          12502.0,
+          10999.0
+        ],
+        "p50_us": [
+          1399.0,
+          1413.0,
+          1351.0,
+          1437.0,
+          1382.0
+        ],
+        "p999_us": [
+          11597.0,
+          12025.0,
+          6947.0,
+          7549.0,
+          10878.0
+        ],
+        "p99_us": [
+          3776.0,
+          4103.0,
+          3857.0,
+          4414.0,
+          4127.0
+        ],
+        "total_s": [
+          0.059601,
+          0.059094,
+          0.057484,
+          0.060122,
+          0.05849
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 33937.8,
+        "max_us": 11663.0,
+        "p50_us": 1399.0,
+        "p999_us": 10878.0,
+        "p99_us": 4103.0,
+        "total_s": 0.059094
+      },
+      "min_s": 0.08077076,
+      "name": "Nave",
+      "other_cpu_s": 0.10301000000000128,
+      "times_s": [
+        0.082991993,
+        0.082716612,
+        0.08077076,
+        0.084379103,
+        0.082190334
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "aisix",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.10403100000000001,
+      "max_rss_mb": 26.6640625,
+      "max_s": 0.169746664,
+      "median_s": 0.164225256,
+      "metric_rounds": {
+        "calls_per_s": [
+          13994.0,
+          14274.6,
+          14237.5,
+          14327.1,
+          13618.8
+        ],
+        "first_piece_p50_us": [
+          3663.0,
+          3891.0,
+          3951.0,
+          3466.0,
+          3487.0
+        ],
+        "first_piece_p99_us": [
+          9727.0,
+          6635.0,
+          11210.0,
+          11034.0,
+          10239.0
+        ],
+        "max_us": [
+          14666.0,
+          10930.0,
+          18454.0,
+          15779.0,
+          15492.0
+        ],
+        "p50_us": [
+          3663.0,
+          3891.0,
+          3951.0,
+          3466.0,
+          3487.0
+        ],
+        "p999_us": [
+          13535.0,
+          10898.0,
+          16122.0,
+          13864.0,
+          14027.0
+        ],
+        "p99_us": [
+          9728.0,
+          6635.0,
+          11211.0,
+          11034.0,
+          10239.0
+        ],
+        "total_s": [
+          0.143136,
+          0.140304,
+          0.140705,
+          0.139796,
+          0.147098
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 14237.5,
+        "first_piece_p50_us": 3663.0,
+        "first_piece_p99_us": 10239.0,
+        "max_us": 15492.0,
+        "p50_us": 3663.0,
+        "p999_us": 13864.0,
+        "p99_us": 10239.0,
+        "total_s": 0.140705
+      },
+      "min_s": 0.163926081,
+      "name": "AISIX",
+      "other_cpu_s": 0.389814000000002,
+      "times_s": [
+        0.166185696,
+        0.163926081,
+        0.164225256,
+        0.164215316,
+        0.169746664
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.75 0.18 0.06 1/287 4147",
+    "before": "0.47 0.11 0.04 1/312 2941"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003476"
+  },
+  "name": "2,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T13:14:55Z",
+  "wrong_rounds": 0
+}

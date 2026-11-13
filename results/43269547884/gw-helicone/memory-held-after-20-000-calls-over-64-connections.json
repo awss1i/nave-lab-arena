@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-helicone.json --out results/gw-helicone",
+  "commit": "daa4346",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone: passes OpenAI's and Anthropic's formats on to the upstream named in a header, checks its own API key, logs every call with its body to ClickHouse and MinIO, prices it. Its web app, PostgreSQL, ClickHouse and MinIO run in the same container and count as its own",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.413956,
+      "max_rss_mb": 25.24609375,
+      "max_s": 0.759112276,
+      "median_s": 0.759112276,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.759112276,
+      "name": "Nave",
+      "other_cpu_s": 1.9660440000001091,
+      "times_s": [
+        0.759112276
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "helicone"
+      ],
+      "cpu_s": 0.587816,
+      "max_rss_mb": 28.9765625,
+      "max_s": 38.906193518,
+      "median_s": 38.906193518,
+      "metric_rounds": {
+        "memory_mb": [
+          3613.7
+        ]
+      },
+      "metrics": {
+        "memory_mb": 3613.7
+      },
+      "min_s": 38.906193518,
+      "name": "Helicone",
+      "other_cpu_s": 57.34218399999984,
+      "times_s": [
+        38.906193518
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.97 2.94 1.98 1/273 66775",
+    "before": "3.56 3.04 1.94 6/1020 66188"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003569"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:43:42Z",
+  "wrong_rounds": 0
+}

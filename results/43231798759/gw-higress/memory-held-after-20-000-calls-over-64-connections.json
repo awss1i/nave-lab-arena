@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-higress.json --out results/gw-higress",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Higress: routes through an AI route and its ai-proxy plugin on Envoy, takes OpenAI's format. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.555138,
+      "max_rss_mb": 26.64453125,
+      "max_s": 0.676713339,
+      "median_s": 0.676713339,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.676713339,
+      "name": "Nave",
+      "other_cpu_s": 1.134861999999941,
+      "times_s": [
+        0.676713339
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "higress"
+      ],
+      "cpu_s": 0.59733,
+      "max_rss_mb": 28.4453125,
+      "max_s": 9.727523841,
+      "median_s": 9.727523841,
+      "metric_rounds": {
+        "memory_mb": [
+          1026.0
+        ]
+      },
+      "metrics": {
+        "memory_mb": 1026.0
+      },
+      "min_s": 9.727523841,
+      "name": "Higress",
+      "other_cpu_s": 18.14267000000001,
+      "times_s": [
+        9.727523841
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "7.28 3.86 2.00 1/267 61813",
+    "before": "4.09 2.98 1.67 8/419 61224"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003502"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:06:42Z",
+  "wrong_rounds": 0
+}

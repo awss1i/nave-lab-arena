@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-llama-swap.json --out results/gw-llama-swap",
+  "commit": "3df336e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 16 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in llama-swap: starts a model's server on demand and passes calls on, in OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.08489300000000001,
+      "max_rss_mb": 26.453125,
+      "max_s": 10.007173162,
+      "median_s": 10.006419835,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "max_us": [
+          2531.0,
+          587.0,
+          887.0
+        ],
+        "p50_us": [
+          200.0,
+          179.0,
+          181.0
+        ],
+        "p999_us": [
+          2531.0,
+          587.0,
+          887.0
+        ],
+        "p99_us": [
+          284.0,
+          362.0,
+          392.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980708,
+          9.980594,
+          9.980581
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "max_us": 887.0,
+        "p50_us": 181.0,
+        "p999_us": 887.0,
+        "p99_us": 362.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980594
+      },
+      "min_s": 10.006053485,
+      "name": "No gateway",
+      "other_cpu_s": 0.0853670000000017,
+      "times_s": [
+        10.007173162,
+        10.006419835,
+        10.006053485
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.144557,
+      "max_rss_mb": 26.8671875,
+      "max_s": 10.064131866,
+      "median_s": 10.061187559,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          120.0,
+          100.0,
+          80.0
+        ],
+        "max_us": [
+          1388.0,
+          536.0,
+          1772.0
+        ],
+        "p50_us": [
+          351.0,
+          321.0,
+          322.0
+        ],
+        "p999_us": [
+          1388.0,
+          536.0,
+          1772.0
+        ],
+        "p99_us": [
+          710.0,
+          395.0,
+          537.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980713,
+          9.980658,
+          9.980634
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 100.0,
+        "max_us": 1388.0,
+        "p50_us": 322.0,
+        "p999_us": 1388.0,
+        "p99_us": 537.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980658
+      },
+      "min_s": 10.059295009,
+      "name": "Nave",
+      "other_cpu_s": 0.045442999999997735,
+      "times_s": [
+        10.064131866,
+        10.061187559,
+        10.059295009
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "llama-swap",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.119586,
+      "max_rss_mb": 27.9609375,
+      "max_s": 10.047801694,
+      "median_s": 10.046767579,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          957.8,
+          918.6,
+          887.8
+        ],
+        "max_us": [
+          1690.0,
+          1517.0,
+          3090.0
+        ],
+        "p50_us": [
+          829.0,
+          882.0,
+          855.0
+        ],
+        "p999_us": [
+          1690.0,
+          1517.0,
+          3090.0
+        ],
+        "p99_us": [
+          1637.0,
+          1243.0,
+          1070.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.981279,
+          9.981203,
+          9.981217
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 918.6,
+        "max_us": 1690.0,
+        "p50_us": 855.0,
+        "p999_us": 1690.0,
+        "p99_us": 1243.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.981217
+      },
+      "min_s": 10.044719026,
+      "name": "llama-swap",
+      "other_cpu_s": 0.609642000000004,
+      "times_s": [
+        10.046767579,
+        10.047801694,
+        10.044719026
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.56 0.62 0.27 1/285 10501",
+    "before": "3.18 0.86 0.29 1/312 9611"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003561"
+  },
+  "name": "500 calls at 50 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:06:10Z",
+  "wrong_rounds": 0
+}

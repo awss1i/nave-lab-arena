@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-llama-swap.json --out results/gw-llama-swap",
+  "commit": "3df336e",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in llama-swap: starts a model's server on demand and passes calls on, in OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.093405,
+      "max_rss_mb": 26.78125,
+      "max_s": 0.111460371,
+      "median_s": 0.099713634,
+      "metric_rounds": {
+        "calls_per_s": [
+          32734.8,
+          35708.6,
+          27450.0,
+          24611.6,
+          23635.3
+        ],
+        "max_us": [
+          12713.0,
+          12083.0,
+          11994.0,
+          12953.0,
+          10869.0
+        ],
+        "p50_us": [
+          1425.0,
+          1385.0,
+          2188.0,
+          2278.0,
+          2298.0
+        ],
+        "p999_us": [
+          12673.0,
+          6700.0,
+          11899.0,
+          12678.0,
+          9341.0
+        ],
+        "p99_us": [
+          5756.0,
+          3543.0,
+          4049.0,
+          4496.0,
+          5417.0
+        ],
+        "total_s": [
+          0.061255,
+          0.056173,
+          0.073045,
+          0.081428,
+          0.084786
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 27450.0,
+        "max_us": 12083.0,
+        "p50_us": 2188.0,
+        "p999_us": 11899.0,
+        "p99_us": 4496.0,
+        "total_s": 0.073045
+      },
+      "min_s": 0.082948863,
+      "name": "Nave",
+      "other_cpu_s": 0.09395500000000682,
+      "times_s": [
+        0.088021876,
+        0.082948863,
+        0.099713634,
+        0.108749068,
+        0.111460371
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "llama-swap",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.091137,
+      "max_rss_mb": 26.5078125,
+      "max_s": 0.779958412,
+      "median_s": 0.73663086,
+      "metric_rounds": {
+        "calls_per_s": [
+          2689.1,
+          2656.5,
+          2830.4,
+          2838.7,
+          2820.0
+        ],
+        "max_us": [
+          50549.0,
+          51508.0,
+          44742.0,
+          38686.0,
+          40146.0
+        ],
+        "p50_us": [
+          23003.0,
+          23260.0,
+          22536.0,
+          22530.0,
+          22636.0
+        ],
+        "p999_us": [
+          50527.0,
+          51070.0,
+          44711.0,
+          38170.0,
+          39773.0
+        ],
+        "p99_us": [
+          42230.0,
+          40957.0,
+          36991.0,
+          37010.0,
+          37374.0
+        ],
+        "total_s": [
+          0.743917,
+          0.753056,
+          0.706779,
+          0.704699,
+          0.709369
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 2820.0,
+        "max_us": 44742.0,
+        "p50_us": 22636.0,
+        "p999_us": 44711.0,
+        "p99_us": 37374.0,
+        "total_s": 0.709369
+      },
+      "min_s": 0.731559028,
+      "name": "llama-swap",
+      "other_cpu_s": 0.8788629999999988,
+      "times_s": [
+        0.771153556,
+        0.779958412,
+        0.733510802,
+        0.731559028,
+        0.73663086
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.29 1.24 0.51 1/286 29026",
+    "before": "3.40 1.23 0.50 1/309 20961"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003561"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:07:37Z",
+  "wrong_rounds": 0
+}

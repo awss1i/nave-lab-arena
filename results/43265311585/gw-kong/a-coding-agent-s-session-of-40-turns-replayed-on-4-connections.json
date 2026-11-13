@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-kong.json --out results/gw-kong",
+  "commit": "3df336e",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Kong: routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.364603,
+      "max_rss_mb": 26.21875,
+      "max_s": 0.681433513,
+      "median_s": 0.673658939,
+      "metric_rounds": {
+        "calls_per_s": [
+          263.0,
+          268.2,
+          266.8
+        ],
+        "first_piece_p50_us": [
+          4214.0,
+          3912.0,
+          5223.0
+        ],
+        "first_piece_p99_us": [
+          11840.0,
+          13164.0,
+          13364.0
+        ],
+        "max_us": [
+          52077.0,
+          45241.0,
+          39761.0
+        ],
+        "p50_us": [
+          11767.0,
+          11973.0,
+          11296.0
+        ],
+        "p999_us": [
+          52077.0,
+          45241.0,
+          39761.0
+        ],
+        "p99_us": [
+          47341.0,
+          43327.0,
+          37198.0
+        ],
+        "total_s": [
+          0.608531,
+          0.596813,
+          0.599771
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 266.8,
+        "first_piece_p50_us": 4214.0,
+        "first_piece_p99_us": 13164.0,
+        "max_us": 45241.0,
+        "p50_us": 11767.0,
+        "p999_us": 45241.0,
+        "p99_us": 43327.0,
+        "total_s": 0.599771
+      },
+      "min_s": 0.669260631,
+      "name": "Nave",
+      "other_cpu_s": 0.945396999999988,
+      "times_s": [
+        0.681433513,
+        0.669260631,
+        0.673658939
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "kong",
+        "4"
+      ],
+      "cpu_s": 0.206811,
+      "max_rss_mb": 24.91796875,
+      "max_s": 0.623918962,
+      "median_s": 0.609973054,
+      "metric_rounds": {
+        "calls_per_s": [
+          298.1,
+          298.1,
+          290.0
+        ],
+        "first_piece_p50_us": [
+          5947.0,
+          6897.0,
+          6881.0
+        ],
+        "first_piece_p99_us": [
+          37352.0,
+          39898.0,
+          53230.0
+        ],
+        "max_us": [
+          60719.0,
+          47051.0,
+          73009.0
+        ],
+        "p50_us": [
+          9329.0,
+          9760.0,
+          9896.0
+        ],
+        "p999_us": [
+          60719.0,
+          47051.0,
+          73009.0
+        ],
+        "p99_us": [
+          51250.0,
+          41312.0,
+          54845.0
+        ],
+        "total_s": [
+          0.536816,
+          0.536888,
+          0.55187
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 298.1,
+        "first_piece_p50_us": 6881.0,
+        "first_piece_p99_us": 39898.0,
+        "max_us": 60719.0,
+        "p50_us": 9760.0,
+        "p999_us": 60719.0,
+        "p99_us": 51250.0,
+        "total_s": 0.536888
+      },
+      "min_s": 0.608651609,
+      "name": "Kong",
+      "other_cpu_s": 1.2028080000000108,
+      "times_s": [
+        0.608651609,
+        0.609973054,
+        0.623918962
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.10 1.11 0.56 1/266 34826",
+    "before": "0.68 1.03 0.53 4/284 34569"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003562"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:07:36Z",
+  "wrong_rounds": 0
+}

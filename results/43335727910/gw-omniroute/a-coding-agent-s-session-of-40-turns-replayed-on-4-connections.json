@@ -1,0 +1,91 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "b1c6144",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OmniRoute: routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "OmniRoute",
+      "got": "ok 159",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 160"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "omniroute",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "OmniRoute",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.28 1.18 1.09 1/254 109506",
+    "before": "1.37 1.19 1.09 3/286 109205"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003608"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 160\nbad 0\nchecksum 22c8afdc983cf6f4\n",
+      "stderr": "metric calls_per_s=258.7\nmetric p50_us=11915\nmetric p99_us=47369\nmetric p999_us=49390\nmetric max_us=49390\nmetric first_piece_p50_us=4946\nmetric first_piece_p99_us=12342\nmetric total_s=0.618654\n"
+    },
+    {
+      "name": "OmniRoute",
+      "ok": false,
+      "output": "ok 159\nbad 1\nchecksum 18665a269023a704\n",
+      "stderr": "wrong answer to call 146: HTTP/1.1 200 OK / data: {\"id\":\"chatcmpl-omniroute-sse\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"},\"finish_reason\":null}]}  data: {\"id\":\"chatcmpl-omniroute-sse\",\"object\":\"chat.completion.chunk\",\"\nmetric calls_per_s=14.7\nmetric p50_us=190343\nmetric p99_us=2660540\nmetric p999_us=2704126\nmetric max_us=2704126\nmetric first_piece_p50_us=180882\nmetric first_piece_p99_us=2645419\nmetric total_s=10.880740\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-13T01:08:36Z",
+  "wrong_rounds": 0
+}

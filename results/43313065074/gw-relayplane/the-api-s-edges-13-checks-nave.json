@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-relayplane.json --out results/gw-relayplane",
+  "commit": "6dc8546",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.173175,
+      "max_rss_mb": 26.3046875,
+      "max_s": 0.371975164,
+      "median_s": 0.371975164,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.371975164,
+      "name": "Nave",
+      "other_cpu_s": 0.026824999999818105,
+      "times_s": [
+        0.371975164
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.51 1.30 1.27 1/250 14919",
+    "before": "1.51 1.30 1.27 1/254 14711"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003589"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T23:28:13Z",
+  "wrong_rounds": 0
+}

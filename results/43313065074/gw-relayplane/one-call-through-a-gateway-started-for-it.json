@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-relayplane.json --out results/gw-relayplane",
+  "commit": "6dc8546",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in RelayPlane: passes OpenAI's and Anthropic's formats on to the provider, routes by a complexity tier, prices every call and rolls it up by run and agent in SQLite, checks budgets. Passes the caller's key on. Its own limiter is set to the most it accepts, 10,000 calls a minute for a model, which is what bounds it in the throughput races",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.064438,
+      "max_rss_mb": 26.2734375,
+      "max_s": 0.068026048,
+      "median_s": 0.06239853,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          23.0,
+          25.0,
+          22.0,
+          22.0,
+          26.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 23.0
+      },
+      "min_s": 0.057435809,
+      "name": "Nave",
+      "other_cpu_s": 0.008000999999927233,
+      "times_s": [
+        0.064950784,
+        0.06239853,
+        0.057435809,
+        0.058548518,
+        0.068026048
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "relayplane"
+      ],
+      "cpu_s": 0.195244,
+      "max_rss_mb": 26.30859375,
+      "max_s": 1.1074216159999999,
+      "median_s": 1.048753803,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          903.0,
+          932.0,
+          892.0,
+          909.0,
+          957.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 909.0
+      },
+      "min_s": 1.030017847,
+      "name": "RelayPlane",
+      "other_cpu_s": 1.0941210000008732,
+      "times_s": [
+        1.042674945,
+        1.072844321,
+        1.030017847,
+        1.048753803,
+        1.1074216159999999
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.13 1.23 1.25 1/247 14210",
+    "before": "1.15 1.24 1.25 1/248 13012"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003589"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T23:27:13Z",
+  "wrong_rounds": 0
+}

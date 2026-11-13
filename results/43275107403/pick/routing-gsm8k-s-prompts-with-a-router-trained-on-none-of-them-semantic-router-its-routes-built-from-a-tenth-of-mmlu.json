@@ -1,0 +1,73 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "72604d6",
+  "conditions": "two CPUs, RouteLLM's 1,319 GSM8K prompts with each model's right or wrong, Nave's router trained on MMLU alone and every other picker as released, none of them trained on GSM8K. A picker that takes about a second a prompt is scored on 300 of the prompts, spread evenly, and its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "semantic-router",
+        "gsm8k"
+      ],
+      "cpu_s": 797.571854,
+      "max_rss_mb": 8911.05859375,
+      "max_s": 399.677903511,
+      "median_s": 399.677903511,
+      "metric_rounds": {
+        "apgr": [
+          0.4597
+        ],
+        "cpt50": [
+          57.5436
+        ],
+        "cpt80": [
+          84.5337
+        ],
+        "ns_per_prompt": [
+          21642546.0
+        ],
+        "prompts": [
+          1319.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.4597,
+        "cpt50": 57.5436,
+        "cpt80": 84.5337,
+        "ns_per_prompt": 21642546.0,
+        "prompts": 1319.0
+      },
+      "min_s": 399.677903511,
+      "name": "semantic-router, its routes built from a tenth of MMLU",
+      "other_cpu_s": 22.788146000000552,
+      "times_s": [
+        399.677903511
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.35 2.23 2.14 1/247 10325",
+    "before": "2.21 2.14 2.07 2/248 10165"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003577"
+  },
+  "name": "routing GSM8K's prompts with a router trained on none of them, semantic-router, its routes built from a tenth of MMLU",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T19:23:34Z",
+  "wrong_rounds": 0
+}

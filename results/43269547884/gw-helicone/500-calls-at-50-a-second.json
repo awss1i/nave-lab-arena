@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-helicone.json --out results/gw-helicone",
+  "commit": "daa4346",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, calls sent at a fixed rate over 16 connections whatever the answers do, each timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone: passes OpenAI's and Anthropic's formats on to the upstream named in a header, checks its own API key, logs every call with its body to ClickHouse and MinIO, prices it. Its web app, PostgreSQL, ClickHouse and MinIO run in the same container and count as its own",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "direct",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.068916,
+      "max_rss_mb": 26.73828125,
+      "max_s": 10.00907162,
+      "median_s": 10.008800238,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "max_us": [
+          3139.0,
+          3409.0,
+          5381.0
+        ],
+        "p50_us": [
+          155.0,
+          128.0,
+          125.0
+        ],
+        "p999_us": [
+          3139.0,
+          3409.0,
+          5381.0
+        ],
+        "p99_us": [
+          1947.0,
+          1305.0,
+          2373.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.98062,
+          9.980534,
+          9.980608
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "max_us": 3409.0,
+        "p50_us": 128.0,
+        "p999_us": 3409.0,
+        "p99_us": 1947.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980608
+      },
+      "min_s": 10.007898694,
+      "name": "No gateway",
+      "other_cpu_s": 2.911084000000018,
+      "times_s": [
+        10.00907162,
+        10.007898694,
+        10.008800238
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "nave",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.125619,
+      "max_rss_mb": 26.4609375,
+      "max_s": 10.063462455,
+      "median_s": 10.062532886,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.1
+        ],
+        "cpu_us_per_call": [
+          60.0,
+          80.0,
+          80.0
+        ],
+        "max_us": [
+          3513.0,
+          5034.0,
+          2267.0
+        ],
+        "p50_us": [
+          265.0,
+          223.0,
+          234.0
+        ],
+        "p999_us": [
+          3513.0,
+          5034.0,
+          2267.0
+        ],
+        "p99_us": [
+          2757.0,
+          3070.0,
+          1390.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.980594,
+          9.980665,
+          9.980622
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 80.0,
+        "max_us": 3513.0,
+        "p50_us": 234.0,
+        "p999_us": 3513.0,
+        "p99_us": 2757.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.980622
+      },
+      "min_s": 10.060127551,
+      "name": "Nave",
+      "other_cpu_s": 1.6443809999999819,
+      "times_s": [
+        10.063462455,
+        10.060127551,
+        10.062532886
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "rate",
+        "helicone",
+        "50",
+        "500",
+        "16"
+      ],
+      "cpu_s": 0.11716000000000001,
+      "max_rss_mb": 28.34375,
+      "max_s": 10.058901747,
+      "median_s": 10.053165397,
+      "metric_rounds": {
+        "calls_per_s": [
+          50.1,
+          50.1,
+          50.0
+        ],
+        "cpu_us_per_call": [
+          31345.7,
+          28935.2,
+          26530.4
+        ],
+        "max_us": [
+          53996.0,
+          32366.0,
+          41607.0
+        ],
+        "p50_us": [
+          8642.0,
+          4344.0,
+          3015.0
+        ],
+        "p999_us": [
+          53996.0,
+          32366.0,
+          41607.0
+        ],
+        "p99_us": [
+          43558.0,
+          26055.0,
+          25624.0
+        ],
+        "rate": [
+          50.0,
+          50.0,
+          50.0
+        ],
+        "sent_late": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "total_s": [
+          9.982793,
+          9.982214,
+          9.992463
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 50.1,
+        "cpu_us_per_call": 28935.2,
+        "max_us": 41607.0,
+        "p50_us": 4344.0,
+        "p999_us": 41607.0,
+        "p99_us": 26055.0,
+        "rate": 50.0,
+        "sent_late": 0.0,
+        "total_s": 9.982793
+      },
+      "min_s": 10.049111508,
+      "name": "Helicone",
+      "other_cpu_s": 14.659289999999972,
+      "times_s": [
+        10.053165397,
+        10.049111508,
+        10.058901747
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.52 2.57 1.42 2/271 22667",
+    "before": "4.12 2.85 1.35 3/1019 21786"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003569"
+  },
+  "name": "500 calls at 50 a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T17:37:32Z",
+  "wrong_rounds": 0
+}

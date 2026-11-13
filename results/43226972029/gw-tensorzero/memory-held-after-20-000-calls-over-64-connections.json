@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-tensorzero.json --out results/gw-tensorzero",
+  "commit": "9efe591",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in TensorZero: routes by model, takes OpenAI's format. No key check, observability off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.884985,
+      "max_rss_mb": 26.390625,
+      "max_s": 1.264953161,
+      "median_s": 1.264953161,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 1.264953161,
+      "name": "Nave",
+      "other_cpu_s": 1.9550149999999893,
+      "times_s": [
+        1.264953161
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "tensorzero"
+      ],
+      "cpu_s": 1.06698,
+      "max_rss_mb": 27.88671875,
+      "max_s": 13.958090435,
+      "median_s": 13.958090435,
+      "metric_rounds": {
+        "memory_mb": [
+          51.1
+        ]
+      },
+      "metrics": {
+        "memory_mb": 51.1
+      },
+      "min_s": 13.958090435,
+      "name": "TensorZero",
+      "other_cpu_s": 2.0430199999999994,
+      "times_s": [
+        13.958090435
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.68 1.18 0.46 1/262 17344",
+    "before": "4.29 1.29 0.47 1/285 16754"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003481"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:30:12Z",
+  "wrong_rounds": 0
+}

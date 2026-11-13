@@ -1,0 +1,3 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz
+routellm	0.2.0, its BERT router, checkpoint routellm/bert_gpt4_augmented
+routellm-data	RouteLLM's repo at 0b64fda

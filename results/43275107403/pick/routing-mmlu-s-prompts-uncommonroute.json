@@ -1,0 +1,74 @@
+{
+  "command": "bin/race run races/pick.json --out results/pick",
+  "commit": "72604d6",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "uncommonroute",
+        "mmlu",
+        "2000"
+      ],
+      "cpu_s": 374.932544,
+      "max_rss_mb": 701.25,
+      "max_s": 190.887656369,
+      "median_s": 190.887656369,
+      "metric_rounds": {
+        "apgr": [
+          0.495
+        ],
+        "cpt50": [
+          47.8
+        ],
+        "cpt80": [
+          75.05
+        ],
+        "ns_per_prompt": [
+          93192240.0
+        ],
+        "prompts": [
+          2000.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.495,
+        "cpt50": 47.8,
+        "cpt80": 75.05,
+        "ns_per_prompt": 93192240.0,
+        "prompts": 2000.0
+      },
+      "min_s": 190.887656369,
+      "name": "UncommonRoute",
+      "other_cpu_s": 3.0074560000000474,
+      "times_s": [
+        190.887656369
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.26 2.20 1.85 1/246 3571",
+    "before": "2.26 2.10 1.63 2/247 3468"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003577"
+  },
+  "name": "routing MMLU's prompts, UncommonRoute",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T18:28:08Z",
+  "wrong_rounds": 0
+}

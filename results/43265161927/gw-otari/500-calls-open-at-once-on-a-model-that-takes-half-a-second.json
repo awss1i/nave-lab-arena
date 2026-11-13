@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-otari.json --out results/gw-otari",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Otari: routes by provider and model, takes OpenAI's and Anthropic's formats, checks the caller's key, prices each call, records usage in PostgreSQL",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.17119800000000002,
+      "max_rss_mb": 37.78515625,
+      "max_s": 1.103923058,
+      "median_s": 1.100199358,
+      "metric_rounds": {
+        "calls_per_s": [
+          955.9,
+          954.9,
+          955.2
+        ],
+        "kb_per_open_call": [
+          12.1,
+          5.9,
+          12.3
+        ],
+        "max_us": [
+          503258.0,
+          505085.0,
+          502383.0
+        ],
+        "memory_open_mb": [
+          7.1,
+          4.1,
+          7.2
+        ],
+        "p50_us": [
+          500217.0,
+          500193.0,
+          500213.0
+        ],
+        "p999_us": [
+          503258.0,
+          505085.0,
+          502383.0
+        ],
+        "p99_us": [
+          502938.0,
+          502237.0,
+          502203.0
+        ],
+        "total_s": [
+          1.046332,
+          1.04735,
+          1.04731
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 955.2,
+        "kb_per_open_call": 12.1,
+        "max_us": 503258.0,
+        "memory_open_mb": 7.1,
+        "p50_us": 500213.0,
+        "p999_us": 503258.0,
+        "p99_us": 502237.0,
+        "total_s": 1.04731
+      },
+      "min_s": 1.098574382,
+      "name": "Nave",
+      "other_cpu_s": 0.1250150000000682,
+      "times_s": [
+        1.100199358,
+        1.098574382,
+        1.103923058
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "otari",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.21439000000000002,
+      "max_rss_mb": 37.01953125,
+      "max_s": 48.323392582,
+      "median_s": 19.651439068,
+      "metric_rounds": {
+        "calls_per_s": [
+          22.1,
+          68.3,
+          60.2
+        ],
+        "kb_per_open_call": [
+          113.9,
+          107.5,
+          84.8
+        ],
+        "max_us": [
+          44655378.0,
+          14040063.0,
+          16011552.0
+        ],
+        "memory_open_mb": [
+          747.9,
+          735.1,
+          723.7
+        ],
+        "p50_us": [
+          9679494.0,
+          4712734.0,
+          5465304.0
+        ],
+        "p999_us": [
+          44655378.0,
+          14040063.0,
+          16011552.0
+        ],
+        "p99_us": [
+          43829929.0,
+          13289617.0,
+          15301627.0
+        ],
+        "total_s": [
+          45.271458,
+          14.645234,
+          16.60037
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 60.2,
+        "kb_per_open_call": 107.5,
+        "max_us": 16011552.0,
+        "memory_open_mb": 735.1,
+        "p50_us": 5465304.0,
+        "p999_us": 16011552.0,
+        "p99_us": 15301627.0,
+        "total_s": 16.60037
+      },
+      "min_s": 17.698619612999998,
+      "name": "Otari",
+      "other_cpu_s": 18.925343999999985,
+      "times_s": [
+        48.323392582,
+        17.698619612999998,
+        19.651439068
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.90 1.94 1.38 1/277 28299",
+    "before": "2.39 2.21 1.39 2/301 21880"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003558"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Otari",
+      "ok": false,
+      "output": "ok 831\nbad 169\nchecksum 27d043d3f6773920\n",
+      "round": 0,
+      "stderr": "metric calls_per_s=22.1\nmetric p50_us=9679494\nmetric p99_us=43829929\nmetric p999_us=44655378\nmetric max_us=44655378\nmetric total_s=45.271458\nmetric memory_open_mb=747.9\nmetric kb_per_open_call=113.9\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T17:19:52Z",
+  "wrong_rounds": 1
+}

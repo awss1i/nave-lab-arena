@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-apisix.json --out results/gw-apisix",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in APISIX: routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.07313900000000001,
+      "max_rss_mb": 26.703125,
+      "max_s": 0.1694837,
+      "median_s": 0.071059381,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          27.0,
+          26.0,
+          27.0,
+          26.0,
+          26.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 26.0
+      },
+      "min_s": 0.06798056,
+      "name": "Nave",
+      "other_cpu_s": 0.008444999999998301,
+      "times_s": [
+        0.071059381,
+        0.07142722,
+        0.06798056,
+        0.069210759,
+        0.1694837
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "apisix"
+      ],
+      "cpu_s": 0.20716099999999998,
+      "max_rss_mb": 28.71484375,
+      "max_s": 0.658331566,
+      "median_s": 0.642312949,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          568.0,
+          575.0,
+          519.0,
+          558.0,
+          544.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 558.0
+      },
+      "min_s": 0.602416316,
+      "name": "APISIX",
+      "other_cpu_s": 0.8928809999999943,
+      "times_s": [
+        0.649341008,
+        0.658331566,
+        0.602416316,
+        0.642312949,
+        0.627699554
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.31 1.52 0.56 1/265 21530",
+    "before": "5.51 1.49 0.55 1/264 19705"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003518"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T14:02:43Z",
+  "wrong_rounds": 0
+}

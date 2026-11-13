@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-aisix.json --out results/gw-aisix",
+  "commit": "4bf7df3",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "aisix"
+      ],
+      "cpu_s": 0.21056200000000003,
+      "max_rss_mb": 28.859375,
+      "max_s": 0.499863354,
+      "median_s": 0.499863354,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.499863354,
+      "name": "AISIX",
+      "other_cpu_s": 0.2294380000000119,
+      "times_s": [
+        0.499863354
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.25 1.01 0.51 2/252 25793",
+    "before": "1.01 0.96 0.49 1/276 25354"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003603"
+  },
+  "name": "the API's edges, 13 checks, AISIX",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T00:13:42Z",
+  "wrong_rounds": 0
+}

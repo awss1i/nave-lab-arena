@@ -1,0 +1,2 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 7763 64-Core Processor
+ms-mcp-gateway	microsoft/mcp-gateway at cf9f5e9, built with .NET 10.0.403, on Kubernetes v1.37.0 in kind

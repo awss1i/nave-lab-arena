@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "85f0936",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.433754,
+      "max_rss_mb": 25.80078125,
+      "max_s": 0.634304854,
+      "median_s": 0.634304854,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.634304854,
+      "name": "Nave",
+      "other_cpu_s": 0.9862459999999875,
+      "times_s": [
+        0.634304854
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "bifrost"
+      ],
+      "cpu_s": 0.562853,
+      "max_rss_mb": 27.98046875,
+      "max_s": 4.753975694,
+      "median_s": 4.753975694,
+      "metric_rounds": {
+        "memory_mb": [
+          200.1
+        ]
+      },
+      "metrics": {
+        "memory_mb": 200.1
+      },
+      "min_s": 4.753975694,
+      "name": "Bifrost",
+      "other_cpu_s": 8.187147,
+      "times_s": [
+        4.753975694
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "10.01 2.50 0.86 1/258 19536",
+    "before": "1.04 0.42 0.17 1/284 18942"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003473"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T13:12:18Z",
+  "wrong_rounds": 0
+}

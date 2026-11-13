@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-tensorzero.json --out results/gw-tensorzero",
+  "commit": "74b3b54",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in TensorZero: routes by model, takes OpenAI's format. No key check, observability off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.585885,
+      "max_rss_mb": 26.62890625,
+      "max_s": 0.660467689,
+      "median_s": 0.660467689,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.660467689,
+      "name": "Nave",
+      "other_cpu_s": 1.0041150000000034,
+      "times_s": [
+        0.660467689
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "tensorzero"
+      ],
+      "cpu_s": 0.575942,
+      "max_rss_mb": 28.68359375,
+      "max_s": 13.841284877,
+      "median_s": 13.841284877,
+      "metric_rounds": {
+        "memory_mb": [
+          49.4
+        ]
+      },
+      "metrics": {
+        "memory_mb": 49.4
+      },
+      "min_s": 13.841284877,
+      "name": "TensorZero",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        13.841284877
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.23 0.25 0.12 1/251 19236",
+    "before": "0.39 0.27 0.13 1/272 18655"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003532"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T14:54:08Z",
+  "wrong_rounds": 0
+}

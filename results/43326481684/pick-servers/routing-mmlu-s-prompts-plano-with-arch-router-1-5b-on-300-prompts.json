@@ -1,0 +1,82 @@
+{
+  "command": "bin/race run races/pick-servers.json --out results/pick-servers",
+  "commit": "a47c071",
+  "conditions": "two CPUs, RouteLLM's MMLU prompts, Nave's router trained on a tenth of them and tested on the rest, every other picker as released and not trained on MMLU, scored on 2,000 of them spread evenly, or on 300 where its name says so",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "pick",
+        "other",
+        "plano",
+        "mmlu",
+        "300"
+      ],
+      "cpu_s": 0.326887,
+      "max_rss_mb": 30.80859375,
+      "max_s": 653.76386867,
+      "median_s": 653.76386867,
+      "metric_rounds": {
+        "apgr": [
+          0.4559
+        ],
+        "cpt50": [
+          60.6667
+        ],
+        "cpt80": [
+          84.3333
+        ],
+        "ns_per_prompt": [
+          2167380114.0
+        ],
+        "prompts": [
+          300.0
+        ]
+      },
+      "metrics": {
+        "apgr": 0.4559,
+        "cpt50": 60.6667,
+        "cpt80": 84.3333,
+        "ns_per_prompt": 2167380114.0,
+        "prompts": 300.0
+      },
+      "min_s": 653.76386867,
+      "name": "Plano with Arch-Router 1.5B, on 300 prompts",
+      "other_cpu_s": 1323.2431129999998,
+      "times_s": [
+        653.76386867
+      ]
+    }
+  ],
+  "feature": "F4",
+  "load": {
+    "after": "2.05 2.11 2.10 1/304 5739",
+    "before": "2.08 2.14 1.85 2/303 4031"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003597"
+  },
+  "name": "routing MMLU's prompts, Plano with Arch-Router 1.5B, on 300 prompts",
+  "output_lines": 1,
+  "outputs_when_wrong": [
+    {
+      "name": "Plano with Arch-Router 1.5B, on 300 prompts",
+      "ok": true,
+      "output": "Plano with Arch-Router 1.5B on mmlu: 300 prompts, APGR 0.456, CPT(50%) 60.67%, CPT(80%) 84.33%, 2 different scores, a random score gives 0.534\n",
+      "round": 0,
+      "stderr": "metric apgr=0.4559\nmetric cpt50=60.6667\nmetric cpt80=84.3333\nmetric ns_per_prompt=2167380114\nmetric prompts=300\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-13T00:10:56Z",
+  "wrong_rounds": 1
+}

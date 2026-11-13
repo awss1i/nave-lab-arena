@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-antirion.json --out results/gw-antirion",
+  "commit": "6a64ad6",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "antirion"
+      ],
+      "cpu_s": 0.21545599999999998,
+      "max_rss_mb": 28.421875,
+      "max_s": 14.484033593,
+      "median_s": 14.484033593,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 14.484033593,
+      "name": "Antirion",
+      "other_cpu_s": 0.494544000000008,
+      "times_s": [
+        14.484033593
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.06 0.51 0.21 1/249 26073",
+    "before": "1.66 0.55 0.21 2/280 25590"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003568"
+  },
+  "name": "the API's edges, 13 checks, Antirion",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-12T17:24:04Z",
+  "wrong_rounds": 0
+}

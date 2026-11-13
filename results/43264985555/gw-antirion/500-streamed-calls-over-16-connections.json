@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-antirion.json --out results/gw-antirion",
+  "commit": "32ba8d8",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Antirion: routes by model through deployments, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, prices every call, keeps metrics. Request log off, as in its own benchmark's minimal profile",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.056918,
+      "max_rss_mb": 26.25390625,
+      "max_s": 0.114473001,
+      "median_s": 0.07751127,
+      "metric_rounds": {
+        "calls_per_s": [
+          6066.6,
+          10120.3,
+          12507.7,
+          10346.3,
+          9864.4
+        ],
+        "first_piece_p50_us": [
+          711.0,
+          1076.0,
+          1109.0,
+          1023.0,
+          1171.0
+        ],
+        "first_piece_p99_us": [
+          7908.0,
+          5453.0,
+          3661.0,
+          4316.0,
+          4169.0
+        ],
+        "max_us": [
+          8863.0,
+          5955.0,
+          4057.0,
+          4468.0,
+          5855.0
+        ],
+        "p50_us": [
+          726.0,
+          1096.0,
+          1143.0,
+          1057.0,
+          1209.0
+        ],
+        "p999_us": [
+          8863.0,
+          5955.0,
+          4057.0,
+          4468.0,
+          5855.0
+        ],
+        "p99_us": [
+          7914.0,
+          5503.0,
+          3662.0,
+          4317.0,
+          4170.0
+        ],
+        "total_s": [
+          0.082566,
+          0.049558,
+          0.040133,
+          0.048512,
+          0.050847
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 10120.3,
+        "first_piece_p50_us": 1076.0,
+        "first_piece_p99_us": 4316.0,
+        "max_us": 5855.0,
+        "p50_us": 1096.0,
+        "p999_us": 5855.0,
+        "p99_us": 4317.0,
+        "total_s": 0.049558
+      },
+      "min_s": 0.068374001,
+      "name": "Nave",
+      "other_cpu_s": 0.14972999999999376,
+      "times_s": [
+        0.114473001,
+        0.077251255,
+        0.068374001,
+        0.07751127,
+        0.080523927
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "antirion",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.051398,
+      "max_rss_mb": 26.265625,
+      "max_s": 0.122200809,
+      "median_s": 0.103005099,
+      "metric_rounds": {
+        "calls_per_s": [
+          5854.4,
+          6668.3,
+          5239.1,
+          7409.2,
+          6587.0
+        ],
+        "first_piece_p50_us": [
+          1657.0,
+          1628.0,
+          1506.0,
+          1631.0,
+          1601.0
+        ],
+        "first_piece_p99_us": [
+          6261.0,
+          5524.0,
+          7119.0,
+          5451.0,
+          7010.0
+        ],
+        "max_us": [
+          6839.0,
+          8089.0,
+          8138.0,
+          6065.0,
+          7164.0
+        ],
+        "p50_us": [
+          1923.0,
+          1789.0,
+          1993.0,
+          1800.0,
+          1751.0
+        ],
+        "p999_us": [
+          6839.0,
+          8089.0,
+          8138.0,
+          6065.0,
+          7164.0
+        ],
+        "p99_us": [
+          6424.0,
+          6243.0,
+          7601.0,
+          5813.0,
+          7020.0
+        ],
+        "total_s": [
+          0.085627,
+          0.075152,
+          0.095602,
+          0.067767,
+          0.076065
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 6587.0,
+        "first_piece_p50_us": 1628.0,
+        "first_piece_p99_us": 6261.0,
+        "max_us": 7164.0,
+        "p50_us": 1800.0,
+        "p999_us": 7164.0,
+        "p99_us": 6424.0,
+        "total_s": 0.076065
+      },
+      "min_s": 0.09703138,
+      "name": "Antirion",
+      "other_cpu_s": 0.23914199999999913,
+      "times_s": [
+        0.119191086,
+        0.102361006,
+        0.122200809,
+        0.09703138,
+        0.103005099
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.78 0.94 0.32 2/275 5657",
+    "before": "2.54 0.65 0.22 3/302 5087"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003553"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:02:00Z",
+  "wrong_rounds": 0
+}

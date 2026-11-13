@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-claude-relay-service.json --out results/gw-claude-relay-service",
+  "commit": "c54defd",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Claude Relay Service: routes to an upstream account by priority, moves later calls to another account when one fails, takes Anthropic's format, checks the caller's key, counts usage and cost in Redis. Its subscription sign-ins aren't used",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.088645,
+      "max_rss_mb": 26.81640625,
+      "max_s": 0.085437445,
+      "median_s": 0.084018748,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          31.0,
+          31.0,
+          31.0,
+          31.0,
+          31.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 31.0
+      },
+      "min_s": 0.081972226,
+      "name": "Nave",
+      "other_cpu_s": 0.0038029999999181496,
+      "times_s": [
+        0.085437445,
+        0.084540813,
+        0.082416408,
+        0.084018748,
+        0.081972226
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "claude-relay-service"
+      ],
+      "cpu_s": 0.864608,
+      "max_rss_mb": 28.828125,
+      "max_s": 1.658425025,
+      "median_s": 1.508986309,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          1414.0,
+          1428.0,
+          1567.0,
+          1407.0,
+          1409.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 1414.0
+      },
+      "min_s": 1.502405992,
+      "name": "Claude Relay Service",
+      "other_cpu_s": 1.9053919999999818,
+      "times_s": [
+        1.508986309,
+        1.5265324919999999,
+        1.658425025,
+        1.502405992,
+        1.505209052
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.08 1.84 1.25 1/282 94598",
+    "before": "2.08 1.84 1.24 1/283 90880"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003564"
+  },
+  "name": "one call through a gateway started for it, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:23:29Z",
+  "wrong_rounds": 0
+}

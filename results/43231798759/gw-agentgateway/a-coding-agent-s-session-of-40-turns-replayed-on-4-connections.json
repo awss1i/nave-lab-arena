@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-agentgateway.json --out results/gw-agentgateway",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in agentgateway: routes by model, takes OpenAI's and Anthropic's formats. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.397884,
+      "max_rss_mb": 26.609375,
+      "max_s": 0.752967904,
+      "median_s": 0.741995112,
+      "metric_rounds": {
+        "calls_per_s": [
+          243.5,
+          249.7,
+          240.1
+        ],
+        "first_piece_p50_us": [
+          4967.0,
+          4982.0,
+          4525.0
+        ],
+        "first_piece_p99_us": [
+          12800.0,
+          12481.0,
+          12901.0
+        ],
+        "max_us": [
+          64224.0,
+          54857.0,
+          53798.0
+        ],
+        "p50_us": [
+          13439.0,
+          13173.0,
+          13168.0
+        ],
+        "p999_us": [
+          64224.0,
+          54857.0,
+          53798.0
+        ],
+        "p99_us": [
+          47130.0,
+          49204.0,
+          50235.0
+        ],
+        "total_s": [
+          0.65722,
+          0.640953,
+          0.66653
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 243.5,
+        "first_piece_p50_us": 4967.0,
+        "first_piece_p99_us": 12800.0,
+        "max_us": 54857.0,
+        "p50_us": 13173.0,
+        "p999_us": 54857.0,
+        "p99_us": 49204.0,
+        "total_s": 0.65722
+      },
+      "min_s": 0.726908466,
+      "name": "Nave",
+      "other_cpu_s": 0.9947350000000006,
+      "times_s": [
+        0.741995112,
+        0.726908466,
+        0.752967904
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "agentgateway",
+        "4"
+      ],
+      "cpu_s": 0.397749,
+      "max_rss_mb": 25.60546875,
+      "max_s": 0.759102189,
+      "median_s": 0.753674998,
+      "metric_rounds": {
+        "calls_per_s": [
+          240.2,
+          241.2,
+          237.3
+        ],
+        "first_piece_p50_us": [
+          4913.0,
+          5520.0,
+          5339.0
+        ],
+        "first_piece_p99_us": [
+          12728.0,
+          14745.0,
+          13870.0
+        ],
+        "max_us": [
+          60922.0,
+          49243.0,
+          61335.0
+        ],
+        "p50_us": [
+          14451.0,
+          14644.0,
+          15014.0
+        ],
+        "p999_us": [
+          60922.0,
+          49243.0,
+          61335.0
+        ],
+        "p99_us": [
+          45464.0,
+          49159.0,
+          51775.0
+        ],
+        "total_s": [
+          0.666335,
+          0.663457,
+          0.674394
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 240.2,
+        "first_piece_p50_us": 5339.0,
+        "first_piece_p99_us": 13870.0,
+        "max_us": 60922.0,
+        "p50_us": 14644.0,
+        "p999_us": 60922.0,
+        "p99_us": 49159.0,
+        "total_s": 0.666335
+      },
+      "min_s": 0.750492899,
+      "name": "agentgateway",
+      "other_cpu_s": 1.392250999999992,
+      "times_s": [
+        0.753674998,
+        0.750492899,
+        0.759102189
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.02 0.45 0.18 1/271 18190",
+    "before": "0.76 0.39 0.16 1/298 17936"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003507"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T13:58:25Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-apisix.json --out results/gw-apisix",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in APISIX: routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.31352199999999997,
+      "max_rss_mb": 26.5078125,
+      "max_s": 0.676353074,
+      "median_s": 0.655047103,
+      "metric_rounds": {
+        "calls_per_s": [
+          283.7,
+          284.0,
+          272.7
+        ],
+        "first_piece_p50_us": [
+          5027.0,
+          4201.0,
+          4236.0
+        ],
+        "first_piece_p99_us": [
+          12902.0,
+          12111.0,
+          14114.0
+        ],
+        "max_us": [
+          43386.0,
+          44118.0,
+          48836.0
+        ],
+        "p50_us": [
+          11538.0,
+          11831.0,
+          11765.0
+        ],
+        "p999_us": [
+          43386.0,
+          44118.0,
+          48836.0
+        ],
+        "p99_us": [
+          40567.0,
+          43590.0,
+          42476.0
+        ],
+        "total_s": [
+          0.564203,
+          0.563644,
+          0.586895
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 283.7,
+        "first_piece_p50_us": 4236.0,
+        "first_piece_p99_us": 12902.0,
+        "max_us": 44118.0,
+        "p50_us": 11765.0,
+        "p999_us": 44118.0,
+        "p99_us": 42476.0,
+        "total_s": 0.564203
+      },
+      "min_s": 0.653513826,
+      "name": "Nave",
+      "other_cpu_s": 0.8164780000000097,
+      "times_s": [
+        0.653513826,
+        0.655047103,
+        0.676353074
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "apisix",
+        "4"
+      ],
+      "cpu_s": 0.250381,
+      "max_rss_mb": 26.8125,
+      "max_s": 0.956543713,
+      "median_s": 0.665947659,
+      "metric_rounds": {
+        "calls_per_s": [
+          289.4,
+          277.8,
+          184.5
+        ],
+        "first_piece_p50_us": [
+          4594.0,
+          4558.0,
+          3874.0
+        ],
+        "first_piece_p99_us": [
+          16556.0,
+          15152.0,
+          14989.0
+        ],
+        "max_us": [
+          48562.0,
+          38593.0,
+          105449.0
+        ],
+        "p50_us": [
+          11163.0,
+          11397.0,
+          11302.0
+        ],
+        "p999_us": [
+          48562.0,
+          38593.0,
+          105449.0
+        ],
+        "p99_us": [
+          43038.0,
+          36870.0,
+          97950.0
+        ],
+        "total_s": [
+          0.553013,
+          0.576129,
+          0.867256
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 277.8,
+        "first_piece_p50_us": 4558.0,
+        "first_piece_p99_us": 15152.0,
+        "max_us": 48562.0,
+        "p50_us": 11302.0,
+        "p999_us": 48562.0,
+        "p99_us": 43038.0,
+        "total_s": 0.576129
+      },
+      "min_s": 0.642568858,
+      "name": "APISIX",
+      "other_cpu_s": 1.1922959999999978,
+      "times_s": [
+        0.642568858,
+        0.665947659,
+        0.956543713
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.51 1.49 0.55 1/262 19675",
+    "before": "5.47 1.41 0.52 6/285 19413"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003518"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-12T14:02:38Z",
+  "wrong_rounds": 0
+}

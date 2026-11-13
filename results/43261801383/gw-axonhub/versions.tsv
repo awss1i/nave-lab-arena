@@ -1,0 +1,5 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V45 96-Core Processor
+nave	prototype P006, 1a772dff36bf
+axonhub	unstable created 2026-11-11T08:47:24.088797273Z (image docker.io/looplj/axonhub:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+postgres, switched on	not stated

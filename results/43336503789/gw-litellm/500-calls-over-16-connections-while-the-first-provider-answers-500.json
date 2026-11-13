@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-litellm.json --out results/gw-litellm",
+  "commit": "3330282",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway given the failing provider first and the working one second. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in LiteLLM: routes by model, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key against its master key, counts spend in memory. No database, so no request log and no stored keys",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.068165,
+      "max_rss_mb": 26.359375,
+      "max_s": 0.145729879,
+      "median_s": 0.144466994,
+      "metric_rounds": {
+        "calls_per_s": [
+          4542.5,
+          4597.3,
+          4625.4,
+          4554.5,
+          4529.7
+        ],
+        "max_us": [
+          5858.0,
+          6852.0,
+          6409.0,
+          5963.0,
+          5953.0
+        ],
+        "p50_us": [
+          3320.0,
+          3288.0,
+          3280.0,
+          3288.0,
+          3316.0
+        ],
+        "p999_us": [
+          5858.0,
+          6852.0,
+          6409.0,
+          5963.0,
+          5953.0
+        ],
+        "p99_us": [
+          5186.0,
+          5873.0,
+          5110.0,
+          5728.0,
+          5396.0
+        ],
+        "total_s": [
+          0.110235,
+          0.108922,
+          0.108242,
+          0.109942,
+          0.110545
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 4554.5,
+        "max_us": 5963.0,
+        "p50_us": 3288.0,
+        "p999_us": 5963.0,
+        "p99_us": 5396.0,
+        "total_s": 0.109942
+      },
+      "min_s": 0.142907433,
+      "name": "Nave",
+      "other_cpu_s": 0.1718350000000091,
+      "times_s": [
+        0.144466994,
+        0.143095606,
+        0.142907433,
+        0.144665099,
+        0.145729879
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "litellm",
+        "--calls",
+        "500",
+        "--conns",
+        "16"
+      ],
+      "cpu_s": 0.078114,
+      "max_rss_mb": 26.27734375,
+      "max_s": 9.495975523,
+      "median_s": 9.365467133,
+      "metric_rounds": {
+        "calls_per_s": [
+          52.8,
+          53.6,
+          53.4,
+          83.9,
+          86.3
+        ],
+        "max_us": [
+          340952.0,
+          349270.0,
+          335039.0,
+          240474.0,
+          304955.0
+        ],
+        "p50_us": [
+          301586.0,
+          297159.0,
+          298098.0,
+          189297.0,
+          181800.0
+        ],
+        "p999_us": [
+          340952.0,
+          349270.0,
+          335039.0,
+          240474.0,
+          304955.0
+        ],
+        "p99_us": [
+          328078.0,
+          325455.0,
+          328384.0,
+          219629.0,
+          295982.0
+        ],
+        "total_s": [
+          9.460925,
+          9.330495,
+          9.367347,
+          5.962729,
+          5.796661
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 53.6,
+        "max_us": 335039.0,
+        "p50_us": 297159.0,
+        "p999_us": 335039.0,
+        "p99_us": 325455.0,
+        "total_s": 9.330495
+      },
+      "min_s": 5.831297208,
+      "name": "LiteLLM",
+      "other_cpu_s": 18.93255499999999,
+      "times_s": [
+        9.495975523,
+        9.365467133,
+        9.402109373,
+        5.997360739,
+        5.831297208
+      ]
+    }
+  ],
+  "feature": "F3",
+  "load": {
+    "after": "3.29 2.21 1.45 1/258 23711",
+    "before": "1.91 1.88 1.31 1/284 20113"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003612"
+  },
+  "name": "500 calls over 16 connections while the first provider answers 500",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T00:37:49Z",
+  "wrong_rounds": 0
+}

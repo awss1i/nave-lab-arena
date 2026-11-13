@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+higress	22.04 created 2026-11-10T08:15:19.95871236Z (image higress-registry.cn-hangzhou.cr.aliyuncs.com/higress/all-in-one:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+higress, switched on	routes through an AI route and its ai-proxy plugin on Envoy, takes OpenAI's format. No key check
+higress, kinds of race it wasn't in	messages fallback cache

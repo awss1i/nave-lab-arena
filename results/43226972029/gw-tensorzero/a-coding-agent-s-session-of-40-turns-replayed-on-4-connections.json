@@ -1,0 +1,91 @@
+{
+  "command": "bin/race run run/gw-tensorzero.json --out results/gw-tensorzero",
+  "commit": "9efe591",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in TensorZero: routes by model, takes OpenAI's format. No key check, observability off",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "TensorZero",
+      "got": "ok 4",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 160"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "tensorzero",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "TensorZero",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "4.58 1.30 0.47 1/265 15445",
+    "before": "4.58 1.30 0.47 1/282 15246"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003481"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 160\nbad 0\nchecksum 33d96fffc5c807f0\n",
+      "stderr": "metric calls_per_s=236.6\nmetric p50_us=12882\nmetric p99_us=47668\nmetric p999_us=52959\nmetric max_us=52959\nmetric first_piece_p50_us=4800\nmetric first_piece_p99_us=12318\nmetric total_s=0.676387\n"
+    },
+    {
+      "name": "TensorZero",
+      "ok": false,
+      "output": "ok 4\nbad 156\nchecksum 5c19e8be2e96fdd4\n",
+      "stderr": "metric calls_per_s=83.9\nmetric p50_us=46305\nmetric p99_us=63442\nmetric p999_us=65089\nmetric max_us=65089\nmetric first_piece_p50_us=6850\nmetric first_piece_p99_us=48295\nmetric total_s=1.907736\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T13:29:39Z",
+  "wrong_rounds": 0
+}

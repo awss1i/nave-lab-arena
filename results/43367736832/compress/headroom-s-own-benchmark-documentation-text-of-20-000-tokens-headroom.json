@@ -1,0 +1,78 @@
+{
+  "command": "bin/race run races/compress.json --out results/compress",
+  "commit": "36ba0b3",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./entrant.sh",
+        "compress",
+        "headroom",
+        "headroom-bench/text-documentation-20k-tokens.txt"
+      ],
+      "cpu_s": 0.542936,
+      "max_rss_mb": 123.8359375,
+      "max_s": 0.542486458,
+      "median_s": 0.541818446,
+      "metric_rounds": {
+        "bytes_kept": [
+          0.0787,
+          0.0787,
+          0.0787
+        ],
+        "mb_per_s": [
+          14.947,
+          14.724,
+          14.894
+        ],
+        "tokens_after": [
+          1125.0,
+          1125.0,
+          1125.0
+        ],
+        "tokens_before": [
+          13931.0,
+          13931.0,
+          13931.0
+        ]
+      },
+      "metrics": {
+        "bytes_kept": 0.0787,
+        "mb_per_s": 14.894,
+        "tokens_after": 1125.0,
+        "tokens_before": 13931.0
+      },
+      "min_s": 0.540166926,
+      "name": "Headroom",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        0.542486458,
+        0.540166926,
+        0.541818446
+      ]
+    }
+  ],
+  "feature": "F11",
+  "load": {
+    "after": "1.47 0.55 0.20 1/270 4095",
+    "before": "1.47 0.55 0.20 2/269 4025"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003616"
+  },
+  "name": "Headroom's own benchmark, documentation text of 20,000 tokens, Headroom",
+  "output_lines": 1,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T04:48:21Z",
+  "wrong_rounds": 0
+}

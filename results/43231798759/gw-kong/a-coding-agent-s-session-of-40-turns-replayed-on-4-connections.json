@@ -1,0 +1,91 @@
+{
+  "command": "bin/race run run/gw-kong.json --out results/gw-kong",
+  "commit": "9628046",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Kong: routes one path through its ai-proxy plugin, takes OpenAI's format. No key check, access log off",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "Kong",
+      "got": "ok 0",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 160"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "kong",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Kong",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "5.28 1.63 0.61 1/272 34319",
+    "before": "5.28 1.63 0.61 5/290 34208"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003506"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 160\nbad 0\nchecksum adbc5506dd8ec2f0\n",
+      "stderr": "metric calls_per_s=302.0\nmetric p50_us=10987\nmetric p99_us=45582\nmetric p999_us=51319\nmetric max_us=51319\nmetric first_piece_p50_us=4064\nmetric first_piece_p99_us=13009\nmetric total_s=0.530057\n"
+    },
+    {
+      "name": "Kong",
+      "ok": false,
+      "output": "ok 0\nbad 160\nchecksum 704013477f79d660\n",
+      "stderr": "metric calls_per_s=3385.8\nmetric p50_us=736\nmetric p99_us=2428\nmetric p999_us=2472\nmetric max_us=2472\nmetric total_s=0.047411\n"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-12T13:58:37Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-tyk.json --out results/gw-tyk",
+  "commit": "fcc4a00",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Tyk: passes one path on to the model as an API gateway, in OpenAI's format. No key check, analytics off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.136428,
+      "max_rss_mb": 26.5546875,
+      "max_s": 0.149238041,
+      "median_s": 0.131125037,
+      "metric_rounds": {
+        "calls_per_s": [
+          24949.3,
+          17071.7,
+          19326.6,
+          20269.0,
+          25131.0
+        ],
+        "max_us": [
+          14489.0,
+          14121.0,
+          14131.0,
+          15976.0,
+          17595.0
+        ],
+        "p50_us": [
+          2019.0,
+          3543.0,
+          2782.0,
+          2201.0,
+          1998.0
+        ],
+        "p999_us": [
+          9384.0,
+          13941.0,
+          13963.0,
+          11225.0,
+          9214.0
+        ],
+        "p99_us": [
+          5489.0,
+          10298.0,
+          9037.0,
+          8537.0,
+          5304.0
+        ],
+        "total_s": [
+          0.080341,
+          0.11731,
+          0.103752,
+          0.098831,
+          0.079821
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 20269.0,
+        "max_us": 14489.0,
+        "p50_us": 2201.0,
+        "p999_us": 11225.0,
+        "p99_us": 8537.0,
+        "total_s": 0.098831
+      },
+      "min_s": 0.111537705,
+      "name": "Nave",
+      "other_cpu_s": 0.12573300000000115,
+      "times_s": [
+        0.112343888,
+        0.149238041,
+        0.135455742,
+        0.131125037,
+        0.111537705
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "tyk",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.103951,
+      "max_rss_mb": 26.3359375,
+      "max_s": 0.283579892,
+      "median_s": 0.282141467,
+      "metric_rounds": {
+        "calls_per_s": [
+          8044.2,
+          7916.2,
+          7988.2,
+          7957.6,
+          7966.3
+        ],
+        "max_us": [
+          18193.0,
+          15367.0,
+          16074.0,
+          16267.0,
+          16659.0
+        ],
+        "p50_us": [
+          6763.0,
+          6841.0,
+          6806.0,
+          6797.0,
+          6841.0
+        ],
+        "p999_us": [
+          17248.0,
+          15366.0,
+          16073.0,
+          16232.0,
+          16628.0
+        ],
+        "p99_us": [
+          13931.0,
+          15332.0,
+          15146.0,
+          15536.0,
+          14777.0
+        ],
+        "total_s": [
+          0.248795,
+          0.252865,
+          0.250544,
+          0.251564,
+          0.251238
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 7966.3,
+        "max_us": 16267.0,
+        "p50_us": 6806.0,
+        "p999_us": 16232.0,
+        "p99_us": 15146.0,
+        "total_s": 0.251238
+      },
+      "min_s": 0.280328558,
+      "name": "Tyk",
+      "other_cpu_s": 0.3154420000000017,
+      "times_s": [
+        0.280328558,
+        0.283579892,
+        0.281744429,
+        0.282141467,
+        0.283478671
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.58 1.02 0.55 1/281 17944",
+    "before": "0.54 1.02 0.54 1/304 16751"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003560"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-12T17:06:38Z",
+  "wrong_rounds": 0
+}

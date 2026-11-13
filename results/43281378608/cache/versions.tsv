@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+litellm	1.109.1
+gptcache	0.1.44, with its ONNX embedding, SQLite and FAISS
+redisvl	0.32.0, its SemanticCache with its default local vectorizer, on Redis 8
+modelcache	release-v0.2.0 at e6cfcb8, its demo service with SQLite, FAISS and text2vec-base-chinese
