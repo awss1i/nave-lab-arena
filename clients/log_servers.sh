@@ -54,5 +54,35 @@ case $name.$what in
     wait_for http://127.0.0.1:5173/api/v1/private/projects 2> /dev/null || wait_for http://127.0.0.1:5173/api/v1/private/projects 2> /dev/null || wait_for http://127.0.0.1:5173/api/v1/private/projects
     (cd "$d" && docker compose -p arena-opik ps -a > "$OLDPWD/run/compose-opik-at-start.log" 2>&1); true;;
   opik.down) compose_down arena-opik "$ARENA_TOOLS/src/opik/repo/deployment/docker-compose" --profile opik;;
+  langwatch.up)
+    # LangWatch by its own server command from npm, which fetches and runs its app, PostgreSQL, Redis and
+    # ClickHouse under its home folder. It runs in a Node container as the caller's user, since its PostgreSQL
+    # won't start as root. Its sign-up goes through an emailed link, so the account is written into its PostgreSQL
+    # the way its own tests seed one (a verified user and its password account). Everything after that goes
+    # through its API: sign in, make the organisation, a project and an API key bound to the project.
+    d="$ARENA_TOOLS/log-langwatch"; mkdir -p "$d"
+    b=http://localhost:5560 stamp=$(date +%s) user=()
+    # A stop that didn't let its PostgreSQL finish leaves its lock files, and no server of it can be running here.
+    rm -f "$d/.langwatch/data/postgres/postmaster.pid" "$d/.langwatch/run/.s.PGSQL.6560.lock" "$d/.langwatch/run/.s.PGSQL.6560"
+    [ "$(basename "$CONTAINER")" = podman ] && user=(--userns=keep-id)
+    "$CONTAINER" run -d --rm --name arena-langwatch --network host "${user[@]}" --user "$(id -u):$(id -g)" -e HOME=/work -e DO_NOT_TRACK=1 -e DISABLE_USAGE_STATS=true \
+      -v "$d:/work$([ "$(basename "$CONTAINER")" = podman ] && echo :Z)" -w /work docker.io/library/node:24 sh -c 'exec npx -y @langwatch/server start --yes --no-open > /work/start.log 2>&1' > /dev/null || exit 1
+    [ "$(basename "$CONTAINER")" = docker ] && docker update --cpuset-cpus "$GATEWAY_CPUS" arena-langwatch > /dev/null 2>&1
+    # Its first start downloads its parts, which takes minutes.
+    wait_for "$b/api/health" 2> /dev/null || wait_for "$b/api/health" 2> /dev/null || wait_for "$b/api/health" || { tail -5 "$d/start.log" >&2; exit 1; }
+    version langwatch "$(sed -n 's/^v\([0-9][0-9.]*\) .*/\1/p' "$d/start.log" | head -1), by npx @langwatch/server in docker.io/library/node:24"
+    sql() { "$CONTAINER" exec -e LD_LIBRARY_PATH=/work/.langwatch/bin/postgres/lib arena-langwatch /work/.langwatch/bin/postgres/bin/psql -h 127.0.0.1 -p 6560 -U langwatch -d langwatch_db -At -c "$1"; }
+    hash=$("$(arena_uv)" run -q --with bcrypt python -c "import bcrypt; print(bcrypt.hashpw(b'Arena-pass-12345', bcrypt.gensalt(10)).decode())") || exit 1
+    sql "begin; insert into langwatch_db.\"User\" (id, name, email, \"emailVerified\", \"updatedAt\") values ('arena-user-$stamp', 'Arena', 'arena-$stamp@arena.test', true, now()); insert into langwatch_db.\"Account\" (id, \"userId\", type, provider, issuer, \"providerAccountId\", password, \"updatedAt\") values ('arena-account-$stamp', 'arena-user-$stamp', 'credentials', 'credential', 'local:credential', 'arena-user-$stamp', '$hash', now()); commit;" > /dev/null || exit 1
+    rm -f "$d/cookies"
+    api() { curl -fsS -m 120 -b "$d/cookies" -c "$d/cookies" -H 'content-type: application/json' -H "origin: $b" "$@"; }
+    api -o /dev/null -d "{\"email\":\"arena-$stamp@arena.test\",\"password\":\"Arena-pass-12345\"}" "$b/api/auth/sign-in/email" || { echo "LangWatch didn't sign the account in" >&2; exit 1; }
+    ids=$(api -d '{"orgName":"Arena '"$stamp"'","primaryIntent":"LLM_OPS","signUpData":{"terms":true,"usage":"Company"}}' "$b/api/trpc/organization.createAndAssign" | python3 -c 'import json, sys; d = json.load(sys.stdin)["result"]["data"]; print(d["organization"]["id"], d["team"]["id"])') || exit 1
+    org=${ids% *} team=${ids#* }
+    api -o /dev/null -d "{\"organizationId\":\"$org\",\"teamId\":\"$team\",\"name\":\"Arena\",\"language\":\"python\",\"framework\":\"openai\"}" "$b/api/trpc/project.create" || exit 1
+    project=$(sql "select id from langwatch_db.\"Project\" where \"teamId\" = '$team' limit 1")
+    api -d "{\"organizationId\":\"$org\",\"name\":\"arena\",\"keyType\":\"personal\",\"permissionMode\":\"all\",\"bindings\":[{\"role\":\"ADMIN\",\"scopeType\":\"PROJECT\",\"scopeId\":\"$project\"}]}" "$b/api/trpc/apiKey.create" \
+      | python3 -c 'import json, sys; print(json.load(sys.stdin)["result"]["data"]["token"], end="")' > run/log-langwatch.key || { echo "LangWatch didn't make an API key" >&2; exit 1; };;
+  langwatch.down) "$CONTAINER" stop -t 30 arena-langwatch > /dev/null 2>&1; exit 0;;
   *) echo "usage: log_servers.sh up|down NAME" >&2; exit 2;;
 esac

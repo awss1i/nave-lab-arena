@@ -99,6 +99,17 @@ else:
                 if e.code == 404 or e.code >= 500:
                     return 0
                 raise
+    elif tool == "langwatch":
+        # LangWatch with the API key log_servers.sh made for its project: spans over OTLP, counted by its trace search.
+        key = open("run/log-langwatch.key").read().strip()
+        endpoint, headers = "http://127.0.0.1:5560/api/otel/v1/traces", {"Authorization": f"Bearer {key}"}
+
+        def count():
+            now = int(time.time() * 1000)
+            ask = urllib.request.Request("http://127.0.0.1:5560/api/trace/search", json.dumps({"startDate": now - 86400000, "endDate": now + 86400000, "pageSize": 1}).encode(),
+                                         {"content-type": "application/json", "X-Auth-Token": key})
+            with urllib.request.urlopen(ask, timeout=60) as r:
+                return int(json.load(r)["pagination"]["totalHits"])
     else:
         raise SystemExit(f"no log tool {tool}")
 
