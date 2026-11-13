@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-manifest.json --out results/gw-manifest",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Manifest: routes by model or by its own tiers, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, logs every call and its cost to PostgreSQL. Its limits on calls a minute and calls at once are raised out of the way",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.073752,
+      "max_rss_mb": 26.31640625,
+      "max_s": 0.085856356,
+      "median_s": 0.072244361,
+      "metric_rounds": {
+        "calls_per_s": [
+          38594.2,
+          46819.7,
+          47453.6,
+          35626.9,
+          41632.6
+        ],
+        "max_us": [
+          8313.0,
+          7060.0,
+          4144.0,
+          6450.0,
+          7704.0
+        ],
+        "p50_us": [
+          1374.0,
+          1077.0,
+          1094.0,
+          1558.0,
+          1312.0
+        ],
+        "p999_us": [
+          5991.0,
+          7039.0,
+          3974.0,
+          6218.0,
+          4388.0
+        ],
+        "p99_us": [
+          3953.0,
+          2765.0,
+          2740.0,
+          4548.0,
+          3043.0
+        ],
+        "total_s": [
+          0.051965,
+          0.042848,
+          0.042335,
+          0.056261,
+          0.048217
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 41632.6,
+        "max_us": 7060.0,
+        "p50_us": 1312.0,
+        "p999_us": 5991.0,
+        "p99_us": 3043.0,
+        "total_s": 0.048217
+      },
+      "min_s": 0.066244707,
+      "name": "Nave",
+      "other_cpu_s": 0.09624799999995907,
+      "times_s": [
+        0.081475699,
+        0.070526473,
+        0.066244707,
+        0.085856356,
+        0.072244361
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "manifest",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.182088,
+      "max_rss_mb": 26.50390625,
+      "max_s": 6.669443287,
+      "median_s": 6.384492583,
+      "metric_rounds": {
+        "calls_per_s": [
+          301.2,
+          321.7,
+          335.2,
+          308.9,
+          314.6
+        ],
+        "max_us": [
+          401119.0,
+          445337.0,
+          376202.0,
+          501179.0,
+          386642.0
+        ],
+        "p50_us": [
+          196995.0,
+          188937.0,
+          183466.0,
+          188165.0,
+          187869.0
+        ],
+        "p999_us": [
+          400251.0,
+          445147.0,
+          376137.0,
+          501173.0,
+          384680.0
+        ],
+        "p99_us": [
+          394913.0,
+          420404.0,
+          368258.0,
+          488941.0,
+          381918.0
+        ],
+        "total_s": [
+          6.639857,
+          6.216898,
+          5.966858,
+          6.475125,
+          6.357808
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 314.6,
+        "max_us": 401119.0,
+        "p50_us": 188165.0,
+        "p999_us": 400251.0,
+        "p99_us": 394913.0,
+        "total_s": 6.357808
+      },
+      "min_s": 5.994482638,
+      "name": "Manifest",
+      "other_cpu_s": 10.424152000000023,
+      "times_s": [
+        6.669443287,
+        6.251520831,
+        5.994482638,
+        6.508112997,
+        6.384492583
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.67 2.18 1.07 2/310 24842",
+    "before": "3.04 1.91 0.94 1/335 23613"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6975P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.82.6",
+    "kernel": "Linux 7.0.0-1016-aws",
+    "memory_gb": 15.0,
+    "runner": "GitHub Actions 1000003629"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:34:43Z",
+  "wrong_rounds": 0
+}

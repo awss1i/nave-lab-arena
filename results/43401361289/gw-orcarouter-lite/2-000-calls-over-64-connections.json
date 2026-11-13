@@ -1,0 +1,192 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.10629,
+      "max_rss_mb": 26.26171875,
+      "max_s": 0.110593279,
+      "median_s": 0.106352379,
+      "metric_rounds": {
+        "calls_per_s": [
+          24018.6,
+          24932.1,
+          26213.7,
+          26065.3,
+          25875.1
+        ],
+        "max_us": [
+          12086.0,
+          10784.0,
+          10998.0,
+          12017.0,
+          10242.0
+        ],
+        "p50_us": [
+          2326.0,
+          2232.0,
+          2061.0,
+          2111.0,
+          2118.0
+        ],
+        "p999_us": [
+          9451.0,
+          10571.0,
+          6680.0,
+          8794.0,
+          6383.0
+        ],
+        "p99_us": [
+          6771.0,
+          5430.0,
+          5589.0,
+          6190.0,
+          4473.0
+        ],
+        "total_s": [
+          0.083443,
+          0.080379,
+          0.076486,
+          0.076918,
+          0.077472
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 25875.1,
+        "max_us": 10998.0,
+        "p50_us": 2118.0,
+        "p999_us": 8794.0,
+        "p99_us": 5589.0,
+        "total_s": 0.077472
+      },
+      "min_s": 0.104661761,
+      "name": "Nave",
+      "other_cpu_s": 0.1258510000000091,
+      "times_s": [
+        0.110593279,
+        0.109482705,
+        0.104661761,
+        0.105868184,
+        0.106352379
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "orcarouter-lite",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.134687,
+      "max_rss_mb": 26.5859375,
+      "max_s": 18.838945683,
+      "median_s": 18.784229117,
+      "metric_rounds": {
+        "calls_per_s": [
+          107.0,
+          106.3,
+          106.6,
+          106.6,
+          107.4
+        ],
+        "max_us": [
+          3715491.0,
+          3406635.0,
+          4050623.0,
+          4979431.0,
+          5063921.0
+        ],
+        "p50_us": [
+          482458.0,
+          486411.0,
+          484434.0,
+          482311.0,
+          483158.0
+        ],
+        "p999_us": [
+          3683583.0,
+          2784642.0,
+          3894191.0,
+          3528147.0,
+          2840721.0
+        ],
+        "p99_us": [
+          1996777.0,
+          1918885.0,
+          1885754.0,
+          1979293.0,
+          1899462.0
+        ],
+        "total_s": [
+          18.693644,
+          18.808161,
+          18.754072,
+          18.769365,
+          18.620608
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 106.6,
+        "max_us": 4050623.0,
+        "p50_us": 483158.0,
+        "p999_us": 3528147.0,
+        "p99_us": 1918885.0,
+        "total_s": 18.754072
+      },
+      "min_s": 18.651632858,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 20.03582,
+      "times_s": [
+        18.724543682,
+        18.838945683,
+        18.784229117,
+        18.801241321,
+        18.651632858
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.46 0.67 0.26 1/258 4700",
+    "before": "0.75 0.25 0.09 1/268 3394"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003631"
+  },
+  "name": "2,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "OrcaRouter Lite",
+      "ok": false,
+      "output": "ok 1999\nbad 1\nchecksum 3e3264f31f3c0ba6\n",
+      "round": 4,
+      "stderr": "wrong answer to call 22: HTTP/1.1 503 Service Unavailable / {\"error\": {\"message\": \"Service temporarily unavailable\", \"type\": \"server_error\"}}\nmetric calls_per_s=107.4\nmetric p50_us=483158\nmetric p99_us=1899462\nmetric p999_us=2840721\nmetric max_us=5063921\nmetric total_s=18.620608\n"
+    }
+  ],
+  "rounds": 5,
+  "time": "2026-11-13T09:29:13Z",
+  "wrong_rounds": 1
+}

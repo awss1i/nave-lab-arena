@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+claude-code-proxy	created 2026-06-23T02:46:48.642454452Z (image ghcr.io/1rgs/claude-code-proxy:main)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+claude-code-proxy, switched on	takes Anthropic's format and sends OpenAI's upstream. No key check
+claude-code-proxy, kinds of race it wasn't in	fallback cache

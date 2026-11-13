@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.06644900000000001,
+      "max_rss_mb": 26.62109375,
+      "max_s": 0.076690159,
+      "median_s": 0.075636491,
+      "metric_rounds": {
+        "calls_per_s": [
+          10334.6,
+          10827.3,
+          11501.2,
+          10528.5,
+          10524.0
+        ],
+        "first_piece_p50_us": [
+          1299.0,
+          1274.0,
+          1229.0,
+          1306.0,
+          1313.0
+        ],
+        "first_piece_p99_us": [
+          2993.0,
+          3004.0,
+          2887.0,
+          3480.0,
+          3773.0
+        ],
+        "max_us": [
+          4105.0,
+          5058.0,
+          4429.0,
+          6290.0,
+          4520.0
+        ],
+        "p50_us": [
+          1336.0,
+          1313.0,
+          1270.0,
+          1343.0,
+          1353.0
+        ],
+        "p999_us": [
+          4105.0,
+          5058.0,
+          4429.0,
+          6290.0,
+          4520.0
+        ],
+        "p99_us": [
+          3393.0,
+          3711.0,
+          3271.0,
+          4326.0,
+          4254.0
+        ],
+        "total_s": [
+          0.0485,
+          0.046311,
+          0.04362,
+          0.047622,
+          0.047658
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 10528.5,
+        "first_piece_p50_us": 1299.0,
+        "first_piece_p99_us": 3004.0,
+        "max_us": 4520.0,
+        "p50_us": 1336.0,
+        "p999_us": 4520.0,
+        "p99_us": 3711.0,
+        "total_s": 0.047622
+      },
+      "min_s": 0.070988212,
+      "name": "Nave",
+      "other_cpu_s": 0.0767000000000432,
+      "times_s": [
+        0.076450531,
+        0.074985593,
+        0.070988212,
+        0.076690159,
+        0.075636491
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "orcarouter-lite",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.081712,
+      "max_rss_mb": 25.6171875,
+      "max_s": 7.135204143,
+      "median_s": 6.994341313,
+      "metric_rounds": {
+        "calls_per_s": [
+          73.6,
+          70.7,
+          70.4,
+          72.0,
+          71.8
+        ],
+        "first_piece_p50_us": [
+          32613.0,
+          33994.0,
+          33888.0,
+          35602.0,
+          32992.0
+        ],
+        "first_piece_p99_us": [
+          1151370.0,
+          1774821.0,
+          1947273.0,
+          1443557.0,
+          1385347.0
+        ],
+        "max_us": [
+          2557783.0,
+          3231913.0,
+          2974094.0,
+          3078669.0,
+          2519210.0
+        ],
+        "p50_us": [
+          65114.0,
+          71544.0,
+          63486.0,
+          71563.0,
+          65137.0
+        ],
+        "p999_us": [
+          2557783.0,
+          3231913.0,
+          2974094.0,
+          3078669.0,
+          2519210.0
+        ],
+        "p99_us": [
+          1711579.0,
+          1873330.0,
+          1978362.0,
+          1685047.0,
+          2216932.0
+        ],
+        "total_s": [
+          6.795016,
+          7.076823,
+          7.105077,
+          6.943849,
+          6.964456
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 71.8,
+        "first_piece_p50_us": 33888.0,
+        "first_piece_p99_us": 1443557.0,
+        "max_us": 2974094.0,
+        "p50_us": 65137.0,
+        "p999_us": 2974094.0,
+        "p99_us": 1873330.0,
+        "total_s": 6.964456
+      },
+      "min_s": 6.824639855,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 7.468288000000012,
+      "times_s": [
+        6.824639855,
+        7.106652249,
+        7.135204143,
+        6.97434464,
+        6.994341313
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.47 1.41 0.65 1/249 8393",
+    "before": "1.48 1.07 0.51 1/258 7779"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003631"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:33:22Z",
+  "wrong_rounds": 0
+}

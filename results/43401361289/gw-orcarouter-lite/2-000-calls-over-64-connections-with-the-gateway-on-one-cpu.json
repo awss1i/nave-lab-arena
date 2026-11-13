@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's CPUs: the load tool on one, the stand-in model on one, the gateway on one. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.101719,
+      "max_rss_mb": 26.2421875,
+      "max_s": 0.10529542,
+      "median_s": 0.100744249,
+      "metric_rounds": {
+        "calls_per_s": [
+          26097.5,
+          27607.6,
+          26697.6,
+          29241.2,
+          29850.9
+        ],
+        "max_us": [
+          7347.0,
+          10100.0,
+          9581.0,
+          7953.0,
+          10518.0
+        ],
+        "p50_us": [
+          2061.0,
+          1945.0,
+          2091.0,
+          1738.0,
+          1739.0
+        ],
+        "p999_us": [
+          6907.0,
+          7201.0,
+          6838.0,
+          7666.0,
+          9579.0
+        ],
+        "p99_us": [
+          5483.0,
+          4181.0,
+          5052.0,
+          5760.0,
+          5184.0
+        ],
+        "total_s": [
+          0.076783,
+          0.072591,
+          0.075074,
+          0.068547,
+          0.067169
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 27607.6,
+        "max_us": 9581.0,
+        "p50_us": 1945.0,
+        "p999_us": 7201.0,
+        "p99_us": 5184.0,
+        "total_s": 0.072591
+      },
+      "min_s": 0.094729618,
+      "name": "Nave",
+      "other_cpu_s": 0.10174399999993178,
+      "times_s": [
+        0.10529542,
+        0.100744249,
+        0.10299573,
+        0.096342938,
+        0.094729618
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "orcarouter-lite",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.130163,
+      "max_rss_mb": 26.546875,
+      "max_s": 17.473794682,
+      "median_s": 17.339782176,
+      "metric_rounds": {
+        "calls_per_s": [
+          115.0,
+          116.1,
+          114.7,
+          115.5,
+          116.1
+        ],
+        "max_us": [
+          3755102.0,
+          3438979.0,
+          3261675.0,
+          4917192.0,
+          3373022.0
+        ],
+        "p50_us": [
+          447875.0,
+          449031.0,
+          452138.0,
+          448871.0,
+          447693.0
+        ],
+        "p999_us": [
+          2854602.0,
+          3260299.0,
+          2964998.0,
+          4182701.0,
+          3257294.0
+        ],
+        "p99_us": [
+          1848212.0,
+          1834976.0,
+          1770125.0,
+          1794324.0,
+          1975766.0
+        ],
+        "total_s": [
+          17.397275,
+          17.220852,
+          17.443471,
+          17.309222,
+          17.22039
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 115.5,
+        "max_us": 3438979.0,
+        "p50_us": 448871.0,
+        "p999_us": 3257294.0,
+        "p99_us": 1834976.0,
+        "total_s": 17.309222
+      },
+      "min_s": 17.250826444,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 17.63014299999999,
+      "times_s": [
+        17.426036843,
+        17.252176172,
+        17.473794682,
+        17.339782176,
+        17.250826444
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.52 1.42 0.96 1/249 18786",
+    "before": "1.56 1.38 0.89 1/260 17539"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003631"
+  },
+  "name": "2,000 calls over 64 connections with the gateway on one CPU",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:42:25Z",
+  "wrong_rounds": 0
+}

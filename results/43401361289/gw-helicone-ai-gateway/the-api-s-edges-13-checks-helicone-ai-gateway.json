@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "a8e7871",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "helicone-ai-gateway"
+      ],
+      "cpu_s": 0.305449,
+      "max_rss_mb": 28.375,
+      "max_s": 1.484046895,
+      "median_s": 1.484046895,
+      "metric_rounds": {
+        "edges_passed": [
+          10.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 10.0,
+        "edges_total": 13.0
+      },
+      "min_s": 1.484046895,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 0.9745509999999868,
+      "times_s": [
+        1.484046895
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "6.00 1.61 0.58 1/271 23362",
+    "before": "6.00 1.61 0.58 1/287 22871"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003632"
+  },
+  "name": "the API's edges, 13 checks, Helicone AI Gateway",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T09:31:17Z",
+  "wrong_rounds": 0
+}

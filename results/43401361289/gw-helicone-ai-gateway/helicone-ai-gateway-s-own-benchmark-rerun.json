@@ -1,0 +1,264 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Helicone's sustained load test of 3,000 calls a second against a model that takes 60 ms, sent here at 3,000 calls a second over 512 connections by a client that acknowledges every packet at once, each call timed from when it was due. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone AI Gateway: routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "direct",
+        "3000",
+        "30000",
+        "512"
+      ],
+      "cpu_s": 1.692621,
+      "max_rss_mb": 39.19140625,
+      "max_s": 10.119280932,
+      "median_s": 10.117172139,
+      "metric_rounds": {
+        "calls_per_s": [
+          2981.3,
+          2981.3,
+          2981.2
+        ],
+        "max_us": [
+          73655.0,
+          74366.0,
+          72746.0
+        ],
+        "p50_us": [
+          60181.0,
+          60178.0,
+          60180.0
+        ],
+        "p999_us": [
+          69121.0,
+          68345.0,
+          68573.0
+        ],
+        "p99_us": [
+          60495.0,
+          60464.0,
+          60556.0
+        ],
+        "rate": [
+          3000.0,
+          3000.0,
+          3000.0
+        ],
+        "sent_late": [
+          3.0,
+          4.0,
+          5.0
+        ],
+        "total_s": [
+          10.063206,
+          10.063279,
+          10.063311
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 2981.3,
+        "max_us": 73655.0,
+        "p50_us": 60180.0,
+        "p999_us": 68573.0,
+        "p99_us": 60495.0,
+        "rate": 3000.0,
+        "sent_late": 4.0,
+        "total_s": 10.063279
+      },
+      "min_s": 10.117007578,
+      "name": "No gateway",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        10.119280932,
+        10.117172139,
+        10.117007578
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "nave",
+        "3000",
+        "30000",
+        "512"
+      ],
+      "cpu_s": 1.5115159999999999,
+      "max_rss_mb": 39.20703125,
+      "max_s": 10.171808728,
+      "median_s": 10.171295396,
+      "metric_rounds": {
+        "calls_per_s": [
+          2981.2,
+          2981.3,
+          2981.3
+        ],
+        "cpu_us_per_call": [
+          38.0,
+          38.3,
+          40.0
+        ],
+        "max_us": [
+          70851.0,
+          69751.0,
+          70374.0
+        ],
+        "p50_us": [
+          60204.0,
+          60202.0,
+          60210.0
+        ],
+        "p999_us": [
+          66106.0,
+          65024.0,
+          66204.0
+        ],
+        "p99_us": [
+          60698.0,
+          60591.0,
+          60661.0
+        ],
+        "rate": [
+          3000.0,
+          3000.0,
+          3000.0
+        ],
+        "sent_late": [
+          4.0,
+          4.0,
+          1.0
+        ],
+        "total_s": [
+          10.063299,
+          10.063136,
+          10.063215
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 2981.3,
+        "cpu_us_per_call": 38.3,
+        "max_us": 70374.0,
+        "p50_us": 60204.0,
+        "p999_us": 66106.0,
+        "p99_us": 60661.0,
+        "rate": 3000.0,
+        "sent_late": 4.0,
+        "total_s": 10.063215
+      },
+      "min_s": 10.168956915,
+      "name": "Nave",
+      "other_cpu_s": 0.0,
+      "times_s": [
+        10.171808728,
+        10.168956915,
+        10.171295396
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quickrate",
+        "helicone-ai-gateway",
+        "3000",
+        "30000",
+        "512"
+      ],
+      "cpu_s": 1.674113,
+      "max_rss_mb": 39.9296875,
+      "max_s": 10.159773743,
+      "median_s": 10.155327155,
+      "metric_rounds": {
+        "calls_per_s": [
+          2981.2,
+          2981.2,
+          2981.2
+        ],
+        "cpu_us_per_call": [
+          245.0,
+          242.5,
+          241.4
+        ],
+        "max_us": [
+          71503.0,
+          71665.0,
+          71341.0
+        ],
+        "p50_us": [
+          60415.0,
+          60395.0,
+          60393.0
+        ],
+        "p999_us": [
+          66958.0,
+          68134.0,
+          66361.0
+        ],
+        "p99_us": [
+          60759.0,
+          61219.0,
+          61369.0
+        ],
+        "rate": [
+          3000.0,
+          3000.0,
+          3000.0
+        ],
+        "sent_late": [
+          4.0,
+          0.0,
+          4.0
+        ],
+        "total_s": [
+          10.063653,
+          10.063559,
+          10.063496
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 2981.2,
+        "cpu_us_per_call": 242.5,
+        "max_us": 71503.0,
+        "p50_us": 60395.0,
+        "p999_us": 66958.0,
+        "p99_us": 61219.0,
+        "rate": 3000.0,
+        "sent_late": 4.0,
+        "total_s": 10.063559
+      },
+      "min_s": 10.154677941,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 8.473277999999993,
+      "times_s": [
+        10.155327155,
+        10.159773743,
+        10.154677941
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.21 2.72 1.18 1/261 32924",
+    "before": "6.00 1.61 0.58 1/288 23518"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003632"
+  },
+  "name": "Helicone AI Gateway's own benchmark, rerun",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T09:33:21Z",
+  "wrong_rounds": 0
+}

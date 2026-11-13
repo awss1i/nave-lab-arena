@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-claude-code-proxy.json --out results/gw-claude-code-proxy",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, Anthropic's format in and OpenAI's format to the model, the load tool acknowledging every packet at once where an ordinary client waits up to 40 ms. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in claude-code-proxy (1rgs): takes Anthropic's format and sends OpenAI's upstream. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.072896,
+      "max_rss_mb": 26.2578125,
+      "max_s": 0.094675382,
+      "median_s": 0.078745474,
+      "metric_rounds": {
+        "calls_per_s": [
+          8668.6,
+          7560.9,
+          10560.8,
+          11671.4,
+          10279.2
+        ],
+        "first_piece_p50_us": [
+          1597.0,
+          1909.0,
+          1248.0,
+          1211.0,
+          1333.0
+        ],
+        "first_piece_p99_us": [
+          4125.0,
+          5379.0,
+          2989.0,
+          2338.0,
+          3403.0
+        ],
+        "max_us": [
+          7332.0,
+          6796.0,
+          3488.0,
+          2828.0,
+          5837.0
+        ],
+        "p50_us": [
+          1647.0,
+          1960.0,
+          1266.0,
+          1213.0,
+          1364.0
+        ],
+        "p999_us": [
+          7332.0,
+          6796.0,
+          3488.0,
+          2828.0,
+          5837.0
+        ],
+        "p99_us": [
+          6575.0,
+          5477.0,
+          3057.0,
+          2338.0,
+          3635.0
+        ],
+        "total_s": [
+          0.057842,
+          0.066291,
+          0.047511,
+          0.043014,
+          0.048827
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 10279.2,
+        "first_piece_p50_us": 1333.0,
+        "first_piece_p99_us": 3403.0,
+        "max_us": 5837.0,
+        "p50_us": 1364.0,
+        "p999_us": 5837.0,
+        "p99_us": 3635.0,
+        "total_s": 0.048827
+      },
+      "min_s": 0.072762983,
+      "name": "Nave",
+      "other_cpu_s": 0.11662200000000682,
+      "times_s": [
+        0.088035185,
+        0.094675382,
+        0.07610413,
+        0.072762983,
+        0.078745474
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "quick",
+        "claude-code-proxy",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.099272,
+      "max_rss_mb": 26.54296875,
+      "max_s": 2.421057079,
+      "median_s": 2.257230768,
+      "metric_rounds": {
+        "calls_per_s": [
+          209.1,
+          224.4,
+          229.5,
+          211.9,
+          227.9
+        ],
+        "first_piece_p50_us": [
+          40032.0,
+          40115.0,
+          38919.0,
+          38983.0,
+          39906.0
+        ],
+        "first_piece_p99_us": [
+          196927.0,
+          201483.0,
+          57434.0,
+          197160.0,
+          197533.0
+        ],
+        "max_us": [
+          217724.0,
+          223268.0,
+          218055.0,
+          228197.0,
+          217795.0
+        ],
+        "p50_us": [
+          60202.0,
+          60583.0,
+          59222.0,
+          59428.0,
+          60124.0
+        ],
+        "p999_us": [
+          217724.0,
+          223268.0,
+          218055.0,
+          228197.0,
+          217795.0
+        ],
+        "p99_us": [
+          216735.0,
+          221514.0,
+          217307.0,
+          225377.0,
+          217014.0
+        ],
+        "total_s": [
+          2.391577,
+          2.228709,
+          2.179242,
+          2.360213,
+          2.194186
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 224.4,
+        "first_piece_p50_us": 39906.0,
+        "first_piece_p99_us": 197160.0,
+        "max_us": 218055.0,
+        "p50_us": 60124.0,
+        "p999_us": 218055.0,
+        "p99_us": 217307.0,
+        "total_s": 2.228709
+      },
+      "min_s": 2.208167408,
+      "name": "claude-code-proxy (1rgs)",
+      "other_cpu_s": 2.3612339999999796,
+      "times_s": [
+        2.421057079,
+        2.257230768,
+        2.208167408,
+        2.389483678,
+        2.223391975
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.51 1.92 0.79 2/284 11119",
+    "before": "4.23 1.96 0.78 1/348 10585"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003636"
+  },
+  "name": "500 streamed calls over 16 connections, the client acknowledging at once, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:30:59Z",
+  "wrong_rounds": 0
+}

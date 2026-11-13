@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+helicone-ai-gateway	main created 2025-07-30T23:09:29.170691412Z (image docker.io/helicone/ai-gateway:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+helicone-ai-gateway, switched on	routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone
+helicone-ai-gateway, kinds of race it wasn't in	messages fallback cache

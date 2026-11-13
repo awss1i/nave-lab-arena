@@ -1,0 +1,67 @@
+{
+  "command": "bin/race run run/gw-nine-router.json --out results/gw-nine-router",
+  "commit": "a8e7871",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nine-router"
+      ],
+      "cpu_s": 0.23380099999999998,
+      "max_rss_mb": 28.640625,
+      "max_s": 6.147360579,
+      "median_s": 6.147360579,
+      "metric_rounds": {
+        "edges_passed": [
+          8.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 8.0,
+        "edges_total": 13.0
+      },
+      "min_s": 6.147360579,
+      "name": "9Router",
+      "other_cpu_s": 1.6461989999999955,
+      "times_s": [
+        6.147360579
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.23 1.22 0.73 1/260 25727",
+    "before": "1.40 1.25 0.73 3/283 25270"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003635"
+  },
+  "name": "the API's edges, 13 checks, 9Router",
+  "output_lines": 14,
+  "outputs_when_wrong": [
+    {
+      "name": "9Router",
+      "ok": true,
+      "output": "FAIL  text with quotes, backslashes, new lines, other scripts and emoji comes back the same (status 503)\nFAIL  a message of one megabyte goes through whole (status 503, 0 characters back)\nFAIL  tools and tool_choice reach the model unchanged (status 503)\nFAIL  an image part reaches the model unchanged (status 200)\npass  temperature, top_p, max_tokens, stop, seed, response_format and user reach the model unchanged\npass  a stream asked for usage ends with it, and its text is whole\npass  a history with a tool call and its result goes through\npass  the model's 400 comes back as a 400\npass  a model",
+      "round": 0,
+      "stderr": "metric edges_passed=8\nmetric edges_total=13\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-13T09:37:27Z",
+  "wrong_rounds": 1
+}

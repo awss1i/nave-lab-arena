@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, keeps exact repeats in a Redis store in the cache race, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.452871,
+      "max_rss_mb": 26.8046875,
+      "max_s": 0.701883035,
+      "median_s": 0.701883035,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.701883035,
+      "name": "Nave",
+      "other_cpu_s": 1.8171289999999818,
+      "times_s": [
+        0.701883035
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "bifrost"
+      ],
+      "cpu_s": 0.609389,
+      "max_rss_mb": 28.3671875,
+      "max_s": 7.542185678,
+      "median_s": 7.542185678,
+      "metric_rounds": {
+        "memory_mb": [
+          412.7
+        ]
+      },
+      "metrics": {
+        "memory_mb": 412.7
+      },
+      "min_s": 7.542185678,
+      "name": "Bifrost",
+      "other_cpu_s": 14.850611000000008,
+      "times_s": [
+        7.542185678
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.00 0.88 0.38 1/268 26858",
+    "before": "2.11 0.82 0.34 1/296 26258"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003640"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T09:31:32Z",
+  "wrong_rounds": 0
+}

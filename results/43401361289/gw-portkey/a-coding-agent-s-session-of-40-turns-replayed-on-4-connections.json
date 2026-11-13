@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-portkey.json --out results/gw-portkey",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Portkey: routes by headers on each call, falls back, takes OpenAI's format. No key check, no request log, no spend",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.743834,
+      "max_rss_mb": 26.48046875,
+      "max_s": 1.345958324,
+      "median_s": 1.319765807,
+      "metric_rounds": {
+        "calls_per_s": [
+          133.6,
+          132.3,
+          129.7
+        ],
+        "first_piece_p50_us": [
+          5907.0,
+          5069.0,
+          5346.0
+        ],
+        "first_piece_p99_us": [
+          14265.0,
+          12491.0,
+          11031.0
+        ],
+        "max_us": [
+          104908.0,
+          96236.0,
+          110154.0
+        ],
+        "p50_us": [
+          23034.0,
+          24111.0,
+          23965.0
+        ],
+        "p999_us": [
+          104908.0,
+          96236.0,
+          110154.0
+        ],
+        "p99_us": [
+          98068.0,
+          90026.0,
+          99553.0
+        ],
+        "total_s": [
+          1.197504,
+          1.209118,
+          1.234033
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 132.3,
+        "first_piece_p50_us": 5346.0,
+        "first_piece_p99_us": 12491.0,
+        "max_us": 104908.0,
+        "p50_us": 23965.0,
+        "p999_us": 104908.0,
+        "p99_us": 98068.0,
+        "total_s": 1.209118
+      },
+      "min_s": 1.303293235,
+      "name": "Nave",
+      "other_cpu_s": 1.9361660000000067,
+      "times_s": [
+        1.303293235,
+        1.319765807,
+        1.345958324
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "portkey",
+        "4"
+      ],
+      "cpu_s": 0.424636,
+      "max_rss_mb": 26.63671875,
+      "max_s": 2.253017564,
+      "median_s": 2.219872256,
+      "metric_rounds": {
+        "calls_per_s": [
+          74.7,
+          76.0,
+          83.1
+        ],
+        "first_piece_p50_us": [
+          45518.0,
+          45627.0,
+          40580.0
+        ],
+        "first_piece_p99_us": [
+          85133.0,
+          74788.0,
+          83214.0
+        ],
+        "max_us": [
+          105934.0,
+          94045.0,
+          97488.0
+        ],
+        "p50_us": [
+          47448.0,
+          47936.0,
+          42306.0
+        ],
+        "p999_us": [
+          105934.0,
+          94045.0,
+          97488.0
+        ],
+        "p99_us": [
+          97678.0,
+          92370.0,
+          88374.0
+        ],
+        "total_s": [
+          2.142561,
+          2.106489,
+          1.92566
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 76.0,
+        "first_piece_p50_us": 45518.0,
+        "first_piece_p99_us": 83214.0,
+        "max_us": 97488.0,
+        "p50_us": 47448.0,
+        "p999_us": 97488.0,
+        "p99_us": 92370.0,
+        "total_s": 2.106489
+      },
+      "min_s": 2.035177098,
+      "name": "Portkey",
+      "other_cpu_s": 3.0253639999999886,
+      "times_s": [
+        2.253017564,
+        2.219872256,
+        2.035177098
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.00 0.66 0.32 1/261 22748",
+    "before": "0.90 0.62 0.31 5/299 22487"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003639"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T09:32:16Z",
+  "wrong_rounds": 0
+}

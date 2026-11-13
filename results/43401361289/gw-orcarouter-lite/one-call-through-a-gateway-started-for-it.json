@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.070551,
+      "max_rss_mb": 26.203125,
+      "max_s": 0.072565688,
+      "median_s": 0.06731934,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          27.0,
+          25.0,
+          24.0,
+          25.0,
+          25.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 25.0
+      },
+      "min_s": 0.065200354,
+      "name": "Nave",
+      "other_cpu_s": 0.0021109999999363305,
+      "times_s": [
+        0.072565688,
+        0.068195876,
+        0.065200354,
+        0.06731934,
+        0.065358532
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "orcarouter-lite"
+      ],
+      "cpu_s": 2.214327,
+      "max_rss_mb": 25.56640625,
+      "max_s": 3.825186052,
+      "median_s": 3.797498964,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          3573.0,
+          3520.0,
+          3484.0,
+          3549.0,
+          3567.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 3549.0
+      },
+      "min_s": 3.7309654869999997,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 3.555672999999982,
+      "times_s": [
+        3.825186052,
+        3.770449458,
+        3.7309654869999997,
+        3.797498964,
+        3.814701211
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.65 1.47 1.04 1/249 27814",
+    "before": "1.59 1.44 1.01 1/250 19225"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003631"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:44:28Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-manifest.json --out results/gw-manifest",
+  "commit": "a8e7871",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "manifest"
+      ],
+      "cpu_s": 0.343564,
+      "max_rss_mb": 28.44921875,
+      "max_s": 2.386047639,
+      "median_s": 2.386047639,
+      "metric_rounds": {
+        "edges_passed": [
+          10.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 10.0,
+        "edges_total": 13.0
+      },
+      "min_s": 2.386047639,
+      "name": "Manifest",
+      "other_cpu_s": 2.8164359999999684,
+      "times_s": [
+        2.386047639
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "4.47 2.99 1.54 1/308 33288",
+    "before": "4.60 2.99 1.53 3/334 32714"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6975P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.82.6",
+    "kernel": "Linux 7.0.0-1016-aws",
+    "memory_gb": 15.0,
+    "runner": "GitHub Actions 1000003629"
+  },
+  "name": "the API's edges, 13 checks, Manifest",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T09:37:14Z",
+  "wrong_rounds": 0
+}

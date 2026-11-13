@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-helicone-ai-gateway.json --out results/gw-helicone-ai-gateway",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Helicone AI Gateway: routes by provider and model, takes OpenAI's format. No key check, no log sent to Helicone",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.6448389999999999,
+      "max_rss_mb": 26.8125,
+      "max_s": 0.649863534,
+      "median_s": 0.649863534,
+      "metric_rounds": {
+        "memory_mb": [
+          0.9
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.9
+      },
+      "min_s": 0.649863534,
+      "name": "Nave",
+      "other_cpu_s": 1.1351610000000012,
+      "times_s": [
+        0.649863534
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "helicone-ai-gateway"
+      ],
+      "cpu_s": 0.531568,
+      "max_rss_mb": 28.484375,
+      "max_s": 2.402307856,
+      "median_s": 2.402307856,
+      "metric_rounds": {
+        "memory_mb": [
+          37.1
+        ]
+      },
+      "metrics": {
+        "memory_mb": 37.1
+      },
+      "min_s": 2.402307856,
+      "name": "Helicone AI Gateway",
+      "other_cpu_s": 3.0284320000000022,
+      "times_s": [
+        2.402307856
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "6.52 1.64 0.58 1/269 22465",
+    "before": "0.91 0.47 0.20 1/287 21839"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003632"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T09:31:12Z",
+  "wrong_rounds": 0
+}

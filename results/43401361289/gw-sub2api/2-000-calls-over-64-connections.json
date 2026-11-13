@@ -1,0 +1,184 @@
+{
+  "command": "bin/race run run/gw-sub2api.json --out results/gw-sub2api",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in sub2api: routes by group to upstream accounts, takes OpenAI's format and sends it on as a Responses call, checks the caller's key, counts usage and quota in PostgreSQL. Simple mode, as its docs give for one owner, with the owner's limit on open calls raised and its one account put back in service at every start",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.088752,
+      "max_rss_mb": 26.3828125,
+      "max_s": 0.104561879,
+      "median_s": 0.089826859,
+      "metric_rounds": {
+        "calls_per_s": [
+          33811.2,
+          27992.1,
+          30763.9,
+          33040.0,
+          32097.2
+        ],
+        "max_us": [
+          12300.0,
+          12060.0,
+          8592.0,
+          12431.0,
+          9955.0
+        ],
+        "p50_us": [
+          1429.0,
+          1457.0,
+          1221.0,
+          1483.0,
+          1460.0
+        ],
+        "p999_us": [
+          6162.0,
+          9220.0,
+          7916.0,
+          6644.0,
+          9470.0
+        ],
+        "p99_us": [
+          4470.0,
+          7103.0,
+          5608.0,
+          3814.0,
+          6361.0
+        ],
+        "total_s": [
+          0.059319,
+          0.071625,
+          0.06517,
+          0.060675,
+          0.062506
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 32097.2,
+        "max_us": 12060.0,
+        "p50_us": 1457.0,
+        "p999_us": 7916.0,
+        "p99_us": 5608.0,
+        "total_s": 0.062506
+      },
+      "min_s": 0.087529672,
+      "name": "Nave",
+      "other_cpu_s": 0.13305499999999887,
+      "times_s": [
+        0.087529672,
+        0.104561879,
+        0.093527953,
+        0.088390002,
+        0.089826859
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "sub2api",
+        "--calls",
+        "2000",
+        "--conns",
+        "64"
+      ],
+      "cpu_s": 0.135437,
+      "max_rss_mb": 26.4140625,
+      "max_s": 3.8856954740000003,
+      "median_s": 3.667017787,
+      "metric_rounds": {
+        "calls_per_s": [
+          550.7,
+          550.1,
+          549.8,
+          561.4,
+          518.7
+        ],
+        "max_us": [
+          230182.0,
+          213634.0,
+          222361.0,
+          256282.0,
+          249928.0
+        ],
+        "p50_us": [
+          111556.0,
+          113092.0,
+          114897.0,
+          111175.0,
+          118605.0
+        ],
+        "p999_us": [
+          219388.0,
+          211431.0,
+          221992.0,
+          209070.0,
+          237864.0
+        ],
+        "p99_us": [
+          196187.0,
+          193487.0,
+          192269.0,
+          192571.0,
+          215063.0
+        ],
+        "total_s": [
+          3.631868,
+          3.635566,
+          3.637686,
+          3.562823,
+          3.856121
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 550.1,
+        "max_us": 230182.0,
+        "p50_us": 113092.0,
+        "p999_us": 219388.0,
+        "p99_us": 193487.0,
+        "total_s": 3.635566
+      },
+      "min_s": 3.592155434,
+      "name": "sub2api",
+      "other_cpu_s": 8.323667999999994,
+      "times_s": [
+        3.6616232269999998,
+        3.667017787,
+        3.670950448,
+        3.592155434,
+        3.8856954740000003
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.13 0.81 0.28 1/299 4797",
+    "before": "0.97 0.24 0.08 2/333 3545"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003630"
+  },
+  "name": "2,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:27:32Z",
+  "wrong_rounds": 0
+}

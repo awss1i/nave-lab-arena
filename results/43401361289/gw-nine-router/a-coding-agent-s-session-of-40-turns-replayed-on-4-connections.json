@@ -1,0 +1,91 @@
+{
+  "command": "bin/race run run/gw-nine-router.json --out results/gw-nine-router",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in 9Router: routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps its settings and usage in a data folder",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "9Router",
+      "got": "ok 112",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 160"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nine-router",
+        "4"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "9Router",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.59 1.20 0.63 1/260 22411",
+    "before": "1.78 1.20 0.62 7/288 22283"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003635"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 160\nbad 0\nchecksum fbc0ef50a26eddbc\n",
+      "stderr": "metric calls_per_s=212.3\nmetric p50_us=15446\nmetric p99_us=54526\nmetric p999_us=54823\nmetric max_us=54823\nmetric first_piece_p50_us=4440\nmetric first_piece_p99_us=11544\nmetric total_s=0.753965\n"
+    },
+    {
+      "name": "9Router",
+      "ok": false,
+      "output": "ok 112\nbad 48\nchecksum e7afa0722a8439fc\n",
+      "stderr": "wrong answer to call 8: HTTP/1.1 200 OK / data: {\"choices\":[{\"delta\":{\"content\":\"\",\"role\":\"assistant\"},\"finish_reason\":null,\"index\":0}],\"created\":1794562488,\"id\":\"chatcmpl-standin\",\"model\":\"mock\",\"object\":\"chat.completion.chunk\"}  data: {\"choices\":[{\"delta\":{\"content\":\"echo: client\nwrong answer to call 9: HTTP/1.1 200 OK / data: {\"choices\":[{\"delta\":{\"content\":\"\",\"role\":\"assistant\"},\"finish_reason\":null,\"index\":0}],\"created\":1794562488,\"id\":\"chatcmpl-standin\",\"model\":\"mock\",\"object\":\"chat.completion.chunk\"}  data: {\"choices\":[{\"delta\":{\"content\":\"echo: client\nwrong answer to call 10: HTTP/1.1 "
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-13T09:35:05Z",
+  "wrong_rounds": 0
+}

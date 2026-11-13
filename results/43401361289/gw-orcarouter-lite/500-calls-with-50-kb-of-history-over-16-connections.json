@@ -1,0 +1,188 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.10258400000000001,
+      "max_rss_mb": 25.66015625,
+      "max_s": 0.10162284,
+      "median_s": 0.099566224,
+      "metric_rounds": {
+        "calls_per_s": [
+          6923.5,
+          6824.8,
+          7072.6,
+          6921.6,
+          7113.3
+        ],
+        "max_us": [
+          6362.0,
+          5796.0,
+          6370.0,
+          5282.0,
+          5295.0
+        ],
+        "p50_us": [
+          1929.0,
+          1916.0,
+          1853.0,
+          1907.0,
+          1881.0
+        ],
+        "p999_us": [
+          6362.0,
+          5796.0,
+          6370.0,
+          5282.0,
+          5295.0
+        ],
+        "p99_us": [
+          4841.0,
+          4732.0,
+          4932.0,
+          4619.0,
+          4476.0
+        ],
+        "total_s": [
+          0.072349,
+          0.073397,
+          0.070856,
+          0.072411,
+          0.070437
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 6923.5,
+        "max_us": 5796.0,
+        "p50_us": 1907.0,
+        "p999_us": 5796.0,
+        "p99_us": 4732.0,
+        "total_s": 0.072349
+      },
+      "min_s": 0.098179758,
+      "name": "Nave",
+      "other_cpu_s": 0.07825500000000682,
+      "times_s": [
+        0.099566224,
+        0.100503309,
+        0.099298764,
+        0.10162284,
+        0.098179758
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "orcarouter-lite",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--history",
+        "50000"
+      ],
+      "cpu_s": 0.111246,
+      "max_rss_mb": 26.6484375,
+      "max_s": 5.59549223,
+      "median_s": 5.519840806,
+      "metric_rounds": {
+        "calls_per_s": [
+          91.1,
+          94.0,
+          90.9,
+          92.1,
+          89.9
+        ],
+        "max_us": [
+          2198905.0,
+          2661353.0,
+          1865561.0,
+          2161991.0,
+          2476052.0
+        ],
+        "p50_us": [
+          55637.0,
+          58356.0,
+          57703.0,
+          56916.0,
+          57235.0
+        ],
+        "p999_us": [
+          2198905.0,
+          2661353.0,
+          1865561.0,
+          2161991.0,
+          2476052.0
+        ],
+        "p99_us": [
+          1487933.0,
+          1200915.0,
+          1291172.0,
+          1395290.0,
+          2040358.0
+        ],
+        "total_s": [
+          5.491135,
+          5.321034,
+          5.502301,
+          5.430226,
+          5.564447
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 91.1,
+        "max_us": 2198905.0,
+        "p50_us": 57235.0,
+        "p999_us": 2198905.0,
+        "p99_us": 1395290.0,
+        "total_s": 5.491135
+      },
+      "min_s": 5.352126169,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 6.627050000000009,
+      "times_s": [
+        5.519840806,
+        5.352126169,
+        5.532358712,
+        5.461743773,
+        5.59549223
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.46 0.78 0.32 1/256 5435",
+    "before": "1.43 0.68 0.27 1/268 4843"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003631"
+  },
+  "name": "500 calls with 50 KB of history over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:29:50Z",
+  "wrong_rounds": 0
+}

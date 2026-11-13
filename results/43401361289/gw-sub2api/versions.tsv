@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, AMD EPYC 9V74 80-Core Processor
+nave	prototype P006, 1a772dff36bf
+sub2api	0.2.21 created 2026-11-11T02:20:45.362293683Z (image docker.io/weishaw/sub2api:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+sub2api, switched on	routes by group to upstream accounts, takes OpenAI's format and sends it on as a Responses call, checks the caller's key, counts usage and quota in PostgreSQL. Simple mode, as its docs give for one owner, with the owner's limit on open calls raised and its one account put back in service at every start
+sub2api, kinds of race it wasn't in	messages fallback cache

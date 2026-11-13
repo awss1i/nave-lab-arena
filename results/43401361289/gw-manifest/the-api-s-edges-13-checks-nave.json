@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-manifest.json --out results/gw-manifest",
+  "commit": "a8e7871",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.16901300000000002,
+      "max_rss_mb": 26.19921875,
+      "max_s": 0.369886015,
+      "median_s": 0.369886015,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.369886015,
+      "name": "Nave",
+      "other_cpu_s": 0.4109870000000409,
+      "times_s": [
+        0.369886015
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "4.60 2.99 1.53 3/309 32505",
+    "before": "4.65 2.97 1.52 2/313 32298"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6975P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.82.6",
+    "kernel": "Linux 7.0.0-1016-aws",
+    "memory_gb": 15.0,
+    "runner": "GitHub Actions 1000003629"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T09:37:07Z",
+  "wrong_rounds": 0
+}

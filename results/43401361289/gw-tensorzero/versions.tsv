@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1016-aws, Intel(R) Xeon(R) 6975P-C
+nave	prototype P006, 1a772dff36bf
+tensorzero	2026.6.0 created 2026-06-04T15:34:33.647965324Z (image docker.io/tensorzero/gateway:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+tensorzero, switched on	routes by model, takes OpenAI's format. No key check, observability off
+tensorzero, kinds of race it wasn't in	messages fallback cache

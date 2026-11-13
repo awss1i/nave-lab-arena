@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1016-aws, Intel(R) Xeon(R) 6975P-C
+nave	prototype P006, 1a772dff36bf
+manifest	main created 2026-11-09T08:13:02.313521609Z (image docker.io/manifestdotbuild/manifest:latest)
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+manifest, switched on	routes by model or by its own tiers, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, logs every call and its cost to PostgreSQL. Its limits on calls a minute and calls at once are raised out of the way
+manifest, kinds of race it wasn't in	cache

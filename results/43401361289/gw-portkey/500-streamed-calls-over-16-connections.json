@@ -1,0 +1,218 @@
+{
+  "command": "bin/race run run/gw-portkey.json --out results/gw-portkey",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, OpenAI's format in and out. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Portkey: routes by headers on each call, falls back, takes OpenAI's format. No key check, no request log, no spend",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "nave",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.084179,
+      "max_rss_mb": 26.67578125,
+      "max_s": 0.103392415,
+      "median_s": 0.095592931,
+      "metric_rounds": {
+        "calls_per_s": [
+          8091.6,
+          7568.8,
+          8782.9,
+          8549.0,
+          8315.5
+        ],
+        "first_piece_p50_us": [
+          1614.0,
+          1657.0,
+          1554.0,
+          1551.0,
+          1556.0
+        ],
+        "first_piece_p99_us": [
+          4839.0,
+          4602.0,
+          2861.0,
+          3918.0,
+          4556.0
+        ],
+        "max_us": [
+          6938.0,
+          7574.0,
+          6129.0,
+          6297.0,
+          6329.0
+        ],
+        "p50_us": [
+          1663.0,
+          1727.0,
+          1598.0,
+          1608.0,
+          1606.0
+        ],
+        "p999_us": [
+          6938.0,
+          7574.0,
+          6129.0,
+          6297.0,
+          6329.0
+        ],
+        "p99_us": [
+          5363.0,
+          4778.0,
+          5177.0,
+          3920.0,
+          5632.0
+        ],
+        "total_s": [
+          0.062018,
+          0.066235,
+          0.057099,
+          0.058678,
+          0.060303
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 8315.5,
+        "first_piece_p50_us": 1556.0,
+        "first_piece_p99_us": 4556.0,
+        "max_us": 6329.0,
+        "p50_us": 1608.0,
+        "p999_us": 6329.0,
+        "p99_us": 5177.0,
+        "total_s": 0.060303
+      },
+      "min_s": 0.09283292,
+      "name": "Nave",
+      "other_cpu_s": 0.10635199999999773,
+      "times_s": [
+        0.100550853,
+        0.103392415,
+        0.093410986,
+        0.09283292,
+        0.095592931
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "load",
+        "portkey",
+        "--calls",
+        "500",
+        "--conns",
+        "16",
+        "--stream"
+      ],
+      "cpu_s": 0.089652,
+      "max_rss_mb": 26.44921875,
+      "max_s": 1.30298929,
+      "median_s": 1.083430959,
+      "metric_rounds": {
+        "calls_per_s": [
+          395.2,
+          461.2,
+          483.9,
+          524.9,
+          511.5
+        ],
+        "first_piece_p50_us": [
+          37881.0,
+          32972.0,
+          29948.0,
+          29384.0,
+          29628.0
+        ],
+        "first_piece_p99_us": [
+          83197.0,
+          55579.0,
+          66285.0,
+          41309.0,
+          43520.0
+        ],
+        "max_us": [
+          102267.0,
+          63234.0,
+          81244.0,
+          45464.0,
+          48746.0
+        ],
+        "p50_us": [
+          37925.0,
+          33023.0,
+          29983.0,
+          29425.0,
+          29668.0
+        ],
+        "p999_us": [
+          102267.0,
+          63234.0,
+          81244.0,
+          45464.0,
+          48746.0
+        ],
+        "p99_us": [
+          83253.0,
+          55622.0,
+          66320.0,
+          41348.0,
+          43654.0
+        ],
+        "total_s": [
+          1.265558,
+          1.084429,
+          1.033378,
+          0.952796,
+          0.977648
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 483.9,
+        "first_piece_p50_us": 29948.0,
+        "first_piece_p99_us": 55579.0,
+        "max_us": 63234.0,
+        "p50_us": 29983.0,
+        "p999_us": 63234.0,
+        "p99_us": 55622.0,
+        "total_s": 1.033378
+      },
+      "min_s": 0.993668943,
+      "name": "Portkey",
+      "other_cpu_s": 1.410348,
+      "times_s": [
+        1.30298929,
+        1.125298972,
+        1.083430959,
+        0.993668943,
+        1.018577477
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.39 0.49 0.18 1/267 6000",
+    "before": "1.25 0.44 0.16 3/302 5470"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003639"
+  },
+  "name": "500 streamed calls over 16 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:27:34Z",
+  "wrong_rounds": 0
+}

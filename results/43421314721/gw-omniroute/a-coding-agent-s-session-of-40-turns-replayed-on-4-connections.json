@@ -1,0 +1,146 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "cb7be28",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OmniRoute: routes by provider and model, falls back through a combo, keeps answers to calls sent with temperature 0, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.707193,
+      "max_rss_mb": 24.84765625,
+      "max_s": 1.245656357,
+      "median_s": 1.245656357,
+      "metric_rounds": {
+        "calls_per_s": [
+          140.9
+        ],
+        "first_piece_p50_us": [
+          5751.0
+        ],
+        "first_piece_p99_us": [
+          16039.0
+        ],
+        "max_us": [
+          93490.0
+        ],
+        "p50_us": [
+          22412.0
+        ],
+        "p999_us": [
+          93490.0
+        ],
+        "p99_us": [
+          92679.0
+        ],
+        "total_s": [
+          1.135601
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 140.9,
+        "first_piece_p50_us": 5751.0,
+        "first_piece_p99_us": 16039.0,
+        "max_us": 93490.0,
+        "p50_us": 22412.0,
+        "p999_us": 93490.0,
+        "p99_us": 92679.0,
+        "total_s": 1.135601
+      },
+      "min_s": 1.245656357,
+      "name": "Nave",
+      "other_cpu_s": 1.8928070000000228,
+      "times_s": [
+        1.245656357
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "omniroute",
+        "4"
+      ],
+      "cpu_s": 0.196153,
+      "max_rss_mb": 26.1015625,
+      "max_s": 4.851678322,
+      "median_s": 4.851678322,
+      "metric_rounds": {
+        "calls_per_s": [
+          33.8
+        ],
+        "first_piece_p50_us": [
+          94954.0
+        ],
+        "first_piece_p99_us": [
+          291063.0
+        ],
+        "max_us": [
+          360866.0
+        ],
+        "p50_us": [
+          94957.0
+        ],
+        "p999_us": [
+          360866.0
+        ],
+        "p99_us": [
+          291065.0
+        ],
+        "total_s": [
+          4.735003
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 33.8,
+        "first_piece_p50_us": 94954.0,
+        "first_piece_p99_us": 291063.0,
+        "max_us": 360866.0,
+        "p50_us": 94957.0,
+        "p999_us": 360866.0,
+        "p99_us": 291065.0,
+        "total_s": 4.735003
+      },
+      "min_s": 4.851678322,
+      "name": "OmniRoute",
+      "other_cpu_s": 5.903846999999909,
+      "times_s": [
+        4.851678322
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.77 1.26 0.83 1/266 35429",
+    "before": "1.25 1.11 0.77 6/299 35074"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003643"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "OmniRoute",
+      "ok": false,
+      "output": "ok 4\nbad 156\nchecksum 472608611f5fe75c\n",
+      "round": 0,
+      "stderr": "wrong answer to call 4: HTTP/1.1 200 OK / data: {\"id\":\"chatcmpl-omniroute-sse\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"},\"finish_reason\":null}]}  data: {\"id\":\"chatcmpl-omniroute-sse\",\"object\":\"chat.completion.chunk\",\"\nwrong answer to call 8: HTTP/1.1 200 OK / data: {\"id\":\"chatcmpl-omniroute-sse\",\"object\":\"chat.completion.chunk\",\"created\":0,\"model\":\"\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"},\"finish_reason\":null}]}  data: {\"id\":\"chatcmpl-omniroute-sse\",\"object\":\"chat.completion.chunk\",\"\nwrong answer to call 5: HTTP/1.1 2"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-13T12:11:59Z",
+  "wrong_rounds": 1
+}

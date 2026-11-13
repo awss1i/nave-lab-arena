@@ -1,0 +1,6 @@
+runner	4 CPUs, 16 GB, Linux 7.0.0-1019-azure, INTEL(R) XEON(R) PLATINUM 8573C
+nave	prototype P006, 1a772dff36bf
+orcarouter-lite	0.1.0 at 4cacea8, with LiteLLM 1.109.1
+nave, switched on	routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits
+orcarouter-lite, switched on	routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite
+orcarouter-lite, kinds of race it wasn't in	fallback cache

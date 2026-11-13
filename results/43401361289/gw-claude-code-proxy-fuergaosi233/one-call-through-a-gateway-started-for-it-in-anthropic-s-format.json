@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-claude-code-proxy-fuergaosi233.json --out results/gw-claude-code-proxy-fuergaosi233",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in claude-code-proxy (fuergaosi233): takes Anthropic's format and sends OpenAI's upstream. No key check",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.07805100000000001,
+      "max_rss_mb": 25.91796875,
+      "max_s": 0.076595432,
+      "median_s": 0.075525559,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          28.0,
+          28.0,
+          28.0,
+          29.0,
+          29.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 28.0
+      },
+      "min_s": 0.073451003,
+      "name": "Nave",
+      "other_cpu_s": 0.003220999999984084,
+      "times_s": [
+        0.073451003,
+        0.075525559,
+        0.073949862,
+        0.076595432,
+        0.076279556
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "claude-code-proxy-fuergaosi233"
+      ],
+      "cpu_s": 0.448571,
+      "max_rss_mb": 26.3046875,
+      "max_s": 0.81621973,
+      "median_s": 0.791861279,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          531.0,
+          562.0,
+          554.0,
+          538.0,
+          534.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 538.0
+      },
+      "min_s": 0.783134195,
+      "name": "claude-code-proxy (fuergaosi233)",
+      "other_cpu_s": 0.5314289999999897,
+      "times_s": [
+        0.783134195,
+        0.81621973,
+        0.807045299,
+        0.791861279,
+        0.787064626
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "0.87 0.53 0.25 1/255 18968",
+    "before": "0.86 0.52 0.25 1/257 17130"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003634"
+  },
+  "name": "one call through a gateway started for it, in Anthropic's format",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:32:10Z",
+  "wrong_rounds": 0
+}

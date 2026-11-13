@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-tensorzero.json --out results/gw-tensorzero",
+  "commit": "a8e7871",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "nave"
+      ],
+      "cpu_s": 0.156462,
+      "max_rss_mb": 26.9140625,
+      "max_s": 0.35338521,
+      "median_s": 0.35338521,
+      "metric_rounds": {
+        "edges_passed": [
+          13.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 13.0,
+        "edges_total": 13.0
+      },
+      "min_s": 0.35338521,
+      "name": "Nave",
+      "other_cpu_s": 0.013538000000001715,
+      "times_s": [
+        0.35338521
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "0.30 0.62 0.35 1/290 19669",
+    "before": "0.30 0.62 0.35 1/294 19461"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6975P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.82.6",
+    "kernel": "Linux 7.0.0-1016-aws",
+    "memory_gb": 15.0,
+    "runner": "GitHub Actions 1000003638"
+  },
+  "name": "the API's edges, 13 checks, Nave",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T09:32:36Z",
+  "wrong_rounds": 0
+}

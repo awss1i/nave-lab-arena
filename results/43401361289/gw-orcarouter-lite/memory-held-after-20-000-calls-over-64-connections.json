@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "nave"
+      ],
+      "cpu_s": 0.642393,
+      "max_rss_mb": 26.90625,
+      "max_s": 0.736039253,
+      "median_s": 0.736039253,
+      "metric_rounds": {
+        "memory_mb": [
+          0.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 0.8
+      },
+      "min_s": 0.736039253,
+      "name": "Nave",
+      "other_cpu_s": 1.1676069999999454,
+      "times_s": [
+        0.736039253
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "memory",
+        "orcarouter-lite"
+      ],
+      "cpu_s": 0.973298,
+      "max_rss_mb": 26.109375,
+      "max_s": 191.133763948,
+      "median_s": 191.133763948,
+      "metric_rounds": {
+        "memory_mb": [
+          374.8
+        ]
+      },
+      "metrics": {
+        "memory_mb": 374.8
+      },
+      "min_s": 191.133763948,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 206.39670200000012,
+      "times_s": [
+        191.133763948
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.72 2.06 1.47 1/248 28624",
+    "before": "1.60 1.46 1.04 1/260 27955"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003631"
+  },
+  "name": "memory held after 20,000 calls over 64 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T09:50:52Z",
+  "wrong_rounds": 0
+}

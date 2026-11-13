@@ -1,0 +1,80 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "cb7be28",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OmniRoute: routes by provider and model, falls back through a combo, keeps answers to calls sent with temperature 0, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.096332,
+      "max_rss_mb": 26.72265625,
+      "max_s": 0.092253469,
+      "median_s": 0.092253469,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          33.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 33.0
+      },
+      "min_s": 0.092253469,
+      "name": "Nave",
+      "other_cpu_s": 0.0036680000000227364,
+      "times_s": [
+        0.092253469
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "omniroute"
+      ],
+      "cpu_s": 0.434955,
+      "max_rss_mb": 28.59375,
+      "max_s": 5.640176408,
+      "median_s": 5.640176408,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          5456.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 5456.0
+      },
+      "min_s": 5.640176408,
+      "name": "OmniRoute",
+      "other_cpu_s": 7.0750449999999905,
+      "times_s": [
+        5.640176408
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.84 1.34 0.88 1/265 36742",
+    "before": "1.77 1.30 0.86 1/268 35927"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003643"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T12:12:50Z",
+  "wrong_rounds": 0
+}

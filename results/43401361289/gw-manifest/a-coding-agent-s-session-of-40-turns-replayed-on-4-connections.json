@@ -1,0 +1,174 @@
+{
+  "command": "bin/race run run/gw-manifest.json --out results/gw-manifest",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, every turn streamed, with 30 tools and a history that grows from 26 KB to 108 KB. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Manifest: routes by model or by its own tiers, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key, logs every call and its cost to PostgreSQL. Its limits on calls a minute and calls at once are raised out of the way",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "nave",
+        "4"
+      ],
+      "cpu_s": 0.39822100000000005,
+      "max_rss_mb": 26.359375,
+      "max_s": 0.760255495,
+      "median_s": 0.750528378,
+      "metric_rounds": {
+        "calls_per_s": [
+          241.8,
+          248.2,
+          244.0
+        ],
+        "first_piece_p50_us": [
+          3988.0,
+          3594.0,
+          3826.0
+        ],
+        "first_piece_p99_us": [
+          12621.0,
+          12288.0,
+          13233.0
+        ],
+        "max_us": [
+          55930.0,
+          53583.0,
+          53695.0
+        ],
+        "p50_us": [
+          12096.0,
+          12963.0,
+          11980.0
+        ],
+        "p999_us": [
+          55930.0,
+          53583.0,
+          53695.0
+        ],
+        "p99_us": [
+          55349.0,
+          52169.0,
+          51941.0
+        ],
+        "total_s": [
+          0.661926,
+          0.644762,
+          0.655849
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 244.0,
+        "first_piece_p50_us": 3826.0,
+        "first_piece_p99_us": 12621.0,
+        "max_us": 53695.0,
+        "p50_us": 12096.0,
+        "p999_us": 53695.0,
+        "p99_us": 52169.0,
+        "total_s": 0.655849
+      },
+      "min_s": 0.741114341,
+      "name": "Nave",
+      "other_cpu_s": 1.001779000000091,
+      "times_s": [
+        0.760255495,
+        0.741114341,
+        0.750528378
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "replay",
+        "manifest",
+        "4"
+      ],
+      "cpu_s": 0.302599,
+      "max_rss_mb": 26.78515625,
+      "max_s": 1.661180798,
+      "median_s": 1.5967094899999998,
+      "metric_rounds": {
+        "calls_per_s": [
+          102.5,
+          107.1,
+          108.4
+        ],
+        "first_piece_p50_us": [
+          31287.0,
+          29074.0,
+          29469.0
+        ],
+        "first_piece_p99_us": [
+          105603.0,
+          116184.0,
+          85078.0
+        ],
+        "max_us": [
+          114015.0,
+          120123.0,
+          90884.0
+        ],
+        "p50_us": [
+          35494.0,
+          33226.0,
+          33640.0
+        ],
+        "p999_us": [
+          114015.0,
+          120123.0,
+          90884.0
+        ],
+        "p99_us": [
+          112326.0,
+          116200.0,
+          85114.0
+        ],
+        "total_s": [
+          1.561861,
+          1.494519,
+          1.475793
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 107.1,
+        "first_piece_p50_us": 29469.0,
+        "first_piece_p99_us": 105603.0,
+        "max_us": 114015.0,
+        "p50_us": 33640.0,
+        "p999_us": 114015.0,
+        "p99_us": 112326.0,
+        "total_s": 1.494519
+      },
+      "min_s": 1.5745023169999999,
+      "name": "Manifest",
+      "other_cpu_s": 3.217400999999982,
+      "times_s": [
+        1.661180798,
+        1.5967094899999998,
+        1.5745023169999999
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "3.73 2.24 1.11 2/308 25349",
+    "before": "3.67 2.18 1.07 2/338 25058"
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6975P-C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.82.6",
+    "kernel": "Linux 7.0.0-1016-aws",
+    "memory_gb": 15.0,
+    "runner": "GitHub Actions 1000003629"
+  },
+  "name": "a coding agent's session of 40 turns, replayed on 4 connections",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T09:34:56Z",
+  "wrong_rounds": 0
+}

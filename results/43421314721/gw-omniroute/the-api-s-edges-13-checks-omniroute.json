@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-omniroute.json --out results/gw-omniroute",
+  "commit": "cb7be28",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "omniroute"
+      ],
+      "cpu_s": 0.346286,
+      "max_rss_mb": 28.48828125,
+      "max_s": 29.02996232,
+      "median_s": 29.02996232,
+      "metric_rounds": {
+        "edges_passed": [
+          11.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 11.0,
+        "edges_total": 13.0
+      },
+      "min_s": 29.02996232,
+      "name": "OmniRoute",
+      "other_cpu_s": 10.5437140000001,
+      "times_s": [
+        29.02996232
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "1.16 1.30 0.97 1/266 42636",
+    "before": "1.35 1.31 0.95 6/296 42051"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003643"
+  },
+  "name": "the API's edges, 13 checks, OmniRoute",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T12:16:33Z",
+  "wrong_rounds": 0
+}

@@ -1,0 +1,93 @@
+{
+  "command": "bin/race run run/gw-sub2api.json --out results/gw-sub2api",
+  "commit": "298d16f",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in sub2api: routes by group to upstream accounts, takes OpenAI's format and sends it on as a Responses call, checks the caller's key, counts usage and quota in PostgreSQL. Simple mode, as its docs give for one owner",
+  "correct": false,
+  "differences": [
+    {
+      "against": "Nave",
+      "entrant": "sub2api",
+      "got": "ok 100",
+      "lengths": [
+        3,
+        3
+      ],
+      "line": 0,
+      "wanted": "ok 1000"
+    }
+  ],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "Nave",
+      "other_cpu_s": null,
+      "times_s": []
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "sub2api",
+        "500",
+        "1000"
+      ],
+      "cpu_s": null,
+      "max_rss_mb": null,
+      "max_s": null,
+      "median_s": null,
+      "metric_rounds": {},
+      "metrics": {},
+      "min_s": null,
+      "name": "sub2api",
+      "other_cpu_s": null,
+      "times_s": []
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.19 0.88 0.40 1/305 10566",
+    "before": "1.40 0.91 0.40 3/340 8777"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003627"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [
+    {
+      "name": "Nave",
+      "ok": true,
+      "output": "ok 1000\nbad 0\nchecksum e39e842f12c8aa34\n",
+      "stderr": "metric calls_per_s=931.0\nmetric p50_us=501678\nmetric p99_us=519556\nmetric p999_us=523573\nmetric max_us=523573\nmetric total_s=1.074249\nmetric memory_open_mb=8.5\nmetric kb_per_open_call=16.0\n"
+    },
+    {
+      "name": "sub2api",
+      "ok": false,
+      "output": "ok 100\nbad 900\nchecksum 1f3d9799204975bd\n",
+      "stderr": "wrong answer to call 215: HTTP/1.1 429 Too Many Requests / {\"error\":{\"code\":\"gateway_queue_full\",\"message\":\"Too many pending requests, please retry later\",\"type\":\"rate_limit_error\"}}\nwrong answer to call 217: HTTP/1.1 429 Too Many Requests / {\"error\":{\"code\":\"gateway_queue_full\",\"message\":\"Too many pending requests, please retry later\",\"type\":\"rate_limit_error\"}}\nwrong answer to call 218: HTTP/1.1 429 Too Many Requests / {\"error\":{\"code\":\"gateway_queue_full\",\"message\":\"Too many pending requests, please retry later\",\"type\":\"rate_limit_error\"}}\nmetric calls_per_s=308.1\nmetric p50_us=157493\nmetri"
+    }
+  ],
+  "rounds": 3,
+  "time": "2026-11-13T09:21:45Z",
+  "wrong_rounds": 0
+}

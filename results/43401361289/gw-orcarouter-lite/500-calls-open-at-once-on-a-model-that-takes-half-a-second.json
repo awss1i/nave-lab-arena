@@ -1,0 +1,176 @@
+{
+  "command": "bin/race run run/gw-orcarouter-lite.json --out results/gw-orcarouter-lite",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, 1,000 calls over 500 connections, the memory read one second in. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in OrcaRouter Lite: routes a catalog model to its provider through LiteLLM's router, takes OpenAI's and Anthropic's formats, checks the caller's key, keeps usage in SQLite",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "nave",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.194619,
+      "max_rss_mb": 37.7578125,
+      "max_s": 1.114748554,
+      "median_s": 1.111166306,
+      "metric_rounds": {
+        "calls_per_s": [
+          948.4,
+          945.7,
+          946.6
+        ],
+        "kb_per_open_call": [
+          17.4,
+          12.3,
+          11.9
+        ],
+        "max_us": [
+          501922.0,
+          503864.0,
+          504096.0
+        ],
+        "memory_open_mb": [
+          9.6,
+          7.2,
+          7.0
+        ],
+        "p50_us": [
+          500193.0,
+          500210.0,
+          500222.0
+        ],
+        "p999_us": [
+          501922.0,
+          503864.0,
+          504096.0
+        ],
+        "p99_us": [
+          501260.0,
+          502270.0,
+          502418.0
+        ],
+        "total_s": [
+          1.054598,
+          1.057537,
+          1.056564
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 946.6,
+        "kb_per_open_call": 12.3,
+        "max_us": 503864.0,
+        "memory_open_mb": 7.2,
+        "p50_us": 500210.0,
+        "p999_us": 503864.0,
+        "p99_us": 502270.0,
+        "total_s": 1.056564
+      },
+      "min_s": 1.109731507,
+      "name": "Nave",
+      "other_cpu_s": 0.13538100000004094,
+      "times_s": [
+        1.114748554,
+        1.111166306,
+        1.109731507
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "open",
+        "orcarouter-lite",
+        "500",
+        "1000"
+      ],
+      "cpu_s": 0.185626,
+      "max_rss_mb": 37.8515625,
+      "max_s": 10.463174589,
+      "median_s": 10.338665705,
+      "metric_rounds": {
+        "calls_per_s": [
+          96.1,
+          97.3,
+          97.8
+        ],
+        "kb_per_open_call": [
+          4.1,
+          4.3,
+          4.3
+        ],
+        "max_us": [
+          9813700.0,
+          9502759.0,
+          8816099.0
+        ],
+        "memory_open_mb": [
+          408.0,
+          408.2,
+          408.4
+        ],
+        "p50_us": [
+          4515976.0,
+          4508305.0,
+          4539010.0
+        ],
+        "p999_us": [
+          9813700.0,
+          9502759.0,
+          8816099.0
+        ],
+        "p99_us": [
+          8498510.0,
+          8402568.0,
+          8372195.0
+        ],
+        "total_s": [
+          10.407289,
+          10.281605,
+          10.223259
+        ]
+      },
+      "metrics": {
+        "calls_per_s": 97.3,
+        "kb_per_open_call": 4.3,
+        "max_us": 9502759.0,
+        "memory_open_mb": 408.2,
+        "p50_us": 4515976.0,
+        "p999_us": 9502759.0,
+        "p99_us": 8402568.0,
+        "total_s": 10.281605
+      },
+      "min_s": 10.279989129,
+      "name": "OrcaRouter Lite",
+      "other_cpu_s": 10.604374000000078,
+      "times_s": [
+        10.463174589,
+        10.338665705,
+        10.279989129
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "1.56 1.38 0.89 1/250 17399",
+    "before": "1.42 1.26 0.82 1/263 12148"
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003631"
+  },
+  "name": "500 calls open at once on a model that takes half a second",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 3,
+  "time": "2026-11-13T09:40:36Z",
+  "wrong_rounds": 0
+}

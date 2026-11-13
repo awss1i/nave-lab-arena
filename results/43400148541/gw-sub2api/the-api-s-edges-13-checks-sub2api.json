@@ -1,0 +1,67 @@
+{
+  "command": "bin/race run run/gw-sub2api.json --out results/gw-sub2api",
+  "commit": "298d16f",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": false,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "sub2api"
+      ],
+      "cpu_s": 0.28017400000000003,
+      "max_rss_mb": 28.47265625,
+      "max_s": 1.101265116,
+      "median_s": 1.101265116,
+      "metric_rounds": {
+        "edges_passed": [
+          1.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 1.0,
+        "edges_total": 13.0
+      },
+      "min_s": 1.101265116,
+      "name": "sub2api",
+      "other_cpu_s": 0.7698259999999829,
+      "times_s": [
+        1.101265116
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "4.28 1.81 0.74 1/306 15099",
+    "before": "4.28 1.81 0.74 3/339 14602"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003627"
+  },
+  "name": "the API's edges, 13 checks, sub2api",
+  "output_lines": 14,
+  "outputs_when_wrong": [
+    {
+      "name": "sub2api",
+      "ok": true,
+      "output": "FAIL  text with quotes, backslashes, new lines, other scripts and emoji comes back the same (status 503)\nFAIL  a message of one megabyte goes through whole (status 503, 0 characters back)\nFAIL  tools and tool_choice reach the model unchanged (status 503)\nFAIL  an image part reaches the model unchanged (status 503)\nFAIL  temperature, top_p, max_tokens, stop, seed, response_format and user reach the model unchanged (status 503, changed or lost: temperature, top_p, max_tokens, stop, seed, response_format, user)\nFAIL  a stream asked for usage ends with it, and its text is whole (status 503, text '",
+      "round": 0,
+      "stderr": "./gateways.sh: line 41: kind: unbound variable\nmetric edges_passed=1\nmetric edges_total=13\n"
+    }
+  ],
+  "rounds": 1,
+  "time": "2026-11-13T09:22:42Z",
+  "wrong_rounds": 1
+}

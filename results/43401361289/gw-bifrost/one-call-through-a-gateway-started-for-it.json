@@ -1,0 +1,96 @@
+{
+  "command": "bin/race run run/gw-bifrost.json --out results/gw-bifrost",
+  "commit": "a8e7871",
+  "conditions": "a GitHub runner's four CPUs: the load tool on one, the stand-in model on one, the gateway on two, each gateway started by its own start command and stopped after the call. Switched on in Nave: routes by model, falls back, takes OpenAI's and Anthropic's formats, keeps spend by key. No key check, no request log, no limits. Switched on in Bifrost: routes by provider and model, keeps exact repeats in a Redis store in the cache race, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "nave"
+      ],
+      "cpu_s": 0.07685,
+      "max_rss_mb": 26.859375,
+      "max_s": 0.079556489,
+      "median_s": 0.074466103,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          28.0,
+          28.0,
+          29.0,
+          29.0,
+          28.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 28.0
+      },
+      "min_s": 0.071881852,
+      "name": "Nave",
+      "other_cpu_s": 0.007539000000003404,
+      "times_s": [
+        0.072748395,
+        0.079556489,
+        0.074466103,
+        0.075841851,
+        0.071881852
+      ]
+    },
+    {
+      "cmd": [
+        "./gateways.sh",
+        "fresh",
+        "bifrost"
+      ],
+      "cpu_s": 0.404283,
+      "max_rss_mb": 28.82421875,
+      "max_s": 0.785720588,
+      "median_s": 0.771127965,
+      "metric_rounds": {
+        "start_to_first_answer_ms": [
+          683.0,
+          675.0,
+          697.0,
+          695.0,
+          689.0
+        ]
+      },
+      "metrics": {
+        "start_to_first_answer_ms": 689.0
+      },
+      "min_s": 0.765641532,
+      "name": "Bifrost",
+      "other_cpu_s": 1.1757170000000126,
+      "times_s": [
+        0.766691346,
+        0.765641532,
+        0.780756027,
+        0.785720588,
+        0.771127965
+      ]
+    }
+  ],
+  "feature": "F1 and F13",
+  "load": {
+    "after": "2.11 0.82 0.34 1/268 26095",
+    "before": "2.12 0.80 0.34 1/268 23766"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261111.196.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003640"
+  },
+  "name": "one call through a gateway started for it",
+  "output_lines": 3,
+  "outputs_when_wrong": [],
+  "rounds": 5,
+  "time": "2026-11-13T09:31:15Z",
+  "wrong_rounds": 0
+}

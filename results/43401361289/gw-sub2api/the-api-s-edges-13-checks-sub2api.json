@@ -1,0 +1,59 @@
+{
+  "command": "bin/race run run/gw-sub2api.json --out results/gw-sub2api",
+  "commit": "a8e7871",
+  "conditions": "one call a check, what the model received compared with what was sent",
+  "correct": true,
+  "differences": [],
+  "dirty": true,
+  "entrants": [
+    {
+      "cmd": [
+        "./gateways.sh",
+        "edges",
+        "sub2api"
+      ],
+      "cpu_s": 0.344977,
+      "max_rss_mb": 29.296875,
+      "max_s": 1.028840513,
+      "median_s": 1.028840513,
+      "metric_rounds": {
+        "edges_passed": [
+          10.0
+        ],
+        "edges_total": [
+          13.0
+        ]
+      },
+      "metrics": {
+        "edges_passed": 10.0,
+        "edges_total": 13.0
+      },
+      "min_s": 1.028840513,
+      "name": "sub2api",
+      "other_cpu_s": 1.075022999999959,
+      "times_s": [
+        1.028840513
+      ]
+    }
+  ],
+  "feature": "F1",
+  "load": {
+    "after": "5.01 3.53 1.69 1/301 24190",
+    "before": "5.45 3.59 1.70 2/334 23667"
+  },
+  "machine": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpus": 4,
+    "image": "ubuntu26",
+    "image_version": "20261101.186.1",
+    "kernel": "Linux 7.0.0-1019-azure",
+    "memory_gb": 16.0,
+    "runner": "GitHub Actions 1000003630"
+  },
+  "name": "the API's edges, 13 checks, sub2api",
+  "output_lines": 14,
+  "outputs_when_wrong": [],
+  "rounds": 1,
+  "time": "2026-11-13T09:34:49Z",
+  "wrong_rounds": 0
+}
