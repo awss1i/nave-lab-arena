@@ -57,5 +57,7 @@ omniroute_clean() {
     if [ "$(basename "$CONTAINER")" = podman ]; then podman unshare rm -rf "$d"; else sudo rm -rf "$d" 2>/dev/null || rm -rf "$d"; fi
   done
 }
-omniroute_skip() { echo ""; }
+# It carries tens of calls a second here, so its whole job doesn't fit a runner's time limit (one was cancelled at
+# 150 minutes before its last two races). It gets the cut-down job the other slow gateways get.
+omniroute_skip() { echo "slow"; }
 omniroute_features() { echo "routes by provider and model, falls back through a combo, keeps answers to calls sent with temperature 0, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off"; }
