@@ -77,4 +77,4 @@ YAML
 }
 aisix_url() { echo http://127.0.0.1:3100; }
 aisix_skip() { echo ""; }
-aisix_features() { echo "routes by model, takes OpenAI's and Anthropic's formats, checks the caller's key. Metrics off"; }
+aisix_features() { echo "routes by model, fails over through a routing model in the fallback race, keeps exact repeats in memory in the cache race, takes OpenAI's and Anthropic's formats, checks the caller's key. Metrics off"; }

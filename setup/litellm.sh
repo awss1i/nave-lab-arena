@@ -27,3 +27,6 @@ litellm_start() { # MODE
 litellm_url() { echo http://127.0.0.1:4100; }
 litellm_features() { echo "routes by model, falls back, takes OpenAI's and Anthropic's formats, checks the caller's key against its master key, counts spend in memory. No database, so no request log and no stored keys"; }
 litellm_title() { echo "LiteLLM"; }
+# Its benchmark page (docs.litellm.ai/docs/benchmarks) has a short-prompt chat test: Locust with 1,000 users against
+# a mock OpenAI endpoint, 1,170 calls a second on four instances of four vCPUs with four workers each.
+litellm_own_benchmark() { echo "1170 23400 1000||LiteLLM's short-prompt chat test of 1,170 calls a second from 1,000 users, which LiteLLM ran on four instances of four vCPUs and which runs here on two CPUs"; }

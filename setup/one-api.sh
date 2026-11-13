@@ -44,4 +44,4 @@ one_api_cpu_us() { containers_cpu_us one-api mysql; }
 # Its `/v1/messages` isn't an endpoint it has.
 one_api_skip() { echo "messages cache"; }
 one_api_load_args() { [ "$(cat run/one-api.mode 2>/dev/null)" = fallback ] && printf '%s\n' --model mock-with-fallback; return 0; }
-one_api_features() { echo "routes by model through channels, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL"; }
+one_api_features() { echo "routes by model through channels, retries on a lower-priority channel in the fallback race, takes OpenAI's format, checks the caller's token, counts quota, logs each call to MySQL"; }

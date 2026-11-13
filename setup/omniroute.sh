@@ -58,4 +58,4 @@ omniroute_clean() {
   done
 }
 omniroute_skip() { echo ""; }
-omniroute_features() { echo "routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off"; }
+omniroute_features() { echo "routes by provider and model, falls back through a combo, keeps answers to calls sent with temperature 0, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off"; }

@@ -62,7 +62,7 @@ bifrost_load_args() {
   [ "$(cat run/bifrost.mode 2>/dev/null)" = fallback ] && printf '%s\n' --field 'fallbacks=["standin2/mock"]'
 }
 bifrost_messages_path() { echo /anthropic/v1/messages; }
-bifrost_features() { echo "routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it"; }
+bifrost_features() { echo "routes by provider and model, keeps exact repeats in a Redis store in the cache race, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it"; }
 bifrost_skip() { echo ""; }
 bifrost_title() { echo "Bifrost"; }
 bifrost_image=docker.io/maximhq/bifrost:latest

@@ -65,15 +65,20 @@ races = [
     alone("edges", "the API's edges, 13 checks", "one call a check, what the model received compared with what was sent", ["edges", "NAME"], name, mode="edges"),
 ]
 # A gateway's own published benchmark, rerun here with Nave in it. Its setup file gives it as
-# "RATE CALLS CONNS|STAND-IN OPTIONS|what the benchmark is".
+# "RATE CALLS CONNS|STAND-IN OPTIONS|what the benchmark is", where a RATE of 0 means no fixed rate.
 own = sys.argv[7] if len(sys.argv) > 7 else ""
 if own:
     load, standin, text = own.split("|", 2)
     rate, calls, conns = load.split()
     # The client acknowledges every packet at once here, so a gateway's own benchmark isn't held back by the
     # 40 ms an ordinary client waits, which its own load generator may not have had.
-    races.append(race("own", f"{title}'s own benchmark, rerun", ground + ", " + text + f", sent here at {int(rate):,} calls a second over {conns} connections by a client that acknowledges every packet at once, each call timed from when it was due",
-                      ["quickrate", "NAME", rate, calls, conns], rounds=3, mode="own", with_direct=True, env=f"STANDIN_ARGS='{standin}'" if standin else ""))
+    if rate == "0":
+        # A benchmark sent at a fixed number of calls open at once, as its own harness sends it.
+        races.append(race("own", f"{title}'s own benchmark, rerun", ground + ", " + text + f", sent here as {int(calls):,} calls over {conns} connections by a client that acknowledges every packet at once, each connection sending its next call when the last is answered",
+                          ["quick", "NAME", "--calls", calls, "--conns", conns], rounds=3, mode="own", env=f"STANDIN_ARGS='{standin}'" if standin else ""))
+    else:
+        races.append(race("own", f"{title}'s own benchmark, rerun", ground + ", " + text + f", sent here at {int(rate):,} calls a second over {conns} connections by a client that acknowledges every packet at once, each call timed from when it was due",
+                          ["quickrate", "NAME", rate, calls, conns], rounds=3, mode="own", with_direct=True, env=f"STANDIN_ARGS='{standin}'" if standin else ""))
 races = [r for r in races if r]
 if anthropic_only:
     for r in races:

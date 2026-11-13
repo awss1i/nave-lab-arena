@@ -22,5 +22,8 @@ gomodel_start() { # MODE
 }
 gomodel_url() { echo http://127.0.0.1:8080; }
 gomodel_skip() { echo ""; }
-gomodel_features() { echo "routes by model, takes OpenAI's and Anthropic's formats, tracks usage. No key check, audit log off"; }
+gomodel_features() { echo "routes by model, fails over through a virtual model in the fallback race, keeps exact repeats in Redis in the cache race, takes OpenAI's and Anthropic's formats, tracks usage. No key check, audit log off"; }
 gomodel_clean() { container_down redis; }
+# Its benchmark page (docs, about/benchmarks) sends 20,000 chat calls at a concurrency of 10 against an instant
+# mock, with each gateway alone on two vCPUs, and gives GoModel 4,200 calls a second with 2.1 ms at the median.
+gomodel_own_benchmark() { echo "0 20000 10||GoModel's benchmark of 20,000 chat calls with 10 open at once against an instant mock"; }

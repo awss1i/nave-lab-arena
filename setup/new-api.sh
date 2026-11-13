@@ -51,4 +51,4 @@ new_api_mb() { containers_mb new-api mysql; }
 new_api_cpu_us() { containers_cpu_us new-api mysql; }
 new_api_skip() { echo "cache"; }
 new_api_load_args() { [ "$(cat run/new-api.mode 2>/dev/null)" = fallback ] && printf '%s\n' --model mock-with-fallback; return 0; }
-new_api_features() { echo "routes by model through channels, takes OpenAI's and Anthropic's formats, checks the caller's token, counts quota, logs each call to MySQL"; }
+new_api_features() { echo "routes by model through channels, retries on a lower-priority channel in the fallback race, takes OpenAI's and Anthropic's formats, checks the caller's token, counts quota, logs each call to MySQL"; }
