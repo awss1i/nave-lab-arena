@@ -20,12 +20,13 @@ case $name.$what in
     # quickstart config defines. The quickstart config has the sink commit after every event (minCommitCount: 1),
     # which stores about one event a second, so that line is dropped and the sink uses its own default batch. It also
     # gives the sink one second to list Kafka's topics, which a runner's two CPUs miss: the sink then logs "failed to
-    # fetch all topics" and stops storing part of the events. That line is dropped for the sink's default of ten.
+    # fetch all topics" and stops storing part of the events. That limit can't be longer than the sink's refresh of its topics, which
+    # the quickstart also sets to one second, so both lines are dropped for the sink's defaults (15 and 10 seconds).
     d="$ARENA_TOOLS/src/openmeter"
     [ -d "$d/quickstart" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/openmeterio/openmeter "$d" && git -C "$d" sparse-checkout set quickstart; } || exit 1
-    sed -i '/^  minCommitCount: 1$/d; /^  namespaceRefetchTimeout: 1s$/d' "$d/quickstart/config.yaml"
+    sed -i '/^  minCommitCount: 1$/d; /^  namespaceRefetch: 1s$/d; /^  namespaceRefetchTimeout: 1s$/d' "$d/quickstart/config.yaml"
     (cd "$d/quickstart" && compose_up arena-openmeter) || exit 1
-    version openmeter-settings "its quickstart at $(git -C "$d" rev-parse --short HEAD), with the sink's minCommitCount of 1 and its one-second limit on listing topics dropped for the sink's defaults (500 and ten seconds)"
+    version openmeter-settings "its quickstart at $(git -C "$d" rev-parse --short HEAD), with the sink's minCommitCount of 1 and its one-second refresh and limit on listing topics dropped for the sink's defaults (500, and 15 and 10 seconds)"
     wait_for http://127.0.0.1:48888/api/v1/meters;;
   openmeter.down) (cd "$ARENA_TOOLS/src/openmeter/quickstart" && docker compose -p arena-openmeter down -v > down-arena-openmeter.log 2>&1); exit 0;;
   lago.up)
