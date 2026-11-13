@@ -189,6 +189,8 @@ case $group in
     log_env mlflow mlflow
     log_env openllmetry traceloop-sdk openai
     version nave-log "prototype P013, $(sha256sum bin/p013 | cut -c1-12)";;
+  prompts) version nave-prompt "prototype P014, $(sha256sum bin/p014 | cut -c1-12)";;
+  meter-openmeter) ;;
   meter) version nave-spend "prototype P009, $(sha256sum bin/p009 | cut -c1-12)";;
   mcp-ms) clients/ms_mcp_gateway.sh install || exit 1;;
   mcp)

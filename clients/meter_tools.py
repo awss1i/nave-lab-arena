@@ -109,9 +109,11 @@ else:
     t = time.perf_counter()
     for start in range(0, n, 100):
         send(range(start, min(start + 100, n)))
-    total, deadline = 0, time.time() + 900
+    total, deadline, steps = 0, time.time() + 900, []
     while time.time() < deadline:
         total = read()
+        if not steps or steps[-1][1] != total:
+            steps.append((round(time.perf_counter() - t, 1), total))
         if total >= want:
             break
         time.sleep(0.2)
@@ -119,4 +121,10 @@ else:
 print(f"recorded {n} events and read back {total} of {want} tokens")
 print(f"metric us_per_event={seconds * 1e6 / n:.2f}\nmetric seconds={seconds:.3f}\nmetric tokens_counted={total}", file=sys.stderr)
 if total != want:
+    # A short total is recorded with how the total grew and what the service's own containers said.
+    if tool != "nave":
+        print("the total grew like this, seconds then tokens: " + " ".join(f"{a}:{b}" for a, b in steps[:3] + steps[-5:]), file=sys.stderr)
+        logs = subprocess.run(["docker", "compose", "-p", f"arena-{tool}", "logs", "--no-color", "--tail", "400"], capture_output=True, text=True).stdout.splitlines()
+        for line in [x for x in logs if any(w in x.lower() for w in ("error", "fail", "exception", "timeout", "timed out"))][-5:]:
+            print("its log: " + line[:400], file=sys.stderr)
     sys.exit(1)
