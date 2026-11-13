@@ -286,5 +286,221 @@
     ]
    }
   ]
+ },
+ {
+  "name": "Headroom's own benchmark, search results of 100 items, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "headroom-bench/json-search-results-100-items.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, search results of 100 items, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "headroom-bench/json-search-results-100-items.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, search results of 500 items, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "headroom-bench/json-search-results-500-items.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, search results of 500 items, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "headroom-bench/json-search-results-500-items.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, 100 structured log entries, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "headroom-bench/logs-structured-100-entries.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, 100 structured log entries, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "headroom-bench/logs-structured-100-entries.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, 500 structured log entries, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "headroom-bench/logs-structured-500-entries.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, 500 structured log entries, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "headroom-bench/logs-structured-500-entries.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, documentation text of 20,000 tokens, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "headroom-bench/text-documentation-20k-tokens.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, documentation text of 20,000 tokens, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "headroom-bench/text-documentation-20k-tokens.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, Python source of about 200 lines, Nave",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Nave",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "nave",
+     "headroom-bench/code-python-200-lines.txt"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Headroom's own benchmark, Python source of about 200 lines, Headroom",
+  "feature": "F11",
+  "conditions": "one process on two CPUs, tokens counted by tiktoken's o200k_base for both tools. The input is a scenario of Headroom's own benchmark page (docs, benchmarks), built by the generator in its benchmarks/bench_latency.py with its fixed seed and given to both tools as the output of a tool call. The page counts what is saved and the time to compress, and nothing here checks that an answer from the shrunk text is still right",
+  "rounds": 3,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Headroom",
+    "cmd": [
+     "./entrant.sh",
+     "compress",
+     "headroom",
+     "headroom-bench/code-python-200-lines.txt"
+    ]
+   }
+  ]
  }
 ]

@@ -126,7 +126,12 @@ case $group in
     mkdir -p "$ARENA_TOOLS/guard-guardrails-ai/home" && printf 'enable_metrics=false\nuse_remote_inferencing=false\n' > "$ARENA_TOOLS/guard-guardrails-ai/home/.guardrailsrc"
     "$ARENA_TOOLS/guard-guardrails-ai/bin/python" -m spacy download en_core_web_lg > /dev/null 2>&1
     version guardrails-ai "$("$ARENA_TOOLS/guard-guardrails-ai/bin/python" -c 'import importlib.metadata as m; print(m.version("guardrails-ai"), "with guardrails-ai-detect-pii", m.version("guardrails-ai-detect-pii"))')";;
-  compress) py_libs headroom-ai tiktoken;;
+  compress)
+    py_libs headroom-ai tiktoken
+    # The inputs of Headroom's own benchmark, made by its own generator from its repo.
+    [ -d "$ARENA_TOOLS/src/headroom" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/headroomlabs-ai/headroom "$ARENA_TOOLS/src/headroom" && git -C "$ARENA_TOOLS/src/headroom" sparse-checkout set benchmarks; }
+    "$ARENA_TOOLS/py/bin/python" data/gen_headroom_bench.py "$ARENA_TOOLS/src/headroom" data/compress/headroom-bench > /dev/null || echo "Headroom's benchmark inputs weren't made" >&2
+    version headroom-benchmark "headroomlabs-ai/headroom at $(git -C "$ARENA_TOOLS/src/headroom" rev-parse --short HEAD), benchmarks/bench_latency.py";;
   pick)
     # RouteLLM with CPU-only PyTorch, and its repo's per-prompt results for MMLU and GSM8K, which both routers score.
     python3 -m venv "$ARENA_TOOLS/pick-routellm" && "$ARENA_TOOLS/pick-routellm/bin/pip" install -q --extra-index-url https://download.pytorch.org/whl/cpu routellm
