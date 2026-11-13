@@ -66,12 +66,14 @@ case $name.$what in
     b=http://localhost:5560 stamp=$(date +%s) user=()
     # A stop that didn't let its PostgreSQL finish leaves its lock files, and no server of it can be running here.
     rm -f "$d/.langwatch/data/postgres/postmaster.pid" "$d/.langwatch/run/.s.PGSQL.6560.lock" "$d/.langwatch/run/.s.PGSQL.6560"
-    [ "$(basename "$CONTAINER")" = podman ] && user=(--userns=keep-id)
-    "$CONTAINER" run -d --rm --name arena-langwatch --network host "${user[@]}" --user "$(id -u):$(id -g)" -e HOME=/work -e DO_NOT_TRACK=1 -e DISABLE_USAGE_STATS=true \
+    # Its PostgreSQL needs a user the container knows by name. Under podman that's the caller, mapped in. Under
+    # Docker it's the image's own user "node", and the folder is opened to it.
+    if [ "$(basename "$CONTAINER")" = podman ]; then user=(--userns=keep-id --user "$(id -u):$(id -g)"); else user=(--user node); chmod 777 "$d"; fi
+    "$CONTAINER" run -d --rm --name arena-langwatch --network host "${user[@]}" -e HOME=/work -e DO_NOT_TRACK=1 -e DISABLE_USAGE_STATS=true \
       -v "$d:/work$([ "$(basename "$CONTAINER")" = podman ] && echo :Z)" -w /work docker.io/library/node:24 sh -c 'exec npx -y @langwatch/server start --yes --no-open > /work/start.log 2>&1' > /dev/null || exit 1
     [ "$(basename "$CONTAINER")" = docker ] && docker update --cpuset-cpus "$GATEWAY_CPUS" arena-langwatch > /dev/null 2>&1
     # Its first start downloads its parts, which takes minutes.
-    wait_for "$b/api/health" 2> /dev/null || wait_for "$b/api/health" 2> /dev/null || wait_for "$b/api/health" || { tail -5 "$d/start.log" >&2; exit 1; }
+    wait_for "$b/api/health" 2> /dev/null || wait_for "$b/api/health" 2> /dev/null || wait_for "$b/api/health" || { cp "$d/start.log" run/log-langwatch-start.log 2> /dev/null; grep -v "^npm notice" "$d/start.log" | tail -6 >&2; exit 1; }
     version langwatch "$(sed -n 's/^v\([0-9][0-9.]*\) .*/\1/p' "$d/start.log" | head -1), by npx @langwatch/server in docker.io/library/node:24"
     sql() { "$CONTAINER" exec -e LD_LIBRARY_PATH=/work/.langwatch/bin/postgres/lib arena-langwatch /work/.langwatch/bin/postgres/bin/psql -h 127.0.0.1 -p 6560 -U langwatch -d langwatch_db -At -c "$1"; }
     hash=$("$(arena_uv)" run -q --with bcrypt python -c "import bcrypt; print(bcrypt.hashpw(b'Arena-pass-12345', bcrypt.gensalt(10)).decode())") || exit 1
