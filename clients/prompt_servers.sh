@@ -8,6 +8,8 @@ keep_cpus() { [ "$(basename "$CONTAINER")" = docker ] && for c in $(docker compo
 images() { version "$1" "$(docker compose -p "$1" images 2> /dev/null | awk 'NR > 1 && !seen[$2 ":" $3]++ { printf "%s%s:%s", sep, $2, $3; sep = ", " }')"; }
 wait_for() { for _ in $(seq 1 600); do [ "$(curl -s -m 3 -o /dev/null -w '%{http_code}' "$@")" = 200 ] && return 0; sleep 0.5; done; echo "$name never answered at ${*: -1}" >&2; return 1; }
 mkdir -p run
+# What a start says on its way is kept, so an entrant whose service didn't come up can say why.
+[ "$what" = up ] && exec 2> "run/prompt-$name.up.log" && set -x
 case $name.$what in
   nave.up | nave.down) exit 0;;
   agenta.up)
@@ -29,10 +31,12 @@ open('$d/.env.arena', 'w').write(s)"
     (cd "$d" && ENV_FILE=./.env.arena docker compose -p arena-agenta -f docker-compose.gh.yml -f docker-compose.arena.yml --env-file .env.arena up -d api supertokens > up-arena-agenta.log 2>&1) || { echo "Agenta didn't start: $(tail -3 "$d/up-arena-agenta.log")" >&2; exit 1; }
     keep_cpus arena-agenta; images arena-agenta
     wait_for http://127.0.0.1:8581/health || exit 1
+    set +x # The admin key and the API key stay out of the kept log.
     admin=$(sed -n 's/^AGENTA_AUTH_KEY=//p' "$d/.env.arena")
     curl -s -m 60 -X POST http://127.0.0.1:8581/admin/simple/accounts/ -H "Authorization: Access $admin" -H 'content-type: application/json' \
       -d "{\"options\":{\"create_api_keys\":true,\"return_api_keys\":true},\"accounts\":{\"arena\":{\"user\":{\"email\":\"arena-$(date +%s)@arena.test\"}}}}" \
       | python3 -c "import json, sys; print(json.load(sys.stdin)['accounts']['arena']['api_keys']['key'])" > run/prompt-agenta.key || { echo "Agenta's admin route gave no API key" >&2; exit 1; }
+    set -x
     uv=$(arena_uv)
     [ -x "$ARENA_TOOLS/prompts-agenta/bin/python" ] || { "$uv" venv -q --python 3.12 "$ARENA_TOOLS/prompts-agenta" && "$uv" pip install -q --python "$ARENA_TOOLS/prompts-agenta/bin/python" agenta; } || exit 1
     version agenta-sdk "$("$ARENA_TOOLS/prompts-agenta/bin/python" -c "import importlib.metadata as m; print(m.version('agenta'))" 2> /dev/null)";;

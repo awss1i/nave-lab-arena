@@ -124,6 +124,10 @@ if total != want:
     # A short total is recorded with how the total grew and what the service's own containers said.
     if tool != "nave":
         print("the total grew like this, seconds then tokens: " + " ".join(f"{a}:{b}" for a, b in steps[:3] + steps[-5:]), file=sys.stderr)
+        # The state of every container and the end of each one's log go to a file the run keeps.
+        with open(f"run/compose-{tool}.log", "w") as kept:
+            kept.write(subprocess.run(["docker", "compose", "-p", f"arena-{tool}", "ps", "-a"], capture_output=True, text=True).stdout)
+            kept.write(subprocess.run(["docker", "compose", "-p", f"arena-{tool}", "logs", "--no-color", "--tail", "80"], capture_output=True, text=True).stdout)
         logs = subprocess.run(["docker", "compose", "-p", f"arena-{tool}", "logs", "--no-color", "--tail", "400"], capture_output=True, text=True).stdout.splitlines()
         for line in [x for x in logs if any(w in x.lower() for w in ("error", "fail", "exception", "timeout", "timed out"))][-5:]:
             print("its log: " + line[:400], file=sys.stderr)

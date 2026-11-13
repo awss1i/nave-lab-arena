@@ -82,7 +82,8 @@ case "$group.$name" in
     revision=$(clients/mcp_gateways.sh revision "$name"); what=$1; shift
     MCP_KEY=$(clients/mcp_gateways.sh key "$name") taskset -c "$LOAD_CPUS" bin/mcpload "$(clients/mcp_gateways.sh url "$name")" --what "$what" $([ "$name" = ms-mcp ] && echo "--bare standin" || echo "--servers standin") --expect 8 ${revision:+--revision "$revision"} "$@";;
   prompt.nave) on python3 clients/prompt_tools.py nave 2000;;
-  prompt.agenta) (export HOME="$PWD/run/prompt-home" DO_NOT_TRACK=1; mkdir -p "$HOME"; quiet taskset -c "$LOAD_CPUS" "$ARENA_TOOLS/prompts-agenta/bin/python" clients/prompt_tools.py agenta 2000);;
+  prompt.agenta) [ -x "$ARENA_TOOLS/prompts-agenta/bin/python" ] && [ -s run/prompt-agenta.key ] || { echo "Agenta's start didn't finish: $(grep -v '^+' run/prompt-agenta.up.log | tail -4 | cut -c1-300) / last steps: $(grep '^+' run/prompt-agenta.up.log | tail -3 | cut -c1-200)" >&2; exit 1; }
+    (export HOME="$PWD/run/prompt-home" DO_NOT_TRACK=1; mkdir -p "$HOME"; quiet taskset -c "$LOAD_CPUS" "$ARENA_TOOLS/prompts-agenta/bin/python" clients/prompt_tools.py agenta 2000);;
   prompt.*) quiet taskset -c "$LOAD_CPUS" python3 clients/prompt_tools.py "$name" 2000;;
   meter.nave) on python3 clients/meter_tools.py nave 20000;;
   meter.*) quiet taskset -c "$LOAD_CPUS" python3 clients/meter_tools.py "$name" "${1:-20000}";;

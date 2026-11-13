@@ -147,6 +147,10 @@ if held != n:
     if tool != "nave":
         if complaints:
             print(f"the exporter complained {len(complaints)} times, last: {complaints[-1]}", file=sys.stderr)
+        # The state of every container and the end of each one's log go to a file the run keeps.
+        with open(f"run/compose-{tool}.log", "w") as kept:
+            kept.write(subprocess.run(["docker", "compose", "-p", f"arena-{tool}", "ps", "-a"], capture_output=True, text=True).stdout)
+            kept.write(subprocess.run(["docker", "compose", "-p", f"arena-{tool}", "logs", "--no-color", "--tail", "80"], capture_output=True, text=True).stdout)
         logs = subprocess.run(["docker", "compose", "-p", f"arena-{tool}", "logs", "--no-color", "--tail", "300"], capture_output=True, text=True).stdout.splitlines()
         for line in [x for x in logs if any(w in x.lower() for w in ("error", "fail", "exception", "timeout"))][-4:]:
             print("its log: " + line[:300], file=sys.stderr)

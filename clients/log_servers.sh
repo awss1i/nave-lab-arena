@@ -50,7 +50,9 @@ case $name.$what in
     d="$ARENA_TOOLS/src/opik/repo/deployment/docker-compose"
     [ -d "$d" ] || { mkdir -p "$ARENA_TOOLS/src/opik" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/comet-ml/opik "$ARENA_TOOLS/src/opik/repo" && git -C "$ARENA_TOOLS/src/opik/repo" sparse-checkout set deployment/docker-compose; } || exit 1
     (cd "$d" && OPIK_USAGE_REPORT_ENABLED=false compose_up arena-opik --profile opik) || exit 1
-    wait_for http://127.0.0.1:5173/api/v1/private/projects;;
+    # Its backend runs its migrations before it answers, which takes minutes on two CPUs, so it gets three waits.
+    wait_for http://127.0.0.1:5173/api/v1/private/projects 2> /dev/null || wait_for http://127.0.0.1:5173/api/v1/private/projects 2> /dev/null || wait_for http://127.0.0.1:5173/api/v1/private/projects
+    (cd "$d" && docker compose -p arena-opik ps -a > "$OLDPWD/run/compose-opik-at-start.log" 2>&1); true;;
   opik.down) compose_down arena-opik "$ARENA_TOOLS/src/opik/repo/deployment/docker-compose" --profile opik;;
   *) echo "usage: log_servers.sh up|down NAME" >&2; exit 2;;
 esac
