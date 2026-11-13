@@ -1,0 +1,29 @@
+[
+ {
+  "name": "recording calls and reading them back, Latitude",
+  "feature": "F9",
+  "conditions": "a GitHub runner's four CPUs. 20,000 made-up calls, each with a model, a key, token counts and a prompt and an answer of about 500 bytes each, are recorded and then read back, and the clock runs until the tool's own count of them is right. Nave's log sits inside the gateway: one thread writes the calls to its log file and a query adds up what each key spent, on two CPUs. The other tools are servers on two CPUs that take traces over OTLP: a sender on one CPU hands them one span a call through OpenTelemetry's SDK, and the server's API is asked for its count until every call is there. A tool that takes more than a few milliseconds a call is given 2,000 calls, and its name says so",
+  "rounds": 1,
+  "normalise": "lines",
+  "entrants": [
+   {
+    "name": "Latitude",
+    "cmd": [
+     "./entrant.sh",
+     "log",
+     "latitude"
+    ]
+   }
+  ],
+  "setup": [
+   "./clients/log_servers.sh",
+   "up",
+   "latitude"
+  ],
+  "teardown": [
+   "./clients/log_servers.sh",
+   "down",
+   "latitude"
+  ]
+ }
+]

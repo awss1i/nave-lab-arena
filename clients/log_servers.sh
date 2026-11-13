@@ -84,5 +84,86 @@ case $name.$what in
     api -d "{\"organizationId\":\"$org\",\"name\":\"arena\",\"keyType\":\"personal\",\"permissionMode\":\"all\",\"bindings\":[{\"role\":\"ADMIN\",\"scopeType\":\"PROJECT\",\"scopeId\":\"$project\"}]}" "$b/api/trpc/apiKey.create" \
       | python3 -c 'import json, sys; print(json.load(sys.stdin)["result"]["data"]["token"], end="")' > run/log-langwatch.key || { echo "LangWatch didn't make an API key" >&2; exit 1; };;
   langwatch.down) "$CONTAINER" stop -t 30 arena-langwatch > /dev/null 2>&1; exit 0;;
+  latitude.up)
+    # Latitude by its single-host guide: its deploy files from its repo, its released images, and one settings file
+    # made from its example with the production values the example itself names, the bundled object store's
+    # settings switched on, fresh secrets, and its deployment heartbeat off. It ships with no mail service and signs
+    # users in by an emailed link, so a mail catcher joins the stack and the link is read from it. The organisation
+    # is made through its sign-in service, the first API key through the server function its web page calls (the
+    # API makes keys only for a caller that already has one), and the project through its API with that key.
+    d="$ARENA_TOOLS/src/latitude"; mkdir -p "$d/docker/seaweedfs" "$d/docker/clickhouse"
+    base=https://raw.githubusercontent.com/latitude-dev/latitude-llm/development
+    for f in docker-stack.yml .env.example docker/init-db.sh docker/seaweedfs/init.sh docker/clickhouse/storage.xml; do
+      [ -s "$d/$f" ] || curl -fsSL -m 60 "$base/$f" -o "$d/$f" || { echo "Latitude's $f didn't download" >&2; exit 1; }
+    done
+    chmod +x "$d/docker/init-db.sh" "$d/docker/seaweedfs/init.sh"
+    [ "$(basename "$CONTAINER")" = podman ] && chcon -Rt container_file_t "$d/docker" 2> /dev/null
+    python3 - "$d" <<'PY' || exit 1
+import re, secrets, sys
+d = sys.argv[1]
+out, pending = [], None
+for line in open(f"{d}/.env.example").read().split("\n"):
+    hint = re.match(r'#\s*Change to "?([^"]+?)"? for production', line)
+    if hint:
+        pending = hint.group(1)
+    elif pending and re.match(r"^[A-Z_]+=", line):
+        key = line.split("=", 1)[0]
+        # The public addresses stay this machine's.
+        if not key.endswith(("_URL", "_ORIGINS")) or "CLICKHOUSE" in key or "DATABASE" in key:
+            line = f"{key}={pending}"
+        pending = None
+    elif line.strip() and not line.startswith("#"):
+        pending = None
+    line = re.sub(r"^# (LAT_STORAGE_S3_[A-Z_]*=)", r"\1", line)
+    if line.startswith(("LAT_MASTER_ENCRYPTION_KEY=", "LAT_BETTER_AUTH_SECRET=")):
+        line = line.split("=", 1)[0] + "=" + secrets.token_hex(32)
+    if not line.startswith("LAT_MAILPIT_"):
+        out.append(line)
+out += ["LAT_SMTP_HOST=mailpit", "LAT_SMTP_PORT=1025", "LAT_SMTP_USER=arena", "LAT_SMTP_PASS=arena", "LAT_SMTP_FROM=noreply@arena.test", "LAT_OSS_TELEMETRY_ENABLED=false", ""]
+open(f"{d}/.env.production", "w").write("\n".join(out))
+PY
+    printf 'services:\n  mailpit:\n    image: axllent/mailpit:v1.24\n    environment:\n      MP_SMTP_AUTH_ACCEPT_ANY: "1"\n      MP_SMTP_AUTH_ALLOW_INSECURE: "1"\n    ports:\n      - "127.0.0.1:8025:8025"\n' > "$d/docker-compose.arena.yml"
+    (cd "$d" && compose_up arena-latitude --env-file .env.production -f docker-stack.yml -f docker-compose.arena.yml) || exit 1
+    w=http://localhost:3000
+    wait_for "$w/api/health" && wait_for http://localhost:3001/health && wait_for http://localhost:3002/health || exit 1
+    rm -f "$d/cookies"; mail="arena-$(date +%s)@arena.test"
+    web() { curl -fsS -m 60 -b "$d/cookies" -c "$d/cookies" -H 'content-type: application/json' -H "origin: $w" "$@"; }
+    web -o /dev/null -d "{\"email\":\"$mail\",\"name\":\"Arena\",\"callbackURL\":\"/\"}" "$w/api/auth/sign-in/magic-link" || { echo "Latitude didn't take the sign-in request" >&2; exit 1; }
+    token=
+    for _ in $(seq 1 120); do
+      token=$(curl -fsS -m 10 http://127.0.0.1:8025/api/v1/messages | python3 -c "
+import json, re, sys, urllib.request
+for m in json.load(sys.stdin)['messages']:
+    if m['To'][0]['Address'] == '$mail':
+        text = json.load(urllib.request.urlopen('http://127.0.0.1:8025/api/v1/message/' + m['ID']))['Text']
+        print(re.search(r'#token=([^\s\"<>&]+)', text).group(1))
+        break" 2> /dev/null)
+      [ -n "$token" ] && break; sleep 0.5
+    done
+    [ -n "$token" ] || { echo "Latitude's sign-in mail never reached the catcher" >&2; exit 1; }
+    web -o /dev/null "$w/api/auth/magic-link/verify?token=$token" || exit 1
+    org=$(web -d "{\"name\":\"Arena\",\"slug\":\"arena-$(date +%s)\"}" "$w/api/auth/organization/create" | python3 -c 'import json, sys; print(json.load(sys.stdin)["id"])') || exit 1
+    web -o /dev/null -d "{\"organizationId\":\"$org\"}" "$w/api/auth/organization/set-active" || exit 1
+    # The server function's id and its request body, in the web app's own serialisation, are read from the image.
+    fn=$("$CONTAINER" exec arena-latitude-web-1 sh -c 'grep -h -A1 "createApiKey_createServerFn_handler = createServerRpc" /app/apps/web/.output/server/_ssr/api-keys.functions-*.mjs | sed -n "s/.*id: \"\([0-9a-f]*\)\".*/\1/p" | head -1')
+    body=$("$CONTAINER" exec arena-latitude-web-1 node -e 'const p = require("child_process").execSync("find /app/node_modules/.pnpm -maxdepth 1 -name \"seroval@*\" | head -1").toString().trim(); console.log(JSON.stringify(require(p + "/node_modules/seroval").toJSON({ data: { name: "arena" }, context: {} })))')
+    [ -n "$fn" ] && [ -n "$body" ] || { echo "Latitude's key function wasn't found in its web image" >&2; exit 1; }
+    web -H 'x-tsr-serverFn: true' -H 'accept: application/json' -d "$body" "$w/_serverFn/$fn" | python3 -c '
+import json, sys
+def find(node):
+    if isinstance(node, dict):
+        p = node.get("p")
+        if p and "token" in p.get("k", []):
+            return dict(zip(p["k"], p["v"]))["token"]["s"]
+        node = list(node.values())
+    if isinstance(node, list):
+        for v in node:
+            found = find(v)
+            if found:
+                return found
+print(find(json.load(sys.stdin)) or "", end="")' > run/log-latitude.key
+    [ -s run/log-latitude.key ] || { echo "Latitude didn't make an API key" >&2; exit 1; }
+    curl -fsS -m 60 -o /dev/null -H "Authorization: Bearer $(cat run/log-latitude.key)" -H 'content-type: application/json' -d '{"name":"Arena"}' http://localhost:3001/v1/projects || { echo "Latitude didn't make the project" >&2; exit 1; };;
+  latitude.down) (cd "$ARENA_TOOLS/src/latitude" && docker compose -p arena-latitude --env-file .env.production -f docker-stack.yml -f docker-compose.arena.yml down -v > down-arena-latitude.log 2>&1); exit 0;;
   *) echo "usage: log_servers.sh up|down NAME" >&2; exit 2;;
 esac

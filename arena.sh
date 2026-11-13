@@ -181,7 +181,7 @@ case $group in
     # vLLM's semantic-router, its command from PyPI and its recipes at the tag of the same version.
     pick_env vllm-sr 3.12 vllm-sr
     [ -d "$ARENA_TOOLS/src/vllm-sr-v04" ] || { git clone -q --depth 1 --branch v0.4.0 --filter=blob:none --sparse https://github.com/vllm-project/semantic-router "$ARENA_TOOLS/src/vllm-sr-v04" && git -C "$ARENA_TOOLS/src/vllm-sr-v04" sparse-checkout set config; };;
-  log | log-opik | log-langwatch)
+  log | log-opik | log-langwatch | log-latitude)
     # The log tools, each in an environment of its own, and the sender's OpenTelemetry libraries in another.
     uv=$(arena_uv)
     log_env() { # NAME PACKAGE..

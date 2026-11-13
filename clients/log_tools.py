@@ -110,6 +110,14 @@ else:
                                          {"content-type": "application/json", "X-Auth-Token": key})
             with urllib.request.urlopen(ask, timeout=60) as r:
                 return int(json.load(r)["pagination"]["totalHits"])
+    elif tool == "latitude":
+        # Latitude with the API key and the project log_servers.sh made: spans over OTLP to its ingest service,
+        # counted by its API's trace analytics.
+        key = open("run/log-latitude.key").read().strip()
+        endpoint, headers = "http://127.0.0.1:3002/v1/traces", {"Authorization": f"Bearer {key}", "X-Latitude-Project": "arena"}
+
+        def count():
+            return int(get("http://127.0.0.1:3001/v1/projects/arena/traces/analytics", {"Authorization": f"Bearer {key}"})["traces"]["total"])
     else:
         raise SystemExit(f"no log tool {tool}")
 
