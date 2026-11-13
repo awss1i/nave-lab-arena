@@ -118,6 +118,27 @@ else:
 
         def count():
             return int(get("http://127.0.0.1:3001/v1/projects/arena/traces/analytics", {"Authorization": f"Bearer {key}"})["traces"]["total"])
+    elif tool == "agentops":
+        # AgentOps's collector and ClickHouse. The token is the one its API signs for a project (HS256 over the
+        # project's id, its plan and its key), signed here with the collector's secret, and the count is the one its
+        # README checks an install with: the project's rows in its traces table.
+        import base64
+        import hashlib
+        import hmac
+        import urllib.parse
+        import uuid
+
+        project = str(uuid.uuid4())
+        b64 = lambda raw: base64.urlsafe_b64encode(raw).rstrip(b"=")
+        signed = b64(json.dumps({"alg": "HS256", "typ": "JWT"}).encode()) + b"." + b64(json.dumps(
+            {"exp": int(time.time()) + 86400, "aud": "authenticated", "project_id": project, "project_prem_status": "free", "api_key": str(uuid.uuid4())}).encode())
+        token = signed + b"." + b64(hmac.new(b"super-secret-jwt-token-with-at-least-32-characters-long", signed, hashlib.sha256).digest())
+        endpoint, headers = "http://127.0.0.1:4318/v1/traces", {"Authorization": "Bearer " + token.decode()}
+        basic = {"Authorization": "Basic " + base64.b64encode(b"default:password").decode()}
+        asked = urllib.parse.quote(f"SELECT count() FROM otel_2.otel_traces WHERE project_id = '{project}' FORMAT JSON")
+
+        def count():
+            return int(get(f"http://127.0.0.1:18124/?query={asked}", basic)["data"][0]["count()"])
     else:
         raise SystemExit(f"no log tool {tool}")
 

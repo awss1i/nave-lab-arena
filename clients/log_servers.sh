@@ -3,6 +3,8 @@
 # Each runs the way its own docs start it, with its data and home under run, on the gateway's CPUs.
 . ./lib.sh
 what=$1 name=$2 d="$PWD/run/log-$2"
+# What a start says is kept, so an entrant whose server didn't come up can say why.
+mkdir -p run; [ "$what" = up ] && exec 2> "run/log-$name.up.log"
 wait_for() { for _ in $(seq 1 600); do curl -fsS -m 2 -o /dev/null "$1" 2> /dev/null && return 0; sleep 0.5; done; echo "$name never answered at $1: $(tail -3 "$d/serve.log" 2> /dev/null)" >&2; return 1; }
 # A server starts as the leader of a process group of its own, so stopping it stops its workers too, by the group's
 # id and nothing else.
@@ -165,5 +167,52 @@ print(find(json.load(sys.stdin)) or "", end="")' > run/log-latitude.key
     [ -s run/log-latitude.key ] || { echo "Latitude didn't make an API key" >&2; exit 1; }
     curl -fsS -m 60 -o /dev/null -H "Authorization: Bearer $(cat run/log-latitude.key)" -H 'content-type: application/json' -d '{"name":"Arena"}' http://localhost:3001/v1/projects || { echo "Latitude didn't make the project" >&2; exit 1; };;
   latitude.down) (cd "$ARENA_TOOLS/src/latitude" && docker compose -p arena-latitude --env-file .env.production -f docker-stack.yml -f docker-compose.arena.yml down -v > down-arena-latitude.log 2>&1); exit 0;;
+  agentops.up)
+    # AgentOps's recording path and nothing else of it: the collector it builds from its repo (its own image of
+    # the OpenTelemetry collector with its token check and its cost rules) and ClickHouse with its migrations. Its
+    # API, dashboard and the Supabase project they need aren't started. The API's part in recording is to sign the
+    # token a caller sends with its spans, so the entrant signs that token itself, with the same secret and claims.
+    d="$ARENA_TOOLS/src/agentops"
+    [ -d "$d/app/opentelemetry-collector" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/AgentOps-AI/agentops "$d" && git -C "$d" sparse-checkout set app/opentelemetry-collector app/clickhouse; } || exit 1
+    cat > "$d/app/docker-compose.arena.yml" <<'YAML'
+# The arena's own file: AgentOps's collector, built from its folder, and ClickHouse as its own compose file runs it,
+# with ClickHouse's ports kept off the ones the arena uses.
+services:
+  otelcollector:
+    build:
+      context: ./opentelemetry-collector
+    environment:
+      - CLICKHOUSE_ENDPOINT=http://clickhouse:8123
+      - CLICKHOUSE_USERNAME=default
+      - CLICKHOUSE_PASSWORD=password
+      - CLICKHOUSE_DATABASE=otel_2
+      - LOGS_TABLE_NAME=otel_logs
+      - TRACES_TABLE_NAME=otel_traces
+      - CLICKHOUSE_TTL=12h
+      - CLICKHOUSE_TIMEOUT=10s
+      - JWT_SECRET=super-secret-jwt-token-with-at-least-32-characters-long
+    ports:
+      - "127.0.0.1:4318:4318"
+    depends_on:
+      - clickhouse
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.12
+    environment:
+      - CLICKHOUSE_DB=otel_2
+      - CLICKHOUSE_USER=default
+      - CLICKHOUSE_PASSWORD=password
+    ports:
+      - "127.0.0.1:18124:8123"
+YAML
+    (cd "$d/app" && docker compose -p arena-agentops -f docker-compose.arena.yml up -d clickhouse > up-arena-agentops.log 2>&1) || { echo "AgentOps's ClickHouse didn't start: $(tail -3 "$d/app/up-arena-agentops.log")" >&2; exit 1; }
+    wait_for http://127.0.0.1:18124/ping || exit 1
+    # Its README's local steps apply its first migration, which makes the tables. Its later ones add a price
+    # dictionary that signs in to ClickHouse with no password and so fails beside the password its compose file sets.
+    "$CONTAINER" exec -i arena-agentops-clickhouse-1 clickhouse-client --user default --password password --multiquery < "$d/app/clickhouse/migrations/0000_init.sql" > /dev/null || { echo "AgentOps's first migration failed" >&2; exit 1; }
+    (cd "$d/app" && compose_up arena-agentops -f docker-compose.arena.yml) || exit 1
+    version agentops "AgentOps-AI/agentops at $(git -C "$d" rev-parse --short HEAD), its collector built from app/opentelemetry-collector"
+    for _ in $(seq 1 600); do [ "$(curl -s -m 2 -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' -d '{}' http://127.0.0.1:4318/v1/traces)" = 401 ] && exit 0; sleep 0.5; done
+    echo "AgentOps's collector never answered" >&2; exit 1;;
+  agentops.down) (cd "$ARENA_TOOLS/src/agentops/app" && docker compose -p arena-agentops -f docker-compose.arena.yml down -v > down-arena-agentops.log 2>&1); exit 0;;
   *) echo "usage: log_servers.sh up|down NAME" >&2; exit 2;;
 esac

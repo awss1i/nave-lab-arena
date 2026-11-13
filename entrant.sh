@@ -90,7 +90,11 @@ case "$group.$name" in
   log.nave) on python3 clients/log_tools.py nave 20000;;
   logsdk.nave) on python3 clients/log_sdk.py nave 2000;;
   logsdk.*) (export HOME="$PWD/run/log-driver-home"; mkdir -p "$HOME"; quiet taskset -c "$LOAD_CPUS,$GATEWAY_CPUS" "$ARENA_TOOLS/log-$name/bin/python" clients/log_sdk.py "$name" 2000);;
-  log.*) calls=${1:-20000}; (export HOME="$PWD/run/log-driver-home"; mkdir -p "$HOME"; quiet taskset -c "$LOAD_CPUS" "$ARENA_TOOLS/log-driver/bin/python" clients/log_tools.py "$name" "$calls");;
+  log.*) calls=${1:-20000}
+    (export HOME="$PWD/run/log-driver-home"; mkdir -p "$HOME"; quiet taskset -c "$LOAD_CPUS" "$ARENA_TOOLS/log-driver/bin/python" clients/log_tools.py "$name" "$calls"); rc=$?
+    # A failed entrant whose server's start said something gets that into the record.
+    [ "$rc" -ne 0 ] && [ -s "run/log-$name.up.log" ] && echo "its start said: $(tail -4 "run/log-$name.up.log" | cut -c1-300)" >&2
+    exit "$rc";;
   pick.nave) on clients/nave_pick.sh run/pick/RouteLLM "$1";;
   pick.other) tool=$1; shift; py="$ARENA_TOOLS/pick-$tool/bin/python"; [ -x "$py" ] || py=python3
     (export HOME="$ARENA_TOOLS/pick-$tool/home" HF_HOME="$ARENA_TOOLS/models" FASTEMBED_CACHE_PATH="$ARENA_TOOLS/models/fastembed" DO_NOT_TRACK=1; mkdir -p "$HOME"; quiet on "$py" clients/pick_other.py "$tool" "$PWD/run/pick/RouteLLM" "$@");;
