@@ -19,7 +19,10 @@ case $name.$what in
     # to its analytics service. The account and API key come from its admin route, and its SDK is installed for the
     # entrant's set-up.
     d="$ARENA_TOOLS/src/agenta"
-    [ -d "$d/hosting" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/Agenta-AI/agenta "$d" && git -C "$d" sparse-checkout set hosting; } || exit 1
+    # The clone takes its hosting folder and the database's first-start script its compose file mounts.
+    [ -d "$d/hosting" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/Agenta-AI/agenta "$d" && git -C "$d" sparse-checkout set hosting api/oss/databases/postgres; } || exit 1
+    # Under podman with SELinux a container reads a file of this machine only with this label.
+    [ "$(basename "$CONTAINER")" = podman ] && chcon -Rt container_file_t "$d/api/oss/databases/postgres" 2> /dev/null
     d="$d/hosting/docker-compose/oss"
     [ -s "$d/.env.arena" ] || python3 -c "
 import re, secrets

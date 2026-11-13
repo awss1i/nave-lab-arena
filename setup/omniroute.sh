@@ -47,6 +47,9 @@ omniroute_start() { # MODE
 }
 omniroute_load_args() {
   if [ "$(cat run/omniroute.mode 2>/dev/null)" = fallback ]; then printf '%s\n' --model mock-with-fallback; else printf '%s\n' --model standin/mock; fi
+  # Its cache, on as it ships, keeps answers to calls sent with temperature 0 and no others.
+  [ "$(cat run/omniroute.mode 2>/dev/null)" = cache ] && printf '%s\n' --field temperature=0
+  return 0
 }
 omniroute_clean() {
   for d in run/omniroute-data-*; do
@@ -54,6 +57,5 @@ omniroute_clean() {
     if [ "$(basename "$CONTAINER")" = podman ]; then podman unshare rm -rf "$d"; else sudo rm -rf "$d" 2>/dev/null || rm -rf "$d"; fi
   done
 }
-# Its cache keeps answers to calls sent with temperature 0, which the cache race doesn't send yet.
-omniroute_skip() { echo cache; }
+omniroute_skip() { echo ""; }
 omniroute_features() { echo "routes by provider and model, falls back through a combo, takes OpenAI's and Anthropic's formats, keeps its settings, usage and a log of calls in SQLite. Key check off"; }

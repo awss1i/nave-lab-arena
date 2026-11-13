@@ -23,9 +23,18 @@ bifrost_start() { # MODE
     first=9001
     second=', "standin2": { "keys": [{ "name": "standin2", "value": "sk-standin", "models": ["mock"], "weight": 1.0 }], "network_config": { "base_url": "http://127.0.0.1:9000" }, "custom_provider_config": { "base_provider_type": "openai" } }'
   fi
+  # Its cache in its exact-match mode, which needs no embeddings: entries live in a vector store, a Redis here,
+  # and a default cache key stands in for the header a request would otherwise have to carry.
+  local cache=
+  if [ "${1:-}" = cache ]; then
+    "$CONTAINER" container inspect arena-redis > /dev/null 2>&1 || redis_up || return 1
+    cache='"vector_store": { "enabled": true, "type": "redis", "config": { "addr": "127.0.0.1:6389" } },
+  "plugins": [{ "enabled": true, "name": "semantic_cache", "config": { "dimension": 1, "ttl": "10m", "default_cache_key": "arena" } }],'
+  fi
   cat > run/bifrost-data/config.json <<JSON
 {
   "\$schema": "https://www.getbifrost.ai/schema",
+  $cache
   "client": { "enforce_auth_on_inference": false, "enable_logging": false, "initial_pool_size": 1000 },
   "providers": {
     "openai": {
@@ -43,6 +52,7 @@ JSON
 # seconds. It's removed once, before a group's races, so the first start happens in a race's setup and every timed
 # start after it is a restart, as a restart in production would be.
 bifrost_clean() {
+  container_down redis
   [ -d run/bifrost-data ] || return 0
   if [ "$(basename "$CONTAINER")" = podman ]; then podman unshare rm -rf run/bifrost-data; else sudo rm -rf run/bifrost-data 2>/dev/null || rm -rf run/bifrost-data; fi
 }
@@ -53,8 +63,7 @@ bifrost_load_args() {
 }
 bifrost_messages_path() { echo /anthropic/v1/messages; }
 bifrost_features() { echo "routes by provider and model, takes OpenAI's and Anthropic's formats, keeps its settings in a database. Key check off, request log off, as its own benchmark runs it"; }
-# Its cache is by meaning and needs a vector store.
-bifrost_skip() { echo cache; }
+bifrost_skip() { echo ""; }
 bifrost_title() { echo "Bifrost"; }
 bifrost_image=docker.io/maximhq/bifrost:latest
 # Its own benchmark is 5,000 calls a second on four vCPUs against a mock (docs/benchmarking/t3.xl). Its mock took about

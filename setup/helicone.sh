@@ -46,5 +46,7 @@ helicone_key() { echo sk-standin; }
 helicone_load_args() {
   printf '%s\n' --header "Helicone-Auth: Bearer $(cat run/helicone.key)" --header "Helicone-OpenAI-Api-Base: http://127.0.0.1:9000/v1" --header "Helicone-Target-Url: http://127.0.0.1:9000/v1"
 }
+# Its cache is asked for by the header Helicone-Cache-Enabled. Through this self-hosted proxy the header changes
+# nothing: with it on, every one of 500 repeats of one call still reached the model. So it sits the cache race out.
 helicone_skip() { echo "fallback cache"; }
 helicone_features() { echo "passes OpenAI's and Anthropic's formats on to the upstream named in a header, checks its own API key, logs every call with its body to ClickHouse and MinIO, prices it. Its web app, PostgreSQL, ClickHouse and MinIO run in the same container and count as its own"; }
