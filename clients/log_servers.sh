@@ -76,8 +76,15 @@ case $name.$what in
     wait_for "$b/api/health" 2> /dev/null || wait_for "$b/api/health" 2> /dev/null || wait_for "$b/api/health" || { cp "$d/start.log" run/log-langwatch-start.log 2> /dev/null; grep -v "^npm notice" "$d/start.log" | tail -6 >&2; exit 1; }
     version langwatch "$(sed -n 's/^v\([0-9][0-9.]*\) .*/\1/p' "$d/start.log" | head -1), by npx @langwatch/server in docker.io/library/node:24"
     sql() { "$CONTAINER" exec -e LD_LIBRARY_PATH=/work/.langwatch/bin/postgres/lib arena-langwatch /work/.langwatch/bin/postgres/bin/psql -h 127.0.0.1 -p 6560 -U langwatch -d langwatch_db -At -c "$1"; }
-    # Its first start answers before its migrations have made the tables, so the seeding waits for them.
-    for _ in $(seq 1 600); do [ "$(sql "select count(*) from information_schema.tables where table_schema = 'langwatch_db' and table_name in ('User', 'Account', 'Project')" 2> /dev/null)" = 3 ] && break; sleep 1; done
+    # Its first start answers while its migrations are still running, so the seeding waits until the column its
+    # latest sign-in scheme needs is there and the schema has stopped changing for ten seconds.
+    for _ in $(seq 1 900); do [ "$(sql "select count(*) from information_schema.columns where table_schema = 'langwatch_db' and table_name = 'Account' and column_name = 'issuer'" 2> /dev/null)" = 1 ] && break; sleep 1; done
+    before=
+    for _ in $(seq 1 60); do
+      now=$(sql "select count(*) from information_schema.columns where table_schema = 'langwatch_db'" 2> /dev/null)
+      [ -n "$now" ] && [ "$now" = "$before" ] && break
+      before=$now; sleep 10
+    done
     hash=$("$(arena_uv)" run -q --with bcrypt python -c "import bcrypt; print(bcrypt.hashpw(b'Arena-pass-12345', bcrypt.gensalt(10)).decode())") || exit 1
     sql "begin; insert into langwatch_db.\"User\" (id, name, email, \"emailVerified\", \"updatedAt\") values ('arena-user-$stamp', 'Arena', 'arena-$stamp@arena.test', true, now()); insert into langwatch_db.\"Account\" (id, \"userId\", type, provider, issuer, \"providerAccountId\", password, \"updatedAt\") values ('arena-account-$stamp', 'arena-user-$stamp', 'credentials', 'credential', 'local:credential', 'arena-user-$stamp', '$hash', now()); commit;" > /dev/null || exit 1
     rm -f "$d/cookies"

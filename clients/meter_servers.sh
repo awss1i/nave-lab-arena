@@ -27,7 +27,14 @@ case $name.$what in
     d="$ARENA_TOOLS/src/openmeter"
     [ -d "$d/quickstart" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/openmeterio/openmeter "$d" && git -C "$d" sparse-checkout set quickstart; } || exit 1
     sed -i '/^  minCommitCount: 1$/d' "$d/quickstart/config.yaml"
-    (cd "$d/quickstart" && ALL_CPUS=1 compose_up arena-openmeter) || exit 1
+    # Under podman its Kafka exits on its JMX port and its health check never passes, so a file of the arena's own
+    # switches JMX off and gives the check a form podman runs. Docker runs the quickstart's file alone.
+    extra=()
+    if [ "$(basename "$CONTAINER")" = podman ]; then
+      printf 'services:\n  kafka:\n    environment:\n      JMX_PORT: ""\n      KAFKA_JMX_OPTS: "-Dnone=1"\n    healthcheck:\n      test: ["CMD-SHELL", "kafka-topics --bootstrap-server kafka:9092 --list"]\n      interval: 5s\n      timeout: 10s\n      retries: 30\n' > "$d/quickstart/arena-podman.yaml"
+      extra=(-f docker-compose.yaml -f arena-podman.yaml)
+    fi
+    (cd "$d/quickstart" && ALL_CPUS=1 compose_up arena-openmeter "${extra[@]}") || exit 1
     version openmeter-settings "its quickstart at $(git -C "$d" rev-parse --short HEAD), with the sink's minCommitCount of 1 dropped for its default of 500, and on all of the runner's CPUs where the other services have two"
     wait_for http://127.0.0.1:48888/api/v1/meters;;
   openmeter.down) (cd "$ARENA_TOOLS/src/openmeter/quickstart" && docker compose -p arena-openmeter down -v > down-arena-openmeter.log 2>&1); exit 0;;
