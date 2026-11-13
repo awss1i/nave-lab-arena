@@ -7,7 +7,7 @@ compose_up() { # PROJECT [COMPOSE OPTIONS..], from the folder that holds the com
   local project=$1; shift
   docker compose -p "$project" "$@" up -d > "up-$project.log" 2>&1 || { echo "$project didn't start: $(grep -i error "up-$project.log" | tail -3)" >&2; return 1; }
   # On Docker its containers are kept to the gateway's CPUs. Rootless podman can't set a running container's CPUs.
-  [ "$(basename "$CONTAINER")" = docker ] && for c in $(docker compose -p "$project" ps -q 2> /dev/null); do docker update --cpuset-cpus "$GATEWAY_CPUS" "$c" > /dev/null 2>&1; done
+  [ "$(basename "$CONTAINER")" = docker ] && [ -z "${ALL_CPUS:-}" ] && for c in $(docker compose -p "$project" ps -q 2> /dev/null); do docker update --cpuset-cpus "$GATEWAY_CPUS" "$c" > /dev/null 2>&1; done
   # The images that ran, for the record.
   version "${project:-$1}" "$(docker compose -p "${project:-$1}" images 2> /dev/null | awk 'NR > 1 && !seen[$2 ":" $3]++ { printf "%s%s:%s", sep, $2, $3; sep = ", " }')"
   return 0
@@ -17,16 +17,18 @@ case $name.$what in
   nave.up | nave.down) exit 0;;
   openmeter.up)
     # OpenMeter's quickstart: its API, its workers, Kafka, ClickHouse, PostgreSQL and Redis, with the token meter its
-    # quickstart config defines. The quickstart config has the sink commit after every event (minCommitCount: 1),
-    # which stores about one event a second, so that line is dropped and the sink uses its own default batch. It also
-    # gives the sink one second to list Kafka's topics, which a runner's two CPUs miss: the sink then logs "failed to
-    # fetch all topics" and stops storing part of the events. That limit can't be longer than the sink's refresh of its topics, which
-    # the quickstart also sets to one second, so both lines are dropped for the sink's defaults (15 and 10 seconds).
+    # quickstart config defines. Two things differ from the quickstart as it ships, each found by running it:
+    # - Its config has the sink commit after every event (minCommitCount: 1), which stores about one event a second.
+    #   That line is dropped and the sink uses its own default batch of 500.
+    # - Its eleven containers aren't kept to the gateway's two CPUs as the other services are. On two CPUs its sink's
+    #   one-second lookups of Kafka's topics time out ("failed to fetch all topics") and a varying share of the events
+    #   is never stored (three runs counted 16,500, 12,150 and 19,870 of 20,000). With the sink's own defaults for
+    #   those lookups instead, it stored none in fifteen minutes. So it runs on all of the runner's CPUs.
     d="$ARENA_TOOLS/src/openmeter"
     [ -d "$d/quickstart" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/openmeterio/openmeter "$d" && git -C "$d" sparse-checkout set quickstart; } || exit 1
-    sed -i '/^  minCommitCount: 1$/d; /^  namespaceRefetch: 1s$/d; /^  namespaceRefetchTimeout: 1s$/d' "$d/quickstart/config.yaml"
-    (cd "$d/quickstart" && compose_up arena-openmeter) || exit 1
-    version openmeter-settings "its quickstart at $(git -C "$d" rev-parse --short HEAD), with the sink's minCommitCount of 1 and its one-second refresh and limit on listing topics dropped for the sink's defaults (500, and 15 and 10 seconds)"
+    sed -i '/^  minCommitCount: 1$/d' "$d/quickstart/config.yaml"
+    (cd "$d/quickstart" && ALL_CPUS=1 compose_up arena-openmeter) || exit 1
+    version openmeter-settings "its quickstart at $(git -C "$d" rev-parse --short HEAD), with the sink's minCommitCount of 1 dropped for its default of 500, and on all of the runner's CPUs where the other services have two"
     wait_for http://127.0.0.1:48888/api/v1/meters;;
   openmeter.down) (cd "$ARENA_TOOLS/src/openmeter/quickstart" && docker compose -p arena-openmeter down -v > down-arena-openmeter.log 2>&1); exit 0;;
   lago.up)
