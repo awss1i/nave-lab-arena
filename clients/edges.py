@@ -1,6 +1,6 @@
 """Checks what a gateway does at the edges of the chat API: text that needs escaping, a large body, tools, images,
 sampling fields, usage on a stream, an upstream's errors, an unknown model, a broken body, and Anthropic's format.
-Usage: edges.py BASE CHAT_PATH MESSAGES_PATH STANDIN_BODY_FILE [--model NAME] [--header "NAME: VALUE"]..
+Usage: edges.py BASE CHAT_PATH MESSAGES_PATH STANDIN_BODY_FILE [--model NAME] [--header "NAME: VALUE"].. [--field NAME=JSON]..
 
 The stand-in model writes the latest request it got to STANDIN_BODY_FILE, so a check can compare what the gateway
 sent upstream with what was sent to the gateway. It prints one line a check and the count that passed."""
@@ -15,6 +15,8 @@ base, chat_path, messages_path, body_file = sys.argv[1:5]
 rest = sys.argv[5:]
 model = rest[rest.index("--model") + 1] if "--model" in rest else "mock"
 extra = dict(h.split(": ", 1) for i, h in enumerate(rest) if i and rest[i - 1] == "--header")
+# A gateway's own body fields, such as one that needs "stream": false said out loud. A check's own value wins.
+fields = dict((f.split("=", 1)[0], json.loads(f.split("=", 1)[1])) for i, f in enumerate(rest) if i and rest[i - 1] == "--field")
 key = os.environ.get("LLM_KEY", "local")
 host = urllib.parse.urlparse(base).netloc
 
@@ -25,7 +27,7 @@ def post(path, body, anthropic=False, raw=None):
     headers.update({"x-api-key": key, "anthropic-version": "2023-06-01"} if anthropic else {"authorization": f"Bearer {key}"})
     try:
         c = http.client.HTTPConnection(host, timeout=20)
-        c.request("POST", path, raw if raw is not None else json.dumps(body).encode(), headers)
+        c.request("POST", path, raw if raw is not None else json.dumps({**fields, **body} if isinstance(body, dict) else body).encode(), headers)
         r = c.getresponse()
         return r.status, r.read()
     except (OSError, http.client.HTTPException) as e:

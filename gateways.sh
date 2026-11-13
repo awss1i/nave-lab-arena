@@ -104,7 +104,8 @@ case $1 in
     # Each run of the checks gets a gateway started for it, so what one run left behind, like a provider being
     # rested after a 429, can't fail the next run's checks.
     "$0" down "$name" > /dev/null 2>&1; "$0" up "$name" edges > /dev/null || exit 1
+    # The gateway's own arguments for a call, such as the model's name there or headers it needs on every call.
     args=()
-    while IFS= read -r line; do [ -n "$line" ] && args+=("$line"); done < <(gw "$name" load_args "$kind" "$*")
+    while IFS= read -r line; do [ -n "$line" ] && args+=("$line"); done < <(gw "$name" load_args "$(fmt)" "")
     LLM_KEY=$(gw "$name" key) python3 clients/edges.py "$(url_of "$name")" "$(gw "$name" chat_path)" "$(gw "$name" messages_path)" run/standin-body.txt "${args[@]}";;
 esac
