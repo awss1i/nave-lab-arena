@@ -63,20 +63,10 @@ else:
                        "time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "data": {"tokens": tokens(i), "model": MODELS[i % 4], "type": "input"}} for i in batch]
             s.call("POST", "/api/v1/events", events, "application/cloudevents-batch+json")
 
-        def read(prefix=f"customer-{run}-"):
+        def read():
             rows = s.call("GET", "/api/v1/meters/tokens_total/query?groupBy=subject")["data"]
-            return int(sum(float(r["value"]) for r in rows if str(r.get("subject", "")).startswith(prefix)))
+            return int(sum(float(r["value"]) for r in rows if str(r.get("subject", "")).startswith(f"customer-{run}-")))
 
-        # Its sink learns of the events' topic only after the first event makes it, so one event is sent and waited
-        # for before the clock starts, under a subject of its own that the total doesn't count.
-        s.call("POST", "/api/v1/events", [{"specversion": "1.0", "type": "prompt", "id": f"{run}-warm", "source": "arena", "subject": f"warm-{run}", "time": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                                           "data": {"tokens": 1, "model": MODELS[0], "type": "input"}}], "application/cloudevents-batch+json")
-        asked = time.time()
-        while read(f"warm-{run}") < 1:
-            if time.time() > asked + 1500:
-                raise SystemExit("OpenMeter never counted the one event sent before the clock, in 25 minutes")
-            time.sleep(0.5)
-        print(f"metric seconds_before_its_first_count={time.time() - asked:.1f}", file=sys.stderr)
     elif tool == "lago":
         # Lago through its API with the key its first organisation was started with: a billable metric that sums a
         # "tokens" property, a plan that charges for it, and a customer with a subscription for each of the 100.

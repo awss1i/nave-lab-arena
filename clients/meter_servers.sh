@@ -16,17 +16,14 @@ wait_for() { for _ in $(seq 1 600); do [ "$(curl -s -m 3 -o /dev/null -w '%{http
 case $name.$what in
   nave.up | nave.down) exit 0;;
   openmeter.up)
-    # OpenMeter's quickstart: its API, its workers, Kafka, ClickHouse, PostgreSQL and Redis, with the token meter its
-    # quickstart config defines. Two things differ from the quickstart as it ships, each found by running it:
-    # - Its config has the sink commit after every event (minCommitCount: 1), which stores about one event a second.
-    #   That line is dropped and the sink uses its own default batch of 500.
-    # - Its eleven containers aren't kept to the gateway's two CPUs as the other services are. On two CPUs its sink's
-    #   one-second lookups of Kafka's topics time out ("failed to fetch all topics") and a varying share of the events
-    #   is never stored (three runs counted 16,500, 12,150 and 19,870 of 20,000). With the sink's own defaults for
-    #   those lookups instead, it stored none in fifteen minutes. So it runs on all of the runner's CPUs.
+    # OpenMeter's quickstart exactly as it ships: its API, its workers, Kafka, ClickHouse, PostgreSQL and Redis, with
+    # the token meter its quickstart config defines. As shipped its sink commits after every event, which stores
+    # about one event a second, so its race has 200 events. The sink's own default batch of 500 was tried in its
+    # place and isn't used: with it OpenMeter was fast when the events' topic already existed (20,000 events in
+    # 30 s here) and otherwise stored a varying share of the events or none, on runners and here (LOG.md has the runs).
     d="$ARENA_TOOLS/src/openmeter"
     [ -d "$d/quickstart" ] || { mkdir -p "$ARENA_TOOLS/src" && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/openmeterio/openmeter "$d" && git -C "$d" sparse-checkout set quickstart; } || exit 1
-    sed -i '/^  minCommitCount: 1$/d' "$d/quickstart/config.yaml"
+    git -C "$d" checkout -q -- quickstart/config.yaml
     # Under podman its Kafka exits on its JMX port and its health check never passes, so a file of the arena's own
     # switches JMX off and gives the check a form podman runs. Docker runs the quickstart's file alone.
     extra=()
@@ -34,8 +31,8 @@ case $name.$what in
       printf 'services:\n  kafka:\n    environment:\n      JMX_PORT: ""\n      KAFKA_JMX_OPTS: "-Dnone=1"\n    healthcheck:\n      test: ["CMD-SHELL", "kafka-topics --bootstrap-server kafka:9092 --list"]\n      interval: 5s\n      timeout: 10s\n      retries: 30\n' > "$d/quickstart/arena-podman.yaml"
       extra=(-f docker-compose.yaml -f arena-podman.yaml)
     fi
-    (cd "$d/quickstart" && ALL_CPUS=1 compose_up arena-openmeter "${extra[@]}") || exit 1
-    version openmeter-settings "its quickstart at $(git -C "$d" rev-parse --short HEAD), with the sink's minCommitCount of 1 dropped for its default of 500, and on all of the runner's CPUs where the other services have two"
+    (cd "$d/quickstart" && compose_up arena-openmeter "${extra[@]}") || exit 1
+    version openmeter-settings "its quickstart at $(git -C "$d" rev-parse --short HEAD), as it ships"
     wait_for http://127.0.0.1:48888/api/v1/meters;;
   openmeter.down) (cd "$ARENA_TOOLS/src/openmeter/quickstart" && docker compose -p arena-openmeter down -v > down-arena-openmeter.log 2>&1); exit 0;;
   lago.up)
